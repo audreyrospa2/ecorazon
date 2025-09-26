@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="About Us - Ecorazón">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6">
+          About Ecorazón
+        </h1>
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+          Where nature's echo meets the art with heart
+        </p>
+      </div>
+    </section>
+
+    <!-- Who We Are Section -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6">
+              Who We Are
+            </h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              Ecorazón is where nature's echo meets the art with heart. We believe every individual is a masterpiece of nature, and every soul possesses a unique creative spark. Partnering with special needs artists, we transform their extraordinary talents into exquisite, customized creations that honor nature and sustainability.
+            </p>
+            
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <div class="text-2xl mr-4">✨</div>
+                <div>
+                  <h3 class="text-xl font-semibold text-forest-green mb-1">Empowering Creators</h3>
+                  <p class="text-gray-700">Helping artists with special needs shine globally.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="text-2xl mr-4">🌱</div>
+                <div>
+                  <h3 class="text-xl font-semibold text-forest-green mb-1">Sustainability First</h3>
+                  <p class="text-gray-700">Using eco-friendly materials to protect our planet.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="text-2xl mr-4">⏰</div>
+                <div>
+                  <h3 class="text-xl font-semibold text-forest-green mb-1">Timeless Impact</h3>
+                  <p class="text-gray-700">Crafting creations that inspire and connect people.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-warm-beige p-8 rounded-lg">
+            <img 
+                src="/images/green.jpg" 
+                alt="Ecorazón showcase" 
+                class="w-full h-64 object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-16 bg-warm-beige">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6">
+            Our Story
+          </h2>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white p-8 rounded-lg shadow-sm">
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              Ecorazón was born from a simple belief: every individual is a masterpiece of nature.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+              The name Ecorazón combines "Eco," representing ecology and sustainability, with the Spanish word "Corazón" (heart). It also evokes the idea of an echo — the resonance of nature's voice within the human spirit.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div class="bg-forest-green text-white p-8 rounded-lg">
+            <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+            <p class="text-lg leading-relaxed">
+              To listen deeply to the voice of nature, capture its inspiration, and transform these echoes into heartfelt, sustainable creations.
+            </p>
+          </div>
+          
+          <div class="bg-deep-olive text-white p-8 rounded-lg">
+            <h2 class="text-3xl font-bold mb-6">Our Vision</h2>
+            <p class="text-lg leading-relaxed">
+              To inspire more people to see themselves as miracles of nature and cherish the purest beauty of this planet we call home.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

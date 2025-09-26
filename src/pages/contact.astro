@@ -1,0 +1,457 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contact Us - Ecorazón">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6">
+          Let's Create Something Meaningful Together
+        </h1>
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+          Ready to bring your vision to life through sustainable, artistic corporate gifts? We'd love to hear from you.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Form and Info Section -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          
+          <!-- Contact Form -->
+          <div>
+            <h2 class="text-3xl font-bold text-forest-green mb-8">
+              Start Your Project
+            </h2>
+            <form class="space-y-6">
+              <!-- Name -->
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                  Name *
+                </label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                  placeholder="Your full name"
+                />
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                  Email *
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                  placeholder="your.email@company.com"
+                />
+              </div>
+
+              <!-- Company -->
+              <div>
+                <label for="company" class="block text-sm font-medium text-gray-700 mb-2">
+                  Company
+                </label>
+                <input 
+                  type="text" 
+                  id="company" 
+                  name="company"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                  placeholder="Your company name"
+                />
+              </div>
+
+              <!-- Phone Number -->
+              <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                  Phone Number
+                </label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                  placeholder="+1 (555) 123-4567"
+                />
+              </div>
+
+              <!-- Project Type -->
+              <div>
+                <label for="project-type" class="block text-sm font-medium text-gray-700 mb-2">
+                  Project Type
+                </label>
+                <select 
+                  id="project-type" 
+                  name="project-type"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                >
+                  <option value="">Select a service</option>
+                  <option value="corporate-gifts">Bespoke Corporate Gifts</option>
+                  <option value="branded-merchandise">Exclusive Branded Merchandise</option>
+                  <option value="co-branded">Co-Branded Creations</option>
+                  <option value="consultation">Consultation Only</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Budget Range -->
+              <div>
+                <label for="budget" class="block text-sm font-medium text-gray-700 mb-2">
+                  Budget Range (Optional)
+                </label>
+                <select 
+                  id="budget" 
+                  name="budget"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                >
+                  <option value="">Select budget range</option>
+                  <option value="under-5k">Under $5,000</option>
+                  <option value="5k-15k">$5,000 - $15,000</option>
+                  <option value="15k-50k">$15,000 - $50,000</option>
+                  <option value="50k-plus">$50,000+</option>
+                  <option value="discuss">Let's discuss</option>
+                </select>
+              </div>
+
+              <!-- Timeline -->
+              <div>
+                <label for="timeline" class="block text-sm font-medium text-gray-700 mb-2">
+                  Project Timeline
+                </label>
+                <select 
+                  id="timeline" 
+                  name="timeline"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                >
+                  <option value="">Select timeline</option>
+                  <option value="asap">As soon as possible</option>
+                  <option value="1-month">Within 1 month</option>
+                  <option value="3-months">Within 3 months</option>
+                  <option value="6-months">Within 6 months</option>
+                  <option value="flexible">Flexible</option>
+                </select>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                  Message *
+                </label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="6" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                  placeholder="Tell us about your project, goals, and any specific requirements or ideas you have in mind..."
+                ></textarea>
+              </div>
+
+              <!-- ESG Goals -->
+              <div>
+                <label class="flex items-center">
+                  <input 
+                    type="checkbox" 
+                    name="esg-focus" 
+                    class="mr-3 h-4 w-4 text-forest-green focus:ring-forest-green border-gray-300 rounded"
+                  />
+                  <span class="text-sm text-gray-700">
+                    This project is part of our ESG (Environmental, Social, Governance) initiatives
+                  </span>
+                </label>
+              </div>
+
+              <!-- Newsletter -->
+              <div>
+                <label class="flex items-center">
+                  <input 
+                    type="checkbox" 
+                    name="newsletter" 
+                    class="mr-3 h-4 w-4 text-forest-green focus:ring-forest-green border-gray-300 rounded"
+                  />
+                  <span class="text-sm text-gray-700">
+                    I'd like to receive updates about Ecorazón's work and sustainability tips
+                  </span>
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <button 
+                type="submit"
+                class="w-full bg-forest-green text-white py-3 px-6 rounded-md text-lg font-semibold hover:bg-deep-olive transition-colors"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          <!-- Contact Information & Additional Content -->
+          <div class="space-y-8">
+            
+            <!-- Contact Details -->
+            <div class="bg-warm-beige p-8 rounded-lg">
+              <h3 class="text-2xl font-bold text-forest-green mb-6">Get in Touch</h3>
+              
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="text-2xl mr-4">📩</div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Email</h4>
+                    <p class="text-gray-700">hello@ecorazon.com.hk</p>
+                    <p class="text-gray-600 text-sm">We'll respond within 24 hours</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="text-2xl mr-4">⏰</div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Response Time</h4>
+                    <p class="text-gray-700">Within 24 hours</p>
+                    <p class="text-gray-600 text-sm">Monday - Friday, 9 AM - 6 PM HKT</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="text-2xl mr-4">🌍</div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Location</h4>
+                    <p class="text-gray-700">Based in Hong Kong</p>
+                    <p class="text-gray-600 text-sm">Serving clients globally</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- What to Expect -->
+            <div class="bg-white border-2 border-forest-green p-8 rounded-lg">
+              <h3 class="text-2xl font-bold text-forest-green mb-6">What Happens Next?</h3>
+              
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="bg-forest-green text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">
+                    1
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Initial Response</h4>
+                    <p class="text-gray-700 text-sm">We'll acknowledge your inquiry within 24 hours and schedule a discovery call if needed.</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="bg-deep-olive text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">
+                    2
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Discovery Call</h4>
+                    <p class="text-gray-700 text-sm">We'll discuss your vision, goals, and how we can bring your project to life.</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="bg-cork-brown text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">
+                    3
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Custom Proposal</h4>
+                    <p class="text-gray-700 text-sm">Receive a detailed proposal tailored to your specific needs and objectives.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div>
+              <h3 class="text-2xl font-bold text-forest-green mb-6">Why Partner with Us?</h3>
+              
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="text-xl mr-3">🤝</div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Collaborative Approach</h4>
+                    <p class="text-gray-700 text-sm">We work closely with you to ensure every detail aligns with your vision.</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="text-xl mr-3">🌱</div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Sustainability Expertise</h4>
+                    <p class="text-gray-700 text-sm">Deep knowledge of eco-friendly materials and sustainable practices.</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="text-xl mr-3">🎨</div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">Artistic Excellence</h4>
+                    <p class="text-gray-700 text-sm">Working with talented special needs artists to create unique, meaningful pieces.</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="text-xl mr-3">📊</div>
+                  <div>
+                    <h4 class="font-semibold text-forest-green">ESG Impact</h4>
+                    <p class="text-gray-700 text-sm">Every project contributes to your sustainability and social impact goals.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-warm-beige">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6">
+            Frequently Asked Questions
+          </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div>
+              <h4 class="text-lg font-semibold text-forest-green mb-2">What is the typical project timeline?</h4>
+              <p class="text-gray-700">Project timelines vary based on complexity, but most custom corporate gifts take 4-8 weeks from concept to completion. We'll provide a detailed timeline during our initial consultation.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-forest-green mb-2">What materials do you work with?</h4>
+              <p class="text-gray-700">We specialize in sustainable materials including cork, bamboo, recycled plastics, seed paper, hemp, organic cotton, and upcycled materials like coffee grounds.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-forest-green mb-2">Do you work with international clients?</h4>
+              <p class="text-gray-700">Yes! While we're based in Hong Kong, we work with clients globally and can arrange international shipping for completed projects.</p>
+            </div>
+          </div>
+          
+          <div class="space-y-6">
+            <div>
+              <h4 class="text-lg font-semibold text-forest-green mb-2">What's the minimum order quantity?</h4>
+              <p class="text-gray-700">We work with orders of all sizes. For bespoke creations, we can accommodate quantities from 25 pieces to thousands, depending on the project complexity.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-forest-green mb-2">How do you ensure quality?</h4>
+              <p class="text-gray-700">Every piece is carefully crafted by our talented artists and undergoes quality checks. We provide samples and prototypes for approval before full production begins.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-forest-green mb-2">Can you help with packaging and delivery?</h4>
+              <p class="text-gray-700">Absolutely! We offer sustainable packaging solutions and can coordinate delivery directly to your recipients or events worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alternative Contact Methods -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6">
+            Other Ways to Connect
+          </h2>
+          <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+            Choose the communication method that works best for you
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">💬</div>
+            <h3 class="text-xl font-semibold text-forest-green mb-3">Quick Questions</h3>
+            <p class="text-gray-700 mb-4">Have a quick question? Send us a brief message and we'll get back to you promptly.</p>
+            <a href="mailto:hello@ecorazon.com.hk?subject=Quick Question" class="text-forest-green font-semibold hover:text-deep-olive transition-colors">
+              Send Quick Message →
+            </a>
+          </div>
+          
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">📞</div>
+            <h3 class="text-xl font-semibold text-forest-green mb-3">Schedule a Call</h3>
+            <p class="text-gray-700 mb-4">Ready for a detailed discussion? Let's schedule a consultation call at your convenience.</p>
+            <a href="mailto:hello@ecorazon.com.hk?subject=Schedule Consultation Call" class="text-forest-green font-semibold hover:text-deep-olive transition-colors">
+              Request Call →
+            </a>
+          </div>
+          
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">📋</div>
+            <h3 class="text-xl font-semibold text-forest-green mb-3">Project Brief</h3>
+            <p class="text-gray-700 mb-4">Have detailed requirements? Send us a comprehensive project brief for a thorough response.</p>
+            <a href="mailto:hello@ecorazon.com.hk?subject=Detailed Project Brief" class="text-forest-green font-semibold hover:text-deep-olive transition-colors">
+              Send Brief →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-16 bg-forest-green text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Ready to Make a Difference?
+        </h2>
+        <p class="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+          Every project is an opportunity to create positive impact. Let's work together to craft something meaningful that reflects your values and empowers our talented artists.
+        </p>
+        <div class="space-x-4">
+          <a href="#contact-form" class="bg-white text-forest-green px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-100 transition-colors">
+            Start Your Project
+          </a>
+          <a href="/works" class="border-2 border-white text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-white hover:text-forest-green transition-colors">
+            View Our Work
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  // Add smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = anchor.getAttribute('href');
+      const target = document.querySelector(href || '');
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Add form submission handling
+  const form = document.querySelector('form');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+    form.reset();
+  });
+</script>
