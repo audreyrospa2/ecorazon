@@ -6,7 +6,7 @@
   "dev": "astro dev",
   "build": "astro build",
   "preview": "astro preview",
-  "deploy": "npm run build && gh-pages -d dist --branch=gh-pages --repo=https://github.com/audreyrospa/ecorazon-site.git -f"
+  "deploy": "npm run build"
 },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
