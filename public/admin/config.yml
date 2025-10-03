@@ -1,0 +1,37 @@
+local_backend: true
+
+backend:
+  name: github
+  repo: audreyrospa2/ecorazon # Replace with your actual repo
+  branch: main # or master, depending on your default branch
+
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "image", widget: "image"}
+      - {label: "Image Alt Text", name: "imageAlt", widget: "string"}
+      - {
+          label: "Category",
+          name: "category",
+          widget: "select",
+          options: ["Artist Stories", "Materials", "Impact", "Partnerships", "Tips", "Innovation", "Community"]
+        }
+      - {
+          label: "Tags",
+          name: "tags",
+          widget: "select",
+          multiple: true,
+          options: ["Sustainability", "Artists", "Corporate Gifting", "ESG", "Upcycling", "Seed Paper", "Social Impact", "Innovation"]
+        }
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}

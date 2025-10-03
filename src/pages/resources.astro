@@ -1,7 +1,45 @@
 ---
+import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+// Get all published blog posts, sorted by date (newest first)
+const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
+  return data.draft !== true;
+});
+
+const sortedPosts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+// Featured posts (first 2)
+const featuredPosts = sortedPosts.slice(0, 2);
+
+// Latest posts (next 6)
+const latestPosts = sortedPosts.slice(2, 8);
+
+// Format date helper
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', { 
+    year: 'numeric', 
+    month: 'short' 
+  }).format(new Date(date));
+}
+
+// Category color helper
+function getCategoryColor(category: string) {
+  const colors: Record<string, string> = {
+    'Artist Stories': 'bg-cork-brown',
+    'Materials': 'bg-forest-green',
+    'Impact': 'bg-deep-olive',
+    'Partnerships': 'bg-deep-olive',
+    'Tips': 'bg-forest-green',
+    'Innovation': 'bg-cork-brown',
+    'Community': 'bg-deep-olive',
+  };
+  return colors[category] || 'bg-forest-green';
+}
 ---
 
 <Layout title="Resources - Ecorazón">
@@ -35,219 +73,84 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- Featured Content Section -->
-    <section class="py-16 bg-warm-beige">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-12">
-          <h2 class="text-3xl font-bold text-forest-green mb-8">Featured Articles</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          
-          <!-- Featured Article 2 -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <img 
-              src="/images/gifts.jpg" 
-              alt="Corporate ESG Impact" 
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-8">
-              <div class="flex items-center mb-4">
-                <span class="bg-deep-olive text-white px-3 py-1 rounded-full text-sm font-medium mr-3">
-                  Impact
-                </span>
-                <span class="text-gray-500 text-sm">November 2024</span>
-              </div>
-              <h3 class="text-2xl font-bold text-forest-green mb-4">
-                How Corporate Gifts Can Drive ESG Impact
-              </h3>
-              <p class="text-gray-700 leading-relaxed mb-6">
-                Explore how thoughtfully chosen corporate gifts can support your company's Environmental, Social, and Governance goals. Learn strategies for aligning your gifting program with sustainability objectives and social impact initiatives.
-              </p>
-              <a href="#" class="text-forest-green font-semibold hover:text-deep-olive transition-colors">
-                Read More →
-              </a>
-            </div>
+    {featuredPosts.length > 0 && (
+      <section class="py-16 bg-warm-beige">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-forest-green mb-8">Featured Articles</h2>
           </div>
-
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {featuredPosts.map((post: CollectionEntry<'blog'>) => (
+              <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <img 
+                  src={post.data.image} 
+                  alt={post.data.imageAlt} 
+                  class="w-full h-48 object-cover"
+                />
+                <div class="p-8">
+                  <div class="flex items-center mb-4">
+                    <span class={`${getCategoryColor(post.data.category)} text-white px-3 py-1 rounded-full text-sm font-medium mr-3`}>
+                      {post.data.category}
+                    </span>
+                    <span class="text-gray-500 text-sm">{formatDate(post.data.date)}</span>
+                  </div>
+                  <h3 class="text-2xl font-bold text-forest-green mb-4">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-gray-700 leading-relaxed mb-6">
+                    {post.data.excerpt}
+                  </p>
+                  <a href={`/blog/${post.slug}`} class="text-forest-green font-semibold hover:text-deep-olive transition-colors">
+                    Read More →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <!-- Blog Grid Section -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-12">
-          <h2 class="text-3xl font-bold text-forest-green mb-8">Latest Stories</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {latestPosts.length > 0 && (
+      <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-forest-green mb-8">Latest Stories</h2>
+          </div>
           
-          <!-- Blog Post 1 -->
-          <div class="bg-warm-beige rounded-lg overflow-hidden">
-            <img 
-              src="/images/artists.jpg" 
-              alt="Special Needs Artists" 
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <span class="bg-cork-brown text-white px-2 py-1 rounded text-xs font-medium mr-2">
-                  Artist Stories
-                </span>
-                <span class="text-gray-500 text-xs">Oct 2024</span>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {latestPosts.map((post: CollectionEntry<'blog'>) => (
+              <div class="bg-warm-beige rounded-lg overflow-hidden">
+                <img 
+                  src={post.data.image} 
+                  alt={post.data.imageAlt} 
+                  class="w-full h-40 object-cover"
+                />
+                <div class="p-6">
+                  <div class="flex items-center mb-3">
+                    <span class={`${getCategoryColor(post.data.category)} text-white px-2 py-1 rounded text-xs font-medium mr-2`}>
+                      {post.data.category}
+                    </span>
+                    <span class="text-gray-500 text-xs">{formatDate(post.data.date)}</span>
+                  </div>
+                  <h4 class="text-lg font-semibold text-forest-green mb-3">
+                    {post.data.title}
+                  </h4>
+                  <p class="text-gray-700 text-sm mb-4">
+                    {post.data.excerpt}
+                  </p>
+                  <a href={`/blog/${post.slug}`} class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors">
+                    Read Story →
+                  </a>
+                </div>
               </div>
-              <h4 class="text-lg font-semibold text-forest-green mb-3">
-                Empowering Special Needs Artists: Stories That Inspire
-              </h4>
-              <p class="text-gray-700 text-sm mb-4">
-                Meet the talented artists behind our creations and discover how art becomes a bridge to independence, expression, and empowerment.
-              </p>
-              <a href="#" class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors">
-                Read Story →
-              </a>
-            </div>
+            ))}
           </div>
-
-          <!-- Blog Post 2 -->
-          <div class="bg-warm-beige rounded-lg overflow-hidden">
-            <img 
-              src="/images/grounds.jpg" 
-              alt="Upcycling Coffee Grounds" 
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <span class="bg-forest-green text-white px-2 py-1 rounded text-xs font-medium mr-2">
-                  Materials
-                </span>
-                <span class="text-gray-500 text-xs">Sep 2024</span>
-              </div>
-              <h4 class="text-lg font-semibold text-forest-green mb-3">
-                From Waste to Wonder: Upcycling Coffee Grounds
-              </h4>
-              <p class="text-gray-700 text-sm mb-4">
-                Learn how we transform discarded coffee grounds into beautiful, functional products that tell a story of circular economy and innovation.
-              </p>
-              <a href="#" class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors">
-                Read Story →
-              </a>
-            </div>
-          </div>
-
-          <!-- Blog Post 3 -->
-          <div class="bg-warm-beige rounded-lg overflow-hidden">
-            <img 
-              src="/images/partnership.jpg" 
-              alt="Corporate Partnerships" 
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <span class="bg-deep-olive text-white px-2 py-1 rounded text-xs font-medium mr-2">
-                  Partnerships
-                </span>
-                <span class="text-gray-500 text-xs">Aug 2024</span>
-              </div>
-              <h4 class="text-lg font-semibold text-forest-green mb-3">
-                Building Meaningful Corporate Partnerships
-              </h4>
-              <p class="text-gray-700 text-sm mb-4">
-                Discover how authentic partnerships create value beyond transactions, fostering shared purpose and lasting impact.
-              </p>
-              <a href="#" class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors">
-                Read Story →
-              </a>
-            </div>
-          </div>
-
-          <!-- Blog Post 4 -->
-          <div class="bg-warm-beige rounded-lg overflow-hidden">
-            <img 
-              src="/images/sustainable.jpg" 
-              alt="Sustainable Corporate Gifts" 
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <span class="bg-forest-green text-white px-2 py-1 rounded text-xs font-medium mr-2">
-                  Tips
-                </span>
-                <span class="text-gray-500 text-xs">Jul 2024</span>
-              </div>
-              <h4 class="text-lg font-semibold text-forest-green mb-3">
-                5 Ways to Make Corporate Gifts More Sustainable
-              </h4>
-              <p class="text-gray-700 text-sm mb-4">
-                Practical tips for companies looking to reduce their environmental footprint through thoughtful gifting choices.
-              </p>
-              <a href="#" class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors">
-                Read Story →
-              </a>
-            </div>
-          </div>
-
-          <!-- Blog Post 5 -->
-          <div class="bg-warm-beige rounded-lg overflow-hidden">
-            <img 
-              src="/images/6.png" 
-              alt="Seed Paper Innovation" 
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <span class="bg-cork-brown text-white px-2 py-1 rounded text-xs font-medium mr-2">
-                  Innovation
-                </span>
-                <span class="text-gray-500 text-xs">Jun 2024</span>
-              </div>
-              <h4 class="text-lg font-semibold text-forest-green mb-3">
-                The Art of Seed Paper: Growing Beyond Gifts
-              </h4>
-              <p class="text-gray-700 text-sm mb-4">
-                Explore how seed paper transforms corporate gifts into living messages that bloom into beautiful plants and lasting memories.
-              </p>
-              <a href="#" class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors">
-                Read Story →
-              </a>
-            </div>
-          </div>
-
-          <!-- Blog Post 6 -->
-          <div class="bg-warm-beige rounded-lg overflow-hidden">
-            <img 
-              src="/images/inclusive.jpg" 
-              alt="Inclusive Workspaces" 
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <span class="bg-deep-olive text-white px-2 py-1 rounded text-xs font-medium mr-2">
-                  Community
-                </span>
-                <span class="text-gray-500 text-xs">May 2024</span>
-              </div>
-              <h4 class="text-lg font-semibold text-forest-green mb-3">
-                Creating Inclusive Workspaces Through Art
-              </h4>
-              <p class="text-gray-700 text-sm mb-4">
-                How incorporating art from diverse creators can foster more inclusive and inspiring work environments.
-              </p>
-              <a href="#" class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors">
-                Read Story →
-              </a>
-            </div>
-          </div>
-
         </div>
-
-        <!-- Load More Button -->
-        <div class="text-center mt-12">
-          <button class="bg-forest-green text-white px-6 py-3 rounded-md font-semibold hover:bg-deep-olive transition-colors">
-            Load More Articles
-          </button>
-        </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <!-- Newsletter Section -->
     <section class="py-16 bg-forest-green text-white">
