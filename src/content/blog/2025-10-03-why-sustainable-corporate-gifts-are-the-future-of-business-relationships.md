@@ -1,7 +1,7 @@
 ---
 title: Why Sustainable Corporate Gifts Are the Future of Business Relationships
 date: 2025-10-03T14:24:00.000+07:00
-image: /images/blog/17.jpg
+image: /images/blog/10.png
 imageAlt: Artisan crafting sustainable products
 category: Impact
 tags:
