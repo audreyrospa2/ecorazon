@@ -1,0 +1,219 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
+    return data.draft !== true;
+  });
+  
+  return blogPosts.map((post: CollectionEntry<'blog'>) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Format date
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', { 
+    year: 'numeric', 
+    month: 'long',
+    day: 'numeric'
+  }).format(new Date(date));
+}
+
+// Category color helper
+function getCategoryColor(category: string) {
+  const colors: Record<string, string> = {
+    'Artist Stories': 'bg-cork-brown',
+    'Materials': 'bg-forest-green',
+    'Impact': 'bg-deep-olive',
+    'Partnerships': 'bg-deep-olive',
+    'Tips': 'bg-forest-green',
+    'Innovation': 'bg-cork-brown',
+    'Community': 'bg-deep-olive',
+  };
+  return colors[category] || 'bg-forest-green';
+}
+
+// Get related posts (same category, exclude current)
+const relatedPosts = (await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
+  return data.draft !== true && data.category === post.data.category;
+}))
+  .filter((p: CollectionEntry<'blog'>) => p.slug !== post.slug)
+  .slice(0, 3);
+---
+
+<Layout title={`${post.data.title} - Ecorazón`}>
+  <Header />
+  
+  <main>
+    <!-- Hero Section with Featured Image -->
+    <section class="relative h-[60vh] min-h-[400px]">
+      <img 
+        src={post.data.image} 
+        alt={post.data.imageAlt}
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-8">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center gap-3 mb-4">
+            <span class={`${getCategoryColor(post.data.category)} text-white px-4 py-2 rounded-full text-sm font-medium`}>
+              {post.data.category}
+            </span>
+            <span class="text-white text-sm">{formatDate(post.data.date)}</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+            {post.data.title}
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <article class="py-16 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Excerpt -->
+        <p class="text-xl text-gray-700 leading-relaxed mb-8 font-medium">
+          {post.data.excerpt}
+        </p>
+
+        <!-- Tags -->
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-8 pb-8 border-b border-gray-200">
+            {post.data.tags.map((tag: string) => (
+              <span class="bg-warm-beige text-forest-green px-3 py-1 rounded-full text-sm">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <!-- Main Content -->
+        <div class="prose prose-lg max-w-none prose-headings:text-forest-green prose-a:text-forest-green prose-a:no-underline hover:prose-a:text-deep-olive prose-strong:text-forest-green prose-img:rounded-lg">
+          <Content />
+        </div>
+
+        <!-- Share Section -->
+        <div class="mt-12 pt-8 border-t border-gray-200">
+          <h3 class="text-lg font-semibold text-forest-green mb-4">Share this article</h3>
+          <div class="flex gap-4">
+            <a 
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-warm-beige text-forest-green px-4 py-2 rounded-md hover:bg-forest-green hover:text-white transition-colors"
+            >
+              Twitter
+            </a>
+            <a 
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-warm-beige text-forest-green px-4 py-2 rounded-md hover:bg-forest-green hover:text-white transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a 
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-warm-beige text-forest-green px-4 py-2 rounded-md hover:bg-forest-green hover:text-white transition-colors"
+            >
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <section class="py-16 bg-warm-beige">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-forest-green mb-8">Related Articles</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {relatedPosts.map((relatedPost: CollectionEntry<'blog'>) => (
+              <a href={`/blog/${relatedPost.slug}`} class="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                <img 
+                  src={relatedPost.data.image} 
+                  alt={relatedPost.data.imageAlt} 
+                  class="w-full h-40 object-cover"
+                />
+                <div class="p-6">
+                  <div class="flex items-center mb-3">
+                    <span class={`${getCategoryColor(relatedPost.data.category)} text-white px-2 py-1 rounded text-xs font-medium mr-2`}>
+                      {relatedPost.data.category}
+                    </span>
+                    <span class="text-gray-500 text-xs">{formatDate(relatedPost.data.date)}</span>
+                  </div>
+                  <h3 class="text-lg font-semibold text-forest-green mb-3">
+                    {relatedPost.data.title}
+                  </h3>
+                  <p class="text-gray-700 text-sm">
+                    {relatedPost.data.excerpt}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-forest-green text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Ready to Make an Impact?
+        </h2>
+        <p class="text-xl text-gray-200 mb-8">
+          Discover how Ecorazón can help your company create meaningful, sustainable corporate gifts.
+        </p>
+        <a href="/contact" class="bg-white text-forest-green px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
+          Get in Touch
+        </a>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  /* Additional prose styles for blog content */
+  :global(.prose p) {
+    margin-bottom: 1.5em;
+    line-height: 1.8;
+  }
+  
+  :global(.prose h2) {
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+  
+  :global(.prose h3) {
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+  }
+  
+  :global(.prose ul, .prose ol) {
+    margin-bottom: 1.5em;
+  }
+  
+  :global(.prose li) {
+    margin-bottom: 0.5em;
+  }
+</style>
