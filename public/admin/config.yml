@@ -2,6 +2,7 @@ backend:
   name: github
   repo: audreyrospa2/ecorazon
   branch: main
+  auth_type: pkce
 
 media_folder: "public/images/blog"
 public_folder: "/images/blog"
