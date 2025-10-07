@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Complete Your Signup - Ecorazon</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #8B7355 0%, #6B8E23 100%);
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    h1 {
+      color: #2C5F2D;
+      margin-bottom: 1rem;
+    }
+    p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+    #status {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 5px;
+      display: none;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Set Your Password</h1>
+    <p>Please wait while we load the password setup form...</p>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    // Automatically open the identity widget
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function(user) {
+        // Check if there's a recovery token in URL
+        const hash = window.location.hash;
+        if (hash && (hash.includes('recovery_token') || hash.includes('confirmation_token') || hash.includes('invite_token'))) {
+          console.log("Token found, opening widget");
+          window.netlifyIdentity.open();
+        }
+        
+        // If user successfully logs in/signs up
+        window.netlifyIdentity.on("login", function() {
+          document.getElementById("status").style.display = "block";
+          document.getElementById("status").className = "success";
+          document.getElementById("status").innerHTML = "✓ Password set successfully! Redirecting to admin...";
+          setTimeout(function() {
+            document.location.href = "/admin/";
+          }, 2000);
+        });
+        
+        // If there's an error
+        window.netlifyIdentity.on("error", function(err) {
+          document.getElementById("status").style.display = "block";
+          document.getElementById("status").className = "error";
+          document.getElementById("status").innerHTML = "Error: " + err.message;
+        });
+      });
+      
+      // Force open after a delay if it hasn't opened yet
+      setTimeout(function() {
+        if (window.location.hash) {
+          window.netlifyIdentity.open();
+        }
+      }, 1000);
+    } else {
+      document.querySelector("p").innerHTML = "Error: Identity widget failed to load. Please refresh the page.";
+    }
+  </script>
+</body>
+</html>
