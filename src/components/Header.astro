@@ -1,71 +1,64 @@
 ---
 ---
-
-<header class="bg-neutral-white shadow-sm">
-  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center py-6">
-      
-      <!-- Logo -->
-      <div class="flex items-center">
-        <a href="/" class="text-2xl font-title font-thin text-forest-green tracking-wide">
-          ECORAZÓN
-        </a>
-      </div>
-      
-      <!-- Desktop Navigation -->
-      <div class="hidden md:block">
-        <div class="ml-10 flex items-center space-x-8 font-body text-forest-green">
-          <a href="/" class="hover:text-forest-green transition-colors px-3 py-2">
-            Home
-          </a>
-          <a href="/about" class="hover:text-forest-green transition-colors px-3 py-2">
-            About Us
-          </a>
-          <a href="/services" class="hover:text-forest-green transition-colors px-3 py-2">
-            Services
-          </a>
-          <a href="/works" class="hover:text-forest-green transition-colors px-3 py-2">
-            Our Works
-          </a>
-          <a href="/resources" class="hover:text-forest-green transition-colors px-3 py-2">
-            Resources
-          </a>
-          <a href="/contact" class="bg-forest-green text-neutral-white px-4 py-2 rounded-md hover:bg-deep-olive transition-colors font-medium">
-            Contact Us
-          </a>
-        </div>
-      </div>
-      
-      <!-- Mobile menu button -->
-      <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-cork-brown hover:text-forest-green transition-colors">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Mobile Navigation -->
-    <div id="mobile-menu" class="md:hidden hidden">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-warm-beige rounded-md font-body">
-        <a href="/" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Home</a>
-        <a href="/about" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">About Us</a>
-        <a href="/services" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Services</a>
-        <a href="/works" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Our Works</a>
-        <a href="/resources" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Resources</a>
-        <a href="/contact" class="block px-3 py-2 bg-forest-green text-neutral-white rounded-md hover:bg-deep-olive transition-colors">Contact Us</a>
-      </div>
-    </div>
-  </nav>
+<header class="bg-neutral-white shadow-sm sticky top-0 z-50">
+<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center py-6">
+<!-- Logo -->
+<div class="flex items-center">
+<a href="/" class="text-2xl font-title font-thin text-forest-green tracking-wide">
+ ECORAZÓN
+</a>
+</div>
+<!-- Desktop Navigation -->
+<div class="hidden md:block">
+<div class="ml-10 flex items-center space-x-8 font-body text-forest-green">
+<a href="/" class="hover:text-forest-green transition-colors px-3 py-2">
+ Home
+</a>
+<a href="/about" class="hover:text-forest-green transition-colors px-3 py-2">
+ About Us
+</a>
+<a href="/services" class="hover:text-forest-green transition-colors px-3 py-2">
+ Services
+</a>
+<a href="/works" class="hover:text-forest-green transition-colors px-3 py-2">
+ Our Works
+</a>
+<a href="/resources" class="hover:text-forest-green transition-colors px-3 py-2">
+ Resources
+</a>
+<a href="/contact" class="bg-forest-green text-neutral-white px-4 py-2 rounded-md hover:bg-deep-olive transition-colors font-medium">
+ Contact Us
+</a>
+</div>
+</div>
+<!-- Mobile menu button -->
+<div class="md:hidden">
+<button id="mobile-menu-button" class="text-cork-brown hover:text-forest-green transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M4 6h16M4 12h16M4 18h16" />
+</svg>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation -->
+<div id="mobile-menu" class="md:hidden hidden">
+<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-warm-beige rounded-md font-body">
+<a href="/" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Home</a>
+<a href="/about" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">About Us</a>
+<a href="/services" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Services</a>
+<a href="/works" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Our Works</a>
+<a href="/resources" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Resources</a>
+<a href="/contact" class="block px-3 py-2 bg-forest-green text-neutral-white rounded-md hover:bg-deep-olive transition-colors">Contact Us</a>
+</div>
+</div>
+</nav>
 </header>
-
 <script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  
-  mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-  });
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton?.addEventListener('click', () => {
+mobileMenu?.classList.toggle('hidden');
+ });
 </script>

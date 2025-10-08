@@ -9,12 +9,12 @@ import Footer from '../components/Footer.astro';
   
   <main>
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16">
+    <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16 hero-about">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6">
+        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6 animate-fade-in">
           About Ecorazón
         </h1>
-        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto animate-fade-in-delay">
           Where nature's echo meets the art with heart
         </p>
       </div>
@@ -24,7 +24,7 @@ import Footer from '../components/Footer.astro';
     <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div class="who-we-are-text">
             <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6">
               Who We Are
             </h2>
@@ -33,7 +33,7 @@ import Footer from '../components/Footer.astro';
             </p>
             
             <div class="space-y-4">
-              <div class="flex items-start">
+              <div class="flex items-start feature-item">
                 <div class="text-2xl mr-4">✨</div>
                 <div>
                   <h3 class="text-xl font-semibold text-forest-green mb-1">Empowering Creators</h3>
@@ -41,7 +41,7 @@ import Footer from '../components/Footer.astro';
                 </div>
               </div>
               
-              <div class="flex items-start">
+              <div class="flex items-start feature-item">
                 <div class="text-2xl mr-4">🌱</div>
                 <div>
                   <h3 class="text-xl font-semibold text-forest-green mb-1">Sustainability First</h3>
@@ -49,7 +49,7 @@ import Footer from '../components/Footer.astro';
                 </div>
               </div>
               
-              <div class="flex items-start">
+              <div class="flex items-start feature-item">
                 <div class="text-2xl mr-4">⏰</div>
                 <div>
                   <h3 class="text-xl font-semibold text-forest-green mb-1">Timeless Impact</h3>
@@ -59,7 +59,7 @@ import Footer from '../components/Footer.astro';
             </div>
           </div>
           
-          <div class="bg-warm-beige p-8 rounded-lg">
+          <div class="bg-warm-beige p-8 rounded-lg who-we-are-image">
             <img 
                 src="/images/green.jpg" 
                 alt="Ecorazón showcase" 
@@ -74,13 +74,13 @@ import Footer from '../components/Footer.astro';
     <section class="py-16 bg-warm-beige">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 story-title">
             Our Story
           </h2>
         </div>
         
         <div class="max-w-4xl mx-auto">
-          <div class="bg-white p-8 rounded-lg shadow-sm">
+          <div class="bg-white p-8 rounded-lg shadow-sm story-content">
             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
               Ecorazón was born from a simple belief: every individual is a masterpiece of nature.
             </p>
@@ -96,14 +96,14 @@ import Footer from '../components/Footer.astro';
     <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div class="bg-forest-green text-white p-8 rounded-lg">
+          <div class="bg-forest-green text-white p-8 rounded-lg mission-card">
             <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
             <p class="text-lg leading-relaxed">
               To listen deeply to the voice of nature, capture its inspiration, and transform these echoes into heartfelt, sustainable creations.
             </p>
           </div>
           
-          <div class="bg-deep-olive text-white p-8 rounded-lg">
+          <div class="bg-deep-olive text-white p-8 rounded-lg vision-card">
             <h2 class="text-3xl font-bold mb-6">Our Vision</h2>
             <p class="text-lg leading-relaxed">
               To inspire more people to see themselves as miracles of nature and cherish the purest beauty of this planet we call home.
@@ -116,3 +116,162 @@ import Footer from '../components/Footer.astro';
   
   <Footer />
 </Layout>
+
+<style>
+  /* Hero animations - load immediately */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeInDown 0.8s ease-out 0.2s both;
+  }
+
+  .animate-fade-in-delay {
+    animation: fadeInDown 0.8s ease-out 0.4s both;
+  }
+
+  /* Scroll-triggered animations */
+  .who-we-are-text,
+  .who-we-are-image,
+  .feature-item,
+  .story-title,
+  .story-content,
+  .mission-card,
+  .vision-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .who-we-are-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .who-we-are-image.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
+
+  .feature-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .feature-item:nth-child(1).visible {
+    transition-delay: 0.2s;
+  }
+
+  .feature-item:nth-child(2).visible {
+    transition-delay: 0.4s;
+  }
+
+  .feature-item:nth-child(3).visible {
+    transition-delay: 0.6s;
+  }
+
+  .story-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .story-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
+
+  .mission-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .vision-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
+
+  /* Hover effects */
+  .feature-item {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.3s ease;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .feature-item:hover {
+    background-color: rgba(139, 186, 139, 0.1);
+    transform: translateX(10px) translateY(0);
+  }
+
+  .who-we-are-image {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
+  }
+
+  .who-we-are-image:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .story-content {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
+  }
+
+  .story-content:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .mission-card,
+  .vision-card {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .mission-card:hover,
+  .vision-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all animated elements
+  document.addEventListener('DOMContentLoaded', () => {
+    const elementsToAnimate = document.querySelectorAll(
+      '.who-we-are-text, .who-we-are-image, .feature-item, .story-title, .story-content, .mission-card, .vision-card'
+    );
+    
+    elementsToAnimate.forEach(el => observer.observe(el));
+  });
+</script>
