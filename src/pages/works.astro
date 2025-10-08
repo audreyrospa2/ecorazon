@@ -11,10 +11,10 @@ import Footer from '../components/Footer.astro';
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6">
+        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6 animate-fade-in">
           Our Works
         </h1>
-        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto animate-fade-in-delay">
           Discover the beautiful creations born from the collaboration between our talented artists and valued partners
         </p>
       </div>
@@ -24,10 +24,10 @@ import Footer from '../components/Footer.astro';
     <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 intro-title">
             Our Work Speaks for Itself
           </h2>
-          <p class="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
+          <p class="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed intro-text">
             Explore some of the bespoke creations we've crafted in collaboration with our talented artists and valued partners. Each piece tells a unique story of sustainability, creativity, and empowerment.
           </p>
         </div>
@@ -40,7 +40,7 @@ import Footer from '../components/Footer.astro';
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           
           <!-- Project 1 -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden project-card">
             <img src="/images/4.png" alt="Sustainable Corporate Gift Set" class="w-full h-64 object-cover" />
             <div class="p-8">
               <div class="flex items-center mb-4">
@@ -67,7 +67,7 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <!-- Project 2 -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden project-card">
             <img src="/images/16.jpg" alt="Co-Branded Merchandise" class="w-full h-64 object-cover" />
             <div class="p-8">
               <div class="flex items-center mb-4">
@@ -99,7 +99,7 @@ import Footer from '../components/Footer.astro';
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           <!-- Portfolio Item 3 -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden portfolio-item">
             <img src="/images/17.jpg" alt="Eco-Friendly Office Set" class="w-full h-48 object-cover" />
             <div class="p-6">
               <span class="bg-cork-brown text-white px-2 py-1 rounded text-xs font-medium mb-3 inline-block">
@@ -116,7 +116,7 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <!-- Portfolio Item 4 -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden portfolio-item">
             <img src="/images/2.png" alt="Artisan Welcome Kit" class="w-full h-48 object-cover" />
             <div class="p-6">
               <span class="bg-forest-green text-white px-2 py-1 rounded text-xs font-medium mb-3 inline-block">
@@ -133,7 +133,7 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <!-- Portfolio Item 5 -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden portfolio-item">
             <img src="/images/4.png" alt="Conference Keepsakes" class="w-full h-48 object-cover" />
             <div class="p-6">
               <span class="bg-deep-olive text-white px-2 py-1 rounded text-xs font-medium mb-3 inline-block">
@@ -153,7 +153,369 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- Impact Metrics Section --> <section class="py-16 bg-forest-green text-white"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="text-3xl md:text-4xl font-bold mb-6"> Our Impact in Numbers </h2> <p class="text-xl text-gray-200 max-w-3xl mx-auto"> Every creation makes a difference for our artists, partners, and the planet </p> </div> <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center"> <div> <div class="text-4xl font-bold mb-2">50+</div> <p class="text-gray-200">Projects Completed</p> </div> <div> <div class="text-4xl font-bold mb-2">25+</div> <p class="text-gray-200">Artists Empowered</p> </div> <div> <div class="text-4xl font-bold mb-2">15+</div> <p class="text-gray-200">Partner Companies</p> </div> <div> <div class="text-4xl font-bold mb-2">1000+</div> <p class="text-gray-200">Sustainable Gifts Created</p> </div> </div> </div> </section> <!-- Testimonials Section --> <section class="py-16 bg-white"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6"> What Our Partners Say </h2> </div> <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> <div class="bg-warm-beige p-8 rounded-lg"> <div class="flex items-center mb-4"> <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4"> <span class="text-gray-600 font-semibold">JS</span> </div> <div> <h4 class="font-semibold text-forest-green">Jane Smith</h4> <p class="text-gray-600 text-sm">CSR Director, Tech Company</p> </div> </div> <p class="text-gray-700 italic"> "Working with Ecorazón transformed how we approach corporate gifting. The artistic quality and sustainability message perfectly aligned with our values, and knowing we're supporting talented artists makes it even more meaningful." </p> </div> <div class="bg-warm-beige p-8 rounded-lg"> <div class="flex items-center mb-4"> <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4"> <span class="text-gray-600 font-semibold">MR</span> </div> <div> <h4 class="font-semibold text-forest-green">Michael Rodriguez</h4> <p class="text-gray-600 text-sm">Marketing Director, Sustainability Firm</p> </div> </div> <p class="text-gray-700 italic"> "The attention to detail and storytelling in every piece is remarkable. Our clients are always impressed with the quality and the story behind each gift. Ecorazón has become our go-to partner for meaningful corporate gifts." </p> </div> </div> </div> </section> <!-- Call-to-Action Section --> <section class="py-16 bg-warm-beige"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"> <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6"> Ready to Start Your Project? </h2> <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto"> Let's create something beautiful and meaningful together. Every project is a new opportunity to make a positive impact. </p> <a href="/contact" class="bg-forest-green text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-deep-olive transition-colors mr-4"> Contact Us to Start Your Project </a> <a href="/services" class="text-forest-green font-semibold hover:text-deep-olive transition-colors"> Learn More About Our Services → </a> </div> </section> </main> 
+    <!-- Impact Metrics Section -->
+    <section class="py-16 bg-forest-green text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 impact-title">
+            Our Impact in Numbers
+          </h2>
+          <p class="text-xl text-gray-200 max-w-3xl mx-auto impact-subtitle">
+            Every creation makes a difference for our artists, partners, and the planet
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div class="impact-metric">
+            <div class="text-4xl font-bold mb-2">50+</div>
+            <p class="text-gray-200">Projects Completed</p>
+          </div>
+          <div class="impact-metric">
+            <div class="text-4xl font-bold mb-2">25+</div>
+            <p class="text-gray-200">Artists Empowered</p>
+          </div>
+          <div class="impact-metric">
+            <div class="text-4xl font-bold mb-2">15+</div>
+            <p class="text-gray-200">Partner Companies</p>
+          </div>
+          <div class="impact-metric">
+            <div class="text-4xl font-bold mb-2">1000+</div>
+            <p class="text-gray-200">Sustainable Gifts Created</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 testimonial-title">
+            What Our Partners Say
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-warm-beige p-8 rounded-lg testimonial-card">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                <span class="text-gray-600 font-semibold">JS</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-forest-green">Jane Smith</h4>
+                <p class="text-gray-600 text-sm">CSR Director, Tech Company</p>
+              </div>
+            </div>
+            <p class="text-gray-700 italic">
+              "Working with Ecorazón transformed how we approach corporate gifting. The artistic quality and sustainability message perfectly aligned with our values, and knowing we're supporting talented artists makes it even more meaningful."
+            </p>
+          </div>
+          <div class="bg-warm-beige p-8 rounded-lg testimonial-card">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                <span class="text-gray-600 font-semibold">MR</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-forest-green">Michael Rodriguez</h4>
+                <p class="text-gray-600 text-sm">Marketing Director, Sustainability Firm</p>
+              </div>
+            </div>
+            <p class="text-gray-700 italic">
+              "The attention to detail and storytelling in every piece is remarkable. Our clients are always impressed with the quality and the story behind each gift. Ecorazón has become our go-to partner for meaningful corporate gifts."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call-to-Action Section -->
+    <section class="py-16 bg-warm-beige">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 cta-title">
+          Ready to Start Your Project?
+        </h2>
+        <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto cta-text">
+          Let's create something beautiful and meaningful together. Every project is a new opportunity to make a positive impact.
+        </p>
+        <div class="cta-buttons">
+          <a href="/contact" class="inline-block bg-forest-green text-white px-8 py-3 rounded-md text-lg font-semibold transition-all duration-300 mr-4 btn-float">
+            Contact Us to Start Your Project
+          </a>
+          <a href="/services" class="inline-block text-forest-green font-semibold hover:text-deep-olive transition-colors btn-link">
+            Learn More About Our Services →
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
   
   <Footer />
 </Layout>
+
+<style>
+  /* Hero animations - load immediately */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeInDown 0.8s ease-out 0.2s both;
+  }
+
+  .animate-fade-in-delay {
+    animation: fadeInDown 0.8s ease-out 0.4s both;
+  }
+
+  /* Scroll-triggered animations */
+  .intro-title,
+  .intro-text,
+  .project-card,
+  .portfolio-item,
+  .impact-title,
+  .impact-subtitle,
+  .impact-metric,
+  .testimonial-title,
+  .testimonial-card,
+  .cta-title,
+  .cta-text,
+  .cta-buttons {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .intro-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .intro-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+  }
+
+  .project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-card:nth-child(1).visible {
+    transition-delay: 0.1s;
+  }
+
+  .project-card:nth-child(2).visible {
+    transition-delay: 0.3s;
+  }
+
+  .portfolio-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .portfolio-item:nth-child(1).visible {
+    transition-delay: 0.1s;
+  }
+
+  .portfolio-item:nth-child(2).visible {
+    transition-delay: 0.2s;
+  }
+
+  .portfolio-item:nth-child(3).visible {
+    transition-delay: 0.3s;
+  }
+
+  .impact-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .impact-subtitle.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+  }
+
+  .impact-metric.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .impact-metric:nth-child(1).visible {
+    transition-delay: 0.1s;
+  }
+
+  .impact-metric:nth-child(2).visible {
+    transition-delay: 0.2s;
+  }
+
+  .impact-metric:nth-child(3).visible {
+    transition-delay: 0.3s;
+  }
+
+  .impact-metric:nth-child(4).visible {
+    transition-delay: 0.4s;
+  }
+
+  .testimonial-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .testimonial-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .testimonial-card:nth-child(1).visible {
+    transition-delay: 0.1s;
+  }
+
+  .testimonial-card:nth-child(2).visible {
+    transition-delay: 0.3s;
+  }
+
+  .cta-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .cta-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+  }
+
+  .cta-buttons.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
+
+  /* Hover effects */
+  .project-card {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+  }
+
+  .project-card img {
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover img {
+    transform: scale(1.08);
+  }
+
+  .portfolio-item {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .portfolio-item:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+  }
+
+  .portfolio-item img {
+    transition: transform 0.3s ease;
+  }
+
+  .portfolio-item:hover img {
+    transform: scale(1.08);
+  }
+
+  .impact-metric {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.3s ease;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .impact-metric:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px) scale(1.05);
+  }
+
+  .testimonial-card {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .testimonial-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+  }
+
+  /* Button float effect */
+  .btn-float {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-float:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: #556B2F;
+  }
+
+  .btn-link {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+  }
+
+  .btn-link:hover {
+    transform: translateX(5px);
+  }
+
+  /* Tag hover effects */
+  .project-card .bg-gray-100 {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .project-card:hover .bg-gray-100 {
+    background-color: rgba(139, 186, 139, 0.2);
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all animated elements
+  document.addEventListener('DOMContentLoaded', () => {
+    const elementsToAnimate = document.querySelectorAll(
+      '.intro-title, .intro-text, .project-card, .portfolio-item, .impact-title, .impact-subtitle, .impact-metric, .testimonial-title, .testimonial-card, .cta-title, .cta-text, .cta-buttons'
+    );
+    
+    elementsToAnimate.forEach(el => observer.observe(el));
+  });
+</script>
