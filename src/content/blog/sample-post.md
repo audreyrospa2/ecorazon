@@ -50,4 +50,4 @@ Every brushstroke, every carefully placed seed, every unique design tells a stor
 
 ---
 
-*Want to learn more about our artists or bring their work into your organization? [Get in touch](/contact) with us today.*
+*Want to learn more about our artists or bring their work into your organization? [Get in touch](/get-in-touch) with us today.*

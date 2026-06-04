@@ -8,29 +8,28 @@ import Footer from '../components/Footer.astro';
   <Header />
   
   <main class="font-serif">
-    <!-- Hero Section - Full Screen minus header -->
-    <section class="relative flex items-center justify-center overflow-hidden hero-section" style="height: calc(100vh - 88px);">
-      <!-- Video Background -->
-      <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-        <source src="/video/hero.mp4" type="video/mp4">
-        <!-- Fallback image if video doesn't load -->
-        Your browser does not support the video tag.
-      </video>
-      
-      <!-- Dark overlay for better text visibility -->
-      <!-- <div class="absolute inset-0 bg-black opacity-10"></div> -->
-      
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="text-5xl md:text-7xl font-thin text-white tracking-wide mb-6 hero-title">
-          ECORAZÓN
-        </h1>
-        <p class="text-xl md:text-2xl text-white mb-10 tracking-widest hero-subtitle">
-          Where Nature's Echo Meets the Art with Heart
-        </p>
-        <a href="/contact" class="inline-block bg-forest-green text-white px-8 py-3 rounded-md text-lg font-semibold transition-all duration-300 hero-cta btn-float">
-          Contact Us
-        </a>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-grid">
+        <div class="grid-lines"></div>
       </div>
+
+      <div class="hero-content">
+        <h1 class="hero-tagline">
+          <span class="hero-tagline-line">HEARTFELT STORIES</span>
+          <span class="hero-tagline-line">SUSTAINABLE FUTURE</span>
+        </h1>
+        <p class="hero-subtitle-zh" lang="zh-Hant">以故事連結人心 · 以永續策展未來</p>
+      </div>
+
+      <img
+        src="/images/hero-element.png"
+        alt=""
+        class="hero-element"
+        width="700"
+        height="700"
+        loading="eager"
+      />
     </section>
 
     <!-- Introduction Section -->
@@ -114,7 +113,7 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- Call-to-Action Section -->
-    <section class="py-20 bg-deep-olive text-white text-center">
+    <section class="py-20 cta-section text-black text-center">
       <div class="max-w-4xl mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-wide">
           Ready to Create Something Meaningful?
@@ -122,8 +121,8 @@ import Footer from '../components/Footer.astro';
         <p class="text-lg mb-8 leading-relaxed">
           Let's co-create gifts and experiences that inspire, empower, and sustain.
         </p>
-        <a href="/contact" class="inline-block bg-white text-deep-olive px-8 py-3 rounded-md text-lg font-semibold transition-all duration-300 btn-float">
-          Contact Us
+        <a href="/get-in-touch" class="inline-block bg-white text-black px-8 py-3 rounded-md text-lg font-semibold transition-all duration-300 btn-float">
+          Get in Touch
         </a>
       </div>
     </section>
@@ -133,48 +132,11 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style>
-  /* Hero text animations - only on load */
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Hero animations - play immediately on load */
-  .hero-title {
-    animation: fadeInDown 1.2s ease-out 0.3s both;
-  }
-
-  .hero-subtitle {
-    animation: fadeInUp 1.2s ease-out 0.6s both;
-  }
-
-  .hero-section .hero-cta {
-    animation: fadeInUp 1.2s ease-out 0.9s both;
-  }
-
   /* Scroll-triggered animations */
   .about-title,
   .about-text,
   .materials-title,
-  .material-card,
-  .hero-cta {
+  .material-card {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -224,14 +186,9 @@ import Footer from '../components/Footer.astro';
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
 
-  /* Hero button hover - green to olive */
-  .hero-section .btn-float:hover {
-    background-color: #556B2F; /* deep-olive color */
-  }
-
-  /* CTA section button hover - white to light gray */
-  .bg-deep-olive .btn-float:hover {
-    background-color: #f3f4f6; /* gray-100 color */
+  /* CTA section button hover */
+  .cta-section .btn-float:hover {
+    background-color: #f3f4f6;
   }
 </style>
 
