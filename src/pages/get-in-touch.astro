@@ -48,7 +48,7 @@ import Footer from '../components/Footer.astro';
               <input type="hidden" name="access_key" value="7bc476c3-41ea-4ba8-94c6-0ebbc252e42a">
               
               <!-- Redirect to same page with success parameter -->
-              <input type="hidden" name="redirect" value="https://ecorazon.vercel.app/contact?success=true">
+              <input type="hidden" name="redirect" value="https://ecorazon.vercel.app/get-in-touch?success=true">
               <!-- ADD THIS LINE to send to multiple emails -->
               <input type="hidden" name="email" value="hello@onesparkcreations.com,hello@ecorazon.co">
               
@@ -450,7 +450,7 @@ import Footer from '../components/Footer.astro';
           <a href="#contact-form" class="inline-block bg-white text-forest-green px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-100 transition-colors">
             Start Your Project
           </a>
-          <a href="/works" class="inline-block border-2 border-white text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-white hover:text-forest-green transition-colors">
+          <a href="/programme" class="inline-block border-2 border-white text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-white hover:text-forest-green transition-colors">
             View Our Work
           </a>
         </div>
@@ -470,7 +470,7 @@ import Footer from '../components/Footer.astro';
       successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
       
       // Remove the success parameter from URL
-      window.history.replaceState({}, '', '/contact');
+      window.history.replaceState({}, '', '/get-in-touch');
     }
   }
 
