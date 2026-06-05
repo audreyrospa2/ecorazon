@@ -1,195 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500&display=swap');
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Cerebri Sans';
-  src: url('/fonts/CerebriSans-Bold.woff2') format('woff2'),
-       url('/fonts/CerebriSans-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Cerebri Sans';
-  src: url('/fonts/CerebriSans-Regular.woff2') format('woff2'),
-       url('/fonts/CerebriSans-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  --color-bg: #FFFFFF;
-  --color-sage: #95BD8D;
-  --color-mauve: #C08EA4;
-  --color-sky: #97C4D0;
-  --color-sand: #D6B17E;
-  --color-text: #000000;
-
-  /* Legacy aliases → new palette */
   --color-forest-green: #95BD8D;
-  --color-deep-olive: #7AA872;
-  --color-warm-beige: #F8F4EE;
-  --color-cork-brown: #D6B17E;
+  --color-deep-olive: #C08EA4;
+  --color-warm-beige: #FFFFFF;
+  --color-cork-brown: #000000;
   --color-neutral-white: #FFFFFF;
   --color-leaf-green: #97C4D0;
+  --color-sand: #D6B17E;
+  --color-sky: #97C4D0;
+  --color-mauve: #C08EA4;
+  --color-sage: #95BD8D;
 
-  --font-title: 'Playfair Display', Georgia, serif;
-  --font-body: 'Cerebri Sans', system-ui, sans-serif;
+  --font-title: 'DM Sans', serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
 body {
   font-family: var(--font-body);
-  color: var(--color-text);
-  background-color: var(--color-bg);
-}
-
-.font-cjk {
-  font-family: 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', serif;
-}
-
-/* Hero */
-.hero-section {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(135deg, #d4ede8 0%, #e8f5f2 40%, #f0faf8 70%, #ffffff 100%);
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: inherit;
-}
-
-.hero-grid {
-  position: absolute;
-  bottom: -10%;
-  left: -5%;
-  width: 60%;
-  height: 60%;
-  transform: perspective(900px) rotateX(58deg) rotateZ(-5deg);
-  transform-origin: bottom left;
-  z-index: 0;
-  opacity: 0.6;
-}
-
-.hero-grid .grid-lines {
-  width: 100%;
-  height: 100%;
-  background-image:
-    linear-gradient(to right, #a8cfc4 1px, transparent 1px),
-    linear-gradient(to bottom, #a8cfc4 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.hero-content {
-  position: absolute;
-  left: 0;
-  top: 40%;
-  transform: translateY(-50%);
-  padding-left: clamp(2rem, 9vw, 10%);
-  z-index: 2;
-  max-width: 52%;
-}
-
-.hero-tagline {
-  font-family: 'Cerebri Sans', system-ui, sans-serif;
-  font-weight: 700;
-  font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 1.05;
   color: #000000;
-  margin: 0;
-}
-
-.hero-tagline-line {
-  display: block;
-}
-
-.hero-subtitle-zh {
-  font-family: 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', serif;
-  font-size: clamp(0.9rem, 1.5vw, 1.3rem);
-  font-weight: 400;
-  color: #000000;
-  letter-spacing: 0.05em;
-  margin-top: 0.75rem;
-}
-
-.hero-element {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48%;
-  max-width: 700px;
-  height: auto;
-  object-fit: contain;
-  z-index: 1;
-}
-
-@media (max-width: 768px) {
-  .hero-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 6rem;
-    padding-bottom: 2rem;
-    min-height: 100vh;
-    height: auto;
-  }
-
-  .hero-content {
-    position: relative;
-    top: auto;
-    transform: none;
-    padding: 0 1.5rem;
-    max-width: 100%;
-    order: 1;
-  }
-
-  .hero-tagline {
-    font-size: 2.2rem;
-  }
-
-  .hero-subtitle-zh {
-    font-size: 0.9rem;
-  }
-
-  .hero-grid {
-    opacity: 0.3;
-    transform: perspective(900px) rotateX(58deg) rotateZ(-5deg) scale(0.75);
-  }
-
-  .hero-element {
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    width: 90%;
-    max-width: none;
-    margin: 2rem auto 0;
-    order: 2;
-  }
-}
-
-/* CTA animated gradient */
-.cta-section {
-  background: linear-gradient(
-    -45deg,
-    #95BD8D,
-    #C08EA4,
-    #97C4D0,
-    #D6B17E
-  );
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease infinite;
-}
-
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  background-color: #FFFFFF;
 }

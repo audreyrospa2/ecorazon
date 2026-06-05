@@ -12,8 +12,8 @@ export default {
         'leaf-green': '#7A9E62'
       },
       fontFamily: {
-      title: ['Playfair Display', 'serif'],
-      body: ['Inter', 'sans-serif'],
+      title: ['DM Sans', 'serif'],
+      body: ['DM Sans', 'sans-serif'],
       },
     },
   },
