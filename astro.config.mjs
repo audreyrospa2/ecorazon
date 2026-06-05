@@ -1,12 +1,16 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 
-// https://docs.astro.build/en/reference/configuration-reference/
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineConfig({
-  integrations: [tailwind()],
-  output: "static", // default for static sites
+  output: "static",
+
   server: {
-    port: 4321, // or change to any port you like
+    port: 4321,
     host: true
+  },
+
+  vite: {
+    plugins: [tailwindcss()]
   }
 });

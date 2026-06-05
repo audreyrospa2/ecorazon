@@ -1,68 +1,194 @@
 ---
 ---
-<header class="bg-neutral-white shadow-sm sticky top-0 z-50">
-<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex justify-between items-center py-6">
-<!-- Logo -->
-<div class="flex items-center">
-<a href="/">
-  <img src="/images/logo.png" alt="Ecorazón" class="h-20 w-auto" />
-</a>
-</div>
-<!-- Desktop Navigation -->
-<div class="hidden md:block">
-<div class="ml-10 flex items-center space-x-6 font-body text-forest-green">
-<a href="/" class="hover:text-deep-olive transition-colors px-2 py-2">
- Home
-</a>
-<a href="/about" class="hover:text-deep-olive transition-colors px-2 py-2">
- About
-</a>
-<a href="/event" class="hover:text-deep-olive transition-colors px-2 py-2">
- Event
-</a>
-<a href="/product" class="hover:text-deep-olive transition-colors px-2 py-2">
- Product
-</a>
-<a href="/programme" class="hover:text-deep-olive transition-colors px-2 py-2">
- Programme
-</a>
-<a href="/resources" class="hover:text-deep-olive transition-colors px-2 py-2">
- Resources
-</a>
-<a href="/get-in-touch" class="bg-forest-green text-neutral-white px-4 py-2 rounded-md hover:bg-deep-olive transition-colors font-medium">
- Get in Touch
-</a>
-</div>
-</div>
-<!-- Mobile menu button -->
-<div class="md:hidden">
-<button id="mobile-menu-button" class="text-cork-brown hover:text-forest-green transition-colors">
-<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-d="M4 6h16M4 12h16M4 18h16" />
-</svg>
-</button>
-</div>
-</div>
-<!-- Mobile Navigation -->
-<div id="mobile-menu" class="md:hidden hidden">
-<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-warm-beige rounded-md font-body">
-<a href="/" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Home</a>
-<a href="/about" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">About</a>
-<a href="/event" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Event</a>
-<a href="/product" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Product</a>
-<a href="/programme" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Programme</a>
-<a href="/resources" class="block px-3 py-2 text-cork-brown hover:text-forest-green transition-colors">Resources</a>
-<a href="/get-in-touch" class="block px-3 py-2 bg-forest-green text-neutral-white rounded-md hover:bg-deep-olive transition-colors">Get in Touch</a>
-</div>
-</div>
-</nav>
+<header class="header-wrap">
+  <nav class="header-nav">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="/" class="header-logo">
+        <img src="/images/logo.png" alt="Ecorazón" class="logo-img" />
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="desktop-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/event" class="nav-link">Event</a>
+        <a href="/product" class="nav-link">Product</a>
+        <a href="/programme" class="nav-link">Programme</a>
+        <a href="/resources" class="nav-link">Resources</a>
+        <a href="/get-in-touch" class="nav-cta">Get in Touch</a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-button" class="mobile-menu-btn" aria-label="Toggle menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="mobile-nav hidden">
+      <a href="/" class="mobile-nav-link">Home</a>
+      <a href="/about" class="mobile-nav-link">About</a>
+      <a href="/event" class="mobile-nav-link">Event</a>
+      <a href="/product" class="mobile-nav-link">Product</a>
+      <a href="/programme" class="mobile-nav-link">Programme</a>
+      <a href="/resources" class="mobile-nav-link">Resources</a>
+      <a href="/get-in-touch" class="mobile-nav-cta">Get in Touch</a>
+    </div>
+  </nav>
 </header>
+
+<style>
+  .header-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+.header-nav {
+  width: 100%;
+  padding: 0 0 0 100px;
+}
+
+ .header-inner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 72px;
+  gap: 1rem;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+ .logo-img {
+  height: 100px;
+  width: auto;
+}
+
+  /* Desktop nav */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+  .nav-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #000000;
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    background: rgba(149, 189, 141, 0.12);
+    color: #000000;
+  }
+
+  .nav-cta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff;
+    background: #000000;
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0;
+    margin-left: 0.5rem;
+    transition: background 0.2s ease;
+  }
+
+  .nav-cta:hover {
+    background: #C08EA4;
+  }
+
+  /* Mobile btn */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000000;
+    padding: 0.25rem;
+  }
+
+  /* Mobile nav */
+  .mobile-nav {
+    padding: 0.75rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-nav.hidden {
+    display: none;
+  }
+
+  .mobile-nav-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #000000;
+    text-decoration: none;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+
+  .mobile-nav-link:hover {
+    background: rgba(149, 189, 141, 0.12);
+  }
+
+  .mobile-nav-cta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff;
+    background: #95BD8D;
+    text-decoration: none;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    margin-top: 0.25rem;
+    transition: background 0.2s ease;
+  }
+
+  .mobile-nav-cta:hover {
+    background: #C08EA4;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav {
+      display: none;
+    }
+
+    .mobile-menu-btn {
+      display: block;
+    }
+  }
+</style>
+
 <script>
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-mobileMenuButton?.addEventListener('click', () => {
-mobileMenu?.classList.toggle('hidden');
- });
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
 </script>
