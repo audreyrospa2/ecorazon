@@ -19,7 +19,6 @@
         <a href="/resources" class="nav-link">Resources</a>
         <a href="/get-in-touch" class="nav-cta">Get in Touch</a>
       </div>
-
       <!-- Mobile menu button -->
       <button id="mobile-menu-button" class="mobile-menu-btn" aria-label="Toggle menu">
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,43 +44,46 @@
 
 <style>
   .header-wrap {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+  .header-nav {
+    width: 100%;
+    padding: 0 50px;
   }
 
-.header-nav {
-  width: 100%;
-  padding: 0 0 0 100px;
-}
+  .header-inner {
+    display: flex;
+    align-items: center;
+    height: 72px;
+    position: relative;
+  }
 
- .header-inner {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 72px;
-  gap: 18rem;
-}
+  .header-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
 
-.header-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
+  .logo-img {
+    height: 48px;
+    width: auto;
+  }
 
- .logo-img {
-  height: 100px;
-  width: auto;
-}
-
-  /* Desktop nav */
-.desktop-nav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+  /* Desktop nav — absolutely centered against full header width */
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
   .nav-link {
     font-family: 'DM Sans', sans-serif;
@@ -99,17 +101,18 @@
     color: #000000;
   }
 
+  /* CTA sits in normal flow, pushed to the right */
   .nav-cta {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #87c090;
-    text-decoration: none;
-    padding: 0.5rem 1.25rem;
-    border: 2px solid #87c090;
-    border-radius: 0;
-    margin-left: 0.5rem;
-    transition: background 0.2s ease;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #87c090;
+  text-decoration: none;
+  padding: 0.3rem 1rem;
+  border: 2px solid #87c090;
+  border-radius: 0;
+  transition: background 0.2s ease;
+  white-space: nowrap;
   }
 
   .nav-cta:hover {
@@ -171,13 +174,43 @@
   }
 
   @media (max-width: 768px) {
-    .desktop-nav {
-      display: none;
-    }
+    .header-wrap {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
 
-    .mobile-menu-btn {
-      display: block;
-    }
+  .desktop-nav,
+  .nav-cta {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+    margin-left: auto;
+  }
+
+  .mobile-nav-cta {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #87c090;
+  background: transparent;
+  text-decoration: none;
+  padding: 0.6rem 0.75rem;
+  border: 2px solid #87c090;
+  border-radius: 0;
+  margin-top: 0.25rem;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.mobile-nav-cta:hover {
+  background: #87c090;
+  color: #ffffff;
+}
   }
 </style>
 

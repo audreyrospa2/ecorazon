@@ -19,7 +19,6 @@ import Footer from '../components/Footer.astro';
         </h1>
         <p class="hero-subtitle-zh" lang="zh-Hant">以故事連結人心 · 以永續策展未來</p>
         <div class="hero-stats">
-        <div class="hero-stats">
           <div class="hero-stat">
             <div class="stat-number-wrap">
               <span class="stat-number" data-target="1500">0</span>
@@ -43,9 +42,30 @@ import Footer from '../components/Footer.astro';
           </div>
         </div>
       </div>
-      </div>
       <img src="/images/hero-element.svg" alt="" class="hero-element" loading="eager" />
     </section>
+
+    <!-- Logo Marquee Bar -->
+    <div class="logo-bar">
+      <div class="logo-track">
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+        <div class="logo-item"><img src="/images/galagiftlogo.png" alt="Brand" /></div>
+      </div>
+    </div>
 
     <!-- About Section -->
     <section class="py-20 bg-white">
@@ -143,150 +163,240 @@ import Footer from '../components/Footer.astro';
 
 <style is:global>
 
+  html { scroll-behavior: smooth; }
+
   /* ─── HERO ─── */
   .hero-section {
-  position: relative !important;
-  width: 100% !important;
-  height: 100vh !important;
-  min-height: 560px !important;
-  overflow: hidden !important;
-  background: url('/images/gradient-bg-1.png') center center / cover no-repeat !important;
-  display: flex !important;
-  align-items: flex-start !important;
-  padding: 10% 0 0 clamp(2rem, 6vw, 6rem) !important;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 560px;
+    overflow: hidden;
+    background: url('/images/gradient-bg-1.png') center center / cover no-repeat;
+    display: flex;
+    align-items: flex-start;
+    padding: 10% 0 0 clamp(2rem, 6vw, 6rem);
   }
 
   .hero-grid {
-    position: absolute !important;
-    bottom: -15% !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: 90% !important;
-    height: 80% !important;
-    z-index: 0 !important;
-    pointer-events: none !important;
-    opacity: 0.7 !important;
+    position: absolute;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 80%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.7;
   }
 
   .hero-content {
-    position: relative !important;
-    z-index: 2 !important;
-    max-width: 50% !important;
+    position: relative;
+    z-index: 2;
+    max-width: 50%;
   }
 
   .hero-tagline {
-    display: flex !important;
-    flex-direction: column !important;
-    font-family: 'DM Sans', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: clamp(1.8rem, 3.5vw, 3.8rem) !important;
-    line-height: 1.1 !important;
-    color: #000000 !important;
-    margin: 0 0 0.75rem 0 !important;
-    letter-spacing: 0 !important;
-    white-space: nowrap !important;
+    display: flex;
+    flex-direction: column;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 3.8rem);
+    line-height: 1.1;
+    color: #000000;
+    margin: 0 0 0.75rem 0;
+    letter-spacing: 0;
+    white-space: nowrap;
   }
 
   .hero-tagline span {
-    display: block !important;
-    white-space: nowrap !important;
+    display: block;
+    white-space: nowrap;
   }
 
   .hero-subtitle-zh {
-    font-family: 'PingFang TC', 'Noto Serif TC', 'Microsoft JhengHei', serif !important;
-    font-size: clamp(0.85rem, 1.2vw, 1.1rem) !important;
-    font-weight: 400 !important;
-    color: #000000 !important;
-    letter-spacing: 0.04em !important;
-    margin: 0 !important;
+    font-family: 'PingFang TC', 'Noto Serif TC', 'Microsoft JhengHei', serif;
+    font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+    font-weight: 400;
+    color: #000000;
+    letter-spacing: 0.04em;
+    margin: 0;
   }
 
   .hero-stats {
-  display: flex !important;
-  gap: 2.5rem !important;
-  margin-top: 2rem !important;
-}
-
-.hero-stat {
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.stat-number {
-  font-family: 'DM Sans', sans-serif !important;
-  font-weight: 700 !important;
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem) !important;
-  color: #275D2F !important;
-  line-height: 1 !important;
-}
-
-.stat-plus {
-  font-family: 'DM Sans', sans-serif !important;
-  font-weight: 700 !important;
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem) !important;
-  color: #95BD8D !important;
-  line-height: 1 !important;
-  display: inline !important;
-}
-
-.stat-label {
-  font-family: 'DM Sans', sans-serif !important;
-  font-size: clamp(0.7rem, 1vw, 0.85rem) !important;
-  font-weight: 400 !important;
-  color: #000000 !important;
-  margin-top: 0.25rem !important;
-  opacity: 0.7 !important;
-}
-.stat-number-wrap {
-  display: flex !important;
-  align-items: baseline !important;
-  gap: 1px !important;
-}
-
-  .hero-element {
-    position: absolute !important;
-    right: -35% !important;
-    top: -7% !important;
-    width: 110% !important;
-    max-width: none !important;
-    height: 110% !important;
-    object-fit: contain !important;
-    object-position: top right !important;
-    z-index: 1 !important;
-    pointer-events: none !important;
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 2rem;
   }
 
-  /* ─── CTA ─── */
-  .cta-section {
-  padding: 15rem 0;
-  background: linear-gradient(-45deg, #7ACC86, #CE508F, #8AF3FF, #EB9C2E);
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease infinite;
-  color: #ffffff;
-}
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+  }
 
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+  .stat-number-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+  }
+
+  .stat-number {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    color: #275D2F;
+    line-height: 1;
+  }
+
+  .stat-plus {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    color: #95BD8D;
+    line-height: 1;
+    display: inline;
+  }
+
+  .stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    font-weight: 400;
+    color: #000000;
+    margin-top: 0.25rem;
+    opacity: 0.7;
+  }
+
+  .hero-element {
+    position: absolute;
+    right: -50%;
+    top: -7%;
+    width: 450%;
+    max-width: none;
+    height: 110%;
+    object-fit: contain;
+    object-position: top right;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ─── HERO ENTRANCE ANIMATIONS ─── */
+  .hero-tagline,
+  .hero-subtitle-zh,
+  .hero-stats {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .hero-element {
+    opacity: 0;
+    transform: translateX(80px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+  }
+
+  .hero-tagline.hero-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+
+  .hero-subtitle-zh.hero-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
+
+  .hero-stats.hero-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+  }
+
+  .hero-element.hero-visible {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.2s;
+  }
+
+  /* ─── LOGO BAR ─── */
+  .logo-bar {
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 1.5rem 0;
+    position: relative;
+    z-index: 3;
+  }
+
+  .logo-track {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  .logo-bar:hover .logo-track {
+    animation-play-state: paused;
+  }
+
+  .logo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-item img {
+    height: 36px;
+    width: auto;
+    filter: grayscale(100%) opacity(0.5);
+    transition: filter 0.3s ease;
+    pointer-events: none;
+  }
+
+  .logo-bar:hover .logo-item img {
+    filter: grayscale(0%) opacity(1);
+  }
+
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    padding: 15rem 0;
+    background: linear-gradient(-45deg, #7ACC86, #CE508F, #8AF3FF, #EB9C2E);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    color: #ffffff;
+  }
+
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
   .cta-btn {
-    display: inline-block !important;
-    background: #ffffff !important;
-    color: #000000 !important;
-    padding: 0.75rem 2rem !important;
-    border-radius: 0px !important;
-    font-size: 1.1rem !important;
-    font-weight: 600 !important;
-    text-decoration: none !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    padding: 0.75rem 2rem;
+    border-radius: 0px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .cta-btn:hover {
-    transform: translateY(-5px) !important;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
 
   /* ─── SCROLL ANIMATIONS ─── */
@@ -307,42 +417,56 @@ import Footer from '../components/Footer.astro';
   .material-card:nth-child(4).visible { transition-delay: 0.4s; }
   .material-card:nth-child(5).visible { transition-delay: 0.5s; }
 
-  html { scroll-behavior: smooth; }
-
   /* ─── MOBILE ─── */
   @media (max-width: 768px) {
     .hero-section {
-      align-items: flex-start !important;
-      padding: 5rem 1.5rem 0 !important;
-      height: auto !important;
-      min-height: 100svh !important;
+      align-items: flex-start;
+      padding: 5rem 1.5rem 0;
+      height: auto;
+      min-height: 100svh;
+      flex-direction: column;
     }
 
     .hero-content {
-      max-width: 100% !important;
+      max-width: 100%;
+      order: 1;
     }
 
     .hero-tagline {
-      font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
-      white-space: normal !important;
+      font-size: clamp(1.4rem, 6vw, 1.8rem);
+      white-space: normal;
     }
 
     .hero-element {
-      position: relative !important;
-      right: unset !important;
-      top: unset !important;
-      width: 92% !important;
-      height: auto !important;
-      margin: 1.5rem auto 0 !important;
-      display: block !important;
+      position: relative;
+      right: unset;
+      top: unset;
+      width: 340vw;
+      height: auto;
+      margin: -6rem 2vw -10rem -80vw;
+      display: block;
+      order: 2;
+      z-index: 2;
+      /* keep animation transform reset intact on mobile */
+      transform: translateX(80px);
     }
 
-    .hero-grid { opacity: 0.3 !important; }
+    .hero-element.hero-visible {
+      transform: translateX(0);
+    }
+
+    .hero-grid { opacity: 0.3; }
+
+    .hero-stats {
+      margin-top: 0.75rem;
+      gap: 1rem;
+    }
   }
 
 </style>
 
 <script>
+  // ─── SCROLL REVEAL ───
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -354,36 +478,45 @@ import Footer from '../components/Footer.astro';
       .forEach(el => observer.observe(el));
   });
 
-  // Stats counter animation
-function animateCounter(el) {
-  const target = parseInt(el.getAttribute('data-target'));
-  const duration = 2000;
-  const step = target / (duration / 16);
-  let current = 0;
-
-  const timer = setInterval(() => {
-    current += step;
-    if (current >= target) {
-      el.textContent = target.toLocaleString();
-      clearInterval(timer);
-    } else {
-      el.textContent = Math.floor(current).toLocaleString();
-    }
-  }, 16);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const statNumbers = document.querySelectorAll('.stat-number');
-  
-  const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        statObserver.unobserve(entry.target);
-      }
+  // ─── HERO ENTRANCE ───
+  document.addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.hero-tagline, .hero-subtitle-zh, .hero-stats, .hero-element')
+          .forEach(el => el.classList.add('hero-visible'));
+      });
     });
-  }, { threshold: 0.5 });
+  });
 
-  statNumbers.forEach(el => statObserver.observe(el));
-});
+  // ─── STATS COUNTER ───
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'));
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        el.textContent = target.toLocaleString();
+        clearInterval(timer);
+      } else {
+        el.textContent = Math.floor(current).toLocaleString();
+      }
+    }, 16);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number')
+      .forEach(el => statObserver.observe(el));
+  });
 </script>
