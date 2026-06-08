@@ -6,106 +6,83 @@ import Footer from '../components/Footer.astro';
 
 <Layout title="Services - Ecorazón">
   <Header />
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6 animate-fade-in">
-          Our Services
-        </h1>
-        <p class="text-xl text-gray-700 max-w-3xl mx-auto animate-fade-in-delay">
-          Custom Corporate Gifts for Businesses
-        </p>
+
+  <main class="services-page">
+
+    <!-- Hero -->
+    <section class="services-hero">
+      <div class="services-hero-content">
+        <h1 class="services-hero-title animate-fade-in">Our Services</h1>
+        <p class="services-hero-sub animate-fade-in-delay">Custom corporate gifts for brands that care — about people, planet, and purpose.</p>
       </div>
     </section>
 
-    <!-- Introduction Section -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <p class="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed intro-text">
-            We design and produce premium corporate gifts that reflect your brand identity while prioritizing sustainability and social responsibility. From client appreciation to employee recognition, our products tell your story with purpose.
-          </p>
-        </div>
+    <!-- Intro -->
+    <section class="svc-section bg-white">
+      <div class="svc-inner">
+        <p class="intro-text scroll-reveal">
+          We design and produce premium corporate gifts that reflect your brand identity while prioritizing sustainability and social responsibility. From client appreciation to employee recognition, our products tell your story with purpose.
+        </p>
       </div>
     </section>
 
     <!-- Services Grid -->
-    <section class="py-16 bg-warm-beige">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          <!-- Service 1: Bespoke Corporate Gifts -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden service-card">
-            <img 
-              src="/images/4.png" 
-              alt="Bespoke Corporate Gifts" 
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-8">
-              <div class="text-4xl mb-4">🎁</div>
-              <h3 class="text-2xl font-bold text-forest-green mb-4">
-                Corporate Gift Solutions
-              </h3>
-              <p class="text-gray-700 mb-6 leading-relaxed">
-                Personalized gifts that strengthen business relationships and showcase your commitment to sustainability and inclusivity.
-              </p>
-              <ul class="space-y-2 text-gray-600">
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Custom design consultation</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Eco-friendly material options</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Artist collaboration</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Brand alignment & storytelling</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Bulk ordering capabilities</li>
+    <section class="svc-section bg-white">
+      <div class="svc-inner">
+        <div class="services-grid">
+
+          <div class="svc-card scroll-reveal">
+            <div class="svc-img-wrap">
+              <img src="/images/4.png" alt="Corporate Gift Solutions" class="svc-img" />
+            </div>
+            <div class="svc-info">
+              <div class="svc-icon">🎁</div>
+              <h3 class="svc-name">Corporate Gift Solutions</h3>
+              <p class="svc-desc">Personalized gifts that strengthen business relationships and showcase your commitment to sustainability and inclusivity.</p>
+              <ul class="svc-list">
+                <li>Custom design consultation</li>
+                <li>Eco-friendly material options</li>
+                <li>Artist collaboration</li>
+                <li>Brand alignment & storytelling</li>
+                <li>Bulk ordering capabilities</li>
               </ul>
+              <a href="/get-in-touch" class="svc-cta">Enquire</a>
             </div>
           </div>
 
-          <!-- Service 2: Exclusive Branded Merchandise -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden service-card">
-            <img 
-              src="/images/6.png" 
-              alt="Exclusive Branded Merchandise" 
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-8">
-              <div class="text-4xl mb-4">🏷️</div>
-              <h3 class="text-2xl font-bold text-forest-green mb-4">
-                Exclusive Branded Merchandise
-              </h3>
-              <p class="text-gray-700 mb-6 leading-relaxed">
-                Let us help your business design exclusive branded products that blend creativity and sustainability. These items are tailored to be both functional and beautiful. Perfect for events, campaigns, and corporate identity programs.
-              </p>
-              <ul class="space-y-2 text-gray-600">
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Product design & development</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Eco-friendly materials</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Functional & aesthetic appeal</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Scalable production</li>
+          <div class="svc-card scroll-reveal">
+            <div class="svc-img-wrap">
+              <img src="/images/6.png" alt="Exclusive Branded Merchandise" class="svc-img" />
+            </div>
+            <div class="svc-info">
+              <div class="svc-icon">🏷️</div>
+              <h3 class="svc-name">Exclusive Branded Merchandise</h3>
+              <p class="svc-desc">Exclusive branded products that blend creativity and sustainability — functional, beautiful, and perfect for events and campaigns.</p>
+              <ul class="svc-list">
+                <li>Product design & development</li>
+                <li>Eco-friendly materials</li>
+                <li>Functional & aesthetic appeal</li>
+                <li>Scalable production</li>
               </ul>
+              <a href="/get-in-touch" class="svc-cta">Enquire</a>
             </div>
           </div>
 
-          <!-- Service 3: Co-Branded Creations -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden service-card">
-            <img 
-              src="/images/14.png" 
-              alt="Co-Branded Creations" 
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-8">
-              <div class="text-4xl mb-4">🤝</div>
-              <h3 class="text-2xl font-bold text-forest-green mb-4">
-                Co-Branded Creations
-              </h3>
-              <p class="text-gray-700 mb-6 leading-relaxed">
-                We collaborate with brands to launch co-branded designs, merging art and eco-conscious values to create meaningful and memorable products.
-              </p>
-              <ul class="space-y-2 text-gray-600">
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Partnership development</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Collaborative design process</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Joint marketing opportunities</li>
-                <li class="flex items-start"><span class="text-forest-green mr-2">•</span>Shared values alignment</li>
+          <div class="svc-card scroll-reveal">
+            <div class="svc-img-wrap">
+              <img src="/images/14.png" alt="Co-Branded Creations" class="svc-img" />
+            </div>
+            <div class="svc-info">
+              <div class="svc-icon">🤝</div>
+              <h3 class="svc-name">Co-Branded Creations</h3>
+              <p class="svc-desc">We collaborate with brands to launch co-branded designs, merging art and eco-conscious values into meaningful, memorable products.</p>
+              <ul class="svc-list">
+                <li>Partnership development</li>
+                <li>Collaborative design process</li>
+                <li>Joint marketing opportunities</li>
+                <li>Shared values alignment</li>
               </ul>
+              <a href="/get-in-touch" class="svc-cta">Enquire</a>
             </div>
           </div>
 
@@ -113,341 +90,454 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- Process Section -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 process-title">
-            Our Creative Process
-          </h2>
-          <p class="text-lg text-gray-700 max-w-3xl mx-auto process-subtitle">
-            From concept to creation, we ensure every step reflects our commitment to sustainability and empowerment.
-          </p>
+    <!-- Process -->
+    <section class="svc-section bg-white">
+      <div class="svc-inner">
+        <div class="section-header scroll-reveal">
+          <h2 class="section-title">Our Creative Process</h2>
+          <p class="section-sub">From concept to creation, every step reflects our commitment to sustainability and empowerment.</p>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div class="text-center process-step">
-            <div class="bg-forest-green text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-              1
-            </div>
-            <h3 class="text-xl font-semibold text-forest-green mb-2">Consultation</h3>
-            <p class="text-gray-600">Understanding your brand values and vision</p>
+        <div class="process-grid">
+          <div class="process-step scroll-reveal">
+            <div class="step-number" style="background:#95BD8D">1</div>
+            <h3 class="step-title">Consultation</h3>
+            <p class="step-desc">Understanding your brand values and vision</p>
           </div>
-          
-          <div class="text-center process-step">
-            <div class="bg-deep-olive text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-              2
-            </div>
-            <h3 class="text-xl font-semibold text-forest-green mb-2">Design</h3>
-            <p class="text-gray-600">Collaborative creation with our artists</p>
+          <div class="process-step scroll-reveal">
+            <div class="step-number" style="background:#6b8f76">2</div>
+            <h3 class="step-title">Design</h3>
+            <p class="step-desc">Collaborative creation with our artists</p>
           </div>
-          
-          <div class="text-center process-step">
-            <div class="bg-cork-brown text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-              3
-            </div>
-            <h3 class="text-xl font-semibold text-forest-green mb-2">Creation</h3>
-            <p class="text-gray-600">Sustainable crafting with eco-friendly materials</p>
+          <div class="process-step scroll-reveal">
+            <div class="step-number" style="background:#a07850">3</div>
+            <h3 class="step-title">Creation</h3>
+            <p class="step-desc">Sustainable crafting with eco-friendly materials</p>
           </div>
-          
-          <div class="text-center process-step">
-            <div class="bg-forest-green text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-              4
-            </div>
-            <h3 class="text-xl font-semibold text-forest-green mb-2">Delivery</h3>
-            <p class="text-gray-600">Thoughtful packaging and timely delivery</p>
+          <div class="process-step scroll-reveal">
+            <div class="step-number" style="background:#95BD8D">4</div>
+            <h3 class="step-title">Delivery</h3>
+            <p class="step-desc">Thoughtful packaging and timely delivery</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="py-16 bg-forest-green text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6 why-title">
-            Why Partner with Ecorazón?
-          </h2>
+    <!-- Why Us -->
+    <section class="svc-section bg-dark">
+      <div class="svc-inner">
+        <div class="section-header scroll-reveal">
+          <h2 class="section-title white">Why Partner with Ecorazón?</h2>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div class="text-center why-card">
-            <div class="text-4xl mb-4">🌱</div>
-            <h3 class="text-xl font-semibold mb-2">Sustainability Focus</h3>
-            <p class="text-gray-200">Every creation uses eco-friendly materials and processes</p>
+        <div class="why-grid">
+          <div class="why-card scroll-reveal">
+            <div class="why-icon">🌱</div>
+            <h3 class="why-title">Sustainability Focus</h3>
+            <p class="why-desc">Every creation uses eco-friendly materials and processes</p>
           </div>
-          
-          <div class="text-center why-card">
-            <div class="text-4xl mb-4">🎨</div>
-            <h3 class="text-xl font-semibold mb-2">Artistic Excellence</h3>
-            <p class="text-gray-200">Collaborating with talented special needs artists</p>
+          <div class="why-card scroll-reveal">
+            <div class="why-icon">🎨</div>
+            <h3 class="why-title">Artistic Excellence</h3>
+            <p class="why-desc">Collaborating with talented special needs artists</p>
           </div>
-          
-          <div class="text-center why-card">
-            <div class="text-4xl mb-4">📈</div>
-            <h3 class="text-xl font-semibold mb-2">ESG Alignment</h3>
-            <p class="text-gray-200">Supporting your environmental and social goals</p>
+          <div class="why-card scroll-reveal">
+            <div class="why-icon">📈</div>
+            <h3 class="why-title">ESG Alignment</h3>
+            <p class="why-desc">Supporting your environmental and social goals</p>
           </div>
-          
-          <div class="text-center why-card">
-            <div class="text-4xl mb-4">✨</div>
-            <h3 class="text-xl font-semibold mb-2">Unique Impact</h3>
-            <p class="text-gray-200">Creating meaningful connections with your stakeholders</p>
+          <div class="why-card scroll-reveal">
+            <div class="why-icon">✨</div>
+            <h3 class="why-title">Unique Impact</h3>
+            <p class="why-desc">Creating meaningful connections with your stakeholders</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Call-to-Action Section -->
-    <section class="py-16 bg-warm-beige">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 cta-title">
-          Ready to Create Something Meaningful?
-        </h2>
-        <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto cta-text">
-          Let's discuss how we can bring your vision to life through sustainable, artistic corporate gifts.
-        </p>
-        <a href="/get-in-touch" class="inline-block bg-forest-green text-white px-8 py-3 rounded-md text-lg font-semibold transition-all duration-300 cta-button btn-float">
-          Start Your Project
-        </a>
+    <!-- CTA -->
+    <section class="svc-section bg-white">
+      <div class="svc-inner cta-inner">
+        <h2 class="section-title scroll-reveal">Ready to Create Something Meaningful?</h2>
+        <p class="section-sub scroll-reveal">Let's discuss how we can bring your vision to life through sustainable, artistic corporate gifts.</p>
+        <a href="/get-in-touch" class="svc-cta large scroll-reveal">Start Your Project</a>
       </div>
     </section>
+
   </main>
-  
+
   <Footer />
 </Layout>
 
-<style>
-  /* Hero animations - load immediately */
+<style is:global>
+  .services-page {
+    padding-top: 72px;
+  }
+
+  /* ─── HERO ─── */
+  .services-hero {
+    background: url('/images/green-purple.png') center center / cover no-repeat;
+    padding: 6rem clamp(2rem, 8vw, 7rem);
+    min-height: 260px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .services-hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: #000000;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.1;
+  }
+
+  .services-hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: #000000;
+    opacity: 0.7;
+    margin: 0;
+    max-width: 500px;
+  }
+
+  /* ─── HERO ANIMATION ─── */
   @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .animate-fade-in {
-    animation: fadeInDown 0.8s ease-out 0.2s both;
+  .animate-fade-in       { animation: fadeInDown 0.8s ease-out 0.2s both; }
+  .animate-fade-in-delay { animation: fadeInDown 0.8s ease-out 0.4s both; }
+
+  /* ─── SECTIONS ─── */
+  .svc-section {
+    padding: 5rem clamp(2rem, 6vw, 6rem);
   }
 
-  .animate-fade-in-delay {
-    animation: fadeInDown 0.8s ease-out 0.4s both;
+  .bg-white { background: #ffffff; }
+  .bg-warm  { background: #f7f5f0; }
+  .bg-dark  { background: #95BD8D; }
+
+  .svc-inner {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  /* Scroll-triggered animations */
-  .intro-text,
-  .service-card,
-  .process-title,
-  .process-subtitle,
-  .process-step,
-  .why-title,
-  .why-card,
-  .cta-title,
-  .cta-text,
-  .cta-button {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  /* ─── INTRO ─── */
+  .intro-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    color: #000000;
+    opacity: 0.65;
+    line-height: 1.9;
+    max-width: 760px;
   }
 
-  .intro-text.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    margin-bottom: 3rem;
   }
 
-  .service-card.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    color: #000000;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.15;
   }
 
-  .service-card:nth-child(1).visible {
-    transition-delay: 0.1s;
+  .section-title.white { color: #ffffff; }
+
+  .section-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: #000000;
+    opacity: 0.6;
+    margin: 0;
+    max-width: 560px;
+    line-height: 1.7;
   }
 
-  .service-card:nth-child(2).visible {
-    transition-delay: 0.3s;
+  /* ─── SERVICES GRID ─── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
   }
 
-  .service-card:nth-child(3).visible {
-    transition-delay: 0.5s;
+  .svc-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #ffffff;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
-  .process-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
+  .svc-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
   }
 
-  .process-subtitle.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
+  .svc-img-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f0f4f0;
   }
 
-  .process-step.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .process-step:nth-child(1).visible {
-    transition-delay: 0.1s;
-  }
-
-  .process-step:nth-child(2).visible {
-    transition-delay: 0.2s;
-  }
-
-  .process-step:nth-child(3).visible {
-    transition-delay: 0.3s;
-  }
-
-  .process-step:nth-child(4).visible {
-    transition-delay: 0.4s;
-  }
-
-  .why-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
-  }
-
-  .why-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .why-card:nth-child(1).visible {
-    transition-delay: 0.1s;
-  }
-
-  .why-card:nth-child(2).visible {
-    transition-delay: 0.2s;
-  }
-
-  .why-card:nth-child(3).visible {
-    transition-delay: 0.3s;
-  }
-
-  .why-card:nth-child(4).visible {
-    transition-delay: 0.4s;
-  }
-
-  .cta-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
-  }
-
-  .cta-text.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-  }
-
-  .cta-button.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.3s;
-  }
-
-  /* Hover effects */
-  .service-card {
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-
-  .service-card:hover {
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    transform: translateY(-10px);
-  }
-
-  .service-card img {
+  .svc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
   }
 
-  .service-card:hover img {
-    transform: scale(1.05);
+  .svc-card:hover .svc-img {
+    transform: scale(1.03);
+  }
+
+  .svc-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .svc-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .svc-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #000000;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .svc-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #000000;
+    opacity: 0.6;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+  }
+
+  .svc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+  }
+
+  .svc-list li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #000000;
+    opacity: 0.55;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .svc-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    opacity: 0.4;
+  }
+
+  .svc-cta {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #95BD8D;
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    align-self: flex-start;
+    transition: background 0.2s ease;
+  }
+
+  .svc-cta:hover {
+    background: #C08EA4;
+  }
+
+  .svc-cta.large {
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    margin-top: 1.5rem;
+  }
+
+  /* ─── PROCESS ─── */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
   }
 
   .process-step {
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.3s ease;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
   .process-step:hover {
-    background-color: rgba(139, 186, 139, 0.05);
-    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    transform: translateY(-4px);
   }
 
-  .process-step .bg-forest-green,
-  .process-step .bg-deep-olive,
-  .process-step .bg-cork-brown {
-    transition: transform 0.3s ease;
+  .step-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
   }
 
-  .process-step:hover .bg-forest-green,
-  .process-step:hover .bg-deep-olive,
-  .process-step:hover .bg-cork-brown {
-    transform: scale(1.1) rotate(5deg);
+  .step-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #000000;
+    margin: 0 0 0.4rem 0;
+  }
+
+  .step-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #000000;
+    opacity: 0.55;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ─── WHY US ─── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
   }
 
   .why-card {
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.3s ease;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
+    padding: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    transition: background 0.2s ease, transform 0.2s ease;
   }
 
   .why-card:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-5px);
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-4px);
   }
 
-  /* Button float effect */
-  .btn-float {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  .why-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
   }
 
-  .btn-float:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    background-color: #556B2F;
+  .why-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #ffffff;
+    margin: 0 0 0.4rem 0;
   }
 
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
+  .why-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #ffffff;
+    opacity: 0.8;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ─── CTA ─── */
+  .cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .services-grid .svc-card:nth-child(1) { transition-delay: 0.1s; }
+  .services-grid .svc-card:nth-child(2) { transition-delay: 0.25s; }
+  .services-grid .svc-card:nth-child(3) { transition-delay: 0.4s; }
+
+  .process-grid .process-step:nth-child(1) { transition-delay: 0.1s; }
+  .process-grid .process-step:nth-child(2) { transition-delay: 0.2s; }
+  .process-grid .process-step:nth-child(3) { transition-delay: 0.3s; }
+  .process-grid .process-step:nth-child(4) { transition-delay: 0.4s; }
+
+  .why-grid .why-card:nth-child(1) { transition-delay: 0.1s; }
+  .why-grid .why-card:nth-child(2) { transition-delay: 0.2s; }
+  .why-grid .why-card:nth-child(3) { transition-delay: 0.3s; }
+  .why-grid .why-card:nth-child(4) { transition-delay: 0.4s; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 1024px) {
+    .process-grid,
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-grid,
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .process-grid,
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
 <script>
-  // Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-  // Observe all animated elements
   document.addEventListener('DOMContentLoaded', () => {
-    const elementsToAnimate = document.querySelectorAll(
-      '.intro-text, .service-card, .process-title, .process-subtitle, .process-step, .why-title, .why-card, .cta-title, .cta-text, .cta-button'
-    );
-    
-    elementsToAnimate.forEach(el => observer.observe(el));
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   });
 </script>

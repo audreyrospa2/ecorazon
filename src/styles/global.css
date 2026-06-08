@@ -1,4 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500&display=swap');
+/* ─── LOCAL FONT: 猫尾四季春SC ─── */
+@font-face {
+  font-family: 'MaoWei';
+  src: url('/fonts/font1/猫尾四季春SC-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaoWei';
+  src: url('/fonts/font1/猫尾四季春SC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaoWei';
+  src: url('/fonts/font1/猫尾四季春SC-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaoWei';
+  src: url('/fonts/font1/猫尾四季春SC-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaoWei';
+  src: url('/fonts/font1/猫尾四季春SC-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaoWei';
+  src: url('/fonts/font1/猫尾四季春SC-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaoWei';
+  src: url('/fonts/font1/猫尾四季春SC-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @theme {
@@ -12,9 +68,8 @@
   --color-sky: #8AF3FF;
   --color-mauve: #CE508F;
   --color-sage: #275D2F;
-
-  --font-title: 'DM Sans', serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-title: 'MaoWei', serif;
+  --font-body: 'MaoWei', sans-serif;
 }
 
 body {

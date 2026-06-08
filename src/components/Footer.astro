@@ -9,7 +9,7 @@
         <!-- Company Info -->
         <div class="footer-info">
           <a href="/">
-            <img src="/images/logo.png" alt="Ecorazón" class="footer-logo" />
+            <img src="/images/Logo-long.png" alt="Ecorazón" class="footer-logo" />
           </a>
           <p class="footer-desc">
             Where Nature's Echo Meets the Art with Heart.<br />
@@ -154,15 +154,15 @@
       const data = imageData.data;
       for (let i = 0; i < data.length; i += 4) {
         if (Math.random() > 0.5) {
-          data[i] = 135;
-          data[i + 1] = 192;
-          data[i + 2] = 144;
+          data[i] = 20;
+          data[i + 1] = 80;
+          data[i + 2] = 40;
         } else {
-          data[i] = 255;
-          data[i + 1] = 255;
-          data[i + 2] = 255;
+          data[i] = 80;
+          data[i + 1] = 160;
+          data[i + 2] = 90;
         }
-        data[i + 3] = Math.round(0.25 * 255);
+        data[i + 3] = Math.round(0.3 * 255); // naik dari 0.25 → 0.6
       }
       ctx.putImageData(imageData, 0, 0);
       requestAnimationFrame(drawNoise);
