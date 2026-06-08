@@ -1,86 +1,172 @@
 ---
 ---
-
 <footer class="relative bg-white text-black font-body">
-<canvas id="footer-noise" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
-<div style="position:relative; z-index:1;">
-<div class="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-3 gap-10">
-<!-- Company Info -->
-<div>
-<a href="/">
-<img src="/images/logo.png" alt="Ecorazón" class="h-12 w-auto mb-4" />
-</a>
-<p class="text-black/80 leading-relaxed mb-4">
-      Where Nature's Echo Meets the Art with Heart.<br />
-      Empowering special needs artists through sustainable corporate gifts.
-</p>
-<p class="text-black/80">📩 <a href="mailto:hello@ecorazon.co" class="hover:text-forest-green transition-colors">hello@ecorazon.co</a></p>
-<p class="text-black/80">📞 <a href="tel:85254283222" class="hover:text-forest-green transition-colors">85254283222</a></p>
-<p class="text-black/80">📍 12/F 133, Wai Yip Street, Kwun Tong</p>
-</div>
-<!-- Empty middle spacer -->
-<div></div>
-<!-- Right side: Quick Links + Values -->
-<div class="flex gap-16 justify-end">
-<div>
-<h4 class="text-lg font-medium tracking-wide mb-4">Quick Links</h4>
-<ul class="space-y-2">
-<li><a href="/about" class="text-black/80 hover:text-forest-green transition-colors">About</a></li>
-<li><a href="/event" class="text-black/80 hover:text-forest-green transition-colors">Event</a></li>
-<li><a href="/product" class="text-black/80 hover:text-forest-green transition-colors">Product</a></li>
-<li><a href="/programme" class="text-black/80 hover:text-forest-green transition-colors">Programme</a></li>
-<li><a href="/resources" class="text-black/80 hover:text-forest-green transition-colors">Resources</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-lg font-medium tracking-wide mb-4">Our Values</h4>
-<ul class="space-y-2 text-black/80">
-<li>🌱 Sustainability</li>
-<li>🤝 Inclusivity</li>
-<li>✨ Empowerment</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Bottom Bar -->
-<div class="mt-10 pt-6 border-t border-black/20 text-center text-black/70 text-sm">
-<p>&copy; 2025 ECORAZÓN. All rights reserved.</p>
-</div>
-</div>
-</div>
+  <canvas id="footer-noise" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
+  <div style="position:relative; z-index:1;">
+    <div class="footer-container">
+      <div class="footer-grid">
+
+        <!-- Company Info -->
+        <div class="footer-info">
+          <a href="/">
+            <img src="/images/logo.png" alt="Ecorazón" class="footer-logo" />
+          </a>
+          <p class="footer-desc">
+            Where Nature's Echo Meets the Art with Heart.<br />
+            Empowering special needs artists through sustainable corporate gifts.
+          </p>
+          <p class="footer-contact">📩 <a href="mailto:hello@ecorazon.co">hello@ecorazon.co</a></p>
+          <p class="footer-contact">📞 <a href="tel:85254283222">85254283222</a></p>
+          <p class="footer-contact">📍 12/F 133, Wai Yip Street, Kwun Tong</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-list">
+            <li><a href="/about">About</a></li>
+            <li><a href="/event">Event</a></li>
+            <li><a href="/product">Product</a></li>
+            <li><a href="/programme">Programme</a></li>
+            <li><a href="/resources">Resources</a></li>
+          </ul>
+        </div>
+
+        <!-- Our Values -->
+        <div class="footer-col">
+          <h4 class="footer-heading">Our Values</h4>
+          <ul class="footer-list">
+            <li>🌱 Sustainability</li>
+            <li>🤝 Inclusivity</li>
+            <li>✨ Empowerment</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 ECORAZÓN. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<style>
+  .footer-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 6rem 1rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .footer-logo {
+    height: 3rem;
+    width: auto;
+    margin-bottom: 1rem;
+  }
+
+  .footer-desc {
+    color: rgba(0,0,0,0.8);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .footer-contact {
+    color: rgba(0,0,0,0.8);
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-contact a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-contact a:hover {
+    color: #87c090;
+  }
+
+  .footer-heading {
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: rgba(0,0,0,0.8);
+  }
+
+  .footer-list a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-list a:hover {
+    color: #87c090;
+  }
+
+  .footer-bottom {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
+    font-size: 0.875rem;
+    color: rgba(0,0,0,0.7);
+  }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      padding: 3rem 1.5rem;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
 
 <script>
   function startNoiseAnimation(canvas) {
     const ctx = canvas.getContext('2d');
-
     function resize() {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     }
     resize();
     window.addEventListener('resize', resize);
-
     function drawNoise() {
       const imageData = ctx.createImageData(canvas.width, canvas.height);
       const data = imageData.data;
-    for (let i = 0; i < data.length; i += 4) {
-      if (Math.random() > 0.5) {
-        data[i] = 135;      // R of #87c090
-        data[i + 1] = 192;  // G of #87c090
-        data[i + 2] = 144;  // B of #87c090
+      for (let i = 0; i < data.length; i += 4) {
+        if (Math.random() > 0.5) {
+          data[i] = 135;
+          data[i + 1] = 192;
+          data[i + 2] = 144;
         } else {
-        data[i] = 255;
-        data[i + 1] = 255;
-        data[i + 2] = 255;
+          data[i] = 255;
+          data[i + 1] = 255;
+          data[i + 2] = 255;
+        }
+        data[i + 3] = Math.round(0.25 * 255);
       }
-    data[i + 3] = Math.round(0.25 * 255); // slightly more visible
-  }
-  ctx.putImageData(imageData, 0, 0);
-  requestAnimationFrame(drawNoise);
-}
-
+      ctx.putImageData(imageData, 0, 0);
+      requestAnimationFrame(drawNoise);
+    }
     drawNoise();
   }
 

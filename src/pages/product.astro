@@ -2,31 +2,322 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const categories = [
+  { id: 'all', label: 'All' },
+  { id: 'mice', label: 'Curated MICE' },
+  { id: 'gifts', label: 'Corporate Gifts' },
+  { id: 'wellness', label: 'Wellness Initiatives' },
+  { id: 'esg', label: 'ESG Solutions' },
+];
+
+const products = [
+  { id: 1, category: 'mice', name: 'Exhibition Curation Package', desc: 'End-to-end event curation blending art, culture, and purpose.', img: '/images/1.png' },
+  { id: 2, category: 'mice', name: 'Corporate Retreat Experience', desc: 'Meaningful team experiences designed around sustainability.', img: '/images/2.png' },
+  { id: 3, category: 'mice', name: 'Themed Conference Design', desc: 'Immersive conference environments with a social impact narrative.', img: '/images/3.png' },
+  { id: 4, category: 'gifts', name: 'Artisan Gift Set', desc: 'Handcrafted gifts by special needs artists using eco materials.', img: '/images/4.png' },
+  { id: 5, category: 'gifts', name: 'Custom Branded Merchandise', desc: 'Bespoke products that carry your brand story sustainably.', img: '/images/5.png' },
+  { id: 6, category: 'gifts', name: 'Seasonal Gift Collection', desc: 'Curated seasonal sets crafted from recycled and natural materials.', img: '/images/6.png' },
+  { id: 7, category: 'wellness', name: 'Mindfulness Workshop Kit', desc: 'Wellness kits designed to nurture creativity and connection.', img: '/images/7.png' },
+  { id: 8, category: 'wellness', name: 'Team Wellbeing Programme', desc: 'Structured programmes that foster belonging and mental wellness.', img: '/images/12.png' },
+  { id: 9, category: 'esg', name: 'Sustainability Audit Pack', desc: 'Tools and guidance to align your brand with ESG commitments.', img: '/images/8.png' },
+  { id: 10, category: 'esg', name: 'Green Impact Campaign', desc: 'Campaign design that communicates your environmental values.', img: '/images/9.png' },
+  { id: 11, category: 'esg', name: 'Inclusive Community Kit', desc: 'Resources for building empowering, inclusive workplace cultures.', img: '/images/13.png' },
+  { id: 12, category: 'mice', name: 'Pop-Up Gallery Experience', desc: 'Traveling art exhibitions that tell your brand\'s sustainability story.', img: '/images/11.png' },
+];
 ---
 
 <Layout title="Product - Ecorazón">
   <Header />
 
-  <main>
-    <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6">
-          Product
-        </h1>
-        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
-          Content coming soon.
-        </p>
+  <main class="product-page">
+
+    <!-- Page Hero -->
+    <section class="product-hero">
+      <div class="product-hero-content">
+        <h1 class="product-hero-title">Our Products</h1>
+        <p class="product-hero-sub">Thoughtfully crafted for brands that care — about people, planet, and purpose.</p>
       </div>
     </section>
 
-    <section class="py-16 bg-white">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <p class="text-lg text-gray-700 leading-relaxed">
-          Explore our sustainable corporate gifts and bespoke creations designed with heart.
-        </p>
+    <!-- Product Catalog -->
+    <section class="catalog-section">
+      <div class="catalog-inner">
+
+        <!-- Sidebar Filters -->
+        <aside class="catalog-sidebar">
+          <p class="sidebar-label">Categories</p>
+          <ul class="filter-list">
+            {categories.map(cat => (
+              <li>
+                <button
+                  class="filter-btn"
+                  data-category={cat.id}
+                  data-active={cat.id === 'all' ? 'true' : 'false'}
+                >
+                  {cat.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </aside>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="productGrid">
+          {products.map(product => (
+            <div class="product-card" data-category={product.category}>
+              <div class="product-img-wrap">
+                <img src={product.img} alt={product.name} class="product-img" />
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">{product.name}</h3>
+                <p class="product-desc">{product.desc}</p>
+                <a href="/get-in-touch" class="product-cta">Enquire</a>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
+
   </main>
 
   <Footer />
 </Layout>
+
+<style is:global>
+  .product-page {
+    padding-top: 72px;
+  }
+
+  /* ─── HERO ─── */
+  .product-hero {
+    background: url('/images/gradient-bg-1.png') center center / cover no-repeat;
+    padding: 6rem clamp(2rem, 8vw, 7rem);
+    min-height: 260px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .product-hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: #000000;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.1;
+  }
+
+  .product-hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: #000000;
+    opacity: 0.7;
+    margin: 0;
+    max-width: 500px;
+  }
+
+  /* ─── CATALOG ─── */
+  .catalog-section {
+    padding: 4rem clamp(2rem, 6vw, 6rem);
+  }
+
+  .catalog-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .catalog-sidebar {
+    position: sticky;
+    top: 100px;
+  }
+
+  .sidebar-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #000000;
+    opacity: 0.4;
+    margin: 0 0 1rem 0;
+  }
+
+  .filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    width: 100%;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #000000;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 0;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background: rgba(149, 189, 141, 0.1);
+    border-color: #95BD8D;
+  }
+
+  .filter-btn[data-active="true"] {
+    background: #95BD8D;
+    color: #ffffff;
+    border-color: #95BD8D;
+    font-weight: 600;
+  }
+
+  /* ─── PRODUCT GRID ─── */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+  }
+
+  .product-card.hidden {
+    display: none;
+  }
+
+  .product-img-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f0f4f0;
+  }
+
+  .product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-img {
+    transform: scale(1.03);
+  }
+
+  .product-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .product-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #000000;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .product-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #000000;
+    opacity: 0.6;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .product-cta {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #95BD8D;
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0;
+    align-self: flex-start;
+    transition: background 0.2s ease;
+  }
+
+  .product-cta:hover {
+    background: #C08EA4;
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .catalog-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .catalog-sidebar {
+      position: static;
+    }
+
+    .filter-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      width: auto;
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const productCards = document.querySelectorAll('.product-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active state
+      filterBtns.forEach(b => b.setAttribute('data-active', 'false'));
+      btn.setAttribute('data-active', 'true');
+
+      const selected = btn.getAttribute('data-category');
+
+      productCards.forEach(card => {
+        if (selected === 'all' || card.getAttribute('data-category') === selected) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
