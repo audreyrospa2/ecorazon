@@ -9,11 +9,11 @@ export default {
         'warm-beige': '#F9F6F1',
         'cork-brown': '#A67C52',
         'neutral-white': '#FFFFFF',
-        'leaf-green': '#7A9E62'
+        'leaf-green': '#7A9E62',
       },
       fontFamily: {
-      title: ['DM Sans', 'serif'],
-      body: ['DM Sans', 'sans-serif'],
+        title: ['MaoWei', 'serif'],
+        body: ['MaoWei', 'sans-serif'],
       },
     },
   },

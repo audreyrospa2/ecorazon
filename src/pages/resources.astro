@@ -13,13 +13,9 @@ const sortedPosts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntr
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 
-// Featured posts (first 2)
 const featuredPosts = sortedPosts.slice(0, 2);
-
-// Latest posts (next 6)
 const latestPosts = sortedPosts.slice(2, 8);
 
-// Format date helper
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', { 
     year: 'numeric', 
@@ -27,83 +23,62 @@ function formatDate(date: Date) {
   }).format(new Date(date));
 }
 
-// Category color helper
-function getCategoryColor(category: string) {
-  const colors: Record<string, string> = {
-    'Artist Stories': 'bg-cork-brown',
-    'Materials': 'bg-forest-green',
-    'Impact': 'bg-deep-olive',
-    'Partnerships': 'bg-deep-olive',
-    'Tips': 'bg-forest-green',
-    'Innovation': 'bg-cork-brown',
-    'Community': 'bg-deep-olive',
+function getCategoryTag(category: string) {
+  const tags: Record<string, string> = {
+    'Artist Stories': 'green',
+    'Materials': 'olive',
+    'Impact': 'olive',
+    'Partnerships': 'olive',
+    'Tips': 'green',
+    'Innovation': 'brown',
+    'Community': 'olive',
   };
-  return colors[category] || 'bg-forest-green';
+  return tags[category] || 'green';
 }
 ---
 
 <Layout title="Resources - Ecorazón">
   <Header />
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-warm-beige to-gray-100 py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-forest-green mb-6 animate-fade-in">
-          Resources
-        </h1>
-        <p class="text-xl text-gray-700 max-w-3xl mx-auto animate-fade-in-delay">
-          Stay updated with the latest stories, insights, and discoveries from our journey of empowerment and sustainability
+
+  <main class="resources-page">
+
+    <!-- Hero -->
+    <section class="res-hero">
+      <div class="res-hero-content">
+        <h1 class="res-hero-title animate-fade-in">Resources</h1>
+        <p class="res-hero-sub animate-fade-in-delay">Stay updated with the latest stories, insights, and discoveries from our journey of empowerment and sustainability.</p>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="res-section bg-white">
+      <div class="res-inner">
+        <h2 class="section-title scroll-reveal">Learn, Discover, Get Inspired</h2>
+        <p class="intro-text scroll-reveal">
+          Stay updated with the latest news, blogs, and stories from Ecorazón. Learn more about our journey, materials, and how we're making a difference in the world of sustainable corporate gifting and artist empowerment.
         </p>
       </div>
     </section>
 
-    <!-- Introduction Section -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 intro-title">
-            Learn, Discover, Get Inspired
-          </h2>
-          <p class="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed intro-text">
-            Stay updated with the latest news, blogs, and stories from Ecorazón. Learn more about our journey, materials, and how we're making a difference in the world of sustainable corporate gifting and artist empowerment.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Content Section -->
+    <!-- Featured Articles -->
     {featuredPosts.length > 0 && (
-      <section class="py-16 bg-warm-beige">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="mb-12">
-            <h2 class="text-3xl font-bold text-forest-green mb-8 featured-title">Featured Articles</h2>
-          </div>
-          
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      <section class="res-section bg-warm">
+        <div class="res-inner">
+          <h2 class="section-title scroll-reveal">Featured Articles</h2>
+          <div class="featured-grid">
             {featuredPosts.map((post: CollectionEntry<'blog'>) => (
-              <div class="bg-white rounded-lg shadow-sm overflow-hidden featured-card">
-                <img 
-                  src={post.data.image} 
-                  alt={post.data.imageAlt} 
-                  class="w-full h-48 object-cover"
-                />
-                <div class="p-8">
-                  <div class="flex items-center mb-4">
-                    <span class={`${getCategoryColor(post.data.category)} text-white px-3 py-1 rounded-full text-sm font-medium mr-3`}>
-                      {post.data.category}
-                    </span>
-                    <span class="text-gray-500 text-sm">{formatDate(post.data.date)}</span>
+              <div class="project-card scroll-reveal">
+                <div class="project-img-wrap">
+                  <img src={post.data.image} alt={post.data.imageAlt} class="project-img" />
+                </div>
+                <div class="project-info">
+                  <div class="project-meta">
+                    <span class={`project-tag ${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
+                    <span class="project-year">{formatDate(post.data.date)}</span>
                   </div>
-                  <h3 class="text-2xl font-bold text-forest-green mb-4">
-                    {post.data.title}
-                  </h3>
-                  <p class="text-gray-700 leading-relaxed mb-6">
-                    {post.data.excerpt}
-                  </p>
-                  <a href={`/blog/${post.slug}`} class="text-forest-green font-semibold hover:text-deep-olive transition-colors link-hover">
-                    Read More →
-                  </a>
+                  <h3 class="project-name">{post.data.title}</h3>
+                  <p class="project-desc">{post.data.excerpt}</p>
+                  <a href={`/blog/${post.id}`} class="read-link">Read More →</a>
                 </div>
               </div>
             ))}
@@ -112,38 +87,23 @@ function getCategoryColor(category: string) {
       </section>
     )}
 
-    <!-- Blog Grid Section -->
+    <!-- Latest Stories -->
     {latestPosts.length > 0 && (
-      <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="mb-12">
-            <h2 class="text-3xl font-bold text-forest-green mb-8 latest-title">Latest Stories</h2>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section class="res-section bg-white">
+        <div class="res-inner">
+          <h2 class="section-title scroll-reveal">Latest Stories</h2>
+          <div class="portfolio-grid">
             {latestPosts.map((post: CollectionEntry<'blog'>) => (
-              <div class="bg-warm-beige rounded-lg overflow-hidden blog-card">
-                <img 
-                  src={post.data.image} 
-                  alt={post.data.imageAlt} 
-                  class="w-full h-40 object-cover"
-                />
-                <div class="p-6">
-                  <div class="flex items-center mb-3">
-                    <span class={`${getCategoryColor(post.data.category)} text-white px-2 py-1 rounded text-xs font-medium mr-2`}>
-                      {post.data.category}
-                    </span>
-                    <span class="text-gray-500 text-xs">{formatDate(post.data.date)}</span>
-                  </div>
-                  <h4 class="text-lg font-semibold text-forest-green mb-3">
-                    {post.data.title}
-                  </h4>
-                  <p class="text-gray-700 text-sm mb-4">
-                    {post.data.excerpt}
-                  </p>
-                  <a href={`/blog/${post.slug}`} class="text-forest-green font-medium text-sm hover:text-deep-olive transition-colors link-hover">
-                    Read Story →
-                  </a>
+              <div class="portfolio-card scroll-reveal">
+                <div class="portfolio-img-wrap">
+                  <img src={post.data.image} alt={post.data.imageAlt} class="portfolio-img" />
+                </div>
+                <div class="portfolio-info">
+                  <span class={`project-tag ${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
+                  <h4 class="portfolio-name">{post.data.title}</h4>
+                  <p class="portfolio-date">{formatDate(post.data.date)}</p>
+                  <p class="portfolio-desc">{post.data.excerpt}</p>
+                  <a href={`/blog/${post.id}`} class="read-link">Read Story →</a>
                 </div>
               </div>
             ))}
@@ -152,378 +112,555 @@ function getCategoryColor(category: string) {
       </section>
     )}
 
-    <!-- Newsletter Section -->
-    <section class="py-16 bg-forest-green text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6 newsletter-title">
-            Stay Updated
-          </h2>
-          <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto newsletter-text">
-            Subscribe to our newsletter to receive the latest stories, sustainability tips, and updates from the Ecorazón community.
-          </p>
-          
-          <div class="max-w-md mx-auto newsletter-form">
-            <form class="flex gap-4">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                class="flex-1 px-4 py-3 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
-                required
-              />
-              <button 
-                type="submit"
-                class="bg-white text-forest-green px-6 py-3 rounded-md font-semibold transition-all duration-300 btn-float-white"
-              >
-                Subscribe
-              </button>
-            </form>
-            <p class="text-gray-300 text-sm mt-4">
-              We respect your privacy. Unsubscribe at any time.
-            </p>
-          </div>
+    <!-- Newsletter -->
+    <section class="res-section bg-dark">
+      <div class="res-inner">
+        <div class="section-header scroll-reveal">
+          <h2 class="section-title white">Stay Updated</h2>
+          <p class="section-sub white-sub">Subscribe to our newsletter to receive the latest stories, sustainability tips, and updates from the Ecorazón community.</p>
+        </div>
+        <div class="newsletter-wrap scroll-reveal">
+          <form class="newsletter-form">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="newsletter-input"
+              required
+            />
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+          </form>
+          <p class="newsletter-note">We respect your privacy. Unsubscribe at any time.</p>
         </div>
       </div>
     </section>
 
-    <!-- Resource Categories Section -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 category-title">
-            Explore by Category
-          </h2>
-          <p class="text-lg text-gray-700 max-w-3xl mx-auto category-text">
-            Find the content that interests you most
-          </p>
+    <!-- Explore by Category -->
+    <section class="res-section bg-white">
+      <div class="res-inner">
+        <div class="section-header scroll-reveal">
+          <h2 class="section-title">Explore by Category</h2>
+          <p class="section-sub">Find the content that interests you most</p>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <a href="#" class="bg-warm-beige p-6 rounded-lg text-center transition-all duration-300 category-card">
-            <div class="text-3xl mb-3">🌱</div>
-            <h3 class="text-lg font-semibold text-forest-green mb-2">Sustainability</h3>
-            <p class="text-gray-600 text-sm">Environmental practices and eco-friendly materials</p>
+        <div class="metrics-grid">
+          <a href="#" class="category-card scroll-reveal">
+            <div class="category-icon">🌱</div>
+            <h3 class="category-name">Sustainability</h3>
+            <p class="category-desc">Environmental practices and eco-friendly materials</p>
           </a>
-          
-          <a href="#" class="bg-warm-beige p-6 rounded-lg text-center transition-all duration-300 category-card">
-            <div class="text-3xl mb-3">🎨</div>
-            <h3 class="text-lg font-semibold text-forest-green mb-2">Artist Stories</h3>
-            <p class="text-gray-600 text-sm">Meet the talented creators behind our work</p>
+          <a href="#" class="category-card scroll-reveal">
+            <div class="category-icon">🎨</div>
+            <h3 class="category-name">Artist Stories</h3>
+            <p class="category-desc">Meet the talented creators behind our work</p>
           </a>
-          
-          <a href="#" class="bg-warm-beige p-6 rounded-lg text-center transition-all duration-300 category-card">
-            <div class="text-3xl mb-3">💼</div>
-            <h3 class="text-lg font-semibold text-forest-green mb-2">Corporate Impact</h3>
-            <p class="text-gray-600 text-sm">ESG strategies and business partnerships</p>
+          <a href="#" class="category-card scroll-reveal">
+            <div class="category-icon">💼</div>
+            <h3 class="category-name">Corporate Impact</h3>
+            <p class="category-desc">ESG strategies and business partnerships</p>
           </a>
-          
-          <a href="#" class="bg-warm-beige p-6 rounded-lg text-center transition-all duration-300 category-card">
-            <div class="text-3xl mb-3">💡</div>
-            <h3 class="text-lg font-semibold text-forest-green mb-2">Innovation</h3>
-            <p class="text-gray-600 text-sm">New materials and creative techniques</p>
+          <a href="#" class="category-card scroll-reveal">
+            <div class="category-icon">💡</div>
+            <h3 class="category-name">Innovation</h3>
+            <p class="category-desc">New materials and creative techniques</p>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Call-to-Action Section -->
-    <section class="py-16 bg-warm-beige">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-forest-green mb-6 cta-title">
-          Have a Story to Share?
-        </h2>
-        <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto cta-text">
-          We'd love to hear from you. Whether you have a collaboration idea, a sustainability tip, or want to share your experience with Ecorazón.
-        </p>
-        <div class="cta-button">
-          <a href="/get-in-touch" class="inline-block bg-forest-green text-white px-8 py-3 rounded-md text-lg font-semibold transition-all duration-300 btn-float">
-            Get in Touch
-          </a>
+    <!-- CTA -->
+    <section class="res-section bg-warm">
+      <div class="res-inner cta-inner">
+        <h2 class="section-title scroll-reveal">Have a Story to Share?</h2>
+        <p class="section-sub scroll-reveal">We'd love to hear from you. Whether you have a collaboration idea, a sustainability tip, or want to share your experience with Ecorazón.</p>
+        <div class="cta-buttons scroll-reveal">
+          <a href="/get-in-touch" class="res-cta primary">Get in Touch</a>
+          <a href="/event" class="res-cta ghost">Learn More About Our Services →</a>
         </div>
       </div>
     </section>
+
   </main>
-  
+
   <Footer />
 </Layout>
 
-<style>
-  /* Hero animations - load immediately */
+<style is:global>
+  .resources-page {
+    padding-top: 72px;
+  }
+
+  /* ─── HERO ─── */
+  .res-hero {
+    background: url('/images/orange.png') center center / cover no-repeat;
+    padding: 6rem clamp(2rem, 8vw, 7rem);
+    min-height: 260px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .res-hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: #000000;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.1;
+  }
+
+  .res-hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: #000000;
+    opacity: 0.7;
+    margin: 0;
+    max-width: 560px;
+  }
+
+  /* ─── HERO ANIMATION ─── */
   @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .animate-fade-in {
-    animation: fadeInDown 0.8s ease-out 0.2s both;
+  .animate-fade-in       { animation: fadeInDown 0.8s ease-out 0.2s both; }
+  .animate-fade-in-delay { animation: fadeInDown 0.8s ease-out 0.4s both; }
+
+  /* ─── SECTIONS ─── */
+  .res-section {
+    padding: 5rem clamp(2rem, 6vw, 6rem);
   }
 
-  .animate-fade-in-delay {
-    animation: fadeInDown 0.8s ease-out 0.4s both;
+  .bg-white { background: #ffffff; }
+  .bg-warm  { background: #f7f5f0; }
+  .bg-dark  { background: #95BD8D; }
+
+  .res-inner {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  /* Scroll-triggered animations */
-  .intro-title,
-  .intro-text,
-  .featured-title,
-  .featured-card,
-  .latest-title,
-  .blog-card,
-  .newsletter-title,
-  .newsletter-text,
-  .newsletter-form,
-  .category-title,
-  .category-text,
-  .category-card,
-  .cta-title,
-  .cta-text,
-  .cta-button {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  /* ─── TYPOGRAPHY ─── */
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    color: #000000;
+    margin: 0 0 1rem 0;
+    line-height: 1.15;
   }
 
-  .intro-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
+  .section-title.white { color: #ffffff; }
+
+  .section-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: #000000;
+    opacity: 0.6;
+    margin: 0 0 3rem 0;
+    max-width: 560px;
+    line-height: 1.7;
   }
 
-  .intro-text.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
+  .section-sub.white-sub {
+    color: #ffffff;
+    opacity: 0.85;
   }
 
-  .featured-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
+  .intro-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    color: #000000;
+    opacity: 0.65;
+    line-height: 1.9;
+    max-width: 760px;
+    margin: 0;
   }
 
-  .featured-card.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .section-header {
+    margin-bottom: 3rem;
   }
 
-  .featured-card:nth-child(1).visible {
-    transition-delay: 0.1s;
+  /* ─── FEATURED GRID (2-col) ─── */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 
-  .featured-card:nth-child(2).visible {
-    transition-delay: 0.3s;
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #ffffff;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
-  .latest-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
+  .project-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
   }
 
-  .blog-card.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .project-img-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #f0f4f0;
   }
 
-  .blog-card:nth-child(1).visible {
-    transition-delay: 0.1s;
-  }
-
-  .blog-card:nth-child(2).visible {
-    transition-delay: 0.2s;
-  }
-
-  .blog-card:nth-child(3).visible {
-    transition-delay: 0.3s;
-  }
-
-  .blog-card:nth-child(4).visible {
-    transition-delay: 0.4s;
-  }
-
-  .blog-card:nth-child(5).visible {
-    transition-delay: 0.5s;
-  }
-
-  .blog-card:nth-child(6).visible {
-    transition-delay: 0.6s;
-  }
-
-  .newsletter-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
-  }
-
-  .newsletter-text.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-  }
-
-  .newsletter-form.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.3s;
-  }
-
-  .category-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
-  }
-
-  .category-text.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-  }
-
-  .category-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .category-card:nth-child(1).visible {
-    transition-delay: 0.1s;
-  }
-
-  .category-card:nth-child(2).visible {
-    transition-delay: 0.2s;
-  }
-
-  .category-card:nth-child(3).visible {
-    transition-delay: 0.3s;
-  }
-
-  .category-card:nth-child(4).visible {
-    transition-delay: 0.4s;
-  }
-
-  .cta-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
-  }
-
-  .cta-text.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-  }
-
-  .cta-button.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.3s;
-  }
-
-  /* Hover effects */
-  .featured-card {
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-
-  .featured-card:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    transform: translateY(-10px);
-  }
-
-  .featured-card img {
+  .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
   }
 
-  .featured-card:hover img {
-    transform: scale(1.08);
+  .project-card:hover .project-img {
+    transform: scale(1.03);
   }
 
-  .blog-card {
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
-    cursor: pointer;
+  .project-info {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
-  .blog-card:hover {
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    transform: translateY(-10px);
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
-  .blog-card img {
+  .project-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    padding: 0.2rem 0.65rem;
+  }
+
+  .project-tag.green  { background: #95BD8D; }
+  .project-tag.olive  { background: #6b8f76; }
+  .project-tag.brown  { background: #a07850; }
+
+  .project-year {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #000000;
+    opacity: 0.4;
+  }
+
+  .project-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #000000;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .project-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #000000;
+    opacity: 0.6;
+    line-height: 1.7;
+    margin: 0 0 1.25rem 0;
+    flex: 1;
+  }
+
+  .read-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #95BD8D;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .read-link:hover {
+    transform: translateX(4px);
+    color: #6b8f76;
+  }
+
+  /* ─── PORTFOLIO GRID (3-col) ─── */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .portfolio-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #ffffff;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .portfolio-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+  }
+
+  .portfolio-img-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f0f4f0;
+  }
+
+  .portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
   }
 
-  .blog-card:hover img {
-    transform: scale(1.08);
+  .portfolio-card:hover .portfolio-img {
+    transform: scale(1.03);
+  }
+
+  .portfolio-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .portfolio-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #000000;
+    margin: 0.25rem 0 0 0;
+  }
+
+  .portfolio-date {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: #000000;
+    opacity: 0.4;
+    margin: 0;
+  }
+
+  .portfolio-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #000000;
+    opacity: 0.6;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ─── NEWSLETTER ─── */
+  .newsletter-wrap {
+    max-width: 480px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+    border: none;
+    outline: none;
+    color: #000000;
+    background: #ffffff;
+  }
+
+  .newsletter-input:focus {
+    outline: 2px solid rgba(255,255,255,0.6);
+    outline-offset: 2px;
+  }
+
+  .newsletter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #95BD8D;
+    background: #ffffff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .newsletter-btn:hover {
+    background: #f0f4f0;
+  }
+
+  .newsletter-note {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: #ffffff;
+    opacity: 0.7;
+    margin: 0.75rem 0 0 0;
+  }
+
+  /* ─── CATEGORY CARDS (reuse metrics-grid layout) ─── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .category-card {
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #f7f5f0;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
   .category-card:hover {
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    transform: translateY(-4px);
   }
 
-  /* Link hover effects */
-  .link-hover {
-    display: inline-block;
-    transition: transform 0.3s ease;
+  .category-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    line-height: 1;
   }
 
-  .link-hover:hover {
-    transform: translateX(5px);
+  .category-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #000000;
+    margin: 0 0 0.4rem 0;
   }
 
-  /* Button float effects */
-  .btn-float {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  .category-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #000000;
+    opacity: 0.5;
+    line-height: 1.5;
+    margin: 0;
   }
 
-  .btn-float:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    background-color: #556B2F;
+  /* ─── CTA ─── */
+  .cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .btn-float-white {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  .cta-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
   }
 
-  .btn-float-white:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    background-color: #f3f4f6;
+  .res-cta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.65rem 1.5rem;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
+  .res-cta.primary {
+    background: #95BD8D;
+    color: #ffffff;
+  }
+
+  .res-cta.primary:hover {
+    background: #C08EA4;
+  }
+
+  .res-cta.ghost {
+    background: transparent;
+    color: #000000;
+    opacity: 0.6;
+    padding: 0.65rem 0;
+  }
+
+  .res-cta.ghost:hover {
+    opacity: 1;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .featured-grid .project-card:nth-child(1) { transition-delay: 0.1s; }
+  .featured-grid .project-card:nth-child(2) { transition-delay: 0.25s; }
+
+  .portfolio-grid .portfolio-card:nth-child(1) { transition-delay: 0.1s; }
+  .portfolio-grid .portfolio-card:nth-child(2) { transition-delay: 0.2s; }
+  .portfolio-grid .portfolio-card:nth-child(3) { transition-delay: 0.3s; }
+  .portfolio-grid .portfolio-card:nth-child(4) { transition-delay: 0.4s; }
+  .portfolio-grid .portfolio-card:nth-child(5) { transition-delay: 0.5s; }
+  .portfolio-grid .portfolio-card:nth-child(6) { transition-delay: 0.6s; }
+
+  .metrics-grid .category-card:nth-child(1) { transition-delay: 0.1s; }
+  .metrics-grid .category-card:nth-child(2) { transition-delay: 0.2s; }
+  .metrics-grid .category-card:nth-child(3) { transition-delay: 0.3s; }
+  .metrics-grid .category-card:nth-child(4) { transition-delay: 0.4s; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 1024px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .portfolio-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .portfolio-grid,
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
 <script>
-  // Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-  // Observe all animated elements
   document.addEventListener('DOMContentLoaded', () => {
-    const elementsToAnimate = document.querySelectorAll(
-      '.intro-title, .intro-text, .featured-title, .featured-card, .latest-title, .blog-card, .newsletter-title, .newsletter-text, .newsletter-form, .category-title, .category-text, .category-card, .cta-title, .cta-text, .cta-button'
-    );
-    
-    elementsToAnimate.forEach(el => observer.observe(el));
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   });
 </script>
