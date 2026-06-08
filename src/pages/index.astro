@@ -18,8 +18,33 @@ import Footer from '../components/Footer.astro';
           <span>SUSTAINABLE FUTURE</span>
         </h1>
         <p class="hero-subtitle-zh" lang="zh-Hant">以故事連結人心 · 以永續策展未來</p>
+        <div class="hero-stats">
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="stat-number-wrap">
+              <span class="stat-number" data-target="1500">0</span>
+              <span class="stat-plus">+</span>
+            </div>
+            <p class="stat-label">Audience Engaged</p>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-number-wrap">
+              <span class="stat-number" data-target="100">0</span>
+              <span class="stat-plus">+</span>
+            </div>
+            <p class="stat-label">Brands Collaborated</p>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-number-wrap">
+              <span class="stat-number" data-target="300">0</span>
+              <span class="stat-plus">+</span>
+            </div>
+            <p class="stat-label">Merchandise Ideas</p>
+          </div>
+        </div>
       </div>
-      <img src="/images/hero-element.png" alt="" class="hero-element" loading="eager" />
+      </div>
+      <img src="/images/hero-element.svg" alt="" class="hero-element" loading="eager" />
     </section>
 
     <!-- About Section -->
@@ -128,7 +153,7 @@ import Footer from '../components/Footer.astro';
   background: url('/images/gradient-bg-1.png') center center / cover no-repeat !important;
   display: flex !important;
   align-items: flex-start !important;
-  padding: 15% 0 0 clamp(2rem, 6vw, 6rem) !important;
+  padding: 10% 0 0 clamp(2rem, 6vw, 6rem) !important;
   }
 
   .hero-grid {
@@ -176,10 +201,52 @@ import Footer from '../components/Footer.astro';
     margin: 0 !important;
   }
 
+  .hero-stats {
+  display: flex !important;
+  gap: 2.5rem !important;
+  margin-top: 2rem !important;
+}
+
+.hero-stat {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.stat-number {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem) !important;
+  color: #275D2F !important;
+  line-height: 1 !important;
+}
+
+.stat-plus {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem) !important;
+  color: #95BD8D !important;
+  line-height: 1 !important;
+  display: inline !important;
+}
+
+.stat-label {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: clamp(0.7rem, 1vw, 0.85rem) !important;
+  font-weight: 400 !important;
+  color: #000000 !important;
+  margin-top: 0.25rem !important;
+  opacity: 0.7 !important;
+}
+.stat-number-wrap {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 1px !important;
+}
+
   .hero-element {
     position: absolute !important;
     right: -35% !important;
-    top: -10% !important;
+    top: -7% !important;
     width: 110% !important;
     max-width: none !important;
     height: 110% !important;
@@ -192,7 +259,7 @@ import Footer from '../components/Footer.astro';
   /* ─── CTA ─── */
   .cta-section {
   padding: 15rem 0;
-  background: linear-gradient(-45deg, #95BD8D, #C08EA4, #97C4D0, #D6B17E);
+  background: linear-gradient(-45deg, #7ACC86, #CE508F, #8AF3FF, #EB9C2E);
   background-size: 400% 400%;
   animation: gradientShift 8s ease infinite;
   color: #ffffff;
@@ -286,4 +353,37 @@ import Footer from '../components/Footer.astro';
     document.querySelectorAll('.about-title, .about-text, .materials-title, .material-card')
       .forEach(el => observer.observe(el));
   });
+
+  // Stats counter animation
+function animateCounter(el) {
+  const target = parseInt(el.getAttribute('data-target'));
+  const duration = 2000;
+  const step = target / (duration / 16);
+  let current = 0;
+
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      el.textContent = target.toLocaleString();
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current).toLocaleString();
+    }
+  }, 16);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const statNumbers = document.querySelectorAll('.stat-number');
+  
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        statObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  statNumbers.forEach(el => statObserver.observe(el));
+});
 </script>
