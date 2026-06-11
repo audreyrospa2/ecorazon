@@ -199,7 +199,7 @@ import Footer from '../components/Footer.astro';
   .hero-tagline {
     display: flex;
     flex-direction: column;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
     font-size: clamp(1.8rem, 3.5vw, 3.8rem);
     line-height: 1.1;
@@ -215,7 +215,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .hero-subtitle-zh {
-    font-family: 'PingFang TC', 'Noto Serif TC', 'Microsoft JhengHei', serif;
+    font-family: 'MaoWei', serif;
     font-size: clamp(0.85rem, 1.2vw, 1.1rem);
     font-weight: 400;
     color: #000000;
@@ -241,7 +241,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .stat-number {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
     font-size: clamp(1.4rem, 2.5vw, 2.2rem);
     color: #275D2F;
@@ -249,7 +249,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .stat-plus {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
     font-size: clamp(1.4rem, 2.5vw, 2.2rem);
     color: #95BD8D;
@@ -258,7 +258,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .stat-label {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-size: clamp(0.7rem, 1vw, 0.85rem);
     font-weight: 400;
     color: #000000;
@@ -312,10 +312,17 @@ import Footer from '../components/Footer.astro';
     transition-delay: 0.5s;
   }
 
+  @keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-18px); }
+  100% { transform: translateY(0px); }
+  } 
+
   .hero-element.hero-visible {
     opacity: 1;
     transform: translateX(0);
     transition-delay: 0.2s;
+    animation: float 4s ease-in-out infinite;
   }
 
   /* ─── LOGO BAR ─── */
@@ -452,7 +459,8 @@ import Footer from '../components/Footer.astro';
     }
 
     .hero-element.hero-visible {
-      transform: translateX(0);
+    transform: translateX(0);
+    animation: float 4s ease-in-out infinite;
     }
 
     .hero-grid { opacity: 0.3; }
