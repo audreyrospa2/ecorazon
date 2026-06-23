@@ -11,14 +11,22 @@
 
       <!-- Desktop Navigation -->
       <div class="desktop-nav">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/about" class="nav-link">About</a>
-        <a href="/event" class="nav-link">Event</a>
-        <a href="/product" class="nav-link">Product</a>
-        <a href="/programme" class="nav-link">Programme</a>
-        <a href="/resources" class="nav-link">Resources</a>
-        <a href="/get-in-touch" class="nav-cta">Get in Touch</a>
+        <a href="/" class="nav-link i18n-text" data-zh="首頁">Home</a>
+        <a href="/about" class="nav-link i18n-text" data-zh="關於我們">About</a>
+        <a href="/event" class="nav-link i18n-text" data-zh="活動">Event</a>
+        <a href="/product" class="nav-link i18n-text" data-zh="產品">Product</a>
+        <a href="/programme" class="nav-link i18n-text" data-zh="企劃">Programme</a>
+        <a href="/resources" class="nav-link i18n-text" data-zh="資源">Resources</a>
+        <a href="/get-in-touch" class="nav-cta i18n-text" data-zh="聯絡我們">Get in Touch</a>
       </div>
+
+      <!-- Desktop language toggle -->
+      <button class="lang-toggle lang-toggle-desktop" aria-label="Switch language / 切換語言">
+        <span class="lang-toggle-en">EN</span>
+        <span class="lang-toggle-sep">/</span>
+        <span class="lang-toggle-zh">中文</span>
+      </button>
+
       <!-- Mobile menu button -->
       <button id="mobile-menu-button" class="mobile-menu-btn" aria-label="Toggle menu">
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,13 +39,20 @@
 
     <!-- Mobile Navigation -->
     <div id="mobile-menu" class="mobile-nav hidden">
-      <a href="/" class="mobile-nav-link">Home</a>
-      <a href="/about" class="mobile-nav-link">About</a>
-      <a href="/event" class="mobile-nav-link">Event</a>
-      <a href="/product" class="mobile-nav-link">Product</a>
-      <a href="/programme" class="mobile-nav-link">Programme</a>
-      <a href="/resources" class="mobile-nav-link">Resources</a>
-      <a href="/get-in-touch" class="mobile-nav-cta">Get in Touch</a>
+      <a href="/" class="mobile-nav-link i18n-text" data-zh="首頁">Home</a>
+      <a href="/about" class="mobile-nav-link i18n-text" data-zh="關於我們">About</a>
+      <a href="/event" class="mobile-nav-link i18n-text" data-zh="活動">Event</a>
+      <a href="/product" class="mobile-nav-link i18n-text" data-zh="產品">Product</a>
+      <a href="/programme" class="mobile-nav-link i18n-text" data-zh="企劃">Programme</a>
+      <a href="/resources" class="mobile-nav-link i18n-text" data-zh="資源">Resources</a>
+
+      <button class="lang-toggle lang-toggle-mobile" aria-label="Switch language / 切換語言">
+        <span class="lang-toggle-en">EN</span>
+        <span class="lang-toggle-sep">/</span>
+        <span class="lang-toggle-zh">中文</span>
+      </button>
+
+      <a href="/get-in-touch" class="mobile-nav-cta i18n-text" data-zh="聯絡我們">Get in Touch</a>
     </div>
   </nav>
 </header>
@@ -120,6 +135,59 @@
     color: #ffffff;
   }
 
+  /* ─── LANGUAGE TOGGLE ─── */
+  .lang-toggle {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    cursor: pointer;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    line-height: 1;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .lang-toggle:hover {
+    border-color: #87c090;
+    background: rgba(149, 189, 141, 0.12);
+  }
+
+  .lang-toggle-sep {
+    opacity: 0.4;
+  }
+
+  .lang-toggle-en,
+  .lang-toggle-zh {
+    opacity: 0.45;
+    transition: opacity 0.2s ease, font-weight 0.2s ease;
+  }
+
+  /* highlight whichever language is currently active */
+  html[data-lang="en"] .lang-toggle-en,
+  html[data-lang="zh"] .lang-toggle-zh {
+    opacity: 1;
+    font-weight: 700;
+  }
+
+  .lang-toggle-desktop {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lang-toggle-mobile {
+    display: none;
+    align-self: flex-start;
+    margin: 0.25rem 0 0.25rem 0.75rem;
+  }
+
   /* Mobile btn */
   .mobile-menu-btn {
     display: none;
@@ -182,8 +250,13 @@
   }
 
   .desktop-nav,
-  .nav-cta {
+  .nav-cta,
+  .lang-toggle-desktop {
     display: none;
+  }
+
+  .lang-toggle-mobile {
+    display: flex;
   }
 
   .mobile-menu-btn {
@@ -215,10 +288,56 @@
 </style>
 
 <script>
+  // ─── MOBILE MENU ───
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
 
   mobileMenuButton?.addEventListener('click', () => {
     mobileMenu?.classList.toggle('hidden');
+  });
+
+  // ─── SITE-WIDE LANGUAGE TOGGLE ───
+  // Any element with class "i18n-text" and a data-zh="..." attribute will be
+  // swapped between its original (English) text and the Chinese translation.
+  // Works on every page, because Header is rendered on every page.
+  const LANG_KEY = 'ecorazon-lang';
+
+  function applyLang(lang: string) {
+    document.querySelectorAll<HTMLElement>('.i18n-text').forEach((el) => {
+      if (el.dataset.en === undefined) {
+        // cache the original English text the first time we touch this element
+        el.dataset.en = el.textContent || '';
+      }
+      el.textContent = lang === 'zh' ? (el.dataset.zh || el.dataset.en || '') : (el.dataset.en || '');
+    });
+    document.documentElement.setAttribute('data-lang', lang);
+  }
+
+  function getSavedLang(): string {
+    try {
+      return localStorage.getItem(LANG_KEY) || 'en';
+    } catch {
+      return 'en';
+    }
+  }
+
+  function setSavedLang(lang: string) {
+    try {
+      localStorage.setItem(LANG_KEY, lang);
+    } catch {
+      // localStorage unavailable — toggle will still work for this page view
+    }
+  }
+
+  // Apply saved preference as soon as this script runs on every page load
+  applyLang(getSavedLang());
+
+  document.querySelectorAll<HTMLButtonElement>('.lang-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-lang') || 'en';
+      const next = current === 'en' ? 'zh' : 'en';
+      applyLang(next);
+      setSavedLang(next);
+    });
   });
 </script>
