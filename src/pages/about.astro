@@ -23,30 +23,34 @@ import Footer from '../components/Footer.astro';
         <div class="who-we-are-text scroll-reveal">
           <h2 class="section-title">Who We Are</h2>
           <p class="section-body">
-            Ecorazón partners with talented artists with special needs to create premium, custom-designed products for businesses. We specialize in sustainable corporate gifting that delivers social impact alongside quality craftsmanship.
+            We drive a virtuous C.Y.C.L.E. of Good through design thinking and innovative technology, integrating AI and sustainable materials to turn empathy into a visible, practical, and empowering force across corporate culture, arts education, wellbeing, and sustainable development.
           </p>
           
           <div class="feature-list">
             <div class="feature-item scroll-reveal">
-              <div class="feature-icon">✨</div>
               <div>
-                <h3 class="feature-title">Social Impact Through Art</h3>
+                <h3 class="feature-title">Creativity</h3>
                 <p class="feature-body">Support talented artists with special needs while enhancing your corporate gifting program. Every purchase creates meaningful employment opportunities.</p>
               </div>
             </div>
             
             <div class="feature-item scroll-reveal">
-              <div class="feature-icon">🌱</div>
               <div>
-                <h3 class="feature-title">Sustainable & Eco-Friendly</h3>
+                <h3 class="feature-title">Strategy</h3>
                 <p class="feature-body">All products use environmentally responsible materials and production methods, helping your brand reduce its environmental footprint.</p>
               </div>
             </div>
             
             <div class="feature-item scroll-reveal">
-              <div class="feature-icon">⏰</div>
               <div>
-                <h3 class="feature-title">Quality That Lasts</h3>
+                <h3 class="feature-title">Experience</h3>
+                <p class="feature-body">Durable, thoughtfully designed gifts that recipients will value and remember, ensuring your brand makes a lasting impression.</p>
+              </div>
+            </div>
+
+            <div class="feature-item scroll-reveal">
+              <div>
+                <h3 class="feature-title">Community</h3>
                 <p class="feature-body">Durable, thoughtfully designed gifts that recipients will value and remember, ensuring your brand makes a lasting impression.</p>
               </div>
             </div>
@@ -55,9 +59,8 @@ import Footer from '../components/Footer.astro';
         
         <div class="who-we-are-image scroll-reveal">
           <img 
-            src="/images/green.jpg" 
+            src="/images/graphic-1.png" 
             alt="Ecorazón showcase" 
-            class="side-image"
           />
         </div>
       </div>
@@ -67,7 +70,7 @@ import Footer from '../components/Footer.astro';
     <section class="about-section bg-warm">
       <div class="about-inner narrow">
         <h2 class="section-title scroll-reveal">Our Story</h2>
-        <div class="story-card scroll-reveal">
+        <div>
           <p class="section-body">
             Ecorazón was born from a simple belief: every individual is a masterpiece of nature.
           </p>
@@ -111,13 +114,13 @@ import Footer from '../components/Footer.astro';
   .about-hero {
     background: url('/images/gradient-bg-1.png') center center / cover no-repeat;
     padding: 6rem clamp(2rem, 8vw, 7rem);
-    min-height: 260px;
+    min-height: 300px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
   }
 
   .about-hero-title {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
     font-size: clamp(2rem, 4vw, 3.5rem);
     color: #000000;
@@ -126,7 +129,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .about-hero-sub {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     color: #000000;
     opacity: 0.7;
@@ -180,7 +183,7 @@ import Footer from '../components/Footer.astro';
 
   /* ─── TYPOGRAPHY ─── */
   .section-title {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
     font-size: clamp(1.6rem, 3vw, 2.5rem);
     color: #000000;
@@ -189,7 +192,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .section-body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-size: 1rem;
     color: #000000;
     opacity: 0.65;
@@ -228,7 +231,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .feature-title {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
     color: #000000;
@@ -236,7 +239,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .feature-body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-size: 0.875rem;
     color: #000000;
     opacity: 0.6;
@@ -247,17 +250,6 @@ import Footer from '../components/Footer.astro';
   /* ─── SIDE IMAGE ─── */
   .who-we-are-image {
     transition: box-shadow 0.3s ease;
-  }
-
-  .who-we-are-image:hover {
-    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
-  }
-
-  .side-image {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
   }
 
   /* ─── STORY CARD ─── */
@@ -289,7 +281,7 @@ import Footer from '../components/Footer.astro';
   .vision  { background: #6b8f76; }
 
   .mv-title {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
     color: #ffffff;
@@ -297,7 +289,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .mv-body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'MaoWei', sans-serif;
     font-size: 1rem;
     color: #ffffff;
     opacity: 0.9;
