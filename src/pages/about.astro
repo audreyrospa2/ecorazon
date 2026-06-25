@@ -6,135 +6,184 @@ import Footer from '../components/Footer.astro';
 
 <Layout title="About Us - Ecorazón">
   <Header />
-  
+
   <main class="about-page">
+
+    <!-- Soft blurred orb that drifts across the page as you scroll.
+         Scoped to this page only — see GSAP script at the bottom. -->
+    <div class="about-parallax-bg" aria-hidden="true">
+      <div class="parallax-orb"></div>
+    </div>
 
     <!-- Hero Section -->
     <section class="about-hero">
-      <div class="about-hero-content">
-        <h1 class="about-hero-title animate-fade-in">About Ecorazón</h1>
-        <p class="about-hero-sub animate-fade-in-delay">Where nature's echo meets the art with heart</p>
-      </div>
+      <h1 class="about-hero-title animate-fade-in">About<br />Ecorazón</h1>
+      <p class="about-hero-sub animate-fade-in-delay">Where nature's echo meets the art with heart</p>
     </section>
 
-    <!-- Who We Are Section -->
-    <section class="about-section bg-white">
-      <div class="about-inner two-col">
-        <div class="who-we-are-text scroll-reveal">
-          <h2 class="section-title">Who We Are</h2>
-          <p class="section-body">
-            We drive a virtuous C.Y.C.L.E. of Good through design thinking and innovative technology, integrating AI and sustainable materials to turn empathy into a visible, practical, and empowering force across corporate culture, arts education, wellbeing, and sustainable development.
-          </p>
-          
-          <div class="feature-list">
-            <div class="feature-item scroll-reveal">
-              <div>
-                <h3 class="feature-title">Creativity</h3>
-                <p class="feature-body">Support talented artists with special needs while enhancing your corporate gifting program. Every purchase creates meaningful employment opportunities.</p>
-              </div>
-            </div>
-            
-            <div class="feature-item scroll-reveal">
-              <div>
-                <h3 class="feature-title">Strategy</h3>
-                <p class="feature-body">All products use environmentally responsible materials and production methods, helping your brand reduce its environmental footprint.</p>
-              </div>
-            </div>
-            
-            <div class="feature-item scroll-reveal">
-              <div>
-                <h3 class="feature-title">Experience</h3>
-                <p class="feature-body">Durable, thoughtfully designed gifts that recipients will value and remember, ensuring your brand makes a lasting impression.</p>
-              </div>
-            </div>
-
-            <div class="feature-item scroll-reveal">
-              <div>
-                <h3 class="feature-title">Community</h3>
-                <p class="feature-body">Durable, thoughtfully designed gifts that recipients will value and remember, ensuring your brand makes a lasting impression.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="who-we-are-image scroll-reveal">
-          <img 
-            src="/images/graphic-1.png" 
-            alt="Ecorazón showcase" 
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- Our Story Section -->
-    <section class="about-section bg-warm">
+    <section class="about-section layout-left bg-white">
       <div class="about-inner narrow">
-        <h2 class="section-title scroll-reveal">Our Story</h2>
-        <div>
-          <p class="section-body">
-            Ecorazón was born from a simple belief: every individual is a masterpiece of nature.
-          </p>
-          <p class="section-body">
-            The name Ecorazón combines "Eco," representing ecology and sustainability, with the Spanish word "Corazón" (heart). It also evokes the idea of an echo — the resonance of nature's voice within the human spirit.
-          </p>
-        </div>
+        <h2 class="section-title scroll-reveal">Why Ecorazón？｜自然緻語的故事</h2>
+        <p class="section-body scroll-reveal i18n-text" data-zh="Ecorazón 是自然與藝術的心聲相遇之處。我們結合設計思維、創新科技、永續材質與人的創造力，讓同理心成為可見、可用、可賦能的力量。">
+          Ecorazón is where nature's echo meets the art with heart. We bring together design thinking, innovative technology, sustainable materials, and human creativity to transform empathy into a visible, usable, and empowering force.
+        </p>
       </div>
     </section>
 
-    <!-- Mission & Vision Section -->
-    <section class="about-section bg-white">
-      <div class="about-inner two-col-equal">
-        <div class="mv-card mission scroll-reveal">
-          <h2 class="mv-title">Our Mission</h2>
-          <p class="mv-body">
-            To listen deeply to the voice of nature, capture its inspiration, and transform these echoes into heartfelt, sustainable creations.
-          </p>
-        </div>
-        
-        <div class="mv-card vision scroll-reveal">
-          <h2 class="mv-title">Our Vision</h2>
-          <p class="mv-body">
-            To inspire more people to see themselves as miracles of nature and cherish the purest beauty of this planet we call home.
-          </p>
+
+    <!-- What does Ecorazón mean -->
+    <section class="about-section layout-bigtype bg-warm">
+      <div class="about-inner narrow">
+        <h2 class="section-title scroll-reveal">What does Ecorazón mean？｜名字的由來</h2>
+        <p class="section-body scroll-reveal i18n-text" data-zh="Ecorazón 由「eco」與西班牙文「corazón」（心）組成，代表我們相信永續不只是責任，也應該承載人的溫度、情感，以及每個生命獨有的故事。">
+          The name Ecorazón combines "eco" and "corazón," the Spanish word for "heart." It reflects our belief that sustainability should not only be responsible, but also human, emotional, and deeply connected to the stories people carry.
+        </p>
+      </div>
+    </section>
+
+    <!-- Our Value -->
+    <section class="about-section layout-right bg-white">
+      <div class="about-inner narrow">
+        <h2 class="section-title scroll-reveal">Our Value｜我們的價值</h2>
+        <p class="section-body scroll-reveal i18n-text" data-zh="我們重視同理、共融、創意與永續。我們相信每一個人都擁有獨特的創造潛能，而每一次合作都能成為品牌、社群與自然之間共好循環的力量。">
+          We value empathy, inclusion, creativity, and sustainability. We believe every person has unique creative potential, and every collaboration can become a force for shared good across brands, communities, and the natural world.
+        </p>
+      </div>
+    </section>
+
+    <!-- Our Vision + Our Mission, combined — placed on the opposite
+         diagonal from the hero (top-right ↔ bottom-left instead of
+         top-left ↔ bottom-right) so the page doesn't repeat the same
+         layout twice. -->
+    <section class="about-section vision-mission-section bg-warm">
+      <div class="vm-vision">
+        <h2 class="section-title scroll-reveal">Our Vision｜我們的願景</h2>
+        <p class="section-body scroll-reveal i18n-text" data-zh="我們期待建立一個善的循環，讓同理心被轉化為有意義的體驗、負責任的產品、文化連結與共融系統。我們希望把商業、身心健康、創意與永續串連成一個有生命力的生態系統。">
+          We envision a virtuous cycle of good, where empathy is translated into meaningful experiences, responsible products, cultural connections, and inclusive systems. We hope to connect business, wellbeing, creativity, and sustainability into one living ecosystem.
+        </p>
+      </div>
+
+      <div class="vm-mission">
+        <h2 class="section-title scroll-reveal">Our Mission｜我們的使命</h2>
+        <p class="section-body scroll-reveal i18n-text" data-zh="我們的使命，是透過四大服務範疇——品牌禮品設計、商務藝文策展、員工身心健康、創新永續發展——創造真正的影響力。我們結合設計、科技與永續思維，為個人、機構與社群發展具價值的體驗與解決方案。">
+          Our mission is to create impact through four major service areas: Corporate Gifts, Curated MICE, Wellness Initiative, and ESG Solutions. By combining design, technology, and sustainability, we develop experiences and solutions that create value for people, organizations, and communities.
+        </p>
+      </div>
+    </section>
+
+    <!-- Our Culture -->
+    <section class="about-section layout-bigtype bg-warm">
+      <div class="about-inner narrow">
+        <h2 class="section-title scroll-reveal">Our culture｜團隊的文化</h2>
+        <p class="section-body scroll-reveal i18n-text" data-zh="我們的團隊文化建立於同理、開放與共同成長之上。我們重視 DEI——多元、公平與共融，並相信創意空間應該容納不同背景、觀點與能力的人。">
+          Our culture is grounded in empathy, openness, and shared growth. We are committed to DEI—diversity, equity, and inclusion—and we believe creative spaces should welcome different backgrounds, perspectives, and abilities.
+        </p>
+      </div>
+    </section>
+
+    <!-- Our Team -->
+    <section class="about-section layout-left bg-white">
+      <div class="about-inner narrow">
+        <h2 class="section-title scroll-reveal">Our Team</h2>
+        <p class="section-body scroll-reveal i18n-text" data-zh="我們也重視職涯發展與實習機會，並將其視為品牌生態系的重要一環。透過為新晉人才、青年專業人士與跨領域學習者創造參與路徑，我們希望培育新一代具使命感的創作者與行動者。">
+          We also value career development and internship opportunities as part of our ecosystem. By creating pathways for emerging talents, young professionals, and cross-disciplinary learners, we hope to nurture a new generation of purpose-driven creators and changemakers.
+        </p>
+
+        <!-- TODO: replace with the real team photo -->
+        <div class="team-photo-placeholder scroll-reveal">
+          <img src="/images/team-photo.jpg" alt="The Ecorazón team" />
         </div>
       </div>
     </section>
 
   </main>
-  
+
   <Footer />
 </Layout>
 
 <style is:global>
   .about-page {
     padding-top: 72px;
+    position: relative; /* establishes the stacking context the orb sits behind */
+  }
+
+  /* ─── PARALLAX BACKGROUND (About page only) ─── */
+  .about-parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .parallax-orb {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70vh;
+    height: 70vh;
+    margin-left: -35vh;
+    margin-top: -35vh;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #d9ecd4, #95BD8D 45%, #6b8f76 100%);
+    filter: blur(70px);
+    opacity: 0.55;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-orb { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .parallax-orb {
+      width: 55vh;
+      height: 55vh;
+      margin-left: -27.5vh;
+      margin-top: -27.5vh;
+      opacity: 0.4;
+    }
   }
 
   /* ─── HERO ─── */
   .about-hero {
-    background: url('/images/gradient-bg-1.png') center center / cover no-repeat;
-    padding: 6rem clamp(2rem, 8vw, 7rem);
-    min-height: 300px;
-    display: flex;
-    align-items: center;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    min-height: 100vh;
+    overflow: hidden;
   }
 
+  /* Asymmetric placement — diagonally opposite corners, overlapping the
+     orb, rather than a centered stack. Adjust the top/left/right/bottom
+     percentages to taste once you see it against your actual orb size. */
   .about-hero-title {
+    position: absolute;
+    top: 22%;
+    left: 8%;
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
     color: #000000;
-    margin: 0 0 0.5rem 0;
+    margin: 0;
     line-height: 1.1;
+    max-width: 480px;
   }
 
   .about-hero-sub {
+    position: absolute;
+    bottom: 18%;
+    right: 8%;
+    text-align: right;
     font-family: 'MaoWei', sans-serif;
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    font-size: clamp(0.9rem, 1.5vw, 1.15rem);
     color: #000000;
     opacity: 0.7;
     margin: 0;
-    max-width: 500px;
+    max-width: 320px;
   }
 
   /* ─── HERO ANIMATIONS ─── */
@@ -152,29 +201,82 @@ import Footer from '../components/Footer.astro';
   }
 
   /* ─── SECTIONS ─── */
+  /* position:relative + z-index:1 keeps every section's own paint above the
+     fixed orb. Each section is a full viewport tall, content centered
+     within it — so scrolling moves cleanly from one full-screen section
+     to the next. */
   .about-section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     padding: 5rem clamp(2rem, 6vw, 6rem);
   }
 
-  .bg-white  { background: #ffffff; }
-  .bg-warm   { background: #f7f5f0; }
+  .bg-white  { background: transparent; }
+  .bg-warm   { background: transparent; }
+
+  /* ─── VISION + MISSION (combined, opposite diagonal from the hero) ─── */
+  /* Hero runs top-left → bottom-right. This runs top-right → bottom-left,
+     so the page doesn't feel like it's repeating the same diagonal twice. */
+  .vision-mission-section {
+    display: block; /* override the flex-center from .about-section — these two blocks position themselves */
+  }
+
+  .vm-vision {
+    position: absolute;
+    top: 18%;
+    right: 8%;
+    text-align: right;
+    max-width: 420px;
+  }
+
+  .vm-mission {
+    position: absolute;
+    bottom: 18%;
+    left: 8%;
+    text-align: left;
+    max-width: 420px;
+  }
+
+  /* ─── LAYOUT VARIANTS (for sections that aren't diagonal) ─── */
+  /* Breaks up the otherwise-repeated "centered narrow column" pattern
+     without going full-diagonal everywhere. */
+
+  /* Off-center: the whole text block shifts to one side instead of
+     sitting in the middle, with empty space on the other side. */
+  .layout-left {
+    justify-content: flex-start;
+  }
+
+  .layout-right {
+    justify-content: flex-end;
+  }
+
+  .layout-left .about-inner,
+  .layout-right .about-inner {
+    margin: 0; /* let the section's justify-content position it, not auto-centering */
+  }
+
+  /* Oversized title, paragraph indented underneath — a typographic
+     hierarchy shift rather than a positional one. */
+  .layout-bigtype .section-title {
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    line-height: 1.02;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .layout-bigtype .section-body {
+    max-width: 480px;
+    margin-left: 8%;
+  }
 
   .about-inner {
     max-width: 1200px;
     margin: 0 auto;
-  }
-
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .two-col-equal {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    width: 100%;
   }
 
   .narrow {
@@ -195,145 +297,140 @@ import Footer from '../components/Footer.astro';
     font-family: 'MaoWei', sans-serif;
     font-size: 1rem;
     color: #000000;
-    opacity: 0.65;
+    opacity: 0.7;
     line-height: 1.8;
     margin: 0 0 1rem 0;
   }
 
-  /* ─── FEATURE LIST ─── */
-  .feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 2rem;
+  /* ─── TEAM PHOTO ─── */
+  .team-photo-placeholder {
+    margin-top: 2.5rem;
+    border-radius: 4px;
+    overflow: hidden;
   }
 
-  .feature-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    padding: 1rem;
-    border: 1px solid transparent;
-    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-    cursor: default;
-  }
-
-  .feature-item:hover {
-    background: rgba(149, 189, 141, 0.08);
-    border-color: rgba(149, 189, 141, 0.3);
-    transform: translateX(6px);
-  }
-
-  .feature-icon {
-    font-size: 1.4rem;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .feature-title {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #000000;
-    margin: 0 0 0.3rem 0;
-  }
-
-  .feature-body {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.875rem;
-    color: #000000;
-    opacity: 0.6;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ─── SIDE IMAGE ─── */
-  .who-we-are-image {
-    transition: box-shadow 0.3s ease;
-  }
-
-  /* ─── STORY CARD ─── */
-  .story-card {
-    border: 1px solid rgba(0,0,0,0.08);
-    padding: 2.5rem;
-    background: #ffffff;
-    transition: box-shadow 0.25s ease;
-  }
-
-  .story-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-  }
-
-  /* ─── MISSION / VISION ─── */
-  .mv-card {
-    padding: 2.5rem;
-    border: 1px solid rgba(0,0,0,0.08);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-    cursor: default;
-  }
-
-  .mv-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    transform: translateY(-4px);
-  }
-
-  .mission { background: #95BD8D; }
-  .vision  { background: #6b8f76; }
-
-  .mv-title {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: #ffffff;
-    margin: 0 0 1rem 0;
-  }
-
-  .mv-body {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 1rem;
-    color: #ffffff;
-    opacity: 0.9;
-    line-height: 1.8;
-    margin: 0;
+  .team-photo-placeholder img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   /* ─── SCROLL REVEAL ─── */
+  /* Starting state matches GSAP's "from" value below, so there's no flash
+     of fully-visible/default-positioned text in the moment before GSAP
+     finishes loading and takes over. Once it runs, it immediately
+     calculates the correct value for the current scroll position anyway. */
   .scroll-reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    transform: translateY(70px);
+    will-change: transform, opacity;
   }
-
-  .scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* stagger feature items */
-  .feature-item:nth-child(1) { transition-delay: 0.1s; }
-  .feature-item:nth-child(2) { transition-delay: 0.25s; }
-  .feature-item:nth-child(3) { transition-delay: 0.4s; }
 
   /* ─── MOBILE ─── */
   @media (max-width: 768px) {
-    .two-col,
-    .two-col-equal {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
+    .about-section {
+      padding: 3.5rem clamp(1.5rem, 6vw, 3rem);
+    }
+
+    /* Diagonal placement gets cramped on narrow screens — fall back to a
+       simple stacked layout near the top of the hero instead. */
+    .about-hero-title {
+      position: static;
+      max-width: 100%;
+      margin: 0 1.5rem 1rem;
+      padding-top: 6rem;
+    }
+
+    .about-hero-sub {
+      position: static;
+      text-align: left;
+      max-width: 100%;
+      margin: 0 1.5rem;
+    }
+
+    /* Same reasoning as the hero — diagonal absolute placement doesn't
+       work on a narrow screen, so stack them instead. */
+    .vision-mission-section {
+      min-height: auto;
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    .vm-vision,
+    .vm-mission {
+      position: static;
+      text-align: left;
+      max-width: 100%;
+      margin-bottom: 3rem;
+    }
+
+    .vm-mission {
+      margin-bottom: 0;
+    }
+
+    /* Less indentation on a narrow screen — 18% of a phone width gets cramped */
+    .layout-bigtype .section-body {
+      margin-left: 6%;
+      max-width: 100%;
     }
   }
 </style>
 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+<!-- GSAP (About page only) — drives the parallax orb's path across the page -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" is:inline></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" is:inline></script>
 
+<script>
+  // ─── SCROLL-SCRUBBED TEXT REVEAL (GSAP ScrollTrigger) ───
+  // Each .scroll-reveal element is driven by ONE timeline covering its
+  // entire pass through the screen (bottom edge → center → top edge):
+  //   - first half: fades/slides in as it approaches center
+  //   - second half: fades/slides out and up as it leaves center
+  // Using a single timeline (rather than two separate triggers with
+  // adjacent ranges) guarantees there's no seam/jump where they meet —
+  // that boundary mismatch was the likely cause of the glitch on entry.
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    const w = window as any;
+    if (!w.gsap || !w.ScrollTrigger) return; // CDN failed to load — fail quietly, no broken page
+
+    w.gsap.registerPlugin(w.ScrollTrigger);
+
+    document.querySelectorAll('.scroll-reveal').forEach((el) => {
+      w.gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          end: 'top -10%',
+          scrub: true,
+        },
+      })
+        .fromTo(el, { opacity: 0, y: 70 }, { opacity: 1, y: 0, ease: 'none', duration: 1 })
+        .to(el, { opacity: 0, y: -70, ease: 'none', duration: 1 });
+    });
+  });
+
+  // ─── PARALLAX ORB (GSAP ScrollTrigger, About page only) ───
+  // The orb drifts through a handful of waypoints across the full height of
+  // the page. `scrub: true` ties its progress directly to scroll position
+  // (not time), so it moves exactly as fast/slow as you scroll — no
+  // independent animation playing on its own. It starts centered in the
+  // hero (set in CSS) and the chain below moves it on from there.
+  document.addEventListener('DOMContentLoaded', () => {
+    const w = window as any;
+    if (!w.gsap || !w.ScrollTrigger) return;
+
+    w.gsap.registerPlugin(w.ScrollTrigger);
+
+    w.gsap.timeline({
+      scrollTrigger: {
+        trigger: '.about-page',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true,
+      },
+    })
+      .to('.parallax-orb', { top: '35%', left: '15%', scale: 1.25, ease: 'none' })
+      .to('.parallax-orb', { top: '60%', left: '70%', scale: 0.85, ease: 'none' })
+      .to('.parallax-orb', { top: '85%', left: '30%', scale: 1.1, ease: 'none' });
   });
 </script>
