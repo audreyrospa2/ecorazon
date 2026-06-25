@@ -68,9 +68,9 @@ import Footer from '../components/Footer.astro';
     </div>
 
     <!-- About Section -->
-    <section class="py-60 bg-white">
+    <section class="py-20 bg-white">
       <div class="max-w-6xl mx-auto px-6 text-center">
-        <h2 class="text-3xl md:text-5xl font-bold text-color-cork-brown mb-8 tracking-wide about-title">
+        <h2 class="text-3xl md:text-4xl font-bold text-color-cork-brown mb-8 tracking-wide about-title">
           ABOUT US
         </h2>
         <p class="text-lg text-gray-700 leading-relaxed about-text i18n-text" data-zh="我們以設計思維和創新科技推動善的循環，融合人工智能與永續材質，讓同理心成為可見、可用、可賦能的力量，實踐於企業文化、藝術教育、身心健康與永續發展之中。">
@@ -129,7 +129,7 @@ import Footer from '../components/Footer.astro';
             </div>
             <!-- TODO: replace with a real event/MICE image -->
             <div class="service-float-wrap" data-direction="top-right">
-              <img src="/images/graphic-3.png" alt="" class="service-float" />
+              <img src="/images/graphic-2.png" alt="" class="service-float" />
             </div>
           </div>
 
@@ -145,7 +145,7 @@ import Footer from '../components/Footer.astro';
             </div>
             <!-- TODO: replace with a real wellness image -->
             <div class="service-float-wrap" data-direction="bottom-left">
-              <img src="/images/graphic-4.png" alt="" class="service-float" />
+              <img src="/images/graphic-3.png" alt="" class="service-float" />
             </div>
           </div>
 
@@ -161,7 +161,7 @@ import Footer from '../components/Footer.astro';
             </div>
             <!-- TODO: replace with a real ESG/resources image -->
             <div class="service-float-wrap" data-direction="bottom-right">
-              <img src="/images/graphic-2.png" alt="" class="service-float" />
+              <img src="/images/graphic-4.png" alt="" class="service-float" />
             </div>
           </div>
 
@@ -454,11 +454,11 @@ import Footer from '../components/Footer.astro';
   }
 
   .cycle-block {
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 0;
+    padding: 6rem 0;
     color: #ffffff;
     transition: color 1.1s ease;
   }
@@ -481,7 +481,7 @@ import Footer from '../components/Footer.astro';
 
   .cycle-title {
     font-family: 'MaoWei', sans-serif;
-    font-size: clamp(2rem, 3.5vw, 3.1rem);
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
     font-weight: 700;
     margin-bottom: 1.5rem;
     letter-spacing: 0.02em;
@@ -500,7 +500,7 @@ import Footer from '../components/Footer.astro';
 
   .services-title {
     font-family: 'MaoWei', sans-serif;
-    font-size: clamp(2rem, 3.5vw, 3.1rem);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
     font-weight: 700;
     color: #275D2F;
     text-align: center;
@@ -567,10 +567,10 @@ import Footer from '../components/Footer.astro';
      reads as part of the card rather than sitting on the divider line. */
   .service-float-wrap {
     position: absolute;
-    top: 50%;
+    top: 40%;
     right: 5%;
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 280px;
     margin-top: -100px; /* half of height, for true vertical centering */
     opacity: 0;
     pointer-events: none;
@@ -592,7 +592,7 @@ import Footer from '../components/Footer.astro';
     height: 100%;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 20px 24px rgba(39, 93, 47, 0.18));
+    /* filter: drop-shadow(0 20px 24px rgba(39, 93, 47, 0.18)); */
     animation: serviceBob 3.6s ease-in-out infinite;
     animation-play-state: paused;
   }
@@ -617,8 +617,42 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 768px) {
+    /* On mobile the row collapses to one column, so these become normal
+       inline elements (not absolutely positioned floats) — centered above
+       the card text, smaller, with a simple straight-up entrance instead
+       of the big diagonal slide (which would cause horizontal overflow
+       on a narrow screen). Same image files, just repositioned. */
     .service-float-wrap {
-      display: none; /* keeps mobile layout clean and uncluttered */
+      position: relative;
+      top: auto;
+      right: auto;
+      margin: 0 auto 1rem;
+      width: 200px;
+      height: 200px;
+      order: -1; /* show above the title/number rather than below the text */
+    }
+
+    .service-float-wrap[data-direction="top-left"],
+    .service-float-wrap[data-direction="top-right"],
+    .service-float-wrap[data-direction="bottom-left"],
+    .service-float-wrap[data-direction="bottom-right"] {
+      transform: translateY(30px);
+    }
+
+    .service-row.visible .service-float-wrap {
+      transform: translateY(0);
+    }
+
+    .service-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    .service-body {
+      text-align: center;
     }
   }
 
@@ -711,11 +745,6 @@ import Footer from '../components/Footer.astro';
     .hero-stats {
       margin-top: 0.75rem;
       gap: 1rem;
-    }
-
-    .service-row {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
     }
   }
 
