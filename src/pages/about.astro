@@ -23,7 +23,7 @@ import Footer from '../components/Footer.astro';
 
     <section class="about-section layout-left bg-white">
       <div class="about-inner narrow">
-        <h2 class="section-title scroll-reveal">Why Ecorazón？｜自然緻語的故事</h2>
+        <h2 class="section-title scroll-reveal i18n-text" data-zh="自然緻語的故事">Why Ecorazón?</h2>
         <p class="section-body scroll-reveal i18n-text" data-zh="Ecorazón 是自然與藝術的心聲相遇之處。我們結合設計思維、創新科技、永續材質與人的創造力，讓同理心成為可見、可用、可賦能的力量。">
           Ecorazón is where nature's echo meets the art with heart. We bring together design thinking, innovative technology, sustainable materials, and human creativity to transform empathy into a visible, usable, and empowering force.
         </p>
@@ -34,47 +34,73 @@ import Footer from '../components/Footer.astro';
     <!-- What does Ecorazón mean -->
     <section class="about-section layout-bigtype bg-warm">
       <div class="about-inner narrow">
-        <h2 class="section-title scroll-reveal">What does Ecorazón mean？｜名字的由來</h2>
+        <h2 class="section-title scroll-reveal i18n-text" data-zh="名字的由來">What does Ecorazón mean?</h2>
         <p class="section-body scroll-reveal i18n-text" data-zh="Ecorazón 由「eco」與西班牙文「corazón」（心）組成，代表我們相信永續不只是責任，也應該承載人的溫度、情感，以及每個生命獨有的故事。">
           The name Ecorazón combines "eco" and "corazón," the Spanish word for "heart." It reflects our belief that sustainability should not only be responsible, but also human, emotional, and deeply connected to the stories people carry.
         </p>
       </div>
     </section>
 
-    <!-- Our Value -->
-    <section class="about-section layout-right bg-white">
-      <div class="about-inner narrow">
-        <h2 class="section-title scroll-reveal">Our Value｜我們的價值</h2>
-        <p class="section-body scroll-reveal i18n-text" data-zh="我們重視同理、共融、創意與永續。我們相信每一個人都擁有獨特的創造潛能，而每一次合作都能成為品牌、社群與自然之間共好循環的力量。">
-          We value empathy, inclusion, creativity, and sustainability. We believe every person has unique creative potential, and every collaboration can become a force for shared good across brands, communities, and the natural world.
-        </p>
-      </div>
-    </section>
+    <!-- Value / Vision / Mission — interactive triangle of overlapping
+         circles with a center "glue" logo. Hover (desktop) or tap (mobile)
+         a circle to swap its text for an image and switch the text panel
+         below to match. First pass — positions/sizes are a starting guess,
+         easiest to tune once you see it live. -->
+    <section class="about-section vmv-section bg-white">
+      <div class="vmv-circles scroll-reveal">
 
-    <!-- Our Vision + Our Mission, combined — placed on the opposite
-         diagonal from the hero (top-right ↔ bottom-left instead of
-         top-left ↔ bottom-right) so the page doesn't repeat the same
-         layout twice. -->
-    <section class="about-section vision-mission-section bg-warm">
-      <div class="vm-vision">
-        <h2 class="section-title scroll-reveal">Our Vision｜我們的願景</h2>
-        <p class="section-body scroll-reveal i18n-text" data-zh="我們期待建立一個善的循環，讓同理心被轉化為有意義的體驗、負責任的產品、文化連結與共融系統。我們希望把商業、身心健康、創意與永續串連成一個有生命力的生態系統。">
-          We envision a virtuous cycle of good, where empathy is translated into meaningful experiences, responsible products, cultural connections, and inclusive systems. We hope to connect business, wellbeing, creativity, and sustainability into one living ecosystem.
-        </p>
+        <!-- TODO: replace with the real center "glue" logo -->
+        <div class="vmv-logo">
+          <img src="/images/vmv-logo-mark.png" alt="" />
+        </div>
+
+        <button class="vmv-circle vmv-circle-value" data-key="value" aria-label="Our Value">
+          <span class="vmv-circle-text">Value</span>
+          <!-- TODO: replace with the real Value image -->
+          <img class="vmv-circle-image" src="/images/vmv-value.png" alt="" />
+        </button>
+
+        <button class="vmv-circle vmv-circle-vision" data-key="vision" aria-label="Our Vision">
+          <span class="vmv-circle-text">Vision</span>
+          <!-- TODO: replace with the real Vision image -->
+          <img class="vmv-circle-image" src="/images/vmv-vision.png" alt="" />
+        </button>
+
+        <button class="vmv-circle vmv-circle-mission" data-key="mission" aria-label="Our Mission">
+          <span class="vmv-circle-text">Mission</span>
+          <!-- TODO: replace with the real Mission image -->
+          <img class="vmv-circle-image" src="/images/vmv-mission.png" alt="" />
+        </button>
       </div>
 
-      <div class="vm-mission">
-        <h2 class="section-title scroll-reveal">Our Mission｜我們的使命</h2>
-        <p class="section-body scroll-reveal i18n-text" data-zh="我們的使命，是透過四大服務範疇——品牌禮品設計、商務藝文策展、員工身心健康、創新永續發展——創造真正的影響力。我們結合設計、科技與永續思維，為個人、機構與社群發展具價值的體驗與解決方案。">
-          Our mission is to create impact through four major service areas: Corporate Gifts, Curated MICE, Wellness Initiative, and ESG Solutions. By combining design, technology, and sustainability, we develop experiences and solutions that create value for people, organizations, and communities.
-        </p>
+      <div class="vmv-text-panels scroll-reveal">
+        <div class="vmv-panel is-active" data-for="value">
+          <h2 class="section-title i18n-text" data-zh="我們的價值">Our Value</h2>
+          <p class="section-body i18n-text" data-zh="我們重視同理、共融、創意與永續。我們相信每一個人都擁有獨特的創造潛能，而每一次合作都能成為品牌、社群與自然之間共好循環的力量。">
+            We value empathy, inclusion, creativity, and sustainability. We believe every person has unique creative potential, and every collaboration can become a force for shared good across brands, communities, and the natural world.
+          </p>
+        </div>
+
+        <div class="vmv-panel" data-for="vision">
+          <h2 class="section-title i18n-text" data-zh="我們的願景">Our Vision</h2>
+          <p class="section-body i18n-text" data-zh="我們期待建立一個善的循環，讓同理心被轉化為有意義的體驗、負責任的產品、文化連結與共融系統。我們希望把商業、身心健康、創意與永續串連成一個有生命力的生態系統。">
+            We envision a virtuous cycle of good, where empathy is translated into meaningful experiences, responsible products, cultural connections, and inclusive systems. We hope to connect business, wellbeing, creativity, and sustainability into one living ecosystem.
+          </p>
+        </div>
+
+        <div class="vmv-panel" data-for="mission">
+          <h2 class="section-title i18n-text" data-zh="我們的使命">Our Mission</h2>
+          <p class="section-body i18n-text" data-zh="我們的使命，是透過四大服務範疇——品牌禮品設計、商務藝文策展、員工身心健康、創新永續發展——創造真正的影響力。我們結合設計、科技與永續思維，為個人、機構與社群發展具價值的體驗與解決方案。">
+            Our mission is to create impact through four major service areas: Corporate Gifts, Curated MICE, Wellness Initiative, and ESG Solutions. By combining design, technology, and sustainability, we develop experiences and solutions that create value for people, organizations, and communities.
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- Our Culture -->
     <section class="about-section layout-bigtype bg-warm">
       <div class="about-inner narrow">
-        <h2 class="section-title scroll-reveal">Our culture｜團隊的文化</h2>
+        <h2 class="section-title scroll-reveal i18n-text" data-zh="團隊的文化">Our culture</h2>
         <p class="section-body scroll-reveal i18n-text" data-zh="我們的團隊文化建立於同理、開放與共同成長之上。我們重視 DEI——多元、公平與共融，並相信創意空間應該容納不同背景、觀點與能力的人。">
           Our culture is grounded in empathy, openness, and shared growth. We are committed to DEI—diversity, equity, and inclusion—and we believe creative spaces should welcome different backgrounds, perspectives, and abilities.
         </p>
@@ -217,27 +243,136 @@ import Footer from '../components/Footer.astro';
   .bg-white  { background: transparent; }
   .bg-warm   { background: transparent; }
 
-  /* ─── VISION + MISSION (combined, opposite diagonal from the hero) ─── */
-  /* Hero runs top-left → bottom-right. This runs top-right → bottom-left,
-     so the page doesn't feel like it's repeating the same diagonal twice. */
-  .vision-mission-section {
-    display: block; /* override the flex-center from .about-section — these two blocks position themselves */
+  /* ─── VALUE / VISION / MISSION — interactive triangle of circles ─── */
+  .vmv-section {
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
   }
 
-  .vm-vision {
-    position: absolute;
-    top: 18%;
-    right: 8%;
-    text-align: right;
-    max-width: 420px;
+  .vmv-circles {
+    position: relative;
+    width: min(85vw, 520px);
+    height: min(85vw, 520px);
+    margin: 0 auto;
   }
 
-  .vm-mission {
+  .vmv-circle {
     position: absolute;
-    bottom: 18%;
-    left: 8%;
-    text-align: left;
-    max-width: 420px;
+    width: 58%;
+    height: 58%;
+    border-radius: 50%;
+    border: 2px dashed rgba(0, 0, 0, 0.25);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.45s ease;
+  }
+
+  .vmv-circle:hover,
+  .vmv-circle.is-active {
+    border-color: #87c090;
+  }
+
+  /* Triangle arrangement — top circle, two overlapping below it */
+  .vmv-circle-value {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .vmv-circle-vision {
+    top: 40%;
+    left: 2%;
+  }
+
+  .vmv-circle-mission {
+    top: 40%;
+    right: 2%;
+  }
+
+  .vmv-circle-text {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #000000;
+    transition: opacity 0.45s ease;
+  }
+
+  .vmv-circle-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+
+  .vmv-circle:hover .vmv-circle-image,
+  .vmv-circle.is-active .vmv-circle-image {
+    opacity: 1;
+  }
+
+  .vmv-circle:hover .vmv-circle-text,
+  .vmv-circle.is-active .vmv-circle-text {
+    opacity: 0;
+  }
+
+  /* Center "glue" logo, sitting where all three circles overlap */
+  .vmv-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18%;
+    height: 18%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .vmv-logo img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+  }
+
+  /* Text panel below — all three stacked in the same spot, crossfading */
+  .vmv-text-panels {
+    position: relative;
+    max-width: 640px;
+    min-height: 14rem;
+    margin: 0 auto;
+  }
+
+  .vmv-panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+  }
+
+  .vmv-panel.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .vmv-panel .section-title {
+    text-align: center;
   }
 
   /* ─── LAYOUT VARIANTS (for sections that aren't diagonal) ─── */
@@ -259,18 +394,23 @@ import Footer from '../components/Footer.astro';
     margin: 0; /* let the section's justify-content position it, not auto-centering */
   }
 
-  /* Oversized title, paragraph indented underneath — a typographic
+  /* Oversized title, paragraph centered underneath — a typographic
      hierarchy shift rather than a positional one. */
+  .layout-bigtype {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
+  }
+
   .layout-bigtype .section-title {
-    font-size: clamp(3rem, 9vw, 6.5rem);
-    line-height: 1.02;
-    margin-bottom: 2rem;
+    font-size: clamp(2.6rem, 8vw, 6rem);
+    line-height: 1.15;
+    margin-bottom: 3rem;
     text-align: center;
   }
 
   .layout-bigtype .section-body {
-    max-width: 480px;
-    margin-left: 8%;
+    max-width: 680px;
+    margin: 0 auto;
   }
 
   .about-inner {
@@ -348,29 +488,44 @@ import Footer from '../components/Footer.astro';
       margin: 0 1.5rem;
     }
 
-    /* Same reasoning as the hero — diagonal absolute placement doesn't
-       work on a narrow screen, so stack them instead. */
-    .vision-mission-section {
-      min-height: auto;
-      padding-top: 4rem;
-      padding-bottom: 4rem;
+    /* Triangle of overlapping circles gets cramped on a narrow screen —
+       stack the three circles vertically instead, still with the center
+       logo, just smaller and simpler. */
+    .vmv-circles {
+      width: 240px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
     }
 
-    .vm-vision,
-    .vm-mission {
+    .vmv-circle {
       position: static;
-      text-align: left;
-      max-width: 100%;
-      margin-bottom: 3rem;
+      width: 160px;
+      height: 160px;
+      transform: none;
     }
 
-    .vm-mission {
-      margin-bottom: 0;
+    .vmv-logo {
+      position: static;
+      transform: none;
+      width: 64px;
+      height: 64px;
+      margin: 0;
+      order: -1; /* logo above the stacked circles on mobile */
     }
 
-    /* Less indentation on a narrow screen — 18% of a phone width gets cramped */
+    .vmv-text-panels {
+      min-height: 16rem;
+    }
+
+    .layout-bigtype {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
     .layout-bigtype .section-body {
-      margin-left: 6%;
       max-width: 100%;
     }
   }
@@ -381,6 +536,29 @@ import Footer from '../components/Footer.astro';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" is:inline></script>
 
 <script>
+  // ─── VALUE / VISION / MISSION TRIANGLE (hover on desktop, tap on mobile) ───
+  // One function drives both the circle's text→image swap and which text
+  // panel below is showing — same trigger for both, just as described:
+  // hover fires it on devices that support hover, click/tap fires it on
+  // everything (including desktop, as a harmless extra way to trigger it).
+  document.addEventListener('DOMContentLoaded', () => {
+    const circles = document.querySelectorAll('.vmv-circle');
+    const panels = document.querySelectorAll('.vmv-panel');
+    if (!circles.length || !panels.length) return;
+
+    function setActive(key: string) {
+      circles.forEach((c) => c.classList.toggle('is-active', c.getAttribute('data-key') === key));
+      panels.forEach((p) => p.classList.toggle('is-active', p.getAttribute('data-for') === key));
+    }
+
+    circles.forEach((circle) => {
+      const key = circle.getAttribute('data-key');
+      if (!key) return;
+      circle.addEventListener('mouseenter', () => setActive(key));
+      circle.addEventListener('click', () => setActive(key));
+    });
+  });
+
   // ─── SCROLL-SCRUBBED TEXT REVEAL (GSAP ScrollTrigger) ───
   // Each .scroll-reveal element is driven by ONE timeline covering its
   // entire pass through the screen (bottom edge → center → top edge):

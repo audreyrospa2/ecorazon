@@ -75,7 +75,7 @@ import Footer from '../components/Footer.astro';
     </div>
 
     <!-- About Section -->
-    <section class="py-20 bg-white">
+    <section class="py-80 bg-white">
       <div class="max-w-6xl mx-auto px-6 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-color-cork-brown mb-8 tracking-wide about-title">
           ABOUT US
@@ -86,12 +86,12 @@ import Footer from '../components/Footer.astro';
         <a href="/about" class="btn-outline about-text i18n-text" data-zh="認識我們">View our Stories</a>
       </div>
     </section>
-
+ 
     <!-- C.Y.C.L.E. of Good → Our Services Section -->
     <!-- One continuous background: solid green behind the C.Y.C.L.E. heading,
          fading down into the light off-white grey behind the Services cards. -->
     <section class="cycle-to-services">
-
+ 
       <div class="cycle-block text-center">
         <div class="max-w-4xl mx-auto px-6">
           <h2 class="cycle-title">
@@ -103,11 +103,11 @@ import Footer from '../components/Footer.astro';
           <a href="/about#cycle-of-good" class="btn-outline-light cycle-text i18n-text" data-zh="探索 C.Y.C.L.E. of Good">Explore C.Y.C.L.E. of Good</a>
         </div>
       </div>
-
+ 
       <div class="services-block">
         <div class="max-w-6xl mx-auto px-6">
           <h2 class="services-title">Our Services</h2>
-
+ 
           <div class="service-row">
             <div class="service-num">#1</div>
             <div class="service-body">
@@ -123,7 +123,7 @@ import Footer from '../components/Footer.astro';
               <img src="/images/graphic-1.png" alt="" class="service-float" />
             </div>
           </div>
-
+ 
           <div class="service-row">
             <div class="service-num">#2</div>
             <div class="service-body">
@@ -139,7 +139,7 @@ import Footer from '../components/Footer.astro';
               <img src="/images/graphic-2.png" alt="" class="service-float" />
             </div>
           </div>
-
+ 
           <div class="service-row">
             <div class="service-num">#3</div>
             <div class="service-body">
@@ -155,7 +155,7 @@ import Footer from '../components/Footer.astro';
               <img src="/images/graphic-3.png" alt="" class="service-float" />
             </div>
           </div>
-
+ 
           <div class="service-row">
             <div class="service-num">#4</div>
             <div class="service-body">
@@ -171,34 +171,34 @@ import Footer from '../components/Footer.astro';
               <img src="/images/graphic-4.png" alt="" class="service-float" />
             </div>
           </div>
-
+ 
         </div>
       </div>
-
+ 
     </section>
-
+ 
     <!-- CTA Section -->
     <section class="cta-section text-center">
       <div class="max-w-4xl mx-auto px-6">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-wide">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-wide parallax-text">
           READY TO CREATE SOMETHING MEANINGFUL?
         </h2>
-        <p class="text-lg mb-8 leading-relaxed">
+        <p class="text-lg mb-8 leading-relaxed parallax-text">
           Let's co-create gifts and experiences that inspire, empower, and sustain.
         </p>
         <a href="/get-in-touch" class="cta-btn">Get in Touch</a>
       </div>
     </section>
-
+ 
   </main>
-
+ 
   <Footer />
 </Layout>
-
+ 
 <style is:global>
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   /* ─── HERO ─── */
   .hero-section {
     position: relative;
@@ -211,7 +211,7 @@ import Footer from '../components/Footer.astro';
     align-items: flex-start;
     padding: 10% 0 0 clamp(2rem, 6vw, 6rem);
   }
-
+ 
   .hero-grid {
     position: absolute;
     bottom: -15%;
@@ -223,13 +223,13 @@ import Footer from '../components/Footer.astro';
     pointer-events: none;
     opacity: 0.7;
   }
-
+ 
   .hero-content {
     position: relative;
     z-index: 2;
     max-width: 50%;
   }
-
+ 
   .hero-tagline {
     display: flex;
     flex-direction: column;
@@ -242,12 +242,12 @@ import Footer from '../components/Footer.astro';
     letter-spacing: 0;
     white-space: nowrap;
   }
-
+ 
   .hero-tagline span {
     display: block;
     white-space: nowrap;
   }
-
+ 
   .hero-subtitle-zh {
     font-family: 'MaoWei', serif;
     font-size: clamp(0.85rem, 1.2vw, 1.1rem);
@@ -256,24 +256,24 @@ import Footer from '../components/Footer.astro';
     letter-spacing: 0.04em;
     margin: 0;
   }
-
+ 
   .hero-stats {
     display: flex;
     gap: 2.5rem;
     margin-top: 2rem;
   }
-
+ 
   .hero-stat {
     display: flex;
     flex-direction: column;
   }
-
+ 
   .stat-number-wrap {
     display: flex;
     align-items: baseline;
     gap: 1px;
   }
-
+ 
   .stat-number {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
@@ -281,7 +281,7 @@ import Footer from '../components/Footer.astro';
     color: #275D2F;
     line-height: 1;
   }
-
+ 
   .stat-plus {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
@@ -290,7 +290,7 @@ import Footer from '../components/Footer.astro';
     line-height: 1;
     display: inline;
   }
-
+ 
   .stat-label {
     font-family: 'MaoWei', sans-serif;
     font-size: clamp(0.7rem, 1vw, 0.85rem);
@@ -299,7 +299,7 @@ import Footer from '../components/Footer.astro';
     margin-top: 0.25rem;
     opacity: 0.7;
   }
-
+ 
   .hero-element {
     position: absolute;
     right: -10%;
@@ -312,7 +312,7 @@ import Footer from '../components/Footer.astro';
     z-index: 1;
     pointer-events: none;
   }
-
+ 
   /* ─── HERO ENTRANCE ANIMATIONS ─── */
   .hero-tagline,
   .hero-subtitle-zh,
@@ -321,44 +321,44 @@ import Footer from '../components/Footer.astro';
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
-
+ 
   .hero-element {
     opacity: 0;
     transform: translateX(80px);
     transition: opacity 0.9s ease-out, transform 0.9s ease-out;
   }
-
+ 
   .hero-tagline.hero-visible {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.1s;
   }
-
+ 
   .hero-subtitle-zh.hero-visible {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.3s;
   }
-
+ 
   .hero-stats.hero-visible {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.5s;
   }
-
+ 
   @keyframes float {
   0%   { transform: translateY(0px); }
   50%  { transform: translateY(-18px); }
   100% { transform: translateY(0px); }
   }
-
+ 
   .hero-element.hero-visible {
     opacity: 1;
     transform: translateX(0);
     transition-delay: 0.2s;
     animation: float 4s ease-in-out infinite;
   }
-
+ 
   /* ─── LOGO BAR ─── */
   .logo-bar {
     width: 100%;
@@ -370,7 +370,7 @@ import Footer from '../components/Footer.astro';
     position: relative;
     z-index: 3;
   }
-
+ 
   .logo-track {
     display: flex;
     align-items: center;
@@ -378,18 +378,18 @@ import Footer from '../components/Footer.astro';
     width: max-content;
     animation: marquee 30s linear infinite;
   }
-
+ 
   .logo-bar:hover .logo-track {
     animation-play-state: paused;
   }
-
+ 
   .logo-item {
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
+ 
   .logo-item img {
     height: 36px;
     width: auto;
@@ -397,16 +397,16 @@ import Footer from '../components/Footer.astro';
     transition: filter 0.3s ease;
     pointer-events: none;
   }
-
+ 
   .logo-bar:hover .logo-item img {
     filter: grayscale(0%) opacity(1);
   }
-
+ 
   @keyframes marquee {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-
+ 
   /* ─── GENERIC OUTLINE BUTTONS ─── */
   .btn-outline {
     display: inline-block;
@@ -420,13 +420,13 @@ import Footer from '../components/Footer.astro';
     text-decoration: none;
     transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
-
+ 
   .btn-outline:hover {
     background: #87c090;
     color: #ffffff;
     transform: translateY(-3px);
   }
-
+ 
   .btn-outline-light {
     display: inline-block;
     margin-top: 1.5rem;
@@ -439,13 +439,13 @@ import Footer from '../components/Footer.astro';
     text-decoration: none;
     transition: background 0.2s ease, color 1.1s ease, border-color 1.1s ease, transform 0.2s ease;
   }
-
+ 
   .btn-outline-light:hover {
     background: #ffffff;
     color: #275D2F;
     transform: translateY(-3px);
   }
-
+ 
   /* ─── C.Y.C.L.E. OF GOOD → OUR SERVICES (continuous background) ─── */
   /* One shared background for both blocks. Starts solid green; once the
      section's top edge scrolls up to meet the fixed header, JS adds
@@ -455,11 +455,11 @@ import Footer from '../components/Footer.astro';
     background-color: #87c090;
     transition: background-color 1.1s ease;
   }
-
+ 
   .cycle-to-services.bg-grey {
     background-color: #F7F6F3;
   }
-
+ 
   .cycle-block {
     min-height: 100vh;
     display: flex;
@@ -469,23 +469,23 @@ import Footer from '../components/Footer.astro';
     color: #ffffff;
     transition: color 1.1s ease;
   }
-
+ 
   /* Once the background turns grey, the C.Y.C.L.E. text/button switch to
      green so they stay readable against the light background. */
   .cycle-to-services.bg-grey .cycle-block {
     color: #275D2F;
   }
-
+ 
   .cycle-to-services.bg-grey .btn-outline-light {
     color: #275D2F;
     border-color: #275D2F;
   }
-
+ 
   .cycle-to-services.bg-grey .btn-outline-light:hover {
     background: #275D2F;
     color: #ffffff;
   }
-
+ 
   .cycle-title {
     font-family: 'MaoWei', sans-serif;
     font-size: clamp(1.5rem, 3vw, 2.4rem);
@@ -493,18 +493,18 @@ import Footer from '../components/Footer.astro';
     margin-bottom: 1.5rem;
     letter-spacing: 0.02em;
   }
-
+ 
   .cycle-text {
     font-size: 1.1rem;
     line-height: 1.7;
     opacity: 0.95;
   }
-
+ 
   /* ─── OUR SERVICES ─── */
   .services-block {
     padding: 5rem 0 6rem;
   }
-
+ 
   .services-title {
     font-family: 'MaoWei', sans-serif;
     font-size: clamp(1.8rem, 3vw, 2.6rem);
@@ -514,7 +514,7 @@ import Footer from '../components/Footer.astro';
     margin-bottom: 3.5rem;
     letter-spacing: 0.02em;
   }
-
+ 
   .service-row {
     position: relative;
     display: grid;
@@ -526,17 +526,17 @@ import Footer from '../components/Footer.astro';
     transform: translateY(24px);
     transition: opacity 0.7s ease-out, transform 0.7s ease-out;
   }
-
+ 
   .service-row.visible {
     opacity: 1;
     transform: translateY(0);
   }
-
+ 
   .service-row:nth-of-type(1).visible { transition-delay: 0.05s; }
   .service-row:nth-of-type(2).visible { transition-delay: 0.15s; }
   .service-row:nth-of-type(3).visible { transition-delay: 0.25s; }
   .service-row:nth-of-type(4).visible { transition-delay: 0.35s; }
-
+ 
   .service-num {
     font-family: 'MaoWei', sans-serif;
     font-size: 2rem;
@@ -544,7 +544,7 @@ import Footer from '../components/Footer.astro';
     color: #95BD8D;
     line-height: 1;
   }
-
+ 
   .service-title-line {
     font-family: 'MaoWei', sans-serif;
     font-size: 1.3rem;
@@ -552,21 +552,21 @@ import Footer from '../components/Footer.astro';
     color: #275D2F;
     margin-bottom: 0.25rem;
   }
-
+ 
   .service-subtitle {
     font-size: 0.95rem;
     font-weight: 500;
     color: #87c090;
     margin-bottom: 1rem;
   }
-
+ 
   .service-desc {
     font-size: 1rem;
     line-height: 1.7;
     color: #4b4b4b;
     max-width: 60ch;
   }
-
+ 
   /* ─── FLOATING SERVICE ELEMENTS ─── */
   /* Each card's image starts off-screen in its own corner, flies into place
      when the row scrolls into view, then bobs gently up and down forever.
@@ -574,45 +574,45 @@ import Footer from '../components/Footer.astro';
      reads as part of the card rather than sitting on the divider line. */
   .service-float-wrap {
     position: absolute;
-    top: 40%;
+    top: 50%;
     right: 5%;
-    width: 280px;
-    height: 280px;
+    width: 200px;
+    height: 200px;
     margin-top: -100px; /* half of height, for true vertical centering */
     opacity: 0;
     pointer-events: none;
     transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 1s ease;
   }
-
+ 
   .service-float-wrap[data-direction="top-left"]     { transform: translate(-260px, -160px) rotate(-10deg); }
   .service-float-wrap[data-direction="top-right"]    { transform: translate(260px, -160px) rotate(10deg); }
   .service-float-wrap[data-direction="bottom-left"]  { transform: translate(-260px, 160px) rotate(-10deg); }
   .service-float-wrap[data-direction="bottom-right"] { transform: translate(260px, 160px) rotate(10deg); }
-
+ 
   .service-row.visible .service-float-wrap {
     opacity: 1;
     transform: translate(0, 0) rotate(0deg);
   }
-
+ 
   .service-float {
     width: 100%;
     height: 100%;
     object-fit: contain;
     display: block;
-    /* filter: drop-shadow(0 20px 24px rgba(39, 93, 47, 0.18)); */
+    filter: drop-shadow(0 20px 24px rgba(39, 93, 47, 0.18));
     animation: serviceBob 3.6s ease-in-out infinite;
     animation-play-state: paused;
   }
-
+ 
   .service-row.visible .service-float {
     animation-play-state: running;
   }
-
+ 
   @keyframes serviceBob {
     0%, 100% { transform: translateY(0); }
     50%      { transform: translateY(-14px); }
   }
-
+ 
   /* Smaller screens still get the image, just scaled and tucked in further */
   @media (max-width: 1100px) {
     .service-float-wrap {
@@ -622,7 +622,7 @@ import Footer from '../components/Footer.astro';
       right: 1%;
     }
   }
-
+ 
   @media (max-width: 768px) {
     /* On mobile the row collapses to one column, so these become normal
        inline elements (not absolutely positioned floats) — centered above
@@ -634,22 +634,22 @@ import Footer from '../components/Footer.astro';
       top: auto;
       right: auto;
       margin: 0 auto 1rem;
-      width: 200px;
-      height: 200px;
+      width: 170px;
+      height: 170px;
       order: -1; /* show above the title/number rather than below the text */
     }
-
+ 
     .service-float-wrap[data-direction="top-left"],
     .service-float-wrap[data-direction="top-right"],
     .service-float-wrap[data-direction="bottom-left"],
     .service-float-wrap[data-direction="bottom-right"] {
       transform: translateY(30px);
     }
-
+ 
     .service-row.visible .service-float-wrap {
       transform: translateY(0);
     }
-
+ 
     .service-row {
       display: flex;
       flex-direction: column;
@@ -657,12 +657,12 @@ import Footer from '../components/Footer.astro';
       text-align: center;
       gap: 0.5rem;
     }
-
+ 
     .service-body {
       text-align: center;
     }
   }
-
+ 
   /* ─── CTA SECTION ─── */
   .cta-section {
     padding: 15rem 0;
@@ -671,13 +671,13 @@ import Footer from '../components/Footer.astro';
     animation: gradientShift 8s ease infinite;
     color: #ffffff;
   }
-
+ 
   @keyframes gradientShift {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-
+ 
   .cta-btn {
     display: inline-block;
     background: #ffffff;
@@ -690,24 +690,24 @@ import Footer from '../components/Footer.astro';
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-
+ 
   .cta-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
-
+ 
   /* ─── SCROLL ANIMATIONS ─── */
   .about-title, .about-text, .cycle-title, .cycle-text {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
-
+ 
   .about-title.visible  { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
   .about-text.visible   { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
   .cycle-title.visible  { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
   .cycle-text.visible   { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
-
+ 
   /* ─── MOBILE ─── */
   @media (max-width: 768px) {
     .hero-section {
@@ -717,17 +717,17 @@ import Footer from '../components/Footer.astro';
       min-height: 100svh;
       flex-direction: column;
     }
-
+ 
     .hero-content {
       max-width: 100%;
       order: 1;
     }
-
+ 
     .hero-tagline {
       font-size: clamp(1.4rem, 6vw, 1.8rem);
       white-space: normal;
     }
-
+ 
     .hero-element {
       position: relative;
       right: unset;
@@ -741,22 +741,22 @@ import Footer from '../components/Footer.astro';
       /* keep animation transform reset intact on mobile */
       transform: translateX(80px);
     }
-
+ 
     .hero-element.hero-visible {
     transform: translateX(0);
     animation: float 4s ease-in-out infinite;
     }
-
+ 
     .hero-grid { opacity: 0.3; }
-
+ 
     .hero-stats {
       margin-top: 0.75rem;
       gap: 1rem;
     }
   }
-
+ 
 </style>
-
+ 
 <script>
   // ─── SCROLL REVEAL (text blocks) ───
   const observer = new IntersectionObserver((entries) => {
@@ -764,34 +764,35 @@ import Footer from '../components/Footer.astro';
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-
+ 
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.about-title, .about-text, .cycle-title, .cycle-text, .service-row')
       .forEach(el => observer.observe(el));
   });
-
+ 
   // ─── CYCLE → SERVICES BACKGROUND TRIGGER ───
-  // The shared background starts green. The moment the *C.Y.C.L.E.* block's
-  // top edge scrolls up to meet the bottom of the fixed header, we add
-  // .bg-grey to the shared section, which smoothly fades the background
-  // to light grey via the CSS transition defined on .cycle-to-services.
+  // The shared background starts green. It fades to grey the moment the
+  // "Our Services" title reaches the vertical center of the screen —
+  // not tied to the header at all, just where that title sits relative to
+  // the middle of the viewport. .bg-grey on the shared section triggers
+  // the CSS transition defined on .cycle-to-services.
   document.addEventListener('DOMContentLoaded', () => {
     const sharedSection = document.querySelector('.cycle-to-services');
-    const cycleBlock = document.querySelector('.cycle-block');
-    const header = document.querySelector('.header-wrap');
-    if (!sharedSection || !cycleBlock || !header) return;
-
+    const servicesTitle = document.querySelector('.services-title');
+    if (!sharedSection || !servicesTitle) return;
+ 
     function updateBg() {
-      const headerHeight = (header as HTMLElement).offsetHeight;
-      const top = cycleBlock!.getBoundingClientRect().top;
-      sharedSection!.classList.toggle('bg-grey', top <= headerHeight);
+      const rect = servicesTitle!.getBoundingClientRect();
+      const elCenter = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      sharedSection!.classList.toggle('bg-grey', elCenter <= viewportCenter);
     }
-
+ 
     updateBg();
     window.addEventListener('scroll', () => requestAnimationFrame(updateBg), { passive: true });
     window.addEventListener('resize', updateBg);
   });
-
+ 
   // ─── HERO ENTRANCE ───
   document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => {
@@ -801,14 +802,14 @@ import Footer from '../components/Footer.astro';
       });
     });
   });
-
+ 
   // ─── STATS COUNTER ───
   function animateCounter(el: Element) {
     const target = parseInt(el.getAttribute('data-target') || '0');
     const duration = 2000;
     const step = target / (duration / 16);
     let current = 0;
-
+ 
     const timer = setInterval(() => {
       current += step;
       if (current >= target) {
@@ -819,7 +820,7 @@ import Footer from '../components/Footer.astro';
       }
     }, 16);
   }
-
+ 
   document.addEventListener('DOMContentLoaded', () => {
     const statObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -829,8 +830,9 @@ import Footer from '../components/Footer.astro';
         }
       });
     }, { threshold: 0.5 });
-
+ 
     document.querySelectorAll('.stat-number')
       .forEach(el => statObserver.observe(el));
   });
 </script>
+ 
