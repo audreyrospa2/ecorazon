@@ -30,7 +30,6 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-
     <!-- What does Ecorazón mean -->
     <section class="about-section layout-bigtype bg-warm">
       <div class="about-inner narrow">
@@ -508,33 +507,23 @@ import Footer from '../components/Footer.astro';
        stack the three circles vertically instead, still with the center
        logo, just smaller and simpler. */
     .vmv-circles {
-      width: 240px;
-      height: auto;
+      width: min(78vw, 290px);
+      height: min(78vw, 290px);
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;
     }
 
-    .vmv-circle {
-      position: static;
-      width: 160px;
-      height: 160px;
-      transform: none;
-    }
-
-    .vmv-logo {
-      position: static;
-      transform: none;
-      width: 64px;
-      height: 64px;
-      margin: 0;
-      order: -1; /* logo above the stacked circles on mobile */
+    .vmv-circle-text {
+    font-size: 0.95rem; /* slightly smaller text fits the smaller circles better */
     }
 
     .vmv-text-panels {
-      max-width: 100%;
-      min-height: 16rem;
+    flex: 0 0 auto;      
+    width: 100%;
+    max-width: 100%;
+    min-height: 16rem;
     }
 
     .vmv-panel .section-title {
