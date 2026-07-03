@@ -74,9 +74,12 @@ import Footer from '../components/Footer.astro';
       </div>
     </div>
 
-    <!-- About Section -->
-    <section class="py-80 bg-white">
-      <div class="max-w-6xl mx-auto px-6 text-center">
+    <section class="about-reveal" id="aboutReveal">
+      <div class="about-reveal-bg" aria-hidden="true">
+        <canvas id="aboutRevealCanvas" class="about-reveal-canvas"></canvas>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-6 text-center about-reveal-content">
         <h2 class="text-3xl md:text-4xl font-bold text-color-cork-brown mb-8 tracking-wide about-title">
           ABOUT US
         </h2>
@@ -405,6 +408,35 @@ import Footer from '../components/Footer.astro';
   @keyframes marquee {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
+  }
+
+  .about-reveal {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    background: #EAEAEA;
+  }
+
+  .about-reveal-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .about-reveal-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-reveal-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
   }
  
   /* ─── GENERIC OUTLINE BUTTONS ─── */
@@ -834,5 +866,337 @@ import Footer from '../components/Footer.astro';
     document.querySelectorAll('.stat-number')
       .forEach(el => statObserver.observe(el));
   });
+
+
+// ─── ABOUT SECTION: WATERY CURSOR REVEAL ───
+document.addEventListener('DOMContentLoaded', () => {
+  const section = document.getElementById('aboutReveal');
+  const canvas = document.getElementById('aboutRevealCanvas') as HTMLCanvasElement | null;
+  if (!section || !canvas) return;
+
+  const gl = (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+  if (!gl) {
+    // no WebGL support — leave the solid #EAEAEA background from CSS as a graceful fallback
+    return;
+  }
+
+  // ─── config ───
+  const OVERLAY_COLOR: [number, number, number] = [234 / 255, 234 / 255, 234 / 255]; // #EAEAEA
+  const CURSOR_RADIUS_PX = 130;   // on-screen radius of the cursor reveal
+  const PHANTOM_RADIUS_PX = 100;
+  const DECAY = 0.965;            // per-frame mask decay — lower = shorter trail
+  const MASK_SCALE = 0.5;         // render the mask at half resolution — cheap, still smooth since it's blurry/organic anyway
+  const IMAGE_URL = '/images/about-bg.jpg';
+
+  // ─── shader sources ───
+  const VERTEX_SRC = `
+    attribute vec2 a_position;
+    varying vec2 v_uv;
+    void main() {
+      v_uv = a_position * 0.5 + 0.5;
+      gl_Position = vec4(a_position, 0.0, 1.0);
+    }
+  `;
+
+  // shared simplex noise (Ashima Arts, MIT) — gives the organic, non-circular wobble
+  const NOISE_GLSL = `
+    vec3 mod289(vec3 x){return x - floor(x * (1.0/289.0)) * 289.0;}
+    vec2 mod289(vec2 x){return x - floor(x * (1.0/289.0)) * 289.0;}
+    vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}
+    float snoise(vec2 v){
+      const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                          -0.577350269189626, 0.024390243902439);
+      vec2 i  = floor(v + dot(v, C.yy));
+      vec2 x0 = v -   i + dot(i, C.xx);
+      vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+      vec4 x12 = x0.xyxy + C.xxzz;
+      x12.xy -= i1;
+      i = mod289(i);
+      vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+      vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+      m = m*m; m = m*m;
+      vec3 x = 2.0 * fract(p * C.www) - 1.0;
+      vec3 h = abs(x) - 0.5;
+      vec3 ox = floor(x + 0.5);
+      vec3 a0 = x - ox;
+      m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+      vec3 g;
+      g.x  = a0.x  * x0.x  + h.x  * x0.y;
+      g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+      return 130.0 * dot(m, g);
+    }
+  `;
+
+  // pass 1: update the reveal mask (decay previous + stamp new organic blobs)
+  const MASK_FRAG_SRC = `
+    precision highp float;
+    varying vec2 v_uv;
+    uniform sampler2D u_prevMask;
+    uniform vec2 u_mouse;
+    uniform float u_mouseActive;
+    uniform float u_radius;
+    uniform float u_phantomRadius;
+    uniform vec2 u_phantom1;
+    uniform vec2 u_phantom2;
+    uniform float u_decay;
+    uniform float u_time;
+    uniform float u_aspect;
+    ${NOISE_GLSL}
+
+    float blob(vec2 uv, vec2 center, float radius, float seed) {
+      vec2 d = uv - center;
+      d.x *= u_aspect;
+      float dist = length(d);
+      float angle = atan(d.y, d.x);
+      float n = snoise(vec2(cos(angle), sin(angle)) * 3.0 + seed + u_time * 0.15);
+      float wob = radius * (1.0 + n * 0.3);
+      return smoothstep(wob, wob * 0.55, dist);
+    }
+
+    void main() {
+      float prev = texture2D(u_prevMask, v_uv).r * u_decay;
+
+      float cursorC = 0.0;
+      if (u_mouseActive > 0.5) {
+        cursorC = blob(v_uv, u_mouse, u_radius, 0.0);
+      }
+      float p1 = blob(v_uv, u_phantom1, u_phantomRadius, 10.0);
+      float p2 = blob(v_uv, u_phantom2, u_phantomRadius * 0.85, 20.0);
+
+      float result = max(prev, max(cursorC, max(p1, p2)));
+      gl_FragColor = vec4(result, 0.0, 0.0, 1.0);
+    }
+  `;
+
+  // pass 2: composite overlay color vs. photo, using the mask, onto the visible canvas
+  const COMPOSITE_FRAG_SRC = `
+    precision highp float;
+    varying vec2 v_uv;
+    uniform sampler2D u_mask;
+    uniform sampler2D u_image;
+    uniform vec3 u_overlayColor;
+    uniform vec2 u_canvasSize;
+    uniform vec2 u_imageSize;
+
+    vec2 coverUv(vec2 uv) {
+      float canvasAspect = u_canvasSize.x / u_canvasSize.y;
+      float imageAspect = u_imageSize.x / u_imageSize.y;
+      vec2 scale = vec2(1.0);
+      if (canvasAspect > imageAspect) {
+        scale.y = imageAspect / canvasAspect;
+      } else {
+        scale.x = canvasAspect / imageAspect;
+      }
+      return (uv - 0.5) * scale + 0.5;
+    }
+
+    void main() {
+      float m = texture2D(u_mask, v_uv).r;
+      vec3 img = texture2D(u_image, coverUv(v_uv)).rgb;
+      vec3 color = mix(u_overlayColor, img, m);
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `;
+
+  // ─── shader/program helpers ───
+  function compileShader(type: number, source: string): WebGLShader {
+    const shader = gl!.createShader(type)!;
+    gl!.shaderSource(shader, source);
+    gl!.compileShader(shader);
+    if (!gl!.getShaderParameter(shader, gl!.COMPILE_STATUS)) {
+      console.error(gl!.getShaderInfoLog(shader));
+    }
+    return shader;
+  }
+
+  function createProgram(vsSource: string, fsSource: string): WebGLProgram {
+    const program = gl!.createProgram()!;
+    gl!.attachShader(program, compileShader(gl!.VERTEX_SHADER, vsSource));
+    gl!.attachShader(program, compileShader(gl!.FRAGMENT_SHADER, fsSource));
+    gl!.linkProgram(program);
+    if (!gl!.getProgramParameter(program, gl!.LINK_STATUS)) {
+      console.error(gl!.getProgramInfoLog(program));
+    }
+    return program;
+  }
+
+  const maskProgram = createProgram(VERTEX_SRC, MASK_FRAG_SRC);
+  const compositeProgram = createProgram(VERTEX_SRC, COMPOSITE_FRAG_SRC);
+
+  // full-screen quad (two triangles)
+  const quadBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+  function bindQuad(program: WebGLProgram) {
+    const loc = gl!.getAttribLocation(program, 'a_position');
+    gl!.bindBuffer(gl!.ARRAY_BUFFER, quadBuffer);
+    gl!.enableVertexAttribArray(loc);
+    gl!.vertexAttribPointer(loc, 2, gl!.FLOAT, false, 0, 0);
+  }
+
+  // ─── ping-pong mask framebuffers ───
+  function createMaskTarget(w: number, h: number) {
+    const texture = gl!.createTexture()!;
+    gl!.bindTexture(gl!.TEXTURE_2D, texture);
+    gl!.texImage2D(gl!.TEXTURE_2D, 0, gl!.RGBA, w, h, 0, gl!.RGBA, gl!.UNSIGNED_BYTE, null);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MIN_FILTER, gl!.LINEAR);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MAG_FILTER, gl!.LINEAR);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_S, gl!.CLAMP_TO_EDGE);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_T, gl!.CLAMP_TO_EDGE);
+
+    const fbo = gl!.createFramebuffer()!;
+    gl!.bindFramebuffer(gl!.FRAMEBUFFER, fbo);
+    gl!.framebufferTexture2D(gl!.FRAMEBUFFER, gl!.COLOR_ATTACHMENT0, gl!.TEXTURE_2D, texture, 0);
+    gl!.bindFramebuffer(gl!.FRAMEBUFFER, null);
+    return { fbo, texture };
+  }
+
+  let maskW = 0, maskH = 0;
+  let maskTargets: { fbo: WebGLFramebuffer; texture: WebGLTexture }[] = [];
+  let readIndex = 0;
+
+  // ─── the background photo texture ───
+  const imageTexture = gl.createTexture();
+  let imageLoaded = false;
+  let imageSize = { w: 1, h: 1 };
+
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    gl!.bindTexture(gl!.TEXTURE_2D, imageTexture);
+    gl!.pixelStorei(gl!.UNPACK_FLIP_Y_WEBGL, true);
+    gl!.texImage2D(gl!.TEXTURE_2D, 0, gl!.RGBA, gl!.RGBA, gl!.UNSIGNED_BYTE, img);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MIN_FILTER, gl!.LINEAR);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MAG_FILTER, gl!.LINEAR);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_S, gl!.CLAMP_TO_EDGE);
+    gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_T, gl!.CLAMP_TO_EDGE);
+    imageSize = { w: img.naturalWidth, h: img.naturalHeight };
+    imageLoaded = true;
+  };
+  img.src = IMAGE_URL;
+
+  // ─── sizing ───
+  let cssW = 0, cssH = 0;
+
+  function resize() {
+    const rect = section!.getBoundingClientRect();
+    cssW = rect.width;
+    cssH = rect.height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas!.width = Math.round(cssW * dpr);
+    canvas!.height = Math.round(cssH * dpr);
+    canvas!.style.width = cssW + 'px';
+    canvas!.style.height = cssH + 'px';
+
+    maskW = Math.max(1, Math.round(canvas!.width * MASK_SCALE));
+    maskH = Math.max(1, Math.round(canvas!.height * MASK_SCALE));
+    maskTargets = [createMaskTarget(maskW, maskH), createMaskTarget(maskW, maskH)];
+    readIndex = 0;
+  }
+
+  // ─── mouse / touch tracking, in 0..1 canvas space ───
+  let mouse: { x: number; y: number } | null = null;
+
+  function updateFromEvent(clientX: number, clientY: number) {
+    const rect = canvas!.getBoundingClientRect();
+    mouse = { x: (clientX - rect.left) / rect.width, y: 1.0 - (clientY - rect.top) / rect.height };
+  }
+
+  section.addEventListener('mousemove', (e: MouseEvent) => updateFromEvent(e.clientX, e.clientY));
+  section.addEventListener('mouseleave', () => { mouse = null; });
+  section.addEventListener('touchmove', (e: TouchEvent) => {
+    const t = e.touches[0];
+    if (t) updateFromEvent(t.clientX, t.clientY);
+  }, { passive: true });
+  section.addEventListener('touchend', () => { mouse = null; });
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ─── render loop ───
+  let raf = 0;
+
+  function render(t: number) {
+    if (imageLoaded && maskTargets.length === 2) {
+      const aspect = maskH / maskW;
+      const writeIndex = 1 - readIndex;
+      const target = maskTargets[writeIndex];
+      const source = maskTargets[readIndex];
+
+      // pass 1 — update mask
+      gl!.bindFramebuffer(gl!.FRAMEBUFFER, target.fbo);
+      gl!.viewport(0, 0, maskW, maskH);
+      gl!.useProgram(maskProgram);
+      bindQuad(maskProgram);
+
+      gl!.activeTexture(gl!.TEXTURE0);
+      gl!.bindTexture(gl!.TEXTURE_2D, source.texture);
+      gl!.uniform1i(gl!.getUniformLocation(maskProgram, 'u_prevMask'), 0);
+
+      const time = reducedMotion ? 0 : t * 0.001;
+      gl!.uniform1f(gl!.getUniformLocation(maskProgram, 'u_time'), time);
+      gl!.uniform1f(gl!.getUniformLocation(maskProgram, 'u_aspect'), aspect);
+      gl!.uniform1f(gl!.getUniformLocation(maskProgram, 'u_decay'), DECAY);
+      gl!.uniform1f(gl!.getUniformLocation(maskProgram, 'u_radius'), CURSOR_RADIUS_PX / canvas!.width);
+      gl!.uniform1f(gl!.getUniformLocation(maskProgram, 'u_phantomRadius'), PHANTOM_RADIUS_PX / canvas!.width);
+
+      if (mouse && !reducedMotion) {
+        gl!.uniform1f(gl!.getUniformLocation(maskProgram, 'u_mouseActive'), 1.0);
+        gl!.uniform2f(gl!.getUniformLocation(maskProgram, 'u_mouse'), mouse.x, mouse.y);
+      } else {
+        gl!.uniform1f(gl!.getUniformLocation(maskProgram, 'u_mouseActive'), 0.0);
+      }
+
+      const p1x = 0.5 + 0.3 * Math.sin(time * 0.4);
+      const p1y = 0.5 + 0.3 * Math.cos(time * 0.3);
+      const p2x = 0.5 + 0.35 * Math.cos(time * 0.25);
+      const p2y = 0.5 + 0.35 * Math.sin(time * 0.35);
+      gl!.uniform2f(gl!.getUniformLocation(maskProgram, 'u_phantom1'), p1x, p1y);
+      gl!.uniform2f(gl!.getUniformLocation(maskProgram, 'u_phantom2'), p2x, p2y);
+
+      gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4);
+
+      readIndex = writeIndex;
+
+      // pass 2 — composite to visible canvas
+      gl!.bindFramebuffer(gl!.FRAMEBUFFER, null);
+      gl!.viewport(0, 0, canvas!.width, canvas!.height);
+      gl!.useProgram(compositeProgram);
+      bindQuad(compositeProgram);
+
+      gl!.activeTexture(gl!.TEXTURE0);
+      gl!.bindTexture(gl!.TEXTURE_2D, maskTargets[readIndex].texture);
+      gl!.uniform1i(gl!.getUniformLocation(compositeProgram, 'u_mask'), 0);
+
+      gl!.activeTexture(gl!.TEXTURE1);
+      gl!.bindTexture(gl!.TEXTURE_2D, imageTexture);
+      gl!.uniform1i(gl!.getUniformLocation(compositeProgram, 'u_image'), 1);
+
+      gl!.uniform3f(gl!.getUniformLocation(compositeProgram, 'u_overlayColor'), OVERLAY_COLOR[0], OVERLAY_COLOR[1], OVERLAY_COLOR[2]);
+      gl!.uniform2f(gl!.getUniformLocation(compositeProgram, 'u_canvasSize'), canvas!.width, canvas!.height);
+      gl!.uniform2f(gl!.getUniformLocation(compositeProgram, 'u_imageSize'), imageSize.w, imageSize.h);
+
+      gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4);
+    }
+
+    raf = requestAnimationFrame(render);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  raf = requestAnimationFrame(render);
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        if (!raf) raf = requestAnimationFrame(render);
+      } else {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    });
+  }, { threshold: 0.05 });
+  io.observe(section);
+});
 </script>
  

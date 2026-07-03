@@ -31,9 +31,11 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- What does Ecorazón mean -->
-    <section class="about-section layout-bigtype bg-warm">
+    <section class="about-section layout-bigtype bg-warm ecorazon-meaning">
       <div class="about-inner narrow">
-        <h2 class="section-title scroll-reveal i18n-text" data-zh="名字的由來">What does Ecorazón mean?</h2>
+        <h2 class="section-title i18n-text-html" data-zh-html="名字的由來">
+          What does <span class="eco-word"><span class="eco-e">E</span><span class="eco-co">co</span><span class="eco-razon">razón</span></span> mean?
+        </h2>
         <p class="section-body scroll-reveal i18n-text" data-zh="Ecorazón 由「eco」與西班牙文「corazón」（心）組成，代表我們相信永續不只是責任，也應該承載人的溫度、情感，以及每個生命獨有的故事。">
           The name Ecorazón combines "eco" and "corazón," the Spanish word for "heart." It reflects our belief that sustainability should not only be responsible, but also human, emotional, and deeply connected to the stories people carry.
         </p>
@@ -106,20 +108,64 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- Our Team -->
-    <section class="about-section layout-left bg-white">
-      <div class="about-inner narrow">
-        <h2 class="section-title scroll-reveal">Our Team</h2>
-        <p class="section-body scroll-reveal i18n-text" data-zh="我們也重視職涯發展與實習機會，並將其視為品牌生態系的重要一環。透過為新晉人才、青年專業人士與跨領域學習者創造參與路徑，我們希望培育新一代具使命感的創作者與行動者。">
+<!-- Our Team -->
+<section class="about-section team-section bg-white">
+  <div class="about-inner">
+    <div class="team-layout">
+
+      <div class="team-copy narrow">
+        <h2 class="section-title team-copy-title">Our Team</h2>
+        <p class="section-body team-copy-body i18n-text" data-zh="...">
           We also value career development and internship opportunities as part of our ecosystem. By creating pathways for emerging talents, young professionals, and cross-disciplinary learners, we hope to nurture a new generation of purpose-driven creators and changemakers.
         </p>
-
-        <!-- TODO: replace with the real team photo -->
-        <div class="team-photo-placeholder scroll-reveal">
-          <img src="/images/team-photo.jpg" alt="The Ecorazón team" />
-        </div>
       </div>
-    </section>
+
+      <div class="team-columns">
+      <!-- Column 1 (5 members) -->
+      <div class="team-column">
+        {["karis-1","karis-2","karis-3","karis-4","karis-5"].map((id) => (
+          <div class="team-flip" data-member={id}>
+            <div class="team-flip-inner">
+              <div class="team-flip-face team-flip-front">
+                <img src="/images/karis.jpeg" alt="Karis Yeung" />
+                <div class="team-flip-caption"><p class="team-name">Karis Yeung</p><p class="team-role">Co-Founder</p></div>
+              </div>
+              <div class="team-flip-face team-flip-back">
+                <a href="https://www.linkedin.com/in/karis-yeung-68a762114" target="_blank" rel="noopener" class="team-linkedin" onclick="event.stopPropagation()">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                </a>
+                <p class="team-quote-en">"If the world is a garden, may every soul dare to bloom in its season."</p>
+                <p class="team-quote-ch">若世界是一座花園，願每一朵靈魂都得以盛開。</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Column 2 (5 members, offset down) -->
+      <div class="team-column team-column-offset">
+        {["karis-6","karis-7","karis-8","karis-9","karis-10"].map((id) => (
+          <div class="team-flip" data-member={id}>
+            <div class="team-flip-inner">
+              <div class="team-flip-face team-flip-front">
+                <img src="/images/karis.jpeg" alt="Karis Yeung" />
+                <div class="team-flip-caption"><p class="team-name">Karis Yeung</p><p class="team-role">Co-Founder</p></div>
+              </div>
+              <div class="team-flip-face team-flip-back">
+                <a href="https://www.linkedin.com/in/karis-yeung-68a762114" target="_blank" rel="noopener" class="team-linkedin" onclick="event.stopPropagation()">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                </a>
+                <p class="team-quote-en">"If the world is a garden, may every soul dare to bloom in its season."</p>
+                <p class="team-quote-ch">若世界是一座花園，願每一朵靈魂都得以盛開。</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
 
   </main>
 
@@ -224,6 +270,10 @@ import Footer from '../components/Footer.astro';
   .animate-fade-in-delay {
     animation: fadeInDown 0.8s ease-out 0.4s both;
   }
+
+  /* ─── ECORAZÓN WORD — JS drives the color loop via inline styles ─── */
+  .eco-word { display: inline; }
+  .eco-e, .eco-co, .eco-razon { display: inline; }
 
   /* ─── SECTIONS ─── */
   /* position:relative + z-index:1 keeps every section's own paint above the
@@ -413,7 +463,7 @@ import Footer from '../components/Footer.astro';
   .layout-bigtype .section-title {
     font-size: clamp(2.6rem, 8vw, 6rem);
     line-height: 1.15;
-    margin-bottom: 3rem;
+     margin-bottom: 0.35rem;
     text-align: center;
   }
 
@@ -438,8 +488,8 @@ import Footer from '../components/Footer.astro';
     font-weight: 700;
     font-size: clamp(1.6rem, 3vw, 2.5rem);
     color: #000000;
-    margin: 0 0 1.5rem 0;
-    line-height: 1.15;
+    margin: 0 0 1rem 0;
+    line-height: 1;
   }
 
   .section-body {
@@ -474,6 +524,135 @@ import Footer from '../components/Footer.astro';
     transform: translateY(70px);
     will-change: transform, opacity;
   }
+
+/* ─── TEAM SECTION LAYOUT ─── */
+.team-section {
+  align-items: flex-start;
+  padding-bottom: clamp(6rem, 15vw, 12rem);
+  /* overflow: hidden;  ← remove this line */
+}
+
+.team-layout {
+  display: flex;
+  gap: clamp(3rem, 8vw, 7rem);
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100%; /* ensures sticky has the full column height to travel through, including the added padding */
+}
+
+.team-copy {
+  flex: 0 0 auto;
+  max-width: 380px;
+  position: sticky;
+  top: 0;
+  height: 100vh;              /* full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;    /* vertically centers the h2 + p inside it */
+}
+
+.team-copy-title,
+.team-copy-body {
+  opacity: 0;
+  transform: translateY(70px);
+  will-change: transform, opacity;
+}
+
+.team-columns {
+  flex: 1;
+  display: flex;
+  gap: clamp(2rem, 4vw, 4rem);
+  justify-content: flex-start;
+  /* overflow: hidden;   moved here instead — still clips the parallax drift */
+}
+
+.team-column {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 4rem);
+  will-change: transform;
+}
+
+.team-column-offset {
+  margin-top: clamp(6rem, 14vw, 10rem); /* bigger stagger to match the reference's offset feel */
+}
+
+/* ─── CIRCLES (reused flip mechanic) ─── */
+/* bigger circles now that there's only 2 columns to fit */
+.team-flip {
+  width: clamp(180px, 20vw, 280px);
+  height: clamp(180px, 20vw, 280px);
+  perspective: 1000px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.team-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.team-flip.is-flipped .team-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.team-flip-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px dashed rgba(0, 0, 0, 0.25); */
+}
+
+.team-flip-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.team-flip-caption {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  font-family: 'MaoWei', sans-serif;
+}
+
+.team-name { font-weight: 700; font-size: 0.9rem; margin: 0; }
+.team-role { font-size: 0.75rem; opacity: 0.9; margin: 0; }
+
+.team-flip-back {
+  transform: rotateY(180deg);
+  background: #87c090;
+  padding: 1.2rem;
+  gap: 0.6rem;
+  color: #fff;
+  text-align: center;
+}
+
+.team-linkedin { color: #fff; display: flex; align-items: center; justify-content: center; }
+.team-quote-en { font-family: 'MaoWei', sans-serif; font-size: 0.68rem; font-style: italic; line-height: 1.4; margin: 0; }
+.team-quote-ch { font-family: 'MaoWei', sans-serif; font-size: 0.62rem; line-height: 1.4; opacity: 0.85; margin: 0; }
+
+@media (max-width: 900px) {
+  .team-layout { flex-direction: column; }
+  .team-copy { position: static; max-width: 100%; }
+  .team-columns { justify-content: center; }
+  .team-column-offset { margin-top: 3rem; }
+}
 
   /* ─── MOBILE ─── */
   @media (max-width: 768px) {
@@ -621,4 +800,79 @@ import Footer from '../components/Footer.astro';
       .to('.parallax-orb', { top: '60%', left: '70%', scale: 0.85, ease: 'none' })
       .to('.parallax-orb', { top: '85%', left: '30%', scale: 1.1, ease: 'none' });
   });
+
+// ─── TEAM COLUMN PARALLAX + TEAM COPY FADE (combined into existing listener) ───
+document.addEventListener('DOMContentLoaded', () => {
+  const w = window as any;
+  if (!w.gsap || !w.ScrollTrigger) return;
+  w.gsap.registerPlugin(w.ScrollTrigger);
+
+  w.gsap.utils.toArray('.team-column').forEach((col, i) => {
+    const direction = i % 2 === 0 ? 1 : -1;
+    w.gsap.to(col, {
+      yPercent: 18 * direction,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.team-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  });
+
+  w.gsap.timeline({
+    scrollTrigger: {
+      trigger: '.team-section',
+      start: 'top 85%',
+      end: 'bottom bottom',
+      scrub: true,
+    },
+  })
+    .fromTo('.team-copy-title, .team-copy-body',
+      { opacity: 0, y: 70 },
+      { opacity: 1, y: 0, ease: 'none', duration: 1, stagger: 0.1 }
+    )
+    .to('.team-copy-title, .team-copy-body', { opacity: 1, y: 0, duration: 8 })
+    .to('.team-copy-title, .team-copy-body', { opacity: 0, y: -70, ease: 'none', duration: 1 });
+
+  document.querySelectorAll('.team-flip').forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+  });
+});
+</script>
+
+<script is:inline>
+  (function () {
+    function initEcoColorLoop() {
+      var eE     = document.querySelector('.eco-e');
+      var eCo    = document.querySelector('.eco-co');
+      var eRazon = document.querySelector('.eco-razon');
+      if (!eE || !eCo || !eRazon) return;
+
+      eE.style.transition     = 'color 0.5s ease-in-out';
+      eCo.style.transition    = 'color 0.5s ease-in-out';
+      eRazon.style.transition = 'color 0.5s ease-in-out';
+
+      var states = [
+        ['', '', ''],
+        ['#87c090', '#87c090', ''],
+        ['transparent', '#8B6FA8', '#8B6FA8']
+      ];
+
+      var i = 0;
+      setInterval(function () {
+        i = (i + 1) % states.length;
+        eE.style.color     = states[i][0];
+        eCo.style.color    = states[i][1];
+        eRazon.style.color = states[i][2];
+      }, 1200);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initEcoColorLoop);
+    } else {
+      initEcoColorLoop();
+    }
+  })();
 </script>

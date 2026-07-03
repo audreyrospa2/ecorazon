@@ -303,15 +303,28 @@
   const LANG_KEY = 'ecorazon-lang';
 
   function applyLang(lang: string) {
-    document.querySelectorAll<HTMLElement>('.i18n-text').forEach((el) => {
-      if (el.dataset.en === undefined) {
-        // cache the original English text the first time we touch this element
-        el.dataset.en = el.textContent || '';
-      }
-      el.textContent = lang === 'zh' ? (el.dataset.zh || el.dataset.en || '') : (el.dataset.en || '');
-    });
-    document.documentElement.setAttribute('data-lang', lang);
-  }
+  document.querySelectorAll<HTMLElement>('.i18n-text').forEach((el) => {
+    if (el.dataset.en === undefined) {
+      // cache the original English text the first time we touch this element
+      el.dataset.en = el.textContent || '';
+    }
+    el.textContent = lang === 'zh' ? (el.dataset.zh || el.dataset.en || '') : (el.dataset.en || '');
+  });
+
+  // Elements that contain child markup (e.g. styled spans) that must
+  // survive translation use .i18n-text-html + data-zh-html instead,
+  // and get their innerHTML swapped rather than textContent — so any
+  // nested <span> structure is preserved in both languages.
+  document.querySelectorAll<HTMLElement>('.i18n-text-html').forEach((el) => {
+    if (el.dataset.enHtml === undefined) {
+      // cache the original English markup the first time we touch this element
+      el.dataset.enHtml = el.innerHTML;
+    }
+    el.innerHTML = lang === 'zh' ? (el.dataset.zhHtml || el.dataset.enHtml || '') : (el.dataset.enHtml || '');
+  });
+
+  document.documentElement.setAttribute('data-lang', lang);
+}
 
   function getSavedLang(): string {
     try {
