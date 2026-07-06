@@ -807,7 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!w.gsap || !w.ScrollTrigger) return;
   w.gsap.registerPlugin(w.ScrollTrigger);
 
-  w.gsap.utils.toArray('.team-column').forEach((col, i) => {
+  w.gsap.utils.toArray('.team-column').forEach((col: any, i: number) => {
     const direction = i % 2 === 0 ? 1 : -1;
     w.gsap.to(col, {
       yPercent: 18 * direction,
