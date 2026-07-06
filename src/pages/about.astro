@@ -648,10 +648,36 @@ import Footer from '../components/Footer.astro';
 .team-quote-ch { font-family: 'MaoWei', sans-serif; font-size: 0.62rem; line-height: 1.4; opacity: 0.85; margin: 0; }
 
 @media (max-width: 900px) {
-  .team-layout { flex-direction: column; }
-  .team-copy { position: static; max-width: 100%; }
-  .team-columns { justify-content: center; }
-  .team-column-offset { margin-top: 3rem; }
+  .team-layout { 
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .team-copy {
+    position: static;
+    max-width: 100%;
+    height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .team-columns {
+    flex-direction: column;   /* was row (default) — now stacks both columns vertically */
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  .team-column,
+  .team-column-offset {
+    margin-top: 0;
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  .team-flip {
+    width: min(70vw, 220px);
+    max-width: 220px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
 }
 
   /* ─── MOBILE ─── */
@@ -807,19 +833,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!w.gsap || !w.ScrollTrigger) return;
   w.gsap.registerPlugin(w.ScrollTrigger);
 
-  w.gsap.utils.toArray('.team-column').forEach((col: any, i: number) => {
-    const direction = i % 2 === 0 ? 1 : -1;
-    w.gsap.to(col, {
-      yPercent: 18 * direction,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.team-section',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
+    w.gsap.utils.toArray('.team-column').forEach((col: any, i: number) => {
+      if (window.innerWidth < 900) return; // skip parallax on mobile grid layout
+      const direction = i % 2 === 0 ? 1 : -1;
+      w.gsap.to(col, {
+        yPercent: 18 * direction,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.team-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
     });
-  });
 
   w.gsap.timeline({
     scrollTrigger: {
