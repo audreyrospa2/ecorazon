@@ -9,7 +9,7 @@
     </button>
     <div class="gina-popup-wrapper">
       <video controls autoplay muted>
-        <source src="/video/gina.mp4" type="video/mp4" />
+        <source src="/videos/gina.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
@@ -43,14 +43,8 @@
   }
 
   @keyframes gina-popup-scale-in {
-    from {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
   }
 
   .gina-popup-wrapper {
@@ -105,27 +99,22 @@
 
   function closePopup() {
     overlay?.classList.remove('active');
-    if (video) {
-      video.pause();
-    }
+    if (video) video.pause();
   }
 
-  // Auto-open after 2 seconds on page load
-  setTimeout(openPopup, 2000);
+  // Only auto-open if the URL path is /gina (case-insensitive, trailing slash optional)
+  const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
+  if (path === '/gina') {
+    setTimeout(openPopup, 500);
+  }
 
   closeBtn?.addEventListener('click', closePopup);
 
-  // Close when clicking outside the video
   overlay?.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      closePopup();
-    }
+    if (e.target === overlay) closePopup();
   });
 
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closePopup();
-    }
+    if (e.key === 'Escape') closePopup();
   });
 </script>
