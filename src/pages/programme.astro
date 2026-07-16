@@ -19,7 +19,7 @@ import Footer from '../components/Footer.astro';
         <p class="works-hero-sub animate-fade-in-delay i18n-text" data-zh="Ecorazón 為企業策劃結合運動、創意實踐、自然體驗與專業支援的身心健康企劃。每個企劃皆圍繞您的團隊與業務需求量身打造，協助團隊重新調整步伐、建立連結，發展更健康的工作方式。">
           Ecorazón curates corporate wellness programmes that combine movement, creative practice, nature-based experiences and professional support. Built around your people and business priorities, each programme helps teams reset, reconnect and build healthier ways of working.
         </p>
-        <a href="/get-in-touch" class="hero-cta animate-fade-in-cta i18n-text" data-zh="精選體驗">Signature Experiences</a>
+        <a href="#wheel-section" class="hero-cta animate-fade-in-cta i18n-text js-scroll-cta" data-zh="精選體驗">Signature Experiences</a>
       </div>
 
       <div class="works-hero-media animate-fade-in-media">
@@ -31,6 +31,8 @@ import Footer from '../components/Footer.astro';
             loop
             playsinline
             preload="auto"
+            disablepictureinpicture
+            disableRemotePlayback
           >
             <source src="/video/programme-hero.mp4" type="video/mp4" />
           </video>
@@ -60,7 +62,7 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-<!-- H.E.A.R.T. Framework -->
+    <!-- H.E.A.R.T. Framework -->
     <section class="heart-framework-section">
 
       <!-- Left: copy + nav -->
@@ -76,15 +78,14 @@ import Footer from '../components/Footer.astro';
           your team can use at work and beyond.
         </p>
 
-        <p class="pillar-caption scroll-reveal">
-          <span class="pillar-name">Health</span>
-          <span class="pillar-sep">—</span>
-          <span class="pillar-blurb">Physical foundations</span>
-        </p>
-
-        <div class="heart-nav scroll-reveal">
-          <button class="heart-arrow prev" aria-label="Previous pillar">←</button>
-          <button class="heart-arrow next" aria-label="Next pillar">→</button>
+        <div class="heart-circles-row scroll-reveal">
+          <div class="heart-circles" role="tablist" aria-label="H.E.A.R.T. pillars">
+            <button class="pillar-circle active" role="tab" aria-selected="true" data-name="Health" data-blurb="Physical foundations" style="background-image:url('/images/4.png');"><span class="letter">H</span></button>
+            <button class="pillar-circle" role="tab" aria-selected="false" data-name="Energy" data-blurb="Active self-care" style="background-image:url('/images/16.jpg');"><span class="letter">E</span></button>
+            <button class="pillar-circle" role="tab" aria-selected="false" data-name="Art" data-blurb="Creative practice" style="background-image:url('/images/17.jpg');"><span class="letter">A</span></button>
+            <button class="pillar-circle" role="tab" aria-selected="false" data-name="Relationships" data-blurb="Meaningful connection" style="background-image:url('/images/2.png');"><span class="letter">R</span></button>
+            <button class="pillar-circle" role="tab" aria-selected="false" data-name="Talent" data-blurb="Professional development" style="background-image:url('/images/artists.jpg');"><span class="letter">T</span></button>
+          </div>
         </div>
       </div>
 
@@ -98,21 +99,10 @@ import Footer from '../components/Footer.astro';
           <button class="stack-card" data-name="Talent" data-blurb="Professional development" style="background-image:url('/images/artists.jpg');"></button>
         </div>
       </div>
-
-      <!-- Bottom: circle selector -->
-      <div class="heart-circles-row scroll-reveal">
-        <div class="heart-circles" role="tablist" aria-label="H.E.A.R.T. pillars">
-          <button class="pillar-circle active" role="tab" aria-selected="true" data-name="Health" data-blurb="Physical foundations" style="background-image:url('/images/4.png');"><span class="letter">H</span></button>
-          <button class="pillar-circle" role="tab" aria-selected="false" data-name="Energy" data-blurb="Active self-care" style="background-image:url('/images/16.jpg');"><span class="letter">E</span></button>
-          <button class="pillar-circle" role="tab" aria-selected="false" data-name="Art" data-blurb="Creative practice" style="background-image:url('/images/17.jpg');"><span class="letter">A</span></button>
-          <button class="pillar-circle" role="tab" aria-selected="false" data-name="Relationships" data-blurb="Meaningful connection" style="background-image:url('/images/2.png');"><span class="letter">R</span></button>
-          <button class="pillar-circle" role="tab" aria-selected="false" data-name="Talent" data-blurb="Professional development" style="background-image:url('/images/artists.jpg');"><span class="letter">T</span></button>
-        </div>
-      </div>
     </section>
 
     <!-- H.E.A.R.T. Wheel -->
-    <section class="wheel-section">
+    <section class="wheel-section" id="wheel-section">
       <div class="wheel-inner">
         <p class="wheel-eyebrow scroll-reveal">The H.E.A.R.T. Framework</p>
         <h2 class="wheel-title scroll-reveal" id="wheelTitle">Health, Habits &amp; Healing</h2>
@@ -311,6 +301,71 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
+    <!-- Testimonials -->
+    <section class="wrk-section bg-white testi-section">
+      <div class="wrk-inner">
+        <div class="testi-head">
+          <h2 class="section-title scroll-reveal">What people experience with Ecorazón</h2>
+          <p class="section-sub scroll-reveal">From HR leads booking their first reset to founders building ongoing wellbeing programmes — here's how teams describe working with us.</p>
+        </div>
+
+        <div class="testi-grid scroll-reveal">
+          <div class="testi-card">
+            <p class="testi-quote">We use Laughter Yoga as a dynamic group session that combines stress-relief training with team-building. It trains the body to release stress, provides a therapeutic emotional release, and uses shared joy to instantly unify the team.</p>
+            <div class="testi-footer">
+              <img src="/images/bnw-logo.png" alt="" class="testi-logo" />
+              <span class="testi-company">Company Name</span>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <p class="testi-quote">We use Laughter Yoga as a dynamic group session that combines stress-relief training with team-building. It trains the body to release stress, provides a therapeutic emotional release, and uses shared joy to instantly unify the team.</p>
+            <div class="testi-footer">
+              <img src="/images/bnw-logo.png" alt="" class="testi-logo" />
+              <span class="testi-company">Company Name</span>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <p class="testi-quote">We use Laughter Yoga as a dynamic group session that combines stress-relief training with team-building. It trains the body to release stress, provides a therapeutic emotional release, and uses shared joy to instantly unify the team.</p>
+            <div class="testi-footer">
+              <img src="/images/bnw-logo.png" alt="" class="testi-logo" />
+              <span class="testi-company">Company Name</span>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <p class="testi-quote">We use Laughter Yoga as a dynamic group session that combines stress-relief training with team-building. It trains the body to release stress, provides a therapeutic emotional release, and uses shared joy to instantly unify the team.</p>
+            <div class="testi-footer">
+              <img src="/images/bnw-logo.png" alt="" class="testi-logo" />
+              <span class="testi-company">Company Name</span>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <p class="testi-quote">We use Laughter Yoga as a dynamic group session that combines stress-relief training with team-building. It trains the body to release stress, provides a therapeutic emotional release, and uses shared joy to instantly unify the team.</p>
+            <div class="testi-footer">
+              <img src="/images/bnw-logo.png" alt="" class="testi-logo" />
+              <span class="testi-company">Company Name</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <!-- CTA Section -->
+    <section class="cta-section text-center">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-wide parallax-text">
+          READY TO TRANSFORM YOUR WORKPLACE CULTURE?
+        </h2>
+        <p class="text-lg mb-8 leading-relaxed parallax-text">
+          Let's co-create gifts and experiences that inspire, empower, and sustain.
+        </p>
+        <a href="/get-in-touch" class="cta-btn">Get in Touch</a>
+      </div>
+    </section>
+
   </main>
 
   <Footer />
@@ -331,7 +386,8 @@ import Footer from '../components/Footer.astro';
   .wrk-section,
   .wellbeing-section,
   .heart-framework-section,
-  .wheel-section {
+  .wheel-section,
+  .cta-section {
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
@@ -340,13 +396,13 @@ import Footer from '../components/Footer.astro';
     position: relative;
     background: linear-gradient(
       to right,
-      #B8C98A 0%,
-      #D3DDA6 8%,
-      #E8D9A8 16%,
-      #F5C9A0 26%,
-      #F5C9A0 32%,
-      #FADFC0 40%,
-      #F8F0E8 46%,
+      #C7DBA9 0%,
+      #D8E6BF 8%,
+      #EAE8C1 16%,
+      #F5DBBE 26%,
+      #F8DBC1 32%,
+      #FBEAD6 40%,
+      #FAF5F0 46%,
       #F8F8F8 54%,
       #F8F8F8 100%
     );
@@ -370,7 +426,7 @@ import Footer from '../components/Footer.astro';
   .works-hero-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.1rem, 4.2vw, 3.6rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     color: #1a1a1a;
     margin: 0 0 1.25rem 0;
     line-height: 1.15;
@@ -426,6 +482,13 @@ import Footer from '../components/Footer.astro';
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none; /* no click-to-pause / native controls interaction */
+  }
+
+  .hero-jelly-video::-webkit-media-controls,
+  .hero-jelly-video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
   }
 
   /* ─── HERO ENTRY ANIMATION ─── */
@@ -547,24 +610,20 @@ import Footer from '../components/Footer.astro';
     .wellbeing-photos { display: none; }
   }
 
-/* ─── H.E.A.R.T. FRAMEWORK SECTION ─── */
+  /* ─── H.E.A.R.T. FRAMEWORK SECTION ─── */
   .heart-framework-section {
     background: #F1F0EC;
     min-height: 100vh;
     display: grid;
     grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
-    grid-template-rows: 1fr auto;
     align-items: center;
-    column-gap: clamp(2.5rem, 5vw, 5rem);
-    row-gap: clamp(2.5rem, 5vw, 3.5rem);
+    column-gap: clamp(3rem, 5.5vw, 5.5rem);
     padding: clamp(3rem, 6vw, 5rem) clamp(3rem, 8vw, 9rem) clamp(3rem, 6vw, 5rem) clamp(2rem, 6vw, 7rem);
     overflow-x: hidden;
   }
 
   /* ── Copy (grid col 1, row 1) ── */
   .heart-content {
-    grid-column: 1;
-    grid-row: 1;
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
@@ -598,49 +657,6 @@ import Footer from '../components/Footer.astro';
     line-height: 1.8;
     max-width: 100%;
     margin: 0;
-  }
-
-  .pillar-caption {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.95rem;
-    color: #1a1a1a;
-    margin: 0.25rem 0 0 0;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-
-  .pillar-name { font-weight: 700; }
-  .pillar-sep  { opacity: 0.4; }
-  .pillar-blurb { opacity: 0.6; }
-
-  .heart-nav {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-  }
-
-  .heart-arrow {
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.18);
-    background: transparent;
-    color: #1a1a1a;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
-  }
-
-  .heart-arrow:hover {
-    background: #95BD8D;
-    border-color: #95BD8D;
-    color: #ffffff;
-    transform: translateY(-2px);
   }
 
   /* ── Right: big tilted card stack (grid col 2, row 1) ── */
@@ -707,12 +723,11 @@ import Footer from '../components/Footer.astro';
     100% { transform: translate(0%, 0%)   rotate(0deg)   scale(1);    opacity: 1; }
   }
 
-  /* ── Bottom pill/circle row (grid row 2, spans both columns) ── */
+  /* ── Circle nav row ── */
   .heart-circles-row {
-    grid-column: 1 / -1;
-    grid-row: 2;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
   }
 
   .heart-circles {
@@ -775,16 +790,14 @@ import Footer from '../components/Footer.astro';
   @media (max-width: 900px) {
     .heart-framework-section {
       grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto;
     }
 
     .heart-content { grid-column: 1; grid-row: 2; }
 
     .heart-visual {
-      grid-column: 1;
-      grid-row: 1;
       max-width: 380px;
       margin: 0 auto;
+      order: -1; /* card stack above the text on mobile, same as before */
     }
 
     .heart-circles-row { grid-row: 3; }
@@ -803,10 +816,10 @@ import Footer from '../components/Footer.astro';
     position: relative;
     min-height: 100vh;
     display: flex;
-    align-items: flex-end;      
+    align-items: flex-end;
     justify-content: center;
     background: #FBF8F3;
-    padding: clamp(5rem, 9vw, 8rem) clamp(2rem, 6vw, 6rem) 0;  
+    padding: clamp(5rem, 9vw, 8rem) clamp(2rem, 6vw, 6rem) 0;
     overflow: hidden;
   }
 
@@ -863,9 +876,10 @@ import Footer from '../components/Footer.astro';
 
   .wheel-arc-wrap {
     position: relative;
-    width: min(1400px, 96vw);   /* was: min(560px, 78vw) */
+    width: min(1400px, 96vw);
     aspect-ratio: 8 / 5;
   }
+
   .wheel-arc-line {
     position: absolute;
     inset: 0;
@@ -873,7 +887,6 @@ import Footer from '../components/Footer.astro';
     height: 100%;
     color: rgba(0, 0, 0, 0.15);
   }
-
 
   .wheel-arrow {
     width: 2.6rem;
@@ -896,12 +909,6 @@ import Footer from '../components/Footer.astro';
     border-color: #1a1a1a;
     color: #ffffff;
     transform: translateY(-2px);
-  }
-
-  .wheel-viewport {
-    position: relative;
-    width: min(300px, 46vw);
-    overflow: hidden;
   }
 
   .wheel-track {
@@ -980,12 +987,18 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 640px) {
-    .wheel-arc-wrap { width: min(640px, 98vw); } /* was: min(420px, 90vw) */
+    .wheel-arc-wrap { width: min(640px, 98vw); }
     .wheel-circle { width: 68px; height: 68px; }
     .wheel-item { padding-bottom: 0.6rem; }
   }
 
   /* ─── WAYS TO BRING H.E.A.R.T. (CARD SWITCHER) ─── */
+  .cards-switch-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
   .cards-switch-head {
     display: flex;
     align-items: flex-end;
@@ -1115,8 +1128,6 @@ import Footer from '../components/Footer.astro';
     line-height: 1.15;
   }
 
-  .section-title.white { color: #ffffff; }
-
   .section-sub {
     font-family: 'MaoWei', sans-serif;
     font-size: 1rem;
@@ -1127,356 +1138,114 @@ import Footer from '../components/Footer.astro';
     line-height: 1.7;
   }
 
-  .section-sub.white-sub {
-    color: #ffffff;
-    opacity: 0.85;
-  }
-
-  .intro-text {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 1.05rem;
-    color: #000000;
-    opacity: 0.65;
-    line-height: 1.9;
-    max-width: 760px;
-    margin: 0;
-  }
-
-  /* ─── FEATURED PROJECTS ─── */
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  .project-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: #ffffff;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .project-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    transform: translateY(-4px);
-  }
-
-  .project-img-wrap {
-    width: 100%;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    background: #f0f4f0;
-  }
-
-  .project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .project-card:hover .project-img {
-    transform: scale(1.03);
-  }
-
-  .project-info {
-    padding: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .project-meta {
+  /* ─── TESTIMONIALS ─── */
+  .testi-section {
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
   }
 
-  .project-tag {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #ffffff;
-    padding: 0.2rem 0.65rem;
-  }
-
-  .project-tag.green  { background: #95BD8D; }
-  .project-tag.olive  { background: #6b8f76; }
-  .project-tag.brown  { background: #a07850; }
-
-  .project-year {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.8rem;
-    color: #000000;
-    opacity: 0.4;
-  }
-
-  .project-name {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: #000000;
-    margin: 0 0 0.4rem 0;
-  }
-
-  .project-materials {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.8rem;
-    color: #000000;
-    opacity: 0.45;
-    margin: 0 0 0.75rem 0;
-  }
-
-  .project-desc {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.875rem;
-    color: #000000;
-    opacity: 0.6;
-    line-height: 1.7;
-    margin: 0 0 1.25rem 0;
-    flex: 1;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .tag {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.75rem;
-    color: #000000;
-    opacity: 0.55;
-    border: 1px solid rgba(0,0,0,0.15);
-    padding: 0.2rem 0.6rem;
-  }
-
-  /* ─── PORTFOLIO GRID ─── */
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .portfolio-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: #ffffff;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .portfolio-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    transform: translateY(-4px);
-  }
-
-  .portfolio-img-wrap {
-    width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    background: #f0f4f0;
-  }
-
-  .portfolio-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .portfolio-card:hover .portfolio-img {
-    transform: scale(1.03);
-  }
-
-  .portfolio-info {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .portfolio-name {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #000000;
-    margin: 0.25rem 0 0 0;
-  }
-
-  .portfolio-materials {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.78rem;
-    color: #000000;
-    opacity: 0.4;
-    margin: 0;
-  }
-
-  .portfolio-desc {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.85rem;
-    color: #000000;
-    opacity: 0.6;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ─── METRICS ─── */
-  .section-header {
+  .testi-head {
     margin-bottom: 3rem;
   }
 
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+  .testi-grid {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
-  .metric-card {
-    padding: 2rem 1.5rem;
-    border: 1px solid rgba(255,255,255,0.25);
-    background: rgba(255,255,255,0.1);
-    text-align: center;
-    transition: background 0.2s ease, transform 0.2s ease;
+  .testi-grid::-webkit-scrollbar {
+    display: none;
   }
 
-  .metric-card:hover {
-    background: rgba(255,255,255,0.2);
-    transform: translateY(-4px);
-  }
-
-  .metric-number {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 2.5rem;
-    color: #ffffff;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-
-  .metric-label {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.875rem;
-    color: #ffffff;
-    opacity: 0.85;
-    margin: 0;
-  }
-
-  /* ─── TESTIMONIALS ─── */
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .testimonial-card {
-    border: 1px solid rgba(0,0,0,0.08);
-    padding: 2rem;
-    background: #f7f5f0;
+  .testi-card {
+    position: relative;
+    flex: 0 0 auto;
+    width: clamp(220px, 22vw, 300px);
+    min-height: 480px;
+    background: #F2F1ED;
+    border-radius: 20px;
+    padding: 2.5rem 1.75rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    justify-content: space-between;
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.35s ease;
   }
 
-  .testimonial-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-    transform: translateY(-4px);
+  /* gradient lives behind the footer only — hidden by default */
+  .testi-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 55%;
+    background: linear-gradient(to top, #E8944B 0%, #F2B673 35%, rgba(242, 182, 115, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    border-radius: 0 0 20px 20px;
   }
 
-  .testimonial-quote {
+  .testi-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .testi-card:hover::after {
+    opacity: 1;
+  }
+
+  .testi-quote {
+    position: relative;
+    z-index: 1;
     font-family: 'MaoWei', sans-serif;
     font-size: 0.95rem;
-    color: #000000;
-    opacity: 0.7;
-    line-height: 1.8;
+    line-height: 1.7;
+    color: #1a1a1a;
+    opacity: 0.75;
     margin: 0;
-    font-style: italic;
-    flex: 1;
   }
 
-  .testimonial-author {
+  .testi-footer {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+    color: #1a1a1a;
+    transition: color 0.4s ease;
   }
 
-  .author-avatar {
-    width: 2.5rem;
-    height: 2.5rem;
-    background: #95BD8D;
+  .testi-card:hover .testi-footer {
     color: #ffffff;
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+
+  .testi-logo {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ffffff;
     flex-shrink: 0;
   }
 
-  .author-name {
+  .testi-company {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: 0.875rem;
-    color: #000000;
-    margin: 0;
+    font-size: 0.85rem;
   }
 
-  .author-role {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.78rem;
-    color: #000000;
-    opacity: 0.45;
-    margin: 0;
-  }
-
-  /* ─── CTA ─── */
-  .cta-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .cta-buttons {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-  }
-
-  .wrk-cta {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    padding: 0.65rem 1.5rem;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-
-  .wrk-cta.primary {
-    background: #95BD8D;
-    color: #ffffff;
-  }
-
-  .wrk-cta.primary:hover {
-    background: #C08EA4;
-  }
-
-  .wrk-cta.ghost {
-    background: transparent;
-    color: #000000;
-    opacity: 0.6;
-    padding: 0.65rem 0;
-  }
-
-  .wrk-cta.ghost:hover {
-    opacity: 1;
+  @media (max-width: 768px) {
+    .testi-card {
+      width: clamp(220px, 78vw, 300px);
+    }
   }
 
   /* ─── SCROLL REVEAL ─── */
@@ -1491,28 +1260,40 @@ import Footer from '../components/Footer.astro';
     transform: translateY(0);
   }
 
-  .featured-grid .project-card:nth-child(1) { transition-delay: 0.1s; }
-  .featured-grid .project-card:nth-child(2) { transition-delay: 0.25s; }
-
-  .portfolio-grid .portfolio-card:nth-child(1) { transition-delay: 0.1s; }
-  .portfolio-grid .portfolio-card:nth-child(2) { transition-delay: 0.25s; }
-  .portfolio-grid .portfolio-card:nth-child(3) { transition-delay: 0.4s; }
-
-  .metrics-grid .metric-card:nth-child(1) { transition-delay: 0.1s; }
-  .metrics-grid .metric-card:nth-child(2) { transition-delay: 0.2s; }
-  .metrics-grid .metric-card:nth-child(3) { transition-delay: 0.3s; }
-  .metrics-grid .metric-card:nth-child(4) { transition-delay: 0.4s; }
-
-  .testimonials-grid .testimonial-card:nth-child(1) { transition-delay: 0.1s; }
-  .testimonials-grid .testimonial-card:nth-child(2) { transition-delay: 0.25s; }
-
-  /* ─── MOBILE ─── */
-  @media (max-width: 1024px) {
-    .metrics-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    padding: 15rem 0;
+    background: linear-gradient(-45deg, #7ACC86, #CE508F, #8AF3FF, #EB9C2E);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    color: #ffffff;
+  }
+ 
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+ 
+  .cta-btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    padding: 0.75rem 2rem;
+    border-radius: 0px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+ 
+  .cta-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
 
+  /* ─── MOBILE ─── */
   @media (max-width: 900px) {
     .works-hero {
       flex-direction: column;
@@ -1538,28 +1319,6 @@ import Footer from '../components/Footer.astro';
       width: clamp(200px, 55vw, 320px);
     }
   }
-
-  @media (max-width: 768px) {
-    .featured-grid,
-    .testimonials-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .portfolio-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .metrics-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .portfolio-grid,
-    .metrics-grid {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>
 
 <script>
@@ -1576,111 +1335,21 @@ import Footer from '../components/Footer.astro';
   });
 </script>
 
+<!-- "Signature Experiences" CTA scrolls smoothly to the wheel section -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const section = document.querySelector<HTMLElement>('.heart-framework-section');
-    if (!section) return;
+    const cta = document.querySelector<HTMLAnchorElement>('.js-scroll-cta');
+    const target = document.getElementById('wheel-section');
+    if (!cta || !target) return;
 
-    const circles = Array.from(section.querySelectorAll<HTMLButtonElement>('.pillar-circle'));
-    const flipCard = section.querySelector<HTMLElement>('#heartFlipCard');
-    const nameEl = section.querySelector<HTMLElement>('.pillar-name');
-    const blurbEl = section.querySelector<HTMLElement>('.pillar-blurb');
-    const prevBtn = section.querySelector<HTMLButtonElement>('.heart-arrow.prev');
-    const nextBtn = section.querySelector<HTMLButtonElement>('.heart-arrow.next');
-
-    if (!flipCard || !nameEl || !blurbEl || !prevBtn || !nextBtn) return;
-
-    const faceA = flipCard.querySelector<HTMLElement>('.face-a');
-    const faceB = flipCard.querySelector<HTMLElement>('.face-b');
-    if (!faceA || !faceB) return;
-
-    const pillars = circles.map((c) => ({
-      photo: c.dataset.photo ?? '',
-      name: c.dataset.name ?? '',
-      blurb: c.dataset.blurb ?? ''
-    }));
-
-    let index = 0;
-    let rotation = 0;
-    let frontIsA = true;
-    let autoplayId: ReturnType<typeof setInterval> | null = null;
-    let resumeTimeoutId: ReturnType<typeof setTimeout> | null = null;
-
-    const renderCaption = (i: number) => {
-      circles.forEach((c, ci) => {
-        const isActive = ci === i;
-        c.classList.toggle('active', isActive);
-        c.setAttribute('aria-selected', String(isActive));
-      });
-      nameEl.textContent = pillars[i].name;
-      blurbEl.textContent = pillars[i].blurb;
-    };
-
-    const goTo = (targetIndex: number) => {
-      const i = ((targetIndex % pillars.length) + pillars.length) % pillars.length;
-      if (i === index) return;
-
-      // Whichever face is currently turned away from the viewer is safe to
-      // update — it becomes the new front the moment the flip completes.
-      const hiddenFace = frontIsA ? faceB : faceA;
-      hiddenFace.style.backgroundImage = `url('${pillars[i].photo}')`;
-
-      rotation += 180;
-      flipCard.style.transform = `rotateX(${rotation}deg)`;
-      frontIsA = !frontIsA;
-
-      index = i;
-      renderCaption(index);
-    };
-
-    const next = () => { goTo(index + 1); };
-    const prev = () => { goTo(index - 1); };
-
-    const startAutoplay = () => {
-      stopAutoplay();
-      autoplayId = setInterval(next, 2800);
-    };
-
-    const stopAutoplay = () => {
-      if (autoplayId) clearInterval(autoplayId);
-      autoplayId = null;
-    };
-
-    const pauseThenResume = () => {
-      stopAutoplay();
-      if (resumeTimeoutId) clearTimeout(resumeTimeoutId);
-      resumeTimeoutId = setTimeout(startAutoplay, 6000);
-    };
-
-    circles.forEach((c, i) => {
-      c.addEventListener('click', () => {
-        goTo(i);
-        pauseThenResume();
-      });
+    cta.addEventListener('click', (e) => {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-
-    nextBtn.addEventListener('click', () => { next(); pauseThenResume(); });
-    prevBtn.addEventListener('click', () => { prev(); pauseThenResume(); });
-
-    renderCaption(0);
-
-    // Only run the auto-cycle while the section is actually on screen.
-    const heartObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startAutoplay();
-          } else {
-            stopAutoplay();
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    heartObserver.observe(section);
   });
 </script>
 
+<!-- H.E.A.R.T. card stack + circle nav -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector<HTMLElement>('.heart-framework-section');
@@ -1688,15 +1357,10 @@ import Footer from '../components/Footer.astro';
 
     const cards = Array.from(section.querySelectorAll<HTMLButtonElement>('.stack-card'));
     const circles = Array.from(section.querySelectorAll<HTMLButtonElement>('.pillar-circle'));
-    const nameEl = section.querySelector<HTMLElement>('.pillar-name');
-    const blurbEl = section.querySelector<HTMLElement>('.pillar-blurb');
-    const prevBtn = section.querySelector<HTMLButtonElement>('.heart-arrow.prev');
-    const nextBtn = section.querySelector<HTMLButtonElement>('.heart-arrow.next');
 
-    if (!nameEl || !blurbEl || !prevBtn || !nextBtn || cards.length === 0) return;
+    if (cards.length === 0 || circles.length === 0) return;
 
     const count = cards.length;
-    // positions[i] = current stack slot of cards[i]; 0 = front
     let positions = cards.map((_, i) => i);
     let animating = false;
     let autoplayId: ReturnType<typeof setInterval> | null = null;
@@ -1705,16 +1369,11 @@ import Footer from '../components/Footer.astro';
     const findByPosition = (pos: number) => positions.indexOf(pos);
 
     const applyPositions = () => {
-      cards.forEach((el, i) => {
-        el.dataset.position = String(positions[i]);
-      });
+      cards.forEach((el, i) => { el.dataset.position = String(positions[i]); });
     };
 
     const renderCaption = () => {
       const frontIdx = findByPosition(0);
-      const frontEl = cards[frontIdx];
-      nameEl.textContent = frontEl.dataset.name ?? '';
-      blurbEl.textContent = frontEl.dataset.blurb ?? '';
       circles.forEach((c, i) => {
         const isActive = i === frontIdx;
         c.classList.toggle('active', isActive);
@@ -1722,16 +1381,12 @@ import Footer from '../components/Footer.astro';
       });
     };
 
-    // steps > 0 -> current front exits left, becomes the back of the stack
-    // steps < 0 -> the card behind comes forward, entering from the left
     const rotate = (steps: number) => {
       if (animating || steps === 0) return;
       animating = true;
 
       const oldFrontIdx = findByPosition(0);
-      if (steps > 0) {
-        cards[oldFrontIdx].classList.add('exit-left');
-      }
+      if (steps > 0) cards[oldFrontIdx].classList.add('exit-left');
 
       positions = positions.map((p) => ((p - steps) % count + count) % count);
 
@@ -1751,31 +1406,17 @@ import Footer from '../components/Footer.astro';
     };
 
     const next = () => rotate(1);
-    const prev = () => rotate(-1);
 
-    const goToIndex = (targetIdx: number) => {
-      const steps = positions[targetIdx];
-      rotate(steps);
-    };
+    const goToIndex = (targetIdx: number) => rotate(positions[targetIdx]);
 
-    const startAutoplay = () => {
-      stopAutoplay();
-      autoplayId = setInterval(next, 2800);
-    };
-
-    const stopAutoplay = () => {
-      if (autoplayId) clearInterval(autoplayId);
-      autoplayId = null;
-    };
-
+    const startAutoplay = () => { stopAutoplay(); autoplayId = setInterval(next, 2800); };
+    const stopAutoplay = () => { if (autoplayId) clearInterval(autoplayId); autoplayId = null; };
     const pauseThenResume = () => {
       stopAutoplay();
       if (resumeTimeoutId) clearTimeout(resumeTimeoutId);
       resumeTimeoutId = setTimeout(startAutoplay, 6000);
     };
 
-    // Clicking the front card advances it to the back.
-    // Clicking a peeking card (mid/back) brings that card straight to the front.
     cards.forEach((el) => {
       el.addEventListener('click', () => {
         const pos = Number(el.dataset.position);
@@ -1785,35 +1426,21 @@ import Footer from '../components/Footer.astro';
     });
 
     circles.forEach((c, i) => {
-      c.addEventListener('click', () => {
-        goToIndex(i);
-        pauseThenResume();
-      });
+      c.addEventListener('click', () => { goToIndex(i); pauseThenResume(); });
     });
-
-    nextBtn.addEventListener('click', () => { next(); pauseThenResume(); });
-    prevBtn.addEventListener('click', () => { prev(); pauseThenResume(); });
 
     applyPositions();
     renderCaption();
 
-    // Only auto-cycle while the section is actually on screen.
     const heartObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startAutoplay();
-          } else {
-            stopAutoplay();
-          }
-        });
-      },
+      (entries) => entries.forEach((entry) => entry.isIntersecting ? startAutoplay() : stopAutoplay()),
       { threshold: 0.4 }
     );
     heartObserver.observe(section);
   });
 </script>
 
+<!-- "Ways to Bring H.E.A.R.T." horizontal card scroller -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector<HTMLElement>('.cards-switch-section');
@@ -1845,6 +1472,7 @@ import Footer from '../components/Footer.astro';
   });
 </script>
 
+<!-- H.E.A.R.T. Wheel carousel -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector<HTMLElement>('.wheel-section');
