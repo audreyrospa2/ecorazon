@@ -120,143 +120,33 @@ import Footer from '../components/Footer.astro';
         <h2 class="wheel-title scroll-reveal" id="wheelTitle">Health, Habits &amp; Healing</h2>
         <p class="wheel-desc scroll-reveal" id="wheelDesc">Supporting everyday energy, rest and physical wellbeing as the basis for a sustainable working life.</p>
 
-        <div class="wheel-carousel scroll-reveal">
-          <button class="wheel-arrow prev" aria-label="Previous pillar">←</button>
-
-          <div class="wheel-arc-wrap">
-            <svg class="wheel-arc-line" viewBox="0 0 640 400" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M 60 400 A 260 260 0 0 1 580 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round"/>
-            </svg>
-
-            <div class="wheel-track" id="wheelTrack" role="tablist" aria-label="H.E.A.R.T. pillars">
-
-              <button
-                class="wheel-item active"
-                role="tab"
-                aria-selected="true"
-                data-key="H"
-                data-color="#E2954E"
-                data-title="Health, Habits &amp; Healing"
-                data-desc="Supporting everyday energy, rest and physical wellbeing as the basis for a sustainable working life."
-                style="left:9.4%; top:100%;"
-              >
-                <span class="wheel-circle">
-                  <svg viewBox="0 0 100 100" class="wheel-icon" aria-hidden="true">
-                    <line x1="10" y1="68" x2="90" y2="68" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M28 68a22 22 0 0 1 44 0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                    <g stroke="currentColor" stroke-width="4" stroke-linecap="round">
-                      <line x1="50" y1="30" x2="50" y2="20"/>
-                      <line x1="26" y1="40" x2="18" y2="33"/>
-                      <line x1="74" y1="40" x2="82" y2="33"/>
-                    </g>
-                  </svg>
-                </span>
-                <span class="wheel-letter">H</span>
-                <span class="wheel-dot"></span>
-              </button>
-
-              <button
-                class="wheel-item"
-                role="tab"
-                aria-selected="false"
-                data-key="E"
-                data-color="#9B7BAE"
-                data-title="Exercise, Engagement &amp; Empowerment"
-                data-desc="Using accessible movement to help people release tension, restore balance and feel more present."
-                style="left:21.3%; top:54.05%;"
-              >
-                <span class="wheel-circle">
-                  <svg viewBox="0 0 100 100" class="wheel-icon" aria-hidden="true">
-                    <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="4"/>
-                    <circle cx="50" cy="50" r="6" fill="none" stroke="currentColor" stroke-width="4"/>
-                    <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                      <line x1="50" y1="16" x2="50" y2="44"/>
-                      <line x1="50" y1="56" x2="50" y2="84"/>
-                      <line x1="16" y1="50" x2="44" y2="50"/>
-                      <line x1="56" y1="50" x2="84" y2="50"/>
-                      <line x1="26" y1="26" x2="46" y2="46"/>
-                      <line x1="74" y1="26" x2="54" y2="46"/>
-                      <line x1="26" y1="74" x2="46" y2="54"/>
-                      <line x1="74" y1="74" x2="54" y2="54"/>
-                    </g>
-                  </svg>
-                </span>
-                <span class="wheel-letter">E</span>
-                <span class="wheel-dot"></span>
-              </button>
-
-              <button
-                class="wheel-item"
-                role="tab"
-                aria-selected="false"
-                data-key="A"
-                data-color="#5F8FA6"
-                data-title="Arts, Actions &amp; Appreciation"
-                data-desc="Inviting creativity, mindfulness and self-expression to create focus, calm and fresh perspectives."
-                style="left:50%; top:35%;"
-              >
-                <span class="wheel-circle">
-                  <svg viewBox="0 0 100 100" class="wheel-icon" aria-hidden="true">
-                    <path d="M50 16c19 0 34 14 34 30 0 10-7 15-15 15h-6c-3 0-5 2-5 5 0 2 1 3 1 5 0 5-4 9-9 9-19 0-34-15-34-34S31 16 50 16z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
-                    <circle cx="36" cy="42" r="4" fill="currentColor"/>
-                    <circle cx="50" cy="34" r="4" fill="currentColor"/>
-                    <circle cx="64" cy="42" r="4" fill="currentColor"/>
-                    <circle cx="32" cy="60" r="4" fill="currentColor"/>
-                  </svg>
-                </span>
-                <span class="wheel-letter">A</span>
-                <span class="wheel-dot"></span>
-              </button>
-
-              <button
-                class="wheel-item"
-                role="tab"
-                aria-selected="false"
-                data-key="R"
-                data-color="#95BD8D"
-                data-title="Retreat, Resilience &amp; Relationships"
-                data-desc="Building meaningful connection, trust and the capacity to navigate challenges together."
-                style="left:78.7%; top:54.05%;"
-              >
-                <span class="wheel-circle">
-                  <svg viewBox="0 0 100 100" class="wheel-icon" aria-hidden="true">
-                    <circle cx="50" cy="50" r="8" fill="none" stroke="currentColor" stroke-width="3.5"/>
-                    <circle cx="50" cy="50" r="18" fill="none" stroke="currentColor" stroke-width="3.5"/>
-                    <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" stroke-width="3.5"/>
-                    <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="3.5"/>
-                  </svg>
-                </span>
-                <span class="wheel-letter">R</span>
-                <span class="wheel-dot"></span>
-              </button>
-
-              <button
-                class="wheel-item"
-                role="tab"
-                aria-selected="false"
-                data-key="T"
-                data-color="#3F5A45"
-                data-title="Training, Therapy &amp; Transformation"
-                data-desc="Bringing learning, coaching and professional support together so individuals and teams can grow with confidence."
-                style="left:90.6%; top:100%;"
-              >
-                <span class="wheel-circle">
-                  <svg viewBox="0 0 100 100" class="wheel-icon" aria-hidden="true">
-                    <circle cx="42" cy="42" r="2.5" fill="currentColor"/>
-                    <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="3"/>
-                    <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.75"/>
-                    <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
-                    <circle cx="50" cy="50" r="39" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
-                  </svg>
-                </span>
-                <span class="wheel-letter">T</span>
-                <span class="wheel-dot"></span>
-              </button>
-
-            </div>
+        <div class="wheel-cards-row scroll-reveal" id="wheelCardsRow">
+          <div class="wheel-card">
+            <div class="wheel-card-img"><img src="/images/4.png" alt="" /></div>
+            <p class="wheel-card-caption">Yoga</p>
           </div>
+          <div class="wheel-card">
+            <div class="wheel-card-img"><img src="/images/16.jpg" alt="" /></div>
+            <p class="wheel-card-caption">Dance</p>
+          </div>
+          <div class="wheel-card">
+            <div class="wheel-card-img"><img src="/images/artists.jpg" alt="" /></div>
+            <p class="wheel-card-caption">Sleep</p>
+          </div>
+          <div class="wheel-card">
+            <div class="wheel-card-img"><img src="/images/2.png" alt="" /></div>
+            <p class="wheel-card-caption">Stretching</p>
+          </div>
+        </div>
 
-          <button class="wheel-arrow next" aria-label="Next pillar">→</button>
+        <div class="wheel-tabs scroll-reveal" id="wheelTabs" role="tablist" aria-label="H.E.A.R.T. pillars">
+          <div class="wheel-tabs-indicator" id="wheelTabsIndicator"></div>
+
+          <button class="wheel-tab active" data-key="H" role="tab" aria-selected="true">H</button>
+          <button class="wheel-tab" data-key="E" role="tab" aria-selected="false">E</button>
+          <button class="wheel-tab" data-key="A" role="tab" aria-selected="false">A</button>
+          <button class="wheel-tab" data-key="R" role="tab" aria-selected="false">R</button>
+          <button class="wheel-tab" data-key="T" role="tab" aria-selected="false">T</button>
         </div>
       </div>
     </section>
@@ -838,12 +728,12 @@ import Footer from '../components/Footer.astro';
   /* ─── H.E.A.R.T. WHEEL ─── */
   .wheel-section {
     position: relative;
-    min-height: 100vh;
+    min-height: auto;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     background: #FBF8F3;
-    padding: clamp(5rem, 9vw, 8rem) clamp(2rem, 6vw, 6rem) 0;
+    padding: clamp(3rem, 5vw, 4rem) clamp(2rem, 6vw, 6rem) clamp(2.5rem, 4vw, 3.5rem);
     overflow: hidden;
   }
 
@@ -868,12 +758,17 @@ import Footer from '../components/Footer.astro';
   .wheel-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(1.6rem, 3.1vw, 2.4rem);
+    font-size: clamp(1.15rem, 2.6vw, 2.2rem);
     color: #E2954E;
     line-height: 1.25;
     margin: 0 0 1rem 0;
+    white-space: nowrap;
     transition: color 0.5s ease;
   }
+
+  @media (max-width: 640px) {
+  .wheel-title { font-size: clamp(0.85rem, 4vw, 1.3rem); }
+}
 
   .wheel-desc {
     font-family: 'MaoWei', sans-serif;
@@ -882,7 +777,7 @@ import Footer from '../components/Footer.astro';
     opacity: 0.65;
     line-height: 1.85;
     max-width: 540px;
-    margin: 0 auto clamp(2.75rem, 5vw, 3.75rem) auto;
+    margin: 0 auto clamp(1.75rem, 3vw, 2.25rem) auto;
     min-height: 3.7rem;
   }
 
@@ -896,12 +791,6 @@ import Footer from '../components/Footer.astro';
     width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-  }
-
-  .wheel-arc-wrap {
-    position: relative;
-    width: min(1400px, 96vw);
-    aspect-ratio: 8 / 5;
   }
 
   .wheel-arc-line {
@@ -935,66 +824,30 @@ import Footer from '../components/Footer.astro';
     transform: translateY(-2px);
   }
 
-  .wheel-track {
+  .wheel-letter-static {
     position: absolute;
-    inset: 0;
-  }
-
-  .wheel-item {
-    position: absolute;
-    transform: translate(-50%, -100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    transform: translate(-50%, -50%) translateY(-22px); /* lifts letter above the line/dot */
     background: none;
     border: none;
-    padding: 0.5rem 0 0.9rem 0;
     cursor: pointer;
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+    color: #1a1a1a;
+    opacity: 0.32;
+    padding: 0.3rem 0.5rem;
+    transition: opacity 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.34,1.4,0.64,1);
   }
 
-  .wheel-dot {
-    position: absolute;
-    bottom: 0;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #c2bfb5;
-    transition: background 0.4s ease, transform 0.4s ease;
+  .wheel-letter-static.active {
+    opacity: 1;
+    color: var(--pillar-color, #E2954E);
+    transform: translate(-50%, -50%) translateY(-22px) scale(1.2);
   }
+
   .wheel-item.active .wheel-dot {
     background: var(--pillar-color, #E2954E);
     transform: scale(1.35);
-  }
-
-  .wheel-circle {
-    position: relative;
-    width: 92px;
-    height: 92px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #c2bfb5;
-    transform: scale(0.76);
-    opacity: 0.55;
-    transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
-  }
-
-  .wheel-icon {
-    width: 44%;
-    height: 44%;
-  }
-
-  .wheel-letter {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: #1a1a1a;
-    opacity: 0.3;
-    transition: opacity 0.5s ease;
   }
 
   .wheel-item.active .wheel-circle {
@@ -1010,7 +863,117 @@ import Footer from '../components/Footer.astro';
     opacity: 0.8;
   }
 
+  .wheel-cards-row {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.9rem, 2vw, 1.5rem);
+    margin: 0 auto clamp(1.5rem, 3vw, 2rem) auto;
+    flex-wrap: wrap;
+  }
+
+  .wheel-card {
+    width: clamp(105px, 11vw, 148px);
+    aspect-ratio: 3 / 4.3;
+    border-radius: 34px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s ease;
+  }
+
+  .wheel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 36px rgba(0, 0, 0, 0.14);
+  }
+
+  .wheel-card-img {
+    flex: 0 0 80%;
+    overflow: hidden;
+  }
+
+  .wheel-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+
+  .wheel-card-caption {
+    flex: 0 0 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: center;
+    padding: 0 0.4rem;
+  }
+
+  .wheel-tabs {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 0.4rem;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    margin: 0 auto;
+  }
+
+  .wheel-tabs-indicator {
+    position: absolute;
+    top: 0.4rem;
+    left: 0.4rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--pillar-color, #E2954E);
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), background 0.4s ease;
+    z-index: 1;
+  }
+
+  .wheel-tab {
+    position: relative;
+    z-index: 2;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    opacity: 0.4;
+    transition: color 0.4s ease, opacity 0.4s ease;
+  }
+
+  .wheel-tab.active {
+    color: #ffffff;
+    opacity: 1;
+  }
+
   @media (max-width: 640px) {
+    .wheel-tabs-indicator,
+    .wheel-tab {
+      width: 42px;
+      height: 42px;
+    }
+    .wheel-tab { font-size: 0.95rem; }
+  }
+
+  @media (max-width: 640px) {
+    .wheel-card { width: clamp(78px, 20vw, 100px); border-radius: 24px; }
+    .wheel-card-caption { font-size: 0.7rem; }
+    .wheel-letter-static { font-size: 0.85rem; }
     .wheel-arc-wrap { width: min(640px, 98vw); }
     .wheel-circle { width: 68px; height: 68px; }
     .wheel-item { padding-bottom: 0.6rem; }
@@ -1684,106 +1647,73 @@ import Footer from '../components/Footer.astro';
     const section = document.querySelector<HTMLElement>('.wheel-section');
     if (!section) return;
 
-    const items = Array.from(section.querySelectorAll<HTMLButtonElement>('.wheel-item'));
+    const tabs = Array.from(section.querySelectorAll<HTMLButtonElement>('.wheel-tab'));
+    const indicator = section.querySelector<HTMLElement>('#wheelTabsIndicator');
     const titleEl = section.querySelector<HTMLElement>('#wheelTitle');
     const descEl = section.querySelector<HTMLElement>('#wheelDesc');
-    const prevBtn = section.querySelector<HTMLButtonElement>('.wheel-arrow.prev');
-    const nextBtn = section.querySelector<HTMLButtonElement>('.wheel-arrow.next');
+    const cardEls = Array.from(section.querySelectorAll<HTMLElement>('#wheelCardsRow .wheel-card'));
 
-    if (!titleEl || !descEl || !prevBtn || !nextBtn || items.length === 0) return;
+    if (!indicator || !titleEl || !descEl || tabs.length === 0) return;
 
-    const pillars = items.map((el) => ({
-      color: el.dataset.color ?? '#1a1a1a',
-      title: el.dataset.title ?? '',
-      desc: el.dataset.desc ?? ''
-    }));
-
-    // Circle geometry — matches the viewBox of .wheel-arc-line (0 0 640 400):
-    // center (320,400), radius 260. 180° = far left, 90° = top apex, 0° = far right.
-    const CX = 320, CY = 400, R = 260;
-    const STEP = 45; // degrees between neighbouring items, matches the original layout
-    const baseAngles = pillars.map((_, i) => 180 - i * STEP); // 180,135,90,45,0
-
-    let index = 0;
-    let rotation = 0;
-    let rafId: number | null = null;
-
-    const opacityFor = (norm: number) => {
-      // norm 0–180 is the visible top of the wheel — always fully shown.
-      // Past 180 the item has swung underneath; fade it out over ~25°
-      // instead of popping, so it reads as sinking below the edge.
-      if (norm <= 180) return 1;
-      const distanceBelow = Math.min(norm - 180, 360 - norm);
-      const buffer = 25;
-      return Math.max(0, 1 - distanceBelow / buffer);
+    const pillarData: Record<string, { color: string; title: string; desc: string }> = {
+      H: { color: '#E2954E', title: 'Health, Habits &amp; Healing', desc: 'Supporting everyday energy, rest and physical wellbeing as the basis for a sustainable working life.' },
+      E: { color: '#9B7BAE', title: 'Exercise, Engagement &amp; Empowerment', desc: 'Using accessible movement to help people release tension, restore balance and feel more present.' },
+      A: { color: '#5F8FA6', title: 'Arts, Actions &amp; Appreciation', desc: 'Inviting creativity, mindfulness and self-expression to create focus, calm and fresh perspectives.' },
+      R: { color: '#95BD8D', title: 'Retreat, Resilience &amp; Relationships', desc: 'Building meaningful connection, trust and the capacity to navigate challenges together.' },
+      T: { color: '#3F5A45', title: 'Training, Therapy &amp; Transformation', desc: 'Bringing learning, coaching and professional support together so individuals and teams can grow with confidence.' }
     };
 
-    const setItemPosition = (el: HTMLElement, angleDeg: number) => {
-      const rad = (angleDeg * Math.PI) / 180;
-      const x = CX + R * Math.cos(rad);
-      const y = CY - R * Math.sin(rad);
-      el.style.left = (x / 640) * 100 + '%';
-      el.style.top = (y / 400) * 100 + '%';
-
-      const norm = ((angleDeg % 360) + 360) % 360;
-      const opacity = opacityFor(norm);
-      el.style.opacity = String(opacity);
-      el.style.pointerEvents = opacity < 0.1 ? 'none' : '';
+    const pillarCards: Record<string, { img: string; caption: string }[]> = {
+      H: [{ img: '/images/4.png', caption: 'Nutrition' }, { img: '/images/16.jpg', caption: 'Sleep' }, { img: '/images/artists.jpg', caption: 'Yoga' }, { img: '/images/2.png', caption: 'Stretching' }],
+      E: [{ img: '/images/16.jpg', caption: 'Dance' }, { img: '/images/17.jpg', caption: 'Cardio' }, { img: '/images/artists.jpg', caption: 'Hiking' }, { img: '/images/4.png', caption: 'Strength' }],
+      A: [{ img: '/images/17.jpg', caption: 'Painting' }, { img: '/images/artists.jpg', caption: 'Music' }, { img: '/images/2.png', caption: 'Pottery' }, { img: '/images/4.png', caption: 'Writing' }],
+      R: [{ img: '/images/2.png', caption: 'Retreat' }, { img: '/images/artists.jpg', caption: 'Trust Circle' }, { img: '/images/16.jpg', caption: 'Team Building' }, { img: '/images/17.jpg', caption: 'Sharing' }],
+      T: [{ img: '/images/artists.jpg', caption: 'Coaching' }, { img: '/images/4.png', caption: 'Workshop' }, { img: '/images/17.jpg', caption: 'Mentoring' }, { img: '/images/2.png', caption: 'Training' }]
     };
 
-    const render = (rot: number) => {
-      items.forEach((el, i) => setItemPosition(el, baseAngles[i] + rot));
-    };
-
-    const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
-    const animateTo = (from: number, to: number, duration = 700) => {
-      if (rafId) cancelAnimationFrame(rafId);
-      const start = performance.now();
-      const step = (now: number) => {
-        const t = Math.min(1, (now - start) / duration);
-        render(from + (to - from) * easeInOutCubic(t));
-        rafId = t < 1 ? requestAnimationFrame(step) : null;
-      };
-      rafId = requestAnimationFrame(step);
-    };
-
-    const updateCaption = () => {
-      const pillar = pillars[index];
-      items.forEach((el, i) => {
-        const isActive = i === index;
-        el.classList.toggle('active', isActive);
-        el.setAttribute('aria-selected', String(isActive));
+    const updateCards = (key: string) => {
+      const data = pillarCards[key] || [];
+      cardEls.forEach((card, i) => {
+        const item = data[i];
+        if (!item) return;
+        const imgEl = card.querySelector<HTMLImageElement>('img');
+        const capEl = card.querySelector<HTMLElement>('.wheel-card-caption');
+        if (imgEl) imgEl.src = item.img;
+        if (capEl) capEl.textContent = item.caption;
       });
+    };
+
+    const selectTab = (key: string) => {
+      const targetTab = tabs.find((t) => t.dataset.key === key);
+      if (!targetTab || !indicator) return;
+
+      const pillar = pillarData[key];
+
+      tabs.forEach((t) => {
+        const isActive = t === targetTab;
+        t.classList.toggle('active', isActive);
+        t.setAttribute('aria-selected', String(isActive));
+      });
+
+      // slide the indicator to sit exactly behind the target tab
+      indicator.style.transform = `translateX(${targetTab.offsetLeft - tabs[0].offsetLeft}px)`;
+
       section.style.setProperty('--pillar-color', pillar.color);
-      titleEl.textContent = pillar.title;
+      titleEl.innerHTML = pillar.title;
       titleEl.style.color = pillar.color;
-      descEl.textContent = pillar.desc;
+      descEl.innerHTML = pillar.desc;
+      updateCards(key);
     };
-
-    const goTo = (targetIndex: number) => {
-      const n = pillars.length;
-      const newIndex = ((targetIndex % n) + n) % n;
-      if (newIndex === index) return;
-
-      // shortest signed path around the wheel, so a distant click spins
-      // the short way rather than the long way
-      let diff = newIndex - index;
-      if (diff > n / 2) diff -= n;
-      if (diff < -n / 2) diff += n;
-
-      const target = rotation - diff * STEP;
-      index = newIndex;
-      updateCaption();
-      animateTo(rotation, target);
-      rotation = target;
-    };
-
-    const next = () => goTo(index + 1);
-    const prev = () => goTo(index - 1);
 
     let autoplayId: ReturnType<typeof setInterval> | null = null;
     let resumeTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    const keys = tabs.map((t) => t.dataset.key ?? '');
+    let currentIdx = 0;
+
+    const next = () => {
+      currentIdx = (currentIdx + 1) % keys.length;
+      selectTab(keys[currentIdx]);
+    };
 
     const startAutoplay = () => { stopAutoplay(); autoplayId = setInterval(next, 3200); };
     const stopAutoplay = () => { if (autoplayId) clearInterval(autoplayId); autoplayId = null; };
@@ -1793,14 +1723,15 @@ import Footer from '../components/Footer.astro';
       resumeTimeoutId = setTimeout(startAutoplay, 6000);
     };
 
-    items.forEach((el, i) => {
-      el.addEventListener('click', () => { goTo(i); pauseThenResume(); });
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => {
+        currentIdx = i;
+        selectTab(tab.dataset.key ?? '');
+        pauseThenResume();
+      });
     });
-    nextBtn.addEventListener('click', () => { next(); pauseThenResume(); });
-    prevBtn.addEventListener('click', () => { prev(); pauseThenResume(); });
 
-    render(0);
-    updateCaption();
+    selectTab(keys[0]);
 
     const wheelObserver = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting ? startAutoplay() : stopAutoplay()),
@@ -1809,6 +1740,7 @@ import Footer from '../components/Footer.astro';
     wheelObserver.observe(section);
   });
 </script>
+
 
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
