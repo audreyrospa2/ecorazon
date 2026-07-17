@@ -141,8 +141,9 @@
 </style>
 
 <script>
-  function startNoiseAnimation(canvas) {
+  function startNoiseAnimation(canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext('2d');
+    if (!ctx) return; 
     function resize() {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
@@ -170,6 +171,6 @@
     drawNoise();
   }
 
-  const footerCanvas = document.getElementById('footer-noise');
+  const footerCanvas = document.getElementById('footer-noise') as HTMLCanvasElement | null;
   if (footerCanvas) startNoiseAnimation(footerCanvas);
 </script>
