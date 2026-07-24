@@ -138,18 +138,34 @@ import Footer from '../components/Footer.astro';
             <p class="wheel-card-caption">Stretching</p>
           </div>
         </div>
+      </div>
 
-        <div class="wheel-tabs scroll-reveal" id="wheelTabs" role="tablist" aria-label="H.E.A.R.T. pillars">
-          <div class="wheel-tabs-indicator" id="wheelTabsIndicator"></div>
+      <div class="wheel-arc-wrap scroll-reveal" id="wheelArcWrap">
+        <svg class="wheel-arc-svg" viewBox="0 0 200 100" aria-hidden="true">
+          <path d="M 0 100 A 100 100 0 0 1 200 100" fill="none" stroke="rgba(26,26,26,0.14)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+        </svg>
 
-          <button class="wheel-tab active" data-key="H" role="tab" aria-selected="true">H</button>
-          <button class="wheel-tab" data-key="E" role="tab" aria-selected="false">E</button>
-          <button class="wheel-tab" data-key="A" role="tab" aria-selected="false">A</button>
-          <button class="wheel-tab" data-key="R" role="tab" aria-selected="false">R</button>
-          <button class="wheel-tab" data-key="T" role="tab" aria-selected="false">T</button>
+        <div class="wheel-arc-letters" id="wheelArcLetters" role="tablist" aria-label="H.E.A.R.T. pillars">
+          <button class="wheel-arc-letter" data-key="H" role="tab" aria-selected="true" style="left:0%; top:100%;">H</button>
+          <button class="wheel-arc-letter" data-key="E" role="tab" aria-selected="false" style="left:14.64%; top:29.29%;">E</button>
+          <button class="wheel-arc-letter" data-key="A" role="tab" aria-selected="false" style="left:50%; top:0%;">A</button>
+          <button class="wheel-arc-letter" data-key="R" role="tab" aria-selected="false" style="left:85.36%; top:29.29%;">R</button>
+          <button class="wheel-arc-letter" data-key="T" role="tab" aria-selected="false" style="left:100%; top:100%;">T</button>
         </div>
       </div>
     </section>
+
+    <!-- H.E.A.R.T. Wheel — card detail modal -->
+    <div class="wheel-modal-overlay" id="wheelModalOverlay">
+      <div class="wheel-modal" role="dialog" aria-modal="true" aria-labelledby="wheelModalTitle">
+        <button class="wheel-modal-close" id="wheelModalClose" aria-label="Close">✕</button>
+        <div class="wheel-modal-gallery" id="wheelModalGallery"></div>
+        <div class="wheel-modal-body">
+          <h3 class="wheel-modal-title" id="wheelModalTitle"></h3>
+          <p class="wheel-modal-text" id="wheelModalText"></p>
+        </div>
+      </div>
+    </div>
 
     <!-- Ways to Bring H.E.A.R.T. to Your Team -->
     <section class="wrk-section bg-warm cards-switch-section">
@@ -728,20 +744,25 @@ import Footer from '../components/Footer.astro';
   /* ─── H.E.A.R.T. WHEEL ─── */
   .wheel-section {
     position: relative;
-    min-height: auto;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background: #FBF8F3;
-    padding: clamp(3rem, 5vw, 4rem) clamp(2rem, 6vw, 6rem) clamp(2.5rem, 4vw, 3.5rem);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 6vw, 6rem) clamp(1.75rem, 4vw, 2.5rem);
     overflow: hidden;
   }
 
   .wheel-inner {
     position: relative;
+    z-index: 3;
     max-width: 720px;
     margin: 0 auto;
     text-align: center;
+    flex-shrink: 0;
   }
 
   .wheel-eyebrow {
@@ -777,98 +798,17 @@ import Footer from '../components/Footer.astro';
     opacity: 0.65;
     line-height: 1.85;
     max-width: 540px;
-    margin: 0 auto clamp(1.75rem, 3vw, 2.25rem) auto;
+    margin: 0 auto clamp(1.5rem, 3vw, 2rem) auto;
     min-height: 3.7rem;
-  }
-
-  .wheel-carousel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(0.75rem, 2.5vw, 2rem);
-    /* break out of the 720px .wheel-inner text column so the wheel can be
-      as wide as the viewport, independent of the copy above it */
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-  }
-
-  .wheel-arc-line {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    color: rgba(0, 0, 0, 0.15);
-  }
-
-  .wheel-arrow {
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.18);
-    background: transparent;
-    color: #1a1a1a;
-    font-size: 1rem;
-    cursor: pointer;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
-  }
-
-  .wheel-arrow:hover {
-    background: #1a1a1a;
-    border-color: #1a1a1a;
-    color: #ffffff;
-    transform: translateY(-2px);
-  }
-
-  .wheel-letter-static {
-    position: absolute;
-    transform: translate(-50%, -50%) translateY(-22px); /* lifts letter above the line/dot */
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: clamp(0.9rem, 1.4vw, 1.15rem);
-    color: #1a1a1a;
-    opacity: 0.32;
-    padding: 0.3rem 0.5rem;
-    transition: opacity 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.34,1.4,0.64,1);
-  }
-
-  .wheel-letter-static.active {
-    opacity: 1;
-    color: var(--pillar-color, #E2954E);
-    transform: translate(-50%, -50%) translateY(-22px) scale(1.2);
-  }
-
-  .wheel-item.active .wheel-dot {
-    background: var(--pillar-color, #E2954E);
-    transform: scale(1.35);
-  }
-
-  .wheel-item.active .wheel-circle {
-    transform: scale(1);
-    opacity: 1;
-    color: var(--pillar-color, #E2954E);
-    border-color: transparent;
-    background: #ffffff;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12), inset 0 0 0 2px var(--pillar-color, #E2954E);
-  }
-
-  .wheel-item.active .wheel-letter {
-    opacity: 0.8;
   }
 
   .wheel-cards-row {
     display: flex;
     justify-content: center;
+    align-items: stretch;
     gap: clamp(0.9rem, 2vw, 1.5rem);
-    margin: 0 auto clamp(1.5rem, 3vw, 2rem) auto;
-    flex-wrap: wrap;
+    margin: 0 auto;
+    flex-wrap: nowrap;
   }
 
   .wheel-card {
@@ -880,6 +820,9 @@ import Footer from '../components/Footer.astro';
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    border: none;
+    padding: 0;
     transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s ease;
   }
 
@@ -915,68 +858,178 @@ import Footer from '../components/Footer.astro';
     padding: 0 0.4rem;
   }
 
-  .wheel-tabs {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: #ffffff;
-    border-radius: 999px;
-    padding: 0.4rem;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-    margin: 0 auto;
-  }
-
-  .wheel-tabs-indicator {
-    position: absolute;
-    top: 0.4rem;
-    left: 0.4rem;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--pillar-color, #E2954E);
-    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), background 0.4s ease;
-    z-index: 1;
-  }
-
-  .wheel-tab {
-    position: relative;
-    z-index: 2;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: #1a1a1a;
-    opacity: 0.4;
-    transition: color 0.4s ease, opacity 0.4s ease;
-  }
-
-  .wheel-tab.active {
-    color: #ffffff;
-    opacity: 1;
-  }
-
-  @media (max-width: 640px) {
-    .wheel-tabs-indicator,
-    .wheel-tab {
-      width: 42px;
-      height: 42px;
-    }
-    .wheel-tab { font-size: 0.95rem; }
-  }
-
   @media (max-width: 640px) {
     .wheel-card { width: clamp(78px, 20vw, 100px); border-radius: 24px; }
     .wheel-card-caption { font-size: 0.7rem; }
-    .wheel-letter-static { font-size: 0.85rem; }
-    .wheel-arc-wrap { width: min(640px, 98vw); }
-    .wheel-circle { width: 68px; height: 68px; }
-    .wheel-item { padding-bottom: 0.6rem; }
+  }
+
+  /* ── The dome arc + letters, anchored to the bottom of the section ──
+     wrap is forced to a true 2:1 (width:height) box, which is what makes
+     the percentage-based letter positions below trace an actual circle
+     instead of a stretched oval. */
+  .wheel-arc-wrap {
+    position: relative;
+    width: min(460px, 68vw);
+    aspect-ratio: 2 / 1;
+    flex: 0 0 auto;
+    margin: auto auto 0;
+    align-self: center;
+  }
+
+  .wheel-arc-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .wheel-arc-letters {
+    position: absolute;
+    inset: 0;
+  }
+
+  .wheel-arc-letter {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: clamp(34px, 7vw, 46px);
+    height: clamp(34px, 7vw, 46px);
+    border-radius: 50%;
+    border: none;
+    background: #E7E4DC;
+    color: #1a1a1a;
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 2vw, 1.05rem);
+    opacity: 0.55;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    transition: background 0.4s ease, color 0.4s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.4,0.64,1);
+  }
+
+  .wheel-arc-letter.active {
+    background: var(--pillar-color, #E2954E);
+    color: #ffffff;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
+  }
+
+  @media (max-width: 640px) {
+    .wheel-arc-wrap { width: min(340px, 82vw); }
+  }
+
+  /* ── Card detail modal ── */
+  .wheel-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1.25rem, 4vw, 3rem);
+    background: rgba(20, 18, 15, 0.55);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .wheel-modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .wheel-modal {
+    position: relative;
+    width: min(640px, 100%);
+    max-height: 85vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.28);
+    transform: scale(0.94) translateY(12px);
+    transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1);
+  }
+
+  .wheel-modal-overlay.open .wheel-modal {
+    transform: scale(1) translateY(0);
+  }
+
+  .wheel-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(26, 26, 26, 0.6);
+    color: #ffffff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+
+  .wheel-modal-close:hover {
+    background: #1a1a1a;
+  }
+
+  .wheel-modal-gallery {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .wheel-modal-gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wheel-modal-gallery img {
+    width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+    display: block;
+    flex: 1 0 100%;
+    scroll-snap-align: start;
+  }
+
+  .wheel-modal-gallery {
+    scroll-snap-type: x mandatory;
+    border-radius: 28px 28px 0 0;
+  }
+
+  .wheel-modal-body {
+    padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem) clamp(2rem, 3.5vw, 2.5rem);
+  }
+
+  .wheel-modal-title {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: #1a1a1a;
+    margin: 0 0 0.85rem 0;
+  }
+
+  .wheel-modal-text {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: #1a1a1a;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .wheel-modal-gallery img { max-height: 240px; }
   }
 
   /* ─── WAYS TO BRING H.E.A.R.T. (CARD SWITCHER) ─── */
@@ -1641,19 +1694,26 @@ import Footer from '../components/Footer.astro';
   });
 </script>
 
-<!-- H.E.A.R.T. Wheel carousel -->
+<!-- H.E.A.R.T. Wheel: dome arc navigation + expandable activity cards -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector<HTMLElement>('.wheel-section');
     if (!section) return;
 
-    const tabs = Array.from(section.querySelectorAll<HTMLButtonElement>('.wheel-tab'));
-    const indicator = section.querySelector<HTMLElement>('#wheelTabsIndicator');
+    const letters = Array.from(section.querySelectorAll<HTMLButtonElement>('.wheel-arc-letter'));
     const titleEl = section.querySelector<HTMLElement>('#wheelTitle');
     const descEl = section.querySelector<HTMLElement>('#wheelDesc');
-    const cardEls = Array.from(section.querySelectorAll<HTMLElement>('#wheelCardsRow .wheel-card'));
+    const cardsRow = section.querySelector<HTMLElement>('#wheelCardsRow');
 
-    if (!indicator || !titleEl || !descEl || tabs.length === 0) return;
+    if (!titleEl || !descEl || !cardsRow || letters.length === 0) return;
+
+    const modalOverlay = document.getElementById('wheelModalOverlay');
+    const modalClose = document.getElementById('wheelModalClose');
+    const modalGallery = document.getElementById('wheelModalGallery');
+    const modalTitle = document.getElementById('wheelModalTitle');
+    const modalText = document.getElementById('wheelModalText');
+
+    type PillarActivity = { img: string; images?: string[]; caption: string; detail: string };
 
     const pillarData: Record<string, { color: string; title: string; desc: string }> = {
       H: { color: '#E2954E', title: 'Health, Habits &amp; Healing', desc: 'Supporting everyday energy, rest and physical wellbeing as the basis for a sustainable working life.' },
@@ -1663,56 +1723,103 @@ import Footer from '../components/Footer.astro';
       T: { color: '#3F5A45', title: 'Training, Therapy &amp; Transformation', desc: 'Bringing learning, coaching and professional support together so individuals and teams can grow with confidence.' }
     };
 
-    const pillarCards: Record<string, { img: string; caption: string }[]> = {
-      H: [{ img: '/images/4.png', caption: 'Nutrition' }, { img: '/images/16.jpg', caption: 'Sleep' }, { img: '/images/artists.jpg', caption: 'Yoga' }, { img: '/images/2.png', caption: 'Stretching' }],
-      E: [{ img: '/images/16.jpg', caption: 'Dance' }, { img: '/images/17.jpg', caption: 'Cardio' }, { img: '/images/artists.jpg', caption: 'Hiking' }, { img: '/images/4.png', caption: 'Strength' }],
-      A: [{ img: '/images/17.jpg', caption: 'Painting' }, { img: '/images/artists.jpg', caption: 'Music' }, { img: '/images/2.png', caption: 'Pottery' }, { img: '/images/4.png', caption: 'Writing' }],
-      R: [{ img: '/images/2.png', caption: 'Retreat' }, { img: '/images/artists.jpg', caption: 'Trust Circle' }, { img: '/images/16.jpg', caption: 'Team Building' }, { img: '/images/17.jpg', caption: 'Sharing' }],
-      T: [{ img: '/images/artists.jpg', caption: 'Coaching' }, { img: '/images/4.png', caption: 'Workshop' }, { img: '/images/17.jpg', caption: 'Mentoring' }, { img: '/images/2.png', caption: 'Training' }]
+    const pillarCards: Record<string, PillarActivity[]> = {
+      H: [
+        { img: '/images/4.png', caption: 'Nutrition', detail: 'A guided session on everyday eating habits that sustain energy through the work day.' },
+        { img: '/images/16.jpg', caption: 'Sleep', detail: 'Practical routines and environment tweaks that help teams rest and recover better.' },
+        { img: '/images/artists.jpg', caption: 'Yoga', detail: 'Gentle, accessible flows that ease tension and reset focus, no experience needed.' },
+        { img: '/images/2.png', caption: 'Stretching', detail: 'Short guided stretch breaks designed to fit around a desk-based day.' }
+      ],
+      E: [
+        { img: '/images/16.jpg', caption: 'Dance', detail: 'Playful, judgment-free movement sessions that build energy and team rapport.' },
+        { img: '/images/17.jpg', caption: 'Cardio', detail: 'Accessible cardio circuits that raise energy without needing a gym.' },
+        { img: '/images/artists.jpg', caption: 'Hiking', detail: 'Outdoor group walks that combine movement with fresh air and conversation.' },
+        { img: '/images/4.png', caption: 'Strength', detail: 'Foundational strength work introduced at a pace suited to any fitness level.' }
+      ],
+      A: [
+        { img: '/images/17.jpg', caption: 'Painting', detail: 'A relaxed painting session that turns creative expression into a shared break.' },
+        { img: '/images/artists.jpg', caption: 'Music', detail: 'Hands-on music activities that build focus and a sense of shared rhythm.' },
+        { img: '/images/2.png', caption: 'Pottery', detail: 'A tactile, screen-free craft session that slows the pace and sparks conversation.' },
+        { img: '/images/4.png', caption: 'Writing', detail: 'Guided reflective writing prompts that help people process and reset.' }
+      ],
+      R: [
+        { img: '/images/2.png', caption: 'Retreat', detail: 'An off-site day built around rest, reflection and reconnecting as a team.' },
+        { img: '/images/artists.jpg', caption: 'Trust Circle', detail: 'Facilitated small-group conversations that deepen trust across the team.' },
+        { img: '/images/16.jpg', caption: 'Team Building', detail: 'Collaborative activities designed to strengthen how the team works together.' },
+        { img: '/images/17.jpg', caption: 'Sharing', detail: 'Structured sharing sessions that give quieter voices space to be heard.' }
+      ],
+      T: [
+        { img: '/images/artists.jpg', caption: 'Coaching', detail: '1:1 or small-group coaching to support individual growth and confidence.' },
+        { img: '/images/4.png', caption: 'Workshop', detail: 'Practical skills workshops tailored to what your team needs next.' },
+        { img: '/images/17.jpg', caption: 'Mentoring', detail: 'Structured mentoring pairings that support longer-term development.' },
+        { img: '/images/2.png', caption: 'Training', detail: 'Targeted training sessions that turn new skills into everyday practice.' }
+      ]
     };
 
-    const updateCards = (key: string) => {
+    const openModal = (item: PillarActivity) => {
+      if (!modalOverlay || !modalGallery || !modalTitle || !modalText) return;
+      const images = item.images && item.images.length ? item.images : [item.img];
+      modalGallery.innerHTML = images.map((src) => `<img src="${src}" alt="" />`).join('');
+      modalTitle.textContent = item.caption;
+      modalText.textContent = item.detail;
+      modalOverlay.classList.add('open');
+      stopAutoplay();
+    };
+
+    const closeModal = () => {
+      if (!modalOverlay) return;
+      modalOverlay.classList.remove('open');
+      pauseThenResume();
+    };
+
+    modalClose?.addEventListener('click', closeModal);
+    modalOverlay?.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOverlay?.classList.contains('open')) closeModal();
+    });
+
+    const buildCards = (key: string) => {
       const data = pillarCards[key] || [];
+      cardsRow.innerHTML = data.map((item) => `
+        <button class="wheel-card" type="button">
+          <span class="wheel-card-img"><img src="${item.img}" alt="" /></span>
+          <p class="wheel-card-caption">${item.caption}</p>
+        </button>
+      `).join('');
+
+      const cardEls = Array.from(cardsRow.querySelectorAll<HTMLButtonElement>('.wheel-card'));
       cardEls.forEach((card, i) => {
-        const item = data[i];
-        if (!item) return;
-        const imgEl = card.querySelector<HTMLImageElement>('img');
-        const capEl = card.querySelector<HTMLElement>('.wheel-card-caption');
-        if (imgEl) imgEl.src = item.img;
-        if (capEl) capEl.textContent = item.caption;
+        card.addEventListener('click', () => openModal(data[i]));
       });
     };
 
-    const selectTab = (key: string) => {
-      const targetTab = tabs.find((t) => t.dataset.key === key);
-      if (!targetTab || !indicator) return;
-
+    const selectPillar = (key: string) => {
       const pillar = pillarData[key];
+      if (!pillar) return;
 
-      tabs.forEach((t) => {
-        const isActive = t === targetTab;
-        t.classList.toggle('active', isActive);
-        t.setAttribute('aria-selected', String(isActive));
+      letters.forEach((btn) => {
+        const isActive = btn.dataset.key === key;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', String(isActive));
       });
-
-      // slide the indicator to sit exactly behind the target tab
-      indicator.style.transform = `translateX(${targetTab.offsetLeft - tabs[0].offsetLeft}px)`;
 
       section.style.setProperty('--pillar-color', pillar.color);
       titleEl.innerHTML = pillar.title;
       titleEl.style.color = pillar.color;
       descEl.innerHTML = pillar.desc;
-      updateCards(key);
+      buildCards(key);
     };
 
     let autoplayId: ReturnType<typeof setInterval> | null = null;
     let resumeTimeoutId: ReturnType<typeof setTimeout> | null = null;
-    const keys = tabs.map((t) => t.dataset.key ?? '');
+    const keys = letters.map((b) => b.dataset.key ?? '');
     let currentIdx = 0;
 
     const next = () => {
       currentIdx = (currentIdx + 1) % keys.length;
-      selectTab(keys[currentIdx]);
+      selectPillar(keys[currentIdx]);
     };
 
     const startAutoplay = () => { stopAutoplay(); autoplayId = setInterval(next, 3200); };
@@ -1723,15 +1830,15 @@ import Footer from '../components/Footer.astro';
       resumeTimeoutId = setTimeout(startAutoplay, 6000);
     };
 
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => {
+    letters.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
         currentIdx = i;
-        selectTab(tab.dataset.key ?? '');
+        selectPillar(btn.dataset.key ?? '');
         pauseThenResume();
       });
     });
 
-    selectTab(keys[0]);
+    selectPillar(keys[0]);
 
     const wheelObserver = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting ? startAutoplay() : stopAutoplay()),

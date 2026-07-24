@@ -102,7 +102,7 @@
     if (video) video.pause();
   }
 
-  // Only auto-open if the URL path is /Kos (case-insensitive, trailing slash optional)
+  // Only auto-open if the URL path is /kos (case-insensitive, trailing slash optional)
   const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
   if (path === '/kos') {
     setTimeout(openPopup, 500);
