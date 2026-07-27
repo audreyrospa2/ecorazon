@@ -117,32 +117,15 @@ import Footer from '../components/Footer.astro';
     <section class="wheel-section" id="wheel-section">
       <div class="wheel-inner">
         <p class="wheel-eyebrow scroll-reveal">The H.E.A.R.T. Framework</p>
-        <h2 class="wheel-title scroll-reveal" id="wheelTitle">Health, Habits &amp; Healing</h2>
-        <p class="wheel-desc scroll-reveal" id="wheelDesc">Supporting everyday energy, rest and physical wellbeing as the basis for a sustainable working life.</p>
+        <h2 class="wheel-title" id="wheelTitle">Health, Habits &amp; Healing</h2>
+        <p class="wheel-desc" id="wheelDesc">Supporting everyday energy, rest and physical wellbeing as the basis for a sustainable working life.</p>
 
-        <div class="wheel-cards-row scroll-reveal" id="wheelCardsRow">
-          <div class="wheel-card">
-            <div class="wheel-card-img"><img src="/images/4.png" alt="" /></div>
-            <p class="wheel-card-caption">Yoga</p>
-          </div>
-          <div class="wheel-card">
-            <div class="wheel-card-img"><img src="/images/16.jpg" alt="" /></div>
-            <p class="wheel-card-caption">Dance</p>
-          </div>
-          <div class="wheel-card">
-            <div class="wheel-card-img"><img src="/images/artists.jpg" alt="" /></div>
-            <p class="wheel-card-caption">Sleep</p>
-          </div>
-          <div class="wheel-card">
-            <div class="wheel-card-img"><img src="/images/2.png" alt="" /></div>
-            <p class="wheel-card-caption">Stretching</p>
-          </div>
-        </div>
+        <div class="wheel-cards-row" id="wheelCardsRow"></div>
       </div>
 
-      <div class="wheel-arc-wrap scroll-reveal" id="wheelArcWrap">
-        <svg class="wheel-arc-svg" viewBox="0 0 200 100" aria-hidden="true">
-          <path d="M 0 100 A 100 100 0 0 1 200 100" fill="none" stroke="rgba(26,26,26,0.14)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+      <div class="wheel-arc-wrap" id="wheelArcWrap">
+        <svg class="wheel-arc-svg" viewBox="0 0 300 100" aria-hidden="true">
+          <path d="M 0 100 A 150 100 0 0 1 300 100" fill="none" stroke="rgba(26,26,26,0.14)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
         </svg>
 
         <div class="wheel-arc-letters" id="wheelArcLetters" role="tablist" aria-label="H.E.A.R.T. pillars">
@@ -752,7 +735,7 @@ import Footer from '../components/Footer.astro';
     align-items: center;
     justify-content: flex-start;
     background: #FBF8F3;
-    padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 6vw, 6rem) clamp(1.75rem, 4vw, 2.5rem);
+    padding: clamp(6rem, 11vw, 8rem) clamp(2rem, 6vw, 6rem) clamp(1.75rem, 4vw, 2.5rem);
     overflow: hidden;
   }
 
@@ -784,7 +767,7 @@ import Footer from '../components/Footer.astro';
     line-height: 1.25;
     margin: 0 0 1rem 0;
     white-space: nowrap;
-    transition: color 0.5s ease;
+    transition: color 0.5s ease, opacity 0.55s ease, transform 0.55s ease;
   }
 
   @media (max-width: 640px) {
@@ -800,26 +783,48 @@ import Footer from '../components/Footer.astro';
     max-width: 540px;
     margin: 0 auto clamp(1.5rem, 3vw, 2rem) auto;
     min-height: 3.7rem;
+    transition: opacity 0.55s ease, transform 0.55s ease;
   }
 
   .wheel-cards-row {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    gap: clamp(0.9rem, 2vw, 1.5rem);
+    gap: clamp(0.8rem, 1.6vw, 1.25rem);
     margin: 0 auto;
     flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0.25rem 0.25rem 0.5rem;
+  }
+
+  .wheel-cards-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wheel-cards-row {
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .wheel-title.wheel-swap-out,
+  .wheel-desc.wheel-swap-out,
+  .wheel-cards-row.wheel-swap-out {
+    opacity: 0;
+    transform: translateY(-30px);
   }
 
   .wheel-card {
-    width: clamp(105px, 11vw, 148px);
-    aspect-ratio: 3 / 4.3;
-    border-radius: 34px;
+    width: clamp(115px, 12vw, 160px);
+    aspect-ratio: 2.4 / 4.6;
+    border-radius: 999px;
     overflow: hidden;
     background: #ffffff;
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
-    display: flex;
-    flex-direction: column;
+    display: block;
+    position: relative;
+    flex: 0 0 auto;
     cursor: pointer;
     border: none;
     padding: 0;
@@ -831,49 +836,61 @@ import Footer from '../components/Footer.astro';
     box-shadow: 0 20px 36px rgba(0, 0, 0, 0.14);
   }
 
-  .wheel-card-img {
-    flex: 0 0 80%;
-    overflow: hidden;
+  .wheel-card-bg {
+    position: absolute;
+    inset: -18%;
+    background-image: var(--card-img);
+    background-size: cover;
+    background-position: center;
+    filter: blur(16px);
+    transform: scale(1.15);
   }
 
-  .wheel-card-img img {
+  .wheel-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 18, 15, 0.18) 0%, rgba(20, 18, 15, 0.5) 100%);
+  }
+
+  .wheel-card-title {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.3s ease;
-  }
-
-  .wheel-card-caption {
-    flex: 0 0 20%;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 600;
-    font-size: 0.8rem;
-    color: #1a1a1a;
-    margin: 0;
     text-align: center;
-    padding: 0 0.4rem;
+    padding: 1rem 1.1rem;
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.72rem, 1.25vw, 0.88rem);
+    line-height: 1.35;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   }
 
   @media (max-width: 640px) {
-    .wheel-card { width: clamp(78px, 20vw, 100px); border-radius: 24px; }
-    .wheel-card-caption { font-size: 0.7rem; }
+    .wheel-card { width: clamp(96px, 24vw, 130px); border-radius: 26px; }
+    .wheel-card-title { font-size: 0.68rem; padding: 0.75rem; }
   }
 
-  /* ── The dome arc + letters, anchored to the bottom of the section ──
-     wrap is forced to a true 2:1 (width:height) box, which is what makes
-     the percentage-based letter positions below trace an actual circle
-     instead of a stretched oval. */
+  /* ── The dome arc + letters ──
+     Actual width/height are set by JS (sizeDome, in the wheel script
+     below) based on how much vertical space is left in the section
+     after the title/desc/cards — this is what keeps a guaranteed gap
+     above the cards row on short viewports instead of the two
+     overlapping. aspect-ratio here is just a fallback before JS runs. */
   .wheel-arc-wrap {
     position: relative;
-    width: min(460px, 68vw);
-    aspect-ratio: 2 / 1;
     flex: 0 0 auto;
     margin: auto auto 0;
     align-self: center;
+    width: min(460px, 68vw);
+    aspect-ratio: 3 / 1;
+    max-width: 94vw;
+    transition: opacity 0.25s ease, width 0.2s ease, height 0.2s ease;
   }
 
   .wheel-arc-svg {
@@ -892,22 +909,29 @@ import Footer from '../components/Footer.astro';
   .wheel-arc-letter {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: clamp(34px, 7vw, 46px);
-    height: clamp(34px, 7vw, 46px);
+    width: var(--letter-size, clamp(34px, 7vw, 46px));
+    height: var(--letter-size, clamp(34px, 7vw, 46px));
     border-radius: 50%;
     border: none;
     background: #E7E4DC;
     color: #1a1a1a;
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(0.85rem, 2vw, 1.05rem);
+    font-size: clamp(0.75rem, 1.6vw, 1.05rem);
     opacity: 0.55;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-    transition: background 0.4s ease, color 0.4s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.4,0.64,1);
+    transition: background 0.4s ease, color 0.4s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.4s ease;
+  }
+
+  @keyframes wheelLetterPop {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    45%  { transform: translate(-50%, -50%) scale(1.32); }
+    72%  { transform: translate(-50%, -50%) scale(1.06); }
+    100% { transform: translate(-50%, -50%) scale(1.15); }
   }
 
   .wheel-arc-letter.active {
@@ -916,6 +940,7 @@ import Footer from '../components/Footer.astro';
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.15);
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
+    animation: wheelLetterPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 
   @media (max-width: 640px) {
@@ -1707,6 +1732,40 @@ import Footer from '../components/Footer.astro';
 
     if (!titleEl || !descEl || !cardsRow || letters.length === 0) return;
 
+    const wheelInner = section.querySelector<HTMLElement>('.wheel-inner');
+    const arcWrap = section.querySelector<HTMLElement>('#wheelArcWrap');
+
+    const sizeDome = () => {
+      if (!wheelInner || !arcWrap) return;
+      const sectionRect = section.getBoundingClientRect();
+      const innerRect = wheelInner.getBoundingClientRect();
+      const gap = 30; // guaranteed minimum space above the dome, always honored
+
+      const available = sectionRect.bottom - innerRect.bottom - gap;
+      const maxH = 220; // dome height cap (it's flatter now, so shallower than before)
+
+      if (available < 40) {
+        // not enough room to show the dome without breaking the 30px gap — hide it
+        arcWrap.style.opacity = '0';
+        arcWrap.style.pointerEvents = 'none';
+        return;
+      }
+
+      arcWrap.style.opacity = '1';
+      arcWrap.style.pointerEvents = '';
+
+      const h = Math.min(maxH, available);
+      const w = Math.min(h * 3, window.innerWidth * 0.94);
+      const finalH = w / 3;
+
+      arcWrap.style.width = `${w}px`;
+      arcWrap.style.height = `${finalH}px`;
+      arcWrap.style.setProperty('--letter-size', `${Math.max(24, Math.min(46, finalH * 0.4))}px`);
+    };
+
+    sizeDome();
+    window.addEventListener('resize', sizeDome);
+
     const modalOverlay = document.getElementById('wheelModalOverlay');
     const modalClose = document.getElementById('wheelModalClose');
     const modalGallery = document.getElementById('wheelModalGallery');
@@ -1725,34 +1784,29 @@ import Footer from '../components/Footer.astro';
 
     const pillarCards: Record<string, PillarActivity[]> = {
       H: [
-        { img: '/images/4.png', caption: 'Nutrition', detail: 'A guided session on everyday eating habits that sustain energy through the work day.' },
-        { img: '/images/16.jpg', caption: 'Sleep', detail: 'Practical routines and environment tweaks that help teams rest and recover better.' },
-        { img: '/images/artists.jpg', caption: 'Yoga', detail: 'Gentle, accessible flows that ease tension and reset focus, no experience needed.' },
-        { img: '/images/2.png', caption: 'Stretching', detail: 'Short guided stretch breaks designed to fit around a desk-based day.' }
+        { img: '/images/H1.jpg', caption: 'Wellness through Balance by TCM', detail: 'TCM wellbeing program offers health talks, consultations, and practical workshops on diet, stress, sleep, and yin-yang balance. It also includes herbal sachet making, soup and tea education, and wellness packs for staff.' },
+        { img: '/images/H2.png', caption: 'Meridian & Acupoint Massage', detail: 'Learn the fundamentals of meridian wellness and master practical acupressure techniques to instantly relieve desk fatigue, headaches, and muscle tension—giving you the tools to stay comfortable both at work and at home.' }
       ],
       E: [
-        { img: '/images/16.jpg', caption: 'Dance', detail: 'Playful, judgment-free movement sessions that build energy and team rapport.' },
-        { img: '/images/17.jpg', caption: 'Cardio', detail: 'Accessible cardio circuits that raise energy without needing a gym.' },
-        { img: '/images/artists.jpg', caption: 'Hiking', detail: 'Outdoor group walks that combine movement with fresh air and conversation.' },
-        { img: '/images/4.png', caption: 'Strength', detail: 'Foundational strength work introduced at a pace suited to any fitness level.' }
+        { img: '/images/E1.png', caption: '"Gyrokinesis" Stress Relief', detail: 'Gyrokinesis releases tension, improves body awareness, and promotes deep relaxation. It also enhances spinal mobility and joint health, helping relieve desk-related stiffness and restore natural movement.' },
+        { img: '/images/E2.png', caption: 'Wing Chun Cardio', detail: 'Wing Chun is a dynamic cardio workout that improves endurance, burns calories, and helps reduce stress while building focus and coordination.' },
+        { img: '/images/E3.png', caption: 'Flexi-Functional Training', detail: 'Combines stretching and functional exercises in a practical, science-based way to train the body. It improves flexibility and joint range, strengthens core stability and posture, enhances balance and functional strength for everyday movement, reduces risk of neck/back pain and sports injuries, speeds recovery and performance, and builds a body that is both supple and powerful.' },
+        { img: '/images/E4.png', caption: 'Tai Chi & Qigong Wellness Program', detail: 'Tai Chi and Qigong combine gentle movement, breath control, and mindful focus to support overall wellbeing. This practice helps reduce stress, improve balance and flexibility, boost energy flow, and build a lasting self-care routine.' },
+        { img: '/images/E5.png', caption: 'The Mind-Body Reset Yoga Workshop', detail: 'A refreshing mind-body reset designed to help employees decompress, release physical desk tension, and lower workplace stress through accessible movement and breathwork.' }
       ],
       A: [
-        { img: '/images/17.jpg', caption: 'Painting', detail: 'A relaxed painting session that turns creative expression into a shared break.' },
-        { img: '/images/artists.jpg', caption: 'Music', detail: 'Hands-on music activities that build focus and a sense of shared rhythm.' },
-        { img: '/images/2.png', caption: 'Pottery', detail: 'A tactile, screen-free craft session that slows the pace and sparks conversation.' },
-        { img: '/images/4.png', caption: 'Writing', detail: 'Guided reflective writing prompts that help people process and reset.' }
+        { img: '/images/A1.png', caption: 'Art Workshop for Workplace Wellbeing', detail: 'Office Art Jamming is a relaxed team activity that encourages creativity, connection, and stress relief through guided painting. It helps improve team bonding, refresh the mind, and create positive shared experience at work.' },
+        { img: '/images/A2.png', caption: 'Soothing Calligraphy', detail: 'Soothing Calligraphy is a mindful activity that combines breathing, gentle stretching, and brush practice to calm the mind and improve focus. It also encourages creativity through writing and simple art drawing.' },
+        { img: '/images/A3.png', caption: 'Happy ME in Caricature', detail: 'Caricature with aromatherapy is a fun, light-hearted activity that helps participants relax, laugh, and connect. A quick portrait drawing, shared interactions, and a simple wellness pledge make it both enjoyable and meaningful.' },
+        { img: '/images/A4.png', caption: 'Crystal Sound Healing & Wellness Session', detail: 'Experience a high-frequency sound journey featuring crystal singing bowls, didgeridoos, and pyramids. Combined with vocal resonance and guided meditation, this session helps release stress, calm the nervous system, and deeply relax the mind. Return to a grounded, refreshed state with restored clarity and energy in no time.' },
+        { img: '/images/A5.png', caption: 'Gong Vibrational Wellness for Teams', detail: 'Immerse in a deep-vibration Gong Bath combined with vocal resonance and guided meditation. This powerful session releases stress, anxiety, and mental fatigue, calming the nervous system to help professionals quickly declutter their minds, recharge, and restore peak energy and clarity.' },
+        { img: '/images/A6.png', caption: 'Mindful Tea & Wellness Workshop (Five-Senses Meditation, Tea Appreciation & Chair Stretching)', detail: 'Transform the office into a healing space with a mindful tea-and-relaxation session. Through five-senses meditation, tea mindfulness, gentle chair stretches, and self-care massage, it helps staff release stress, restore energy, and enjoy a calm "me time" at work.' }
       ],
       R: [
-        { img: '/images/2.png', caption: 'Retreat', detail: 'An off-site day built around rest, reflection and reconnecting as a team.' },
-        { img: '/images/artists.jpg', caption: 'Trust Circle', detail: 'Facilitated small-group conversations that deepen trust across the team.' },
-        { img: '/images/16.jpg', caption: 'Team Building', detail: 'Collaborative activities designed to strengthen how the team works together.' },
-        { img: '/images/17.jpg', caption: 'Sharing', detail: 'Structured sharing sessions that give quieter voices space to be heard.' }
+        { img: '/images/R1.png', caption: 'Forest Bathing - Nature Reconnect', detail: 'Forest bathing helps calm the mind, reduce stress, and support overall health by gently immersing your senses in nature. It has been linked to lower blood pressure and heart rate, better mood, and improved sleep and immune function, making it a simple, natural way to recharge in our busy lives.' }
       ],
       T: [
-        { img: '/images/artists.jpg', caption: 'Coaching', detail: '1:1 or small-group coaching to support individual growth and confidence.' },
-        { img: '/images/4.png', caption: 'Workshop', detail: 'Practical skills workshops tailored to what your team needs next.' },
-        { img: '/images/17.jpg', caption: 'Mentoring', detail: 'Structured mentoring pairings that support longer-term development.' },
-        { img: '/images/2.png', caption: 'Training', detail: 'Targeted training sessions that turn new skills into everyday practice.' }
+        { img: '/images/T1.png', caption: 'Laughing Yoga - Empowering Teams with Joy and Connection', detail: 'Laughter Yoga is a fun, science-based way to boost energy, lift mood, and reduce stress at work. Through guided laughter and breathing exercises, it helps teams feel more connected, positive, and collaborative.' }
       ]
     };
 
@@ -1782,18 +1836,33 @@ import Footer from '../components/Footer.astro';
 
     const buildCards = (key: string) => {
       const data = pillarCards[key] || [];
-      cardsRow.innerHTML = data.map((item) => `
-        <button class="wheel-card" type="button">
-          <span class="wheel-card-img"><img src="${item.img}" alt="" /></span>
-          <p class="wheel-card-caption">${item.caption}</p>
-        </button>
-      `).join('');
+      cardsRow.innerHTML = '';
 
-      const cardEls = Array.from(cardsRow.querySelectorAll<HTMLButtonElement>('.wheel-card'));
-      cardEls.forEach((card, i) => {
-        card.addEventListener('click', () => openModal(data[i]));
+      data.forEach((item) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'wheel-card';
+        card.style.setProperty('--card-img', `url('${item.img}')`);
+
+        const bg = document.createElement('span');
+        bg.className = 'wheel-card-bg';
+        bg.setAttribute('aria-hidden', 'true');
+
+        const overlay = document.createElement('span');
+        overlay.className = 'wheel-card-overlay';
+        overlay.setAttribute('aria-hidden', 'true');
+
+        const title = document.createElement('h3');
+        title.className = 'wheel-card-title';
+        title.textContent = item.caption;
+
+        card.append(bg, overlay, title);
+        card.addEventListener('click', () => openModal(item));
+        cardsRow.appendChild(card);
       });
     };
+
+    let swapTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const selectPillar = (key: string) => {
       const pillar = pillarData[key];
@@ -1801,15 +1870,37 @@ import Footer from '../components/Footer.astro';
 
       letters.forEach((btn) => {
         const isActive = btn.dataset.key === key;
+        const wasActive = btn.classList.contains('active');
         btn.classList.toggle('active', isActive);
         btn.setAttribute('aria-selected', String(isActive));
+
+        if (isActive && !wasActive) {
+          // restart the pop animation cleanly (toggling a class that's
+          // already applied wouldn't retrigger the keyframe animation)
+          btn.style.animation = 'none';
+          void btn.offsetWidth;
+          btn.style.animation = '';
+        }
       });
 
-      section.style.setProperty('--pillar-color', pillar.color);
-      titleEl.innerHTML = pillar.title;
-      titleEl.style.color = pillar.color;
-      descEl.innerHTML = pillar.desc;
-      buildCards(key);
+      if (swapTimeoutId) clearTimeout(swapTimeoutId);
+
+      const contentEls = [titleEl, descEl, cardsRow];
+      contentEls.forEach((el) => el.classList.add('wheel-swap-out'));
+
+      swapTimeoutId = setTimeout(() => {
+        section.style.setProperty('--pillar-color', pillar.color);
+        titleEl.innerHTML = pillar.title;
+        titleEl.style.color = pillar.color;
+        descEl.innerHTML = pillar.desc;
+        buildCards(key);
+        sizeDome();
+
+        // reflow before removing the class so the slide-back-in actually transitions
+        void cardsRow.offsetWidth;
+        contentEls.forEach((el) => el.classList.remove('wheel-swap-out'));
+        swapTimeoutId = null;
+      }, 550);
     };
 
     let autoplayId: ReturnType<typeof setInterval> | null = null;
