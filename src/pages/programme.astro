@@ -9,36 +9,30 @@ import Footer from '../components/Footer.astro';
 
   <main class="works-page">
 
-    <!-- Hero -->
-    <section class="works-hero">
-      <div class="works-hero-content">
-        <h1 class="works-hero-title animate-fade-in i18n-text-html" data-zh-html="身心可感受的健康<br />組織可衡量的成效">
-          Wellness that people can feel<br />
-          and organizations can measure
-        </h1>
-        <p class="works-hero-sub animate-fade-in-delay i18n-text" data-zh="Ecorazón 為企業策劃結合運動、創意實踐、自然體驗與專業支援的身心健康企劃。每個企劃皆圍繞您的團隊與業務需求量身打造，協助團隊重新調整步伐、建立連結，發展更健康的工作方式。">
-          Ecorazón curates corporate wellness programmes that combine movement, creative practice, nature-based experiences and professional support. Built around your people and business priorities, each programme helps teams reset, reconnect and build healthier ways of working.
-        </p>
-        <a href="#wheel-section" class="hero-cta animate-fade-in-cta i18n-text js-scroll-cta" data-zh="精選體驗">Signature Experiences</a>
-      </div>
+      <!-- Hero -->
+        <section class="works-hero">
+          <div class="works-hero-content">
+            <h1 class="works-hero-title animate-fade-in i18n-text-html" data-zh-html="身心可感受的健康<br />組織可衡量的成效">
+                      Wellness that people can feel<br />
+                      and organizations can measure
+            </h1>
+            <p class="works-hero-sub animate-fade-in-delay i18n-text" data-zh="Ecorazón 為企業策劃結合運動、創意實踐、自然體驗與專業支援的身心健康企劃。每個企劃皆圍繞您的團隊與業務需求量身打造，協助團隊重新調整步伐、建立連結，發展更健康的工作方式。">
+                      Ecorazón curates corporate wellness programmes that combine movement, creative practice, nature-based experiences and professional support. Built around your people and business priorities, each programme helps teams reset, reconnect and build healthier ways of working.
+            </p>
+            <a href="#wheel-section" class="hero-cta animate-fade-in-cta i18n-text js-scroll-cta" data-zh="精選體驗">Signature Experiences</a>
+          </div>
 
-      <div class="works-hero-media animate-fade-in-media">
-        <div class="jelly-wrap">
-          <video
-            class="hero-jelly-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="auto"
-            disablepictureinpicture
-            disableRemotePlayback
-          >
-            <source src="/video/programme-hero.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
-    </section>
+          <div class="works-hero-media animate-fade-in-media">
+            <div class="jelly-wrap">
+              <img
+                class="hero-jelly-video"
+                src="/video/programme-hero.gif"
+                alt=""
+                loading="eager"
+                />
+            </div>
+          </div>
+      </section>
 
     <!-- Wellbeing Movement Intro -->
     <section class="wellbeing-section">
@@ -134,6 +128,12 @@ import Footer from '../components/Footer.astro';
           <button class="wheel-arc-letter" data-key="A" role="tab" aria-selected="false" style="left:50%; top:0%;">A</button>
           <button class="wheel-arc-letter" data-key="R" role="tab" aria-selected="false" style="left:85.36%; top:29.29%;">R</button>
           <button class="wheel-arc-letter" data-key="T" role="tab" aria-selected="false" style="left:100%; top:100%;">T</button>
+        </div>
+
+        <!-- Spinning pillar icon: peeks up from the base of the arch,
+             only the top third of the circle is visible -->
+        <div class="wheel-icon-wrap" id="wheelIconWrap">
+          <img class="wheel-icon-img" id="wheelIconImg" src="/images/sun.png" alt="" />
         </div>
       </div>
     </section>
@@ -361,7 +361,7 @@ import Footer from '../components/Footer.astro';
     transform: translateY(-2px);
   }
 
-  /* ─── HERO MEDIA / ROTATING JELLY VIDEO ─── */
+  /* ─── HERO MEDIA / ROTATING JELLY GIF ─── */
   .works-hero-media {
     position: relative;
     z-index: 2;
@@ -384,13 +384,7 @@ import Footer from '../components/Footer.astro';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    pointer-events: none; /* no click-to-pause / native controls interaction */
-  }
-
-  .hero-jelly-video::-webkit-media-controls,
-  .hero-jelly-video::-webkit-media-controls-start-playback-button {
-    display: none !important;
-    -webkit-appearance: none;
+    pointer-events: none;
   }
 
   /* ─── HERO ENTRY ANIMATION ─── */
@@ -456,7 +450,6 @@ import Footer from '../components/Footer.astro';
     font-weight: 700;
   }
 
-  /* Floating reference photos (desktop only) */
   .wellbeing-photos {
     position: absolute;
     inset: 0;
@@ -494,14 +487,12 @@ import Footer from '../components/Footer.astro';
     border-radius: inherit;
   }
 
-  /* Bigger photo = closer to front (higher z-index), smaller = further back */
   .photo-1 { top: 6%;  left: 7%;  width: 180px; height: 220px; z-index: 4; }
   .photo-2 { top: 10%; right: 8%; width: 220px; height: 260px; z-index: 5; }
   .photo-3 { bottom: 8%; left: 10%; width: 150px; height: 120px; z-index: 2; }
   .photo-4 { bottom: 6%; right: 6%; width: 175px; height: 210px; z-index: 3; }
   .photo-5 { top: 44%; left: 2%; width: 120px; height: 150px; z-index: 1; }
 
-  /* Mobile-only intro photo rows (hidden on desktop) */
   .wellbeing-photos-mobile {
     display: none;
   }
@@ -543,7 +534,6 @@ import Footer from '../components/Footer.astro';
     overflow-x: hidden;
   }
 
-  /* ── Copy (grid col 1, row 1) ── */
   .heart-content {
     display: flex;
     flex-direction: column;
@@ -580,7 +570,6 @@ import Footer from '../components/Footer.astro';
     margin: 0;
   }
 
-  /* ── Right: big tilted card stack (grid col 2, row 1) ── */
   .heart-visual {
     grid-column: 2;
     grid-row: 1;
@@ -644,7 +633,6 @@ import Footer from '../components/Footer.astro';
     100% { transform: translate(0%, 0%)   rotate(0deg)   scale(1);    opacity: 1; }
   }
 
-  /* ── Circle nav row ── */
   .heart-circles-row {
     display: flex;
     flex-direction: column;
@@ -663,7 +651,7 @@ import Footer from '../components/Footer.astro';
     color: #1a1a1a;
     opacity: 0.45;
     margin-top: 1.5rem;
-    min-height: 1.2em; /* prevents layout jump between short/long titles */
+    min-height: 1.2em;
     transition: opacity 0.3s ease;
   }
 
@@ -735,7 +723,7 @@ import Footer from '../components/Footer.astro';
     align-items: center;
     justify-content: flex-start;
     background: #FBF8F3;
-    padding: clamp(6rem, 11vw, 8rem) clamp(2rem, 6vw, 6rem) clamp(1.75rem, 4vw, 2.5rem);
+    padding: clamp(6rem, 11vw, 8rem) clamp(2rem, 6vw, 6rem) clamp(1rem, 4vw, 0.5rem);
     overflow: hidden;
   }
 
@@ -771,8 +759,8 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 640px) {
-  .wheel-title { font-size: clamp(0.85rem, 4vw, 1.3rem); }
-}
+    .wheel-title { font-size: clamp(0.85rem, 4vw, 1.3rem); }
+  }
 
   .wheel-desc {
     font-family: 'MaoWei', sans-serif;
@@ -798,14 +786,11 @@ import Footer from '../components/Footer.astro';
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 0.25rem 0.25rem 0.5rem;
+    transition: opacity 0.55s ease, transform 0.55s ease;
   }
 
   .wheel-cards-row::-webkit-scrollbar {
     display: none;
-  }
-
-  .wheel-cards-row {
-    transition: opacity 0.55s ease, transform 0.55s ease;
   }
 
   .wheel-title.wheel-swap-out,
@@ -838,18 +823,16 @@ import Footer from '../components/Footer.astro';
 
   .wheel-card-bg {
     position: absolute;
-    inset: -18%;
+    inset: 0;
     background-image: var(--card-img);
     background-size: cover;
     background-position: center;
-    filter: blur(16px);
-    transform: scale(1.15);
   }
 
   .wheel-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(20, 18, 15, 0.18) 0%, rgba(20, 18, 15, 0.5) 100%);
+    background: linear-gradient(180deg, rgba(20, 18, 15, 0.05) 0%, rgba(20, 18, 15, 0.35) 100%);
   }
 
   .wheel-card-title {
@@ -876,12 +859,6 @@ import Footer from '../components/Footer.astro';
     .wheel-card-title { font-size: 0.68rem; padding: 0.75rem; }
   }
 
-  /* ── The dome arc + letters ──
-     Actual width/height are set by JS (sizeDome, in the wheel script
-     below) based on how much vertical space is left in the section
-     after the title/desc/cards — this is what keeps a guaranteed gap
-     above the cards row on short viewports instead of the two
-     overlapping. aspect-ratio here is just a fallback before JS runs. */
   .wheel-arc-wrap {
     position: relative;
     flex: 0 0 auto;
@@ -945,6 +922,51 @@ import Footer from '../components/Footer.astro';
 
   @media (max-width: 640px) {
     .wheel-arc-wrap { width: min(340px, 82vw); }
+  }
+
+  /* ── Pillar icon: sits centered at the base of the arch, only the
+       top third visible, spins like a wheel when the pillar changes ── */
+  .wheel-icon-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0);
+    width: 400px;
+    height: 150px;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .wheel-icon-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* background: #ffffff; */
+    /* box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14); */
+    transform-origin: 50% 50%;
+  }
+
+  @keyframes wheelIconSpinRight {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  @keyframes wheelIconSpinLeft {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+  }
+
+  .wheel-icon-img.spin-right { animation: wheelIconSpinRight 0.6s ease-in-out; }
+  .wheel-icon-img.spin-left  { animation: wheelIconSpinLeft 0.6s ease-in-out; }
+
+  @media (max-width: 640px) {
+    .wheel-icon-wrap { width: 150px; height: 75px; }
+    .wheel-icon-img  { width: 150px; height: 150px; }
   }
 
   /* ── Card detail modal ── */
@@ -1012,6 +1034,8 @@ import Footer from '../components/Footer.astro';
     gap: 0.4rem;
     overflow-x: auto;
     scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    border-radius: 28px 28px 0 0;
   }
 
   .wheel-modal-gallery::-webkit-scrollbar {
@@ -1025,11 +1049,6 @@ import Footer from '../components/Footer.astro';
     display: block;
     flex: 1 0 100%;
     scroll-snap-align: start;
-  }
-
-  .wheel-modal-gallery {
-    scroll-snap-type: x mandatory;
-    border-radius: 28px 28px 0 0;
   }
 
   .wheel-modal-body {
@@ -1242,7 +1261,6 @@ import Footer from '../components/Footer.astro';
     transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.35s ease;
   }
 
-  /* gradient lives behind the footer only — hidden by default */
   .testi-card::after {
     content: '';
     position: absolute;
@@ -1335,7 +1353,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .cta-footer-wrap > * {
-    flex-shrink: 0; /* footer keeps its natural height, never gets squeezed */
+    flex-shrink: 0;
   }
 
   .cta-section {
@@ -1379,19 +1397,18 @@ import Footer from '../components/Footer.astro';
      ═══════════════════════════════════════════════════════ */
   @media (max-width: 900px) {
 
-    /* ── Hero: vertical gradient, title on colour, video on grey ── */
     .works-hero {
       flex-direction: column;
       text-align: center;
       height: 100vh;
-      height: 100dvh; /* real mobile viewport, avoids browser-chrome overflow */
+      height: 100dvh;
       min-height: unset;
       max-height: 100vh;
       max-height: 100dvh;
       overflow: hidden;
       justify-content: center;
       gap: 1rem;
-      padding: 3rem 1.5rem 1.5rem;
+      padding: 3rem 1.5rem 1.5rem 1.5rem;
       background: linear-gradient(
         180deg,
         #C7DBA9 0%,
@@ -1400,7 +1417,7 @@ import Footer from '../components/Footer.astro';
         #F5DBBE 18%,
         #F8DBC1 22%,
         #FBEAD6 26%,
-        #FAF5F0 29%,
+        #F8F8F8 29%,
         #F8F8F8 30%,
         #F8F8F8 100%
       );
@@ -1419,15 +1436,15 @@ import Footer from '../components/Footer.astro';
     .works-hero-media {
       flex: 0 0 auto;
       order: initial;
-      margin: 0 -1.5rem; /* cancel the section's left/right padding */
-      width: calc(100% + 3rem); /* stretch back out to full viewport width */
+      margin: 0 -1.5rem;
+      width: calc(100% + 3rem);
     }
 
     .jelly-wrap {
-      width: 100%; /* fill the full bleed width */
+      width: 80%;
+      box-sizing: border-box;
     }
 
-    /* ── Intro: photos split above and below the text ── */
     .wellbeing-photos { display: none; }
 
     .wellbeing-photos-mobile {
@@ -1467,9 +1484,12 @@ import Footer from '../components/Footer.astro';
       z-index: 2;
     }
 
-    /* ── H.E.A.R.T. Framework: text above, switching cards below ── */
     .heart-framework-section {
       grid-template-columns: 1fr;
+    }
+
+    .heart-title {
+      font-size: 18px;
     }
 
     .heart-content {
@@ -1486,7 +1506,6 @@ import Footer from '../components/Footer.astro';
 
     .heart-desc { max-width: 100%; }
 
-    /* ── Ways to Bring H.E.A.R.T. + Testimonials: keep text on-screen ── */
     .cards-switch-head,
     .testi-head {
       flex-direction: column;
@@ -1517,7 +1536,6 @@ import Footer from '../components/Footer.astro';
       overflow-x: hidden;
     }
 
-    /* ── Footer: release the scroll-snap lock so it can't get stuck ── */
     .cta-footer-wrap {
       min-height: auto;
       scroll-snap-align: none;
@@ -1719,7 +1737,7 @@ import Footer from '../components/Footer.astro';
   });
 </script>
 
-<!-- H.E.A.R.T. Wheel: dome arc navigation + expandable activity cards -->
+<!-- H.E.A.R.T. Wheel: dome arc navigation + spinning icon + expandable activity cards -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector<HTMLElement>('.wheel-section');
@@ -1734,18 +1752,26 @@ import Footer from '../components/Footer.astro';
 
     const wheelInner = section.querySelector<HTMLElement>('.wheel-inner');
     const arcWrap = section.querySelector<HTMLElement>('#wheelArcWrap');
+    const iconImgEl = section.querySelector<HTMLImageElement>('#wheelIconImg');
+
+    const pillarIcons: Record<string, string> = {
+      H: '/images/sun.png',
+      E: '/images/wheel.png',
+      A: '/images/palette.png',
+      R: '/images/log.png',
+      T: '/images/ripple.png'
+    };
 
     const sizeDome = () => {
       if (!wheelInner || !arcWrap) return;
       const sectionRect = section.getBoundingClientRect();
       const innerRect = wheelInner.getBoundingClientRect();
-      const gap = 30; // guaranteed minimum space above the dome, always honored
+      const gap = 30;
 
       const available = sectionRect.bottom - innerRect.bottom - gap;
-      const maxH = 220; // dome height cap (it's flatter now, so shallower than before)
+      const maxH = 220;
 
       if (available < 40) {
-        // not enough room to show the dome without breaking the 30px gap — hide it
         arcWrap.style.opacity = '0';
         arcWrap.style.pointerEvents = 'none';
         return;
@@ -1862,11 +1888,36 @@ import Footer from '../components/Footer.astro';
       });
     };
 
+    const keys = letters.map((b) => b.dataset.key ?? '');
+
+    let activePillarIdx = 0;
+    let iconSpinTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const spinIcon = (key: string, newIdx: number) => {
+      if (!iconImgEl) return;
+      const dir = newIdx > activePillarIdx ? 'right' : newIdx < activePillarIdx ? 'left' : null;
+      activePillarIdx = newIdx;
+      if (!dir) return;
+
+      if (iconSpinTimeoutId) clearTimeout(iconSpinTimeoutId);
+      iconImgEl.classList.remove('spin-right', 'spin-left');
+      void iconImgEl.offsetWidth; // restart animation cleanly
+      iconImgEl.classList.add(dir === 'right' ? 'spin-right' : 'spin-left');
+
+      // swap the icon image mid-spin, so it "flips" to the new one
+      iconSpinTimeoutId = setTimeout(() => {
+        iconImgEl.src = pillarIcons[key] ?? '';
+      }, 300);
+    };
+
     let swapTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const selectPillar = (key: string) => {
       const pillar = pillarData[key];
       if (!pillar) return;
+
+      const newIdx = keys.indexOf(key);
+      spinIcon(key, newIdx);
 
       letters.forEach((btn) => {
         const isActive = btn.dataset.key === key;
@@ -1875,8 +1926,6 @@ import Footer from '../components/Footer.astro';
         btn.setAttribute('aria-selected', String(isActive));
 
         if (isActive && !wasActive) {
-          // restart the pop animation cleanly (toggling a class that's
-          // already applied wouldn't retrigger the keyframe animation)
           btn.style.animation = 'none';
           void btn.offsetWidth;
           btn.style.animation = '';
@@ -1896,7 +1945,6 @@ import Footer from '../components/Footer.astro';
         buildCards(key);
         sizeDome();
 
-        // reflow before removing the class so the slide-back-in actually transitions
         void cardsRow.offsetWidth;
         contentEls.forEach((el) => el.classList.remove('wheel-swap-out'));
         swapTimeoutId = null;
@@ -1905,7 +1953,6 @@ import Footer from '../components/Footer.astro';
 
     let autoplayId: ReturnType<typeof setInterval> | null = null;
     let resumeTimeoutId: ReturnType<typeof setTimeout> | null = null;
-    const keys = letters.map((b) => b.dataset.key ?? '');
     let currentIdx = 0;
 
     const next = () => {
@@ -1929,6 +1976,9 @@ import Footer from '../components/Footer.astro';
       });
     });
 
+    // Set the first icon immediately, no spin (nothing to spin from yet)
+    activePillarIdx = 0;
+    if (iconImgEl) iconImgEl.src = pillarIcons[keys[0]] ?? '/images/sun.png';
     selectPillar(keys[0]);
 
     const wheelObserver = new IntersectionObserver(
@@ -1947,16 +1997,12 @@ import Footer from '../components/Footer.astro';
     if (window.gsap && window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Each photo gets its own drift distance (yPercent) and direction.
-      // Bigger / higher z-index photos ("closer" to the viewer) move further,
-      // smaller / lower z-index photos ("further back") move less — that
-      // difference in speed is what reads as parallax depth.
       const driftMap = {
-        '.photo-1': 45,   // mid-large, front-ish -> moves down
-        '.photo-2': -60,  // biggest, frontmost   -> moves up, furthest
-        '.photo-3': 25,   // small, background    -> subtle drift down
-        '.photo-4': -35,  // mid, front-ish        -> moves up
-        '.photo-5': -15   // smallest, furthest back -> barely moves
+        '.photo-1': 45,
+        '.photo-2': -60,
+        '.photo-3': 25,
+        '.photo-4': -35,
+        '.photo-5': -15
       };
 
       Object.entries(driftMap).forEach(([selector, yPercent]) => {
@@ -1968,9 +2014,9 @@ import Footer from '../components/Footer.astro';
           ease: 'none',
           scrollTrigger: {
             trigger: '.wellbeing-section',
-            start: 'top bottom',   // begin as section enters viewport from below
-            end: 'bottom top',     // finish as it exits above
-            scrub: true            // ties directly to scroll position, no pin needed
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
           }
         });
       });
