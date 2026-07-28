@@ -723,7 +723,7 @@ import Footer from '../components/Footer.astro';
     align-items: center;
     justify-content: flex-start;
     background: #FBF8F3;
-    padding: clamp(6rem, 11vw, 8rem) clamp(2rem, 6vw, 6rem) clamp(1rem, 4vw, 0.5rem);
+    padding: clamp(6rem, 11vw, 8rem) clamp(2rem, 6vw, 6rem) clamp(0.25rem, 1vw, 0.5rem);
     overflow: hidden;
   }
 
@@ -866,7 +866,7 @@ import Footer from '../components/Footer.astro';
     align-self: center;
     width: min(460px, 68vw);
     aspect-ratio: 3 / 1;
-    max-width: 94vw;
+    max-width: 86vw;
     transition: opacity 0.25s ease, width 0.2s ease, height 0.2s ease;
   }
 
@@ -921,7 +921,7 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 640px) {
-    .wheel-arc-wrap { width: min(340px, 82vw); }
+    .wheel-arc-wrap { width: min(340px, 76vw); }
   }
 
   /* ── Pillar icon: sits centered at the base of the arch, only the
@@ -946,8 +946,6 @@ import Footer from '../components/Footer.astro';
     height: 400px;
     border-radius: 50%;
     object-fit: cover;
-    /* background: #ffffff; */
-    /* box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14); */
     transform-origin: 50% 50%;
   }
 
@@ -1781,7 +1779,7 @@ import Footer from '../components/Footer.astro';
       arcWrap.style.pointerEvents = '';
 
       const h = Math.min(maxH, available);
-      const w = Math.min(h * 3, window.innerWidth * 0.94);
+      const w = Math.min(h * 3, window.innerWidth * 0.86);
       const finalH = w / 3;
 
       arcWrap.style.width = `${w}px`;
