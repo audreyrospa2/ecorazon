@@ -123,11 +123,11 @@ import Footer from '../components/Footer.astro';
         </svg>
 
         <div class="wheel-arc-letters" id="wheelArcLetters" role="tablist" aria-label="H.E.A.R.T. pillars">
-          <button class="wheel-arc-letter" data-key="H" role="tab" aria-selected="true" style="left:0%; top:100%;">H</button>
-          <button class="wheel-arc-letter" data-key="E" role="tab" aria-selected="false" style="left:14.64%; top:29.29%;">E</button>
+          <button class="wheel-arc-letter" data-key="H" role="tab" aria-selected="true" style="left:3.02%; top:65.80%;">H</button>
+          <button class="wheel-arc-letter" data-key="E" role="tab" aria-selected="false" style="left:21.32%; top:18.08%;">E</button>
           <button class="wheel-arc-letter" data-key="A" role="tab" aria-selected="false" style="left:50%; top:0%;">A</button>
-          <button class="wheel-arc-letter" data-key="R" role="tab" aria-selected="false" style="left:85.36%; top:29.29%;">R</button>
-          <button class="wheel-arc-letter" data-key="T" role="tab" aria-selected="false" style="left:100%; top:100%;">T</button>
+          <button class="wheel-arc-letter" data-key="R" role="tab" aria-selected="false" style="left:78.68%; top:18.08%;">R</button>
+          <button class="wheel-arc-letter" data-key="T" role="tab" aria-selected="false" style="left:96.98%; top:65.80%;">T</button>
         </div>
 
         <!-- Spinning pillar icon: peeks up from the base of the arch,
@@ -723,7 +723,7 @@ import Footer from '../components/Footer.astro';
     align-items: center;
     justify-content: flex-start;
     background: #FBF8F3;
-    padding: clamp(6rem, 11vw, 8rem) clamp(2rem, 6vw, 6rem) clamp(0.25rem, 1vw, 0.5rem);
+    padding: clamp(6rem, 11vw, 8rem) clamp(2rem, 6vw, 6rem) 0; /* was 0.25rem–0.5rem, now flush */
     overflow: hidden;
   }
 
@@ -759,7 +759,11 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 640px) {
-    .wheel-title { font-size: clamp(0.85rem, 4vw, 1.3rem); }
+    .wheel-title { 
+      font-size: clamp(0.85rem, 4vw, 1.3rem);
+      white-space: normal;
+      padding: 0 0.5rem;
+    }
   }
 
   .wheel-desc {
@@ -1575,11 +1579,32 @@ import Footer from '../components/Footer.astro';
     }
   }
 
-  @media (max-width: 480px) {
-    .heart-circles { gap: 0.7rem; }
-    .pillar-circle { width: 44px; height: 44px; }
-    .pillar-circle .letter { font-size: 0.9rem; }
+  @media (max-width: 900px) {
+  /* smaller pillar circles */
+  .pillar-circle {
+    width: 40px;
+    height: 40px;
   }
+
+  .pillar-circle .letter {
+    font-size: 0.8rem;
+  }
+
+  /* smaller title/label under the circles */
+  .heart-pillar-label {
+    font-size: 10px;
+    margin-top: 0.75rem; /* was 1.5rem */
+  }
+
+  /* tighten gap before the swiping card stack */
+  .heart-circles-row {
+    margin-bottom: 0.75rem; /* was 1.5rem */
+  }
+
+  .heart-visual {
+    margin-top: 0.75rem; /* was 1.5rem, pulls the stack closer to the row above */
+  }
+}
 </style>
 
 <script>
@@ -1761,31 +1786,37 @@ import Footer from '../components/Footer.astro';
     };
 
     const sizeDome = () => {
-      if (!wheelInner || !arcWrap) return;
-      const sectionRect = section.getBoundingClientRect();
-      const innerRect = wheelInner.getBoundingClientRect();
-      const gap = 30;
+    if (!wheelInner || !arcWrap) return;
+    const sectionRect = section.getBoundingClientRect();
+    const innerRect = wheelInner.getBoundingClientRect();
+    const gap = 12; // was 30 — tightened so the dome sits closer to the bottom
 
-      const available = sectionRect.bottom - innerRect.bottom - gap;
-      const maxH = 220;
+    const available = sectionRect.bottom - innerRect.bottom - gap;
+    const maxH = 220;
 
-      if (available < 40) {
-        arcWrap.style.opacity = '0';
-        arcWrap.style.pointerEvents = 'none';
-        return;
-      }
+    if (available < 40) {
+      arcWrap.style.opacity = '0';
+      arcWrap.style.pointerEvents = 'none';
+      return;
+    }
 
-      arcWrap.style.opacity = '1';
-      arcWrap.style.pointerEvents = '';
+    arcWrap.style.opacity = '1';
+    arcWrap.style.pointerEvents = '';
 
-      const h = Math.min(maxH, available);
-      const w = Math.min(h * 3, window.innerWidth * 0.86);
-      const finalH = w / 3;
+    // cap width to the section's actual content box, not raw window width
+    const sectionStyles = window.getComputedStyle(section);
+    const paddingL = parseFloat(sectionStyles.paddingLeft) || 0;
+    const paddingR = parseFloat(sectionStyles.paddingRight) || 0;
+    const maxAvailableWidth = sectionRect.width - paddingL - paddingR;
 
-      arcWrap.style.width = `${w}px`;
-      arcWrap.style.height = `${finalH}px`;
-      arcWrap.style.setProperty('--letter-size', `${Math.max(24, Math.min(46, finalH * 0.4))}px`);
-    };
+    const h = Math.min(maxH, available);
+    const w = Math.min(h * 3, maxAvailableWidth);
+    const finalH = w / 3;
+
+    arcWrap.style.width = `${w}px`;
+    arcWrap.style.height = `${finalH}px`;
+    arcWrap.style.setProperty('--letter-size', `${Math.max(24, Math.min(46, finalH * 0.4))}px`);
+  };
 
     sizeDome();
     window.addEventListener('resize', sizeDome);
