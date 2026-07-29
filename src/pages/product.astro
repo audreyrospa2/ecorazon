@@ -33,10 +33,35 @@ const products = [
   <main class="product-page">
 
     <!-- Page Hero -->
-    <section class="product-hero">
-      <div class="product-hero-content">
-        <h1 class="product-hero-title">Our Products</h1>
-        <p class="product-hero-sub">Thoughtfully crafted for brands that care — about people, planet, and purpose.</p>
+    <section class="hero-gifts">
+      <canvas id="giftCanvas" aria-hidden="true"></canvas>
+    
+      <div class="hero-content">
+        <h1>
+          <span class="line-big">Couldn't find the right gift</span>
+          <span class="line-big">for that one special day?</span>
+        </h1>
+        <p class="line-small">
+          Make it meaningful with<br />
+          Ecorazón Atelier
+        </p>
+    
+        <div class="hero-actions">
+          <a href="#intro" class="btn btn-ghost">Who are we?</a>
+          <a href="#bestsellers" class="btn btn-solid">Shop now!</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro-section" id="intro">
+      <div class="intro-content">
+        <h2 class="intro-title">Ecorazón Atelier</h2>
+        <p class="intro-tagline">Meaningful gifts, thoughtfully curated.</p>
+        <p class="intro-line">
+          We offer bespoke corporate gifts for brands that care — about <span class="typed-wrap">
+            <span id="typedWord" class="typed-word"></span><span class="typed-cursor">|</span>
+          </span>
+        </p>
       </div>
     </section>
 
@@ -299,6 +324,275 @@ const products = [
   }
 </style>
 
+<style>
+  .hero-gifts {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #faf8f4;
+  }
+ 
+  #giftCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+ 
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 90vw; /* let it breathe instead of a fixed rem cap */
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    pointer-events: none;
+  }
+  
+  .hero-content h1 {
+    font-family: 'MaoWei', serif;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 auto 1.25rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .line-big {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    font-size: clamp(1.75rem, 5.2vw, 4.5rem);
+    color: #2b2b28;
+    text-align: center;
+  }
+ 
+  .line-small {
+    font-family: 'MaoWei', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    color: #5f5e5a;
+    margin: 0 0 2.25rem;
+    line-height: 1.5;
+  }
+ 
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    pointer-events: auto;
+  }
+ 
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+ 
+  .btn-ghost {
+    border: 1.5px solid #95bd8d;
+    color: #3b6d11;
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    background: #95bd8d;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+ 
+  .btn-solid {
+    background: #95bd8d;
+    color: #fff;
+    border: 1.5px solid #95bd8d;
+  }
+  .btn-solid:hover {
+    background: #7fa878;
+    transform: translateY(-2px);
+  }
+ 
+  @media (max-width: 640px) {
+    .hero-gifts {
+      min-height: 100svh;
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .btn {
+      width: 100%;
+      max-width: 260px;
+      text-align: center;
+    }
+  }
+</style>
+ 
+<script is:inline>
+  (function () {
+    function init() {
+      var canvas = document.getElementById('giftCanvas');
+      var section = canvas.closest('.hero-gifts');
+      var ctx = canvas.getContext('2d');
+      var W, H;
+ 
+      function resize() {
+        W = section.clientWidth;
+        H = section.clientHeight;
+        canvas.width = W * devicePixelRatio;
+        canvas.height = H * devicePixelRatio;
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+ 
+      // Palette: soft washes, no harsh saturation
+      var palette = [
+        { box: '#95BD8D', ribbon: '#5F8A57' },
+        { box: '#E8C1A0', ribbon: '#C68A55' },
+        { box: '#D8A0A8', ribbon: '#B06B78' },
+        { box: '#B7C7DA', ribbon: '#7E97B5' },
+        { box: '#EFE3C8', ribbon: '#CBAE7A' }
+      ];
+ 
+      function drawGiftBox(ctx, size, colors, rotation) {
+        var s = size;
+        ctx.save();
+        ctx.rotate(rotation);
+ 
+        // box body
+        ctx.fillStyle = colors.box;
+        ctx.fillRect(-s / 2, -s / 2, s, s);
+ 
+        // vertical ribbon
+        ctx.fillStyle = colors.ribbon;
+        ctx.fillRect(-s * 0.09, -s / 2, s * 0.18, s);
+        // horizontal ribbon
+        ctx.fillRect(-s / 2, -s * 0.09, s, s * 0.18);
+ 
+        // bow (two loops + knot)
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.16, -s / 2, s * 0.14, s * 0.1, 0.5, 0, Math.PI * 2);
+        ctx.ellipse(s * 0.16, -s / 2, s * 0.14, s * 0.1, -0.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(0, -s / 2, s * 0.08, 0, Math.PI * 2);
+        ctx.fill();
+ 
+        ctx.restore();
+      }
+ 
+      var N = 22;
+      var boxes = [];
+      for (var i = 0; i < N; i++) {
+        var ang = Math.random() * Math.PI * 2;
+        var speed = 0.1 + Math.random() * 0.18;
+        boxes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: Math.cos(ang) * speed,
+          vy: Math.sin(ang) * speed,
+          size: 30 + Math.pow(Math.random(), 1.6) * 150,
+          rot: Math.random() * Math.PI,
+          rotSpeed: (Math.random() - 0.5) * 0.004,
+          colors: palette[i % palette.length],
+          opacity: 0.55 + Math.random() * 0.4
+        });
+      }
+ 
+      var mouse = { x: -9999, y: -9999, active: false };
+      section.addEventListener('mousemove', function (e) {
+        var rect = section.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+        mouse.active = true;
+      });
+      section.addEventListener('mouseleave', function () {
+        mouse.active = false;
+      });
+      section.addEventListener(
+        'touchmove',
+        function (e) {
+          var rect = section.getBoundingClientRect();
+          var t = e.touches[0];
+          mouse.x = t.clientX - rect.left;
+          mouse.y = t.clientY - rect.top;
+          mouse.active = true;
+        },
+        { passive: true }
+      );
+ 
+      var sweepRadius = 130;
+      var maxSpeed = 5;
+ 
+      function tick() {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < boxes.length; i++) {
+          var b = boxes[i];
+ 
+          if (mouse.active) {
+            var dx = b.x - mouse.x,
+              dy = b.y - mouse.y;
+            var dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+            if (dist < sweepRadius) {
+              var force = (1 - dist / sweepRadius) * 2.6;
+              b.vx += (dx / dist) * force;
+              b.vy += (dy / dist) * force;
+            }
+          }
+ 
+          b.vx *= 0.985;
+          b.vy *= 0.985;
+ 
+          var sp = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+          if (sp > maxSpeed) {
+            b.vx = (b.vx / sp) * maxSpeed;
+            b.vy = (b.vy / sp) * maxSpeed;
+          }
+          if (sp < 0.08) {
+            b.vx += (Math.random() - 0.5) * 0.04;
+            b.vy += (Math.random() - 0.5) * 0.04;
+          }
+ 
+          b.x += b.vx;
+          b.y += b.vy;
+          b.rot += b.rotSpeed + b.vx * 0.002;
+ 
+          var pad = b.size;
+          if (b.x < -pad) b.x = W + pad;
+          if (b.x > W + pad) b.x = -pad;
+          if (b.y < -pad) b.y = H + pad;
+          if (b.y > H + pad) b.y = -pad;
+ 
+          ctx.save();
+          ctx.globalAlpha = b.opacity;
+          ctx.translate(b.x, b.y);
+          drawGiftBox(ctx, b.size, b.colors, b.rot);
+          ctx.restore();
+        }
+        requestAnimationFrame(tick);
+      }
+      tick();
+    }
+ 
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
 <script>
   const filterBtns = document.querySelectorAll('.filter-btn');
   const productCards = document.querySelectorAll('.product-card');
@@ -320,4 +614,126 @@ const products = [
       });
     });
   });
+</script>
+
+<style>
+  .intro-section {
+    width: 100%;
+    min-height: 100vh;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+  }
+
+  .intro-content {
+    max-width: 50rem;
+    text-align: center;
+  }
+
+  .intro-title {
+    font-family: 'MaoWei', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: #2b2b28;
+    margin: 0 0 1rem;
+  }
+
+  .intro-tagline {
+    font-family: 'MaoWei', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    color: #5f5e5a;
+    margin: 0 0 2rem;
+  }
+
+  .intro-line {
+    font-family: 'MaoWei', serif;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 3.2vw, 2.4rem);
+    line-height: 1.4;
+    color: #2b2b28;
+    margin: 0;
+  }
+
+  .typed-wrap {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .typed-word {
+    color: #95bd8d;
+    font-weight: 700;
+    white-space: pre;
+  }
+
+  .typed-cursor {
+    color: #95bd8d;
+    font-weight: 400;
+    margin-left: 2px;
+    animation: blink 0.9s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @media (max-width: 640px) {
+    .intro-section {
+      min-height: 70vh;
+      padding: 3rem 1.5rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function init() {
+      var el = document.getElementById('typedWord');
+      if (!el) return;
+
+      var words = ['people.', 'planet.', 'purpose.'];
+      var wordIndex = 0;
+      var charIndex = 0;
+      var typing = true;
+      var typeSpeed = 90;
+      var deleteSpeed = 55;
+      var pauseAfterType = 1100;
+      var pauseAfterDelete = 250;
+
+      function tick() {
+        var current = words[wordIndex];
+
+        if (typing) {
+          charIndex++;
+          el.textContent = current.slice(0, charIndex);
+          if (charIndex === current.length) {
+            typing = false;
+            setTimeout(tick, pauseAfterType);
+            return;
+          }
+          setTimeout(tick, typeSpeed);
+        } else {
+          charIndex--;
+          el.textContent = current.slice(0, charIndex);
+          if (charIndex === 0) {
+            typing = true;
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(tick, pauseAfterDelete);
+            return;
+          }
+          setTimeout(tick, deleteSpeed);
+        }
+      }
+
+      tick();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
 </script>
