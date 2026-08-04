@@ -1,25 +1,626 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
-  <title>Content Manager</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Ecorazón CMS</title>
+<style>
+  :root {
+    --forest-green: #2C5F2D;
+    --deep-olive: #4A5D23;
+    --cork-brown: #8B7355;
+    --warm-beige: #F5F0E8;
+    --border: #E0DAD0;
+    --danger: #b3261e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    background: var(--warm-beige);
+    color: #2b2b2b;
+  }
+  header {
+    background: var(--forest-green);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+  header .meta { font-size: 0.8rem; opacity: 0.85; }
+  #login-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    text-align: center;
+  }
+  #login-screen button, .btn {
+    background: var(--forest-green);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .btn.secondary { background: var(--cork-brown); }
+  .btn.danger { background: var(--danger); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  nav.tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem 0;
+  }
+  nav.tabs button {
+    background: none;
+    border: none;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    color: #555;
+  }
+  nav.tabs button.active {
+    color: var(--forest-green);
+    border-bottom-color: var(--forest-green);
+    font-weight: 600;
+  }
+  main { padding: 1.5rem; max-width: 1000px; margin: 0 auto; }
+  .panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  .list-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .list-row:last-child { border-bottom: none; }
+  .list-row .title { font-weight: 600; }
+  .list-row .sub { font-size: 0.8rem; color: #777; }
+  .row-actions button { margin-left: 0.4rem; }
+  label { display: block; font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.3rem; color: #444; }
+  input[type=text], input[type=datetime-local], textarea, select {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: inherit;
+  }
+  textarea { min-height: 220px; font-family: ui-monospace, monospace; font-size: 0.85rem; }
+  .checkbox-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
+  .checkbox-row input { width: auto; }
+  .tag-options { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+  .tag-options label {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-weight: 400; font-size: 0.8rem;
+    background: var(--warm-beige); padding: 0.3rem 0.6rem; border-radius: 20px;
+    margin: 0; cursor: pointer;
+  }
+  .tag-options input { width: auto; }
+  .form-actions { margin-top: 1.5rem; display: flex; gap: 0.6rem; }
+  #status-msg { font-size: 0.85rem; margin-top: 0.8rem; }
+  #status-msg.error { color: var(--danger); }
+  #status-msg.success { color: var(--forest-green); }
+  .top-actions { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+  .empty-note { color: #888; font-size: 0.85rem; }
+  .image-preview { max-width: 200px; border-radius: 6px; margin-top: 0.4rem; display: block; }
+</style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
+
+<!-- ============================================================ -->
+<!-- CONFIG — fill these in for your repo/worker before deploying -->
+<!-- ============================================================ -->
+<script>
+  const CONFIG = {
+    OWNER: "YOUR_GITHUB_USERNAME",
+    REPO: "ecorazon-website",
+    BRANCH: "main",
+    WORKER_URL: "https://ecorazon-cms-oauth.audreyrospa2.workers.dev",
+    BLOG_CONTENT_PATH: "src/content/blog",
+    BLOG_IMAGE_PATH: "public/images/blog",
+    BLOG_PUBLIC_IMAGE_PREFIX: "/images/blog",
+  };
+</script>
+
+<div id="login-screen">
+  <h2>Ecorazón CMS</h2>
+  <p>Log in with GitHub to edit site content.</p>
+  <button id="login-btn">Login with GitHub</button>
+  <p id="login-error" style="color:#b3261e;font-size:0.85rem;"></p>
+</div>
+
+<div id="app" style="display:none;">
+  <header>
+    <h1>Ecorazón CMS</h1>
+    <div class="meta">
+      <span id="user-label"></span>
+      &nbsp;·&nbsp;
+      <a href="#" id="logout-btn" style="color:white;">Log out</a>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="blog">Blog</button>
+    <button class="tab-btn" data-tab="products">Products</button>
+    <button class="tab-btn" data-tab="contact">Contact</button>
+  </nav>
+
+  <main>
+    <!-- ============ BLOG TAB ============ -->
+    <section id="tab-blog" class="tab-panel">
+      <div id="blog-list-view">
+        <div class="top-actions">
+          <span></span>
+          <button class="btn" id="new-post-btn">+ New Post</button>
+        </div>
+        <div class="panel" id="blog-list"></div>
+      </div>
+
+      <div id="blog-edit-view" style="display:none;">
+        <div class="panel">
+          <button class="btn secondary" id="back-to-list-btn" style="margin-bottom:1rem;">← Back to list</button>
+
+          <label>Title</label>
+          <input type="text" id="f-title" />
+
+          <label>Publish Date</label>
+          <input type="datetime-local" id="f-date" />
+
+          <label>Featured Image path (e.g. /images/blog/10.png)</label>
+          <input type="text" id="f-image" />
+          <label style="font-weight:400;">Or upload a new image</label>
+          <input type="file" id="f-image-upload" accept="image/*" />
+          <img id="f-image-preview" class="image-preview" style="display:none;" />
+
+          <label>Image Alt Text</label>
+          <input type="text" id="f-imagealt" />
+
+          <label>Category</label>
+          <select id="f-category">
+            <option>Artist Stories</option>
+            <option>Materials</option>
+            <option>Impact</option>
+            <option>Partnerships</option>
+            <option>Tips</option>
+            <option>Innovation</option>
+            <option>Community</option>
+          </select>
+
+          <label>Tags</label>
+          <div class="tag-options" id="f-tags-options"></div>
+
+          <label>Excerpt</label>
+          <textarea id="f-excerpt" style="min-height:80px;font-family:inherit;"></textarea>
+
+          <label>Body (Markdown)</label>
+          <textarea id="f-body"></textarea>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="f-draft" />
+            <label style="margin:0;">Draft (unpublished)</label>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" id="save-post-btn">Save</button>
+            <button class="btn danger" id="delete-post-btn">Delete</button>
+          </div>
+          <div id="status-msg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCTS TAB (placeholder) ============ -->
+    <section id="tab-products" class="tab-panel" style="display:none;">
+      <div class="panel">
+        <p class="empty-note">Products editing isn't wired up yet — this needs product.astro's content
+        extracted into a data file first. Ask Claude to do that next.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT TAB (placeholder) ============ -->
+    <section id="tab-contact" class="tab-panel" style="display:none;">
+      <div class="panel">
+        <p class="empty-note">Contact editing isn't wired up yet — this needs get-in-touch.astro's content
+        extracted into a data file first. Ask Claude to do that next.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  const ALL_TAGS = ["Sustainability","Artists","Corporate Gifting","ESG","Upcycling","Seed Paper","Social Impact","Innovation"];
+  let token = sessionStorage.getItem("ecorazon_gh_token") || null;
+  let currentFile = null; // { path, sha } of post being edited
+
+  // ---------- Auth ----------
+  document.getElementById("login-btn").onclick = () => {
+    const popup = window.open(`${CONFIG.WORKER_URL}/auth`, "gh-oauth", "width=600,height=700");
+    window.addEventListener("message", function handler(e) {
+      if (e.data && e.data.type === "ecorazon-cms-auth") {
+        token = e.data.token;
+        sessionStorage.setItem("ecorazon_gh_token", token);
+        window.removeEventListener("message", handler);
+        boot();
+      }
+    });
+  };
+
+  document.getElementById("logout-btn").onclick = (e) => {
+    e.preventDefault();
+    sessionStorage.removeItem("ecorazon_gh_token");
+    location.reload();
+  };
+
+  async function ghFetch(path, options = {}) {
+    const res = await fetch(`https://api.github.com/repos/${CONFIG.OWNER}/${CONFIG.REPO}/${path}`, {
+      ...options,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        ...(options.headers || {}),
+      },
+    });
+    if (res.status === 401) {
+      sessionStorage.removeItem("ecorazon_gh_token");
+      document.getElementById("login-error").textContent = "Session expired — please log in again.";
+      document.getElementById("app").style.display = "none";
+      document.getElementById("login-screen").style.display = "flex";
+      throw new Error("Unauthorized");
     }
-  </script>
+    return res;
+  }
+
+  async function boot() {
+    if (!token) return;
+    try {
+      const meRes = await fetch("https://api.github.com/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!meRes.ok) throw new Error("bad token");
+      const me = await meRes.json();
+      document.getElementById("user-label").textContent = me.login;
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      loadBlogList();
+    } catch (err) {
+      sessionStorage.removeItem("ecorazon_gh_token");
+      document.getElementById("login-error").textContent = "Login failed — please try again.";
+    }
+  }
+
+  // ---------- Tabs ----------
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.onclick = () => {
+      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(".tab-panel").forEach((p) => (p.style.display = "none"));
+      document.getElementById(`tab-${btn.dataset.tab}`).style.display = "block";
+    };
+  });
+
+  // ---------- Blog: list ----------
+  async function loadBlogList() {
+    const listEl = document.getElementById("blog-list");
+    listEl.innerHTML = "<p class='empty-note'>Loading…</p>";
+    try {
+      const res = await ghFetch(`contents/${CONFIG.BLOG_CONTENT_PATH}?ref=${CONFIG.BRANCH}`);
+      if (res.status === 404) {
+        listEl.innerHTML = "<p class='empty-note'>No posts folder found yet.</p>";
+        return;
+      }
+      const files = (await res.json()).filter((f) => f.name.endsWith(".md"));
+      if (!files.length) {
+        listEl.innerHTML = "<p class='empty-note'>No posts yet — create one!</p>";
+        return;
+      }
+      listEl.innerHTML = "";
+      files.sort((a, b) => b.name.localeCompare(a.name));
+      files.forEach((f) => {
+        const row = document.createElement("div");
+        row.className = "list-row";
+        row.innerHTML = `
+          <div>
+            <div class="title">${f.name.replace(/\.md$/, "")}</div>
+            <div class="sub">${f.path}</div>
+          </div>
+          <div class="row-actions">
+            <button class="btn secondary edit-btn">Edit</button>
+          </div>`;
+        row.querySelector(".edit-btn").onclick = () => openPost(f.path);
+        listEl.appendChild(row);
+      });
+    } catch (err) {
+      if (err.message !== "Unauthorized") {
+        listEl.innerHTML = `<p class='empty-note'>Error loading posts: ${err.message}</p>`;
+      }
+    }
+  }
+
+  document.getElementById("new-post-btn").onclick = () => openPost(null);
+  document.getElementById("back-to-list-btn").onclick = () => {
+    document.getElementById("blog-edit-view").style.display = "none";
+    document.getElementById("blog-list-view").style.display = "block";
+    loadBlogList();
+  };
+
+  // ---------- Blog: frontmatter parse/serialize (matches this project's exact schema) ----------
+  function parsePost(raw) {
+    const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+    if (!match) return { title: "", date: "", image: "", imageAlt: "", category: "Impact", tags: [], excerpt: "", draft: true, body: raw };
+    const fmText = match[1];
+    const body = match[2] || "";
+    const data = { tags: [] };
+    const lines = fmText.split("\n");
+    let i = 0;
+    while (i < lines.length) {
+      const line = lines[i];
+      const kv = line.match(/^(\w+):\s?(.*)$/);
+      if (kv) {
+        const key = kv[1];
+        let val = kv[2].trim();
+        if (val === "" && lines[i + 1] && /^\s*-\s/.test(lines[i + 1])) {
+          const arr = [];
+          i++;
+          while (i < lines.length && /^\s*-\s/.test(lines[i])) {
+            arr.push(lines[i].replace(/^\s*-\s/, "").trim().replace(/^"|"$/g, ""));
+            i++;
+          }
+          data[key] = arr;
+          continue;
+        }
+        val = val.replace(/^"|"$/g, "");
+        if (val === "true") val = true;
+        else if (val === "false") val = false;
+        data[key] = val;
+      }
+      i++;
+    }
+    return {
+      title: data.title || "",
+      date: data.date || "",
+      image: data.image || "",
+      imageAlt: data.imageAlt || "",
+      category: data.category || "Impact",
+      tags: data.tags || [],
+      excerpt: data.excerpt || "",
+      draft: data.draft === true,
+      body: body.replace(/^\n+/, "").replace(/\n+$/, "\n"),
+    };
+  }
+
+  function yamlEscape(str) {
+    if (/[:#\n]|^\s|\s$/.test(str)) return `"${str.replace(/"/g, '\\"')}"`;
+    return str;
+  }
+
+  function serializePost(data) {
+    const tagsBlock = data.tags.length
+      ? `tags:\n${data.tags.map((t) => `  - ${yamlEscape(t)}`).join("\n")}\n`
+      : `tags: []\n`;
+    return `---
+title: ${yamlEscape(data.title)}
+date: ${data.date}
+image: ${data.image}
+imageAlt: ${yamlEscape(data.imageAlt)}
+category: ${data.category}
+${tagsBlock}excerpt: ${yamlEscape(data.excerpt)}
+draft: ${data.draft}
+---
+${data.body.trim()}
+`;
+  }
+
+  function slugify(title) {
+    return title.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+
+  function toDatetimeLocalValue(isoDateStr) {
+    if (!isoDateStr) return "";
+    const d = new Date(isoDateStr);
+    if (isNaN(d)) return "";
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  // ---------- Blog: open/edit ----------
+  async function openPost(path) {
+    document.getElementById("status-msg").textContent = "";
+    document.getElementById("status-msg").className = "";
+    document.getElementById("blog-list-view").style.display = "none";
+    document.getElementById("blog-edit-view").style.display = "block";
+
+    // build tag checkboxes
+    const tagBox = document.getElementById("f-tags-options");
+    tagBox.innerHTML = ALL_TAGS.map(
+      (t) => `<label><input type="checkbox" value="${t}" class="tag-cb" /> ${t}</label>`
+    ).join("");
+
+    if (!path) {
+      currentFile = null;
+      document.getElementById("f-title").value = "";
+      document.getElementById("f-date").value = toDatetimeLocalValue(new Date().toISOString());
+      document.getElementById("f-image").value = "";
+      document.getElementById("f-imagealt").value = "";
+      document.getElementById("f-category").value = "Impact";
+      document.getElementById("f-excerpt").value = "";
+      document.getElementById("f-body").value = "";
+      document.getElementById("f-draft").checked = true;
+      document.getElementById("f-image-preview").style.display = "none";
+      document.getElementById("delete-post-btn").style.display = "none";
+      return;
+    }
+
+    document.getElementById("delete-post-btn").style.display = "inline-block";
+    const res = await ghFetch(`contents/${path}?ref=${CONFIG.BRANCH}`);
+    const fileData = await res.json();
+    const raw = decodeURIComponent(escape(atob(fileData.content)));
+    const post = parsePost(raw);
+    currentFile = { path, sha: fileData.sha };
+
+    document.getElementById("f-title").value = post.title;
+    document.getElementById("f-date").value = toDatetimeLocalValue(post.date);
+    document.getElementById("f-image").value = post.image;
+    document.getElementById("f-imagealt").value = post.imageAlt;
+    document.getElementById("f-category").value = post.category;
+    document.getElementById("f-excerpt").value = post.excerpt;
+    document.getElementById("f-body").value = post.body;
+    document.getElementById("f-draft").checked = post.draft;
+    document.querySelectorAll(".tag-cb").forEach((cb) => {
+      cb.checked = post.tags.includes(cb.value);
+    });
+    if (post.image) {
+      const img = document.getElementById("f-image-preview");
+      img.src = post.image.startsWith("http") ? post.image : post.image;
+      img.style.display = "block";
+    } else {
+      document.getElementById("f-image-preview").style.display = "none";
+    }
+  }
+
+  // image upload -> commit to repo, then fill in the path field
+  document.getElementById("f-image-upload").onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const statusEl = document.getElementById("status-msg");
+    statusEl.textContent = "Uploading image…";
+    statusEl.className = "";
+    try {
+      const base64 = await fileToBase64(file);
+      const ext = file.name.split(".").pop();
+      const filename = `${Date.now()}-${slugify(file.name.replace(/\.[^.]+$/, ""))}.${ext}`;
+      const uploadPath = `${CONFIG.BLOG_IMAGE_PATH}/${filename}`;
+      await ghFetch(`contents/${uploadPath}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          message: `Upload blog image: ${filename}`,
+          content: base64,
+          branch: CONFIG.BRANCH,
+        }),
+      });
+      const publicPath = `${CONFIG.BLOG_PUBLIC_IMAGE_PREFIX}/${filename}`;
+      document.getElementById("f-image").value = publicPath;
+      const img = document.getElementById("f-image-preview");
+      img.src = URL.createObjectURL(file);
+      img.style.display = "block";
+      statusEl.textContent = "Image uploaded.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Image upload failed: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // ---------- Blog: save ----------
+  document.getElementById("save-post-btn").onclick = async () => {
+    const statusEl = document.getElementById("status-msg");
+    statusEl.textContent = "Saving…";
+    statusEl.className = "";
+
+    const title = document.getElementById("f-title").value.trim();
+    if (!title) {
+      statusEl.textContent = "Title is required.";
+      statusEl.className = "error";
+      return;
+    }
+    const dateVal = document.getElementById("f-date").value;
+    const isoDate = dateVal ? new Date(dateVal).toISOString().replace(/\.\d{3}Z$/, ".000+07:00") : new Date().toISOString();
+    const tags = Array.from(document.querySelectorAll(".tag-cb"))
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+
+    const postData = {
+      title,
+      date: isoDate,
+      image: document.getElementById("f-image").value.trim(),
+      imageAlt: document.getElementById("f-imagealt").value.trim(),
+      category: document.getElementById("f-category").value,
+      tags,
+      excerpt: document.getElementById("f-excerpt").value.trim(),
+      draft: document.getElementById("f-draft").checked,
+      body: document.getElementById("f-body").value,
+    };
+
+    const raw = serializePost(postData);
+    const base64Content = btoa(unescape(encodeURIComponent(raw)));
+
+    let path = currentFile ? currentFile.path : null;
+    if (!path) {
+      const today = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      const dateSlug = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+      path = `${CONFIG.BLOG_CONTENT_PATH}/${dateSlug}-${slugify(title)}.md`;
+    }
+
+    try {
+      const body = {
+        message: currentFile ? `Update blog post: ${title}` : `Create blog post: ${title}`,
+        content: base64Content,
+        branch: CONFIG.BRANCH,
+      };
+      if (currentFile) body.sha = currentFile.sha;
+
+      const res = await ghFetch(`contents/${path}`, { method: "PUT", body: JSON.stringify(body) });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Save failed");
+      }
+      const result = await res.json();
+      currentFile = { path, sha: result.content.sha };
+      document.getElementById("delete-post-btn").style.display = "inline-block";
+      statusEl.textContent = "Saved. The site will rebuild shortly if auto-deploy is set up on Scicube.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Error saving: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  // ---------- Blog: delete ----------
+  document.getElementById("delete-post-btn").onclick = async () => {
+    if (!currentFile) return;
+    if (!confirm("Delete this post permanently? This cannot be undone.")) return;
+    const statusEl = document.getElementById("status-msg");
+    try {
+      const res = await ghFetch(`contents/${currentFile.path}`, {
+        method: "DELETE",
+        body: JSON.stringify({
+          message: `Delete blog post: ${currentFile.path}`,
+          sha: currentFile.sha,
+          branch: CONFIG.BRANCH,
+        }),
+      });
+      if (!res.ok) throw new Error("Delete failed");
+      document.getElementById("back-to-list-btn").click();
+    } catch (err) {
+      statusEl.textContent = "Error deleting: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  boot();
+})();
+</script>
 </body>
 </html>

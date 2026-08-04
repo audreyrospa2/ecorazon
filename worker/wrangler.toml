@@ -1,0 +1,9 @@
+name = "ecorazon-cms-oauth"
+main = "oauth-worker.js"
+compatibility_date = "2025-01-01"
+
+# Secrets (set these via `wrangler secret put <NAME>`, never commit them):
+#   GITHUB_CLIENT_ID
+#   GITHUB_CLIENT_SECRET
+#   ALLOWED_ORIGIN   -> the exact origin your admin panel is served from,
+#                        e.g. https://ecorazon.com (no trailing slash)
