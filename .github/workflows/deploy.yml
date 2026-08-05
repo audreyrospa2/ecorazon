@@ -1,9 +1,11 @@
 name: Build and Deploy to Scicube
 
+# Runs every time something is pushed to main — including commits made
+# by the CMS (blog posts, edits, deletes all go through this same path).
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}
+  workflow_dispatch: {}   # lets you also trigger it manually from the Actions tab
 
 jobs:
   build-and-deploy:
@@ -15,7 +17,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -24,6 +26,8 @@ jobs:
       - name: Build site
         run: npm run build
 
+      # Astro's default build output is `dist/`. If your project builds
+      # to a different folder, change `local-dir` below to match.
       - name: Deploy over FTP to Scicube
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -32,4 +36,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+          # Skips re-uploading files that haven't changed since the last
+          # deploy, so most pushes are fast.
           dangerous-clean-slate: false
