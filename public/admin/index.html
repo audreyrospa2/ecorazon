@@ -131,6 +131,10 @@
     BLOG_CONTENT_PATH: "src/content/blog",
     BLOG_IMAGE_PATH: "public/images/blog",
     BLOG_PUBLIC_IMAGE_PREFIX: "/images/blog",
+    PRODUCTS_PATH: "src/data/products.json",
+    PRODUCT_TAXONOMY_PATH: "src/data/product-taxonomy.json",
+    PRODUCT_IMAGE_PATH: "public/images/products",
+    PRODUCT_PUBLIC_IMAGE_PREFIX: "/images/products",
   };
 </script>
 
@@ -221,11 +225,68 @@
       </div>
     </section>
 
-    <!-- ============ PRODUCTS TAB (placeholder) ============ -->
+    <!-- ============ PRODUCTS TAB ============ -->
     <section id="tab-products" class="tab-panel" style="display:none;">
-      <div class="panel">
-        <p class="empty-note">Products editing isn't wired up yet — this needs product.astro's content
-        extracted into a data file first. Ask Claude to do that next.</p>
+
+      <!-- Taxonomy manager: Series / Gift Levels / Tags option lists -->
+      <div class="panel" style="margin-bottom:1.5rem;">
+        <div class="top-actions" style="cursor:pointer;" id="taxonomy-toggle">
+          <strong>Manage Series / Gift Levels / Tags options</strong>
+          <span id="taxonomy-toggle-icon">▸</span>
+        </div>
+        <div id="taxonomy-body" style="display:none; margin-top:1rem;">
+          <div id="taxonomy-groups"></div>
+          <div id="taxonomy-status" style="font-size:0.85rem;margin-top:0.8rem;"></div>
+        </div>
+      </div>
+
+      <div id="product-list-view">
+        <div class="top-actions">
+          <span></span>
+          <button class="btn" id="new-product-btn">+ New Product</button>
+        </div>
+        <div class="panel" id="product-list"></div>
+      </div>
+
+      <div id="product-edit-view" style="display:none;">
+        <div class="panel">
+          <button class="btn secondary" id="back-to-product-list-btn" style="margin-bottom:1rem;">← Back to list</button>
+
+          <label>Name</label>
+          <input type="text" id="p-name" />
+
+          <label>Description</label>
+          <textarea id="p-desc" style="min-height:80px;font-family:inherit;"></textarea>
+
+          <label>Image path (e.g. /images/products/example.png)</label>
+          <input type="text" id="p-img" />
+          <label style="font-weight:400;">Or upload a new image</label>
+          <input type="file" id="p-img-upload" accept="image/*" />
+          <img id="p-img-preview" class="image-preview" style="display:none;" />
+
+          <label>Category</label>
+          <select id="p-category">
+            <option value="mice">Curated MICE</option>
+            <option value="gifts">Corporate Gifts</option>
+            <option value="wellness">Wellness Initiatives</option>
+            <option value="esg">ESG Solutions</option>
+          </select>
+
+          <label>Series</label>
+          <div class="tag-options" id="p-series-options"></div>
+
+          <label>Gift Levels</label>
+          <div class="tag-options" id="p-giftlevels-options"></div>
+
+          <label>Tags</label>
+          <div class="tag-options" id="p-tags-options"></div>
+
+          <div class="form-actions">
+            <button class="btn" id="save-product-btn">Save</button>
+            <button class="btn danger" id="delete-product-btn">Delete</button>
+          </div>
+          <div id="product-status-msg"></div>
+        </div>
       </div>
     </section>
 
@@ -618,6 +679,374 @@ ${data.body.trim()}
       statusEl.className = "error";
     }
   };
+
+  // ============================================================
+  // PRODUCTS TAB
+  // ============================================================
+  let taxonomy = { series: [], giftLevels: [], tags: [] };
+  let taxonomyFile = null; // { sha }
+  let productsCache = [];
+  let productsFile = null; // { sha }
+  let currentProductId = null;
+  let productsLoaded = false;
+
+  const TAXONOMY_GROUPS = [
+    { key: "series", label: "Series" },
+    { key: "giftLevels", label: "Gift Levels" },
+    { key: "tags", label: "Tags" },
+  ];
+
+  document.getElementById("taxonomy-toggle").onclick = () => {
+    const body = document.getElementById("taxonomy-body");
+    const icon = document.getElementById("taxonomy-toggle-icon");
+    const showing = body.style.display !== "none";
+    body.style.display = showing ? "none" : "block";
+    icon.textContent = showing ? "▸" : "▾";
+  };
+
+  async function loadTaxonomy() {
+    try {
+      const res = await ghFetch(`contents/${CONFIG.PRODUCT_TAXONOMY_PATH}?ref=${CONFIG.BRANCH}`);
+      const fileData = await res.json();
+      taxonomy = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+      taxonomyFile = { sha: fileData.sha };
+    } catch (err) {
+      if (err.message !== "Unauthorized") {
+        document.getElementById("taxonomy-status").textContent = "Could not load taxonomy: " + err.message;
+      }
+    }
+    renderTaxonomyEditor();
+  }
+
+  function renderTaxonomyEditor() {
+    const container = document.getElementById("taxonomy-groups");
+    container.innerHTML = "";
+    TAXONOMY_GROUPS.forEach((group) => {
+      const wrap = document.createElement("div");
+      wrap.style.marginBottom = "1.2rem";
+      const items = taxonomy[group.key] || [];
+      wrap.innerHTML = `
+        <label>${group.label}</label>
+        <div class="tag-options" id="taxo-list-${group.key}">
+          ${items.map((val, i) => `
+            <span style="display:inline-flex;align-items:center;gap:0.3rem;background:var(--warm-beige);padding:0.3rem 0.6rem;border-radius:20px;font-size:0.8rem;">
+              ${escapeHtml(val)}
+              <button type="button" data-key="${group.key}" data-idx="${i}" class="taxo-remove-btn" style="border:none;background:none;color:var(--danger);cursor:pointer;font-weight:700;">×</button>
+            </span>
+          `).join("")}
+        </div>
+        <div style="display:flex;gap:0.4rem;margin-top:0.5rem;">
+          <input type="text" placeholder="Add new ${group.label.toLowerCase()} option…" class="taxo-input" data-key="${group.key}" style="flex:1;" />
+          <button type="button" class="btn secondary taxo-add-btn" data-key="${group.key}">Add</button>
+        </div>
+      `;
+      container.appendChild(wrap);
+    });
+
+    document.querySelectorAll(".taxo-remove-btn").forEach((btn) => {
+      btn.onclick = () => {
+        const key = btn.dataset.key;
+        const idx = parseInt(btn.dataset.idx, 10);
+        taxonomy[key].splice(idx, 1);
+        renderTaxonomyEditor();
+      };
+    });
+    document.querySelectorAll(".taxo-add-btn").forEach((btn) => {
+      btn.onclick = () => {
+        const key = btn.dataset.key;
+        const input = document.querySelector(`.taxo-input[data-key="${key}"]`);
+        const val = input.value.trim();
+        if (!val) return;
+        if (!taxonomy[key]) taxonomy[key] = [];
+        if (taxonomy[key].includes(val)) return;
+        taxonomy[key].push(val);
+        input.value = "";
+        renderTaxonomyEditor();
+      };
+    });
+
+    // Save button (added once, appended after groups)
+    let saveBtn = document.getElementById("taxo-save-btn");
+    if (!saveBtn) {
+      saveBtn = document.createElement("button");
+      saveBtn.id = "taxo-save-btn";
+      saveBtn.className = "btn";
+      saveBtn.textContent = "Save options";
+      saveBtn.onclick = saveTaxonomy;
+      container.parentElement.insertBefore(saveBtn, document.getElementById("taxonomy-status"));
+    }
+  }
+
+  async function saveTaxonomy() {
+    const statusEl = document.getElementById("taxonomy-status");
+    statusEl.textContent = "Saving…";
+    statusEl.className = "";
+    try {
+      const content = JSON.stringify(taxonomy, null, 2);
+      const base64Content = btoa(unescape(encodeURIComponent(content)));
+      const body = {
+        message: "Update product taxonomy options",
+        content: base64Content,
+        branch: CONFIG.BRANCH,
+      };
+      if (taxonomyFile) body.sha = taxonomyFile.sha;
+      const res = await ghFetch(`contents/${CONFIG.PRODUCT_TAXONOMY_PATH}`, { method: "PUT", body: JSON.stringify(body) });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Save failed");
+      }
+      const result = await res.json();
+      taxonomyFile = { sha: result.content.sha };
+      statusEl.textContent = "Saved. New options are now available on product forms.";
+      statusEl.className = "success";
+      // refresh checkbox groups on the open product form, if any
+      if (document.getElementById("product-edit-view").style.display !== "none") {
+        renderProductTaxonomyCheckboxes();
+      }
+    } catch (err) {
+      statusEl.textContent = "Error saving: " + err.message;
+      statusEl.className = "error";
+    }
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  async function loadProductList() {
+    const listEl = document.getElementById("product-list");
+    listEl.innerHTML = "<p class='empty-note'>Loading…</p>";
+    try {
+      const res = await ghFetch(`contents/${CONFIG.PRODUCTS_PATH}?ref=${CONFIG.BRANCH}`);
+      const fileData = await res.json();
+      productsCache = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+      productsFile = { sha: fileData.sha };
+      productsLoaded = true;
+
+      if (!productsCache.length) {
+        listEl.innerHTML = "<p class='empty-note'>No products yet — create one!</p>";
+        return;
+      }
+      listEl.innerHTML = "";
+      productsCache.forEach((p) => {
+        const row = document.createElement("div");
+        row.className = "list-row";
+        row.innerHTML = `
+          <div>
+            <div class="title">${escapeHtml(p.name || "(untitled)")}</div>
+            <div class="sub">${escapeHtml(p.category || "")}</div>
+          </div>
+          <div class="row-actions">
+            <button class="btn secondary edit-product-btn">Edit</button>
+          </div>`;
+        row.querySelector(".edit-product-btn").onclick = () => openProduct(p.id);
+        listEl.appendChild(row);
+      });
+    } catch (err) {
+      if (err.message !== "Unauthorized") {
+        listEl.innerHTML = `<p class='empty-note'>Error loading products: ${err.message}</p>`;
+      }
+    }
+  }
+
+  function renderProductTaxonomyCheckboxes(selected) {
+    selected = selected || { series: [], giftLevels: [], tags: [] };
+    const map = {
+      series: "p-series-options",
+      giftLevels: "p-giftlevels-options",
+      tags: "p-tags-options",
+    };
+    Object.keys(map).forEach((key) => {
+      const el = document.getElementById(map[key]);
+      const options = taxonomy[key] || [];
+      if (!options.length) {
+        el.innerHTML = `<span class="empty-note">No options yet — add some above in "Manage Series / Gift Levels / Tags options".</span>`;
+        return;
+      }
+      el.innerHTML = options.map(
+        (val) => `<label><input type="checkbox" value="${escapeHtml(val)}" class="p-cb-${key}" ${(selected[key] || []).includes(val) ? "checked" : ""} /> ${escapeHtml(val)}</label>`
+      ).join("");
+    });
+  }
+
+  document.getElementById("new-product-btn").onclick = () => openProduct(null);
+  document.getElementById("back-to-product-list-btn").onclick = () => {
+    document.getElementById("product-edit-view").style.display = "none";
+    document.getElementById("product-list-view").style.display = "block";
+    loadProductList();
+  };
+
+  function openProduct(id) {
+    document.getElementById("product-status-msg").textContent = "";
+    document.getElementById("product-status-msg").className = "";
+    document.getElementById("product-list-view").style.display = "none";
+    document.getElementById("product-edit-view").style.display = "block";
+
+    if (id === null) {
+      currentProductId = null;
+      document.getElementById("p-name").value = "";
+      document.getElementById("p-desc").value = "";
+      document.getElementById("p-img").value = "";
+      document.getElementById("p-category").value = "mice";
+      document.getElementById("p-img-preview").style.display = "none";
+      document.getElementById("delete-product-btn").style.display = "none";
+      renderProductTaxonomyCheckboxes();
+      return;
+    }
+
+    const product = productsCache.find((p) => p.id === id);
+    if (!product) return;
+    currentProductId = id;
+    document.getElementById("delete-product-btn").style.display = "inline-block";
+    document.getElementById("p-name").value = product.name || "";
+    document.getElementById("p-desc").value = product.desc || "";
+    document.getElementById("p-img").value = product.img || "";
+    document.getElementById("p-category").value = product.category || "mice";
+    if (product.img) {
+      const img = document.getElementById("p-img-preview");
+      img.src = product.img;
+      img.style.display = "block";
+    } else {
+      document.getElementById("p-img-preview").style.display = "none";
+    }
+    renderProductTaxonomyCheckboxes({
+      series: product.series || [],
+      giftLevels: product.giftLevels || [],
+      tags: product.tags || [],
+    });
+  }
+
+  document.getElementById("p-img-upload").onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const statusEl = document.getElementById("product-status-msg");
+    statusEl.textContent = "Uploading image…";
+    statusEl.className = "";
+    try {
+      const base64 = await fileToBase64(file);
+      const ext = file.name.split(".").pop();
+      const filename = `${Date.now()}-${slugify(file.name.replace(/\.[^.]+$/, ""))}.${ext}`;
+      const uploadPath = `${CONFIG.PRODUCT_IMAGE_PATH}/${filename}`;
+      await ghFetch(`contents/${uploadPath}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          message: `Upload product image: ${filename}`,
+          content: base64,
+          branch: CONFIG.BRANCH,
+        }),
+      });
+      const publicPath = `${CONFIG.PRODUCT_PUBLIC_IMAGE_PREFIX}/${filename}`;
+      document.getElementById("p-img").value = publicPath;
+      const img = document.getElementById("p-img-preview");
+      img.src = URL.createObjectURL(file);
+      img.style.display = "block";
+      statusEl.textContent = "Image uploaded.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Image upload failed: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  document.getElementById("save-product-btn").onclick = async () => {
+    const statusEl = document.getElementById("product-status-msg");
+    statusEl.textContent = "Saving…";
+    statusEl.className = "";
+
+    const name = document.getElementById("p-name").value.trim();
+    if (!name) {
+      statusEl.textContent = "Name is required.";
+      statusEl.className = "error";
+      return;
+    }
+
+    const getChecked = (cls) => Array.from(document.querySelectorAll(`.${cls}`)).filter((cb) => cb.checked).map((cb) => cb.value);
+
+    const productData = {
+      name,
+      desc: document.getElementById("p-desc").value.trim(),
+      img: document.getElementById("p-img").value.trim(),
+      category: document.getElementById("p-category").value,
+      series: getChecked("p-cb-series"),
+      giftLevels: getChecked("p-cb-giftLevels"),
+      tags: getChecked("p-cb-tags"),
+    };
+
+    if (currentProductId === null) {
+      const nextId = productsCache.length ? Math.max(...productsCache.map((p) => p.id)) + 1 : 1;
+      productData.id = nextId;
+      productsCache.push(productData);
+    } else {
+      const idx = productsCache.findIndex((p) => p.id === currentProductId);
+      productData.id = currentProductId;
+      productsCache[idx] = productData;
+    }
+
+    try {
+      const content = JSON.stringify(productsCache, null, 2);
+      const base64Content = btoa(unescape(encodeURIComponent(content)));
+      const body = {
+        message: currentProductId === null ? `Add product: ${name}` : `Update product: ${name}`,
+        content: base64Content,
+        branch: CONFIG.BRANCH,
+      };
+      if (productsFile) body.sha = productsFile.sha;
+      const res = await ghFetch(`contents/${CONFIG.PRODUCTS_PATH}`, { method: "PUT", body: JSON.stringify(body) });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Save failed");
+      }
+      const result = await res.json();
+      productsFile = { sha: result.content.sha };
+      currentProductId = productData.id;
+      document.getElementById("delete-product-btn").style.display = "inline-block";
+      statusEl.textContent = "Saved.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Error saving: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  document.getElementById("delete-product-btn").onclick = async () => {
+    if (currentProductId === null) return;
+    if (!confirm("Delete this product permanently? This cannot be undone.")) return;
+    const statusEl = document.getElementById("product-status-msg");
+    const idx = productsCache.findIndex((p) => p.id === currentProductId);
+    if (idx === -1) return;
+    productsCache.splice(idx, 1);
+    try {
+      const content = JSON.stringify(productsCache, null, 2);
+      const base64Content = btoa(unescape(encodeURIComponent(content)));
+      const body = {
+        message: `Delete product #${currentProductId}`,
+        content: base64Content,
+        branch: CONFIG.BRANCH,
+        sha: productsFile.sha,
+      };
+      const res = await ghFetch(`contents/${CONFIG.PRODUCTS_PATH}`, { method: "PUT", body: JSON.stringify(body) });
+      if (!res.ok) throw new Error("Delete failed");
+      const result = await res.json();
+      productsFile = { sha: result.content.sha };
+      document.getElementById("back-to-product-list-btn").click();
+    } catch (err) {
+      statusEl.textContent = "Error deleting: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  // Load products/taxonomy the first time the Products tab is opened
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    if (btn.dataset.tab === "products") {
+      const original = btn.onclick;
+      btn.addEventListener("click", () => {
+        loadTaxonomy();
+        if (!productsLoaded) loadProductList();
+      });
+    }
+  });
 
   boot();
 })();
