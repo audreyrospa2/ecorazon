@@ -1,0 +1,14 @@
+[
+  { "id": 1, "category": "mice", "name": "Exhibition Curation Package", "desc": "End-to-end event curation blending art, culture, and purpose.", "img": "/images/1.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 2, "category": "mice", "name": "Corporate Retreat Experience", "desc": "Meaningful team experiences designed around sustainability.", "img": "/images/2.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 3, "category": "mice", "name": "Themed Conference Design", "desc": "Immersive conference environments with a social impact narrative.", "img": "/images/3.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 4, "category": "gifts", "name": "Artisan Gift Set", "desc": "Handcrafted gifts by special needs artists using eco materials.", "img": "/images/4.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 5, "category": "gifts", "name": "Custom Branded Merchandise", "desc": "Bespoke products that carry your brand story sustainably.", "img": "/images/5.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 6, "category": "gifts", "name": "Seasonal Gift Collection", "desc": "Curated seasonal sets crafted from recycled and natural materials.", "img": "/images/6.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 7, "category": "wellness", "name": "Mindfulness Workshop Kit", "desc": "Wellness kits designed to nurture creativity and connection.", "img": "/images/7.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 8, "category": "wellness", "name": "Team Wellbeing Programme", "desc": "Structured programmes that foster belonging and mental wellness.", "img": "/images/12.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 9, "category": "esg", "name": "Sustainability Audit Pack", "desc": "Tools and guidance to align your brand with ESG commitments.", "img": "/images/8.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 10, "category": "esg", "name": "Green Impact Campaign", "desc": "Campaign design that communicates your environmental values.", "img": "/images/9.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 11, "category": "esg", "name": "Inclusive Community Kit", "desc": "Resources for building empowering, inclusive workplace cultures.", "img": "/images/13.png", "series": [], "giftLevels": [], "tags": [] },
+  { "id": 12, "category": "mice", "name": "Pop-Up Gallery Experience", "desc": "Traveling art exhibitions that tell your brand's sustainability story.", "img": "/images/11.png", "series": [], "giftLevels": [], "tags": [] }
+]
