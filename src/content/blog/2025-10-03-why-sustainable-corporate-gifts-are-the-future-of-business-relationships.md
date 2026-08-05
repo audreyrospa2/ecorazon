@@ -1,14 +1,12 @@
 ---
 title: Why Sustainable Corporate Gifts Are the Future of Business Relationships
-date: 2025-10-03T14:24:00.000+07:00
+date: 2025-10-03T07:24:00.000+07:00
 image: /images/blog/10.png
 imageAlt: Artisan crafting sustainable products
 category: Impact
 tags:
   - Corporate Gifting
 excerpt: Discover how sustainable corporate gifts are transforming business
-  relationships while creating positive environmental and social impact. Learn
-  why conscious gifting matters more than ever.
 draft: false
 ---
 ## he Shift Toward Conscious Corporate Gifting
