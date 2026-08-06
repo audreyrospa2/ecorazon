@@ -120,7 +120,7 @@
 <body>
 
 <!-- ============================================================ -->
-<!-- CONFIG — fill these in for your repo/worker before deploying -->
+<!-- CONFIG  -->
 <!-- ============================================================ -->
 <script>
   const CONFIG = {
@@ -135,6 +135,7 @@
     PRODUCT_TAXONOMY_PATH: "src/data/product-taxonomy.json",
     PRODUCT_IMAGE_PATH: "public/images/products",
     PRODUCT_PUBLIC_IMAGE_PREFIX: "/images/products",
+    CONTACT_PATH: "src/data/contact.json",
   };
 </script>
 
@@ -297,11 +298,67 @@
       </div>
     </section>
 
-    <!-- ============ CONTACT TAB (placeholder) ============ -->
+    <!-- ============ CONTACT TAB ============ -->
     <section id="tab-contact" class="tab-panel" style="display:none;">
       <div class="panel">
-        <p class="empty-note">Contact editing isn't wired up yet — this needs get-in-touch.astro's content
-        extracted into a data file first. Ask Claude to do that next.</p>
+        <h3 style="margin-top:0;">Hero</h3>
+        <label>Title</label>
+        <input type="text" id="c-hero-title" />
+        <label>Subtitle</label>
+        <textarea id="c-hero-subtitle" style="min-height:60px;font-family:inherit;"></textarea>
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">Contact Info</h3>
+        <label>Email</label>
+        <input type="text" id="c-info-email" />
+        <label>Email note</label>
+        <input type="text" id="c-info-emailNote" />
+        <label>Response time</label>
+        <input type="text" id="c-info-responseTime" />
+        <label>Response time note</label>
+        <input type="text" id="c-info-responseTimeNote" />
+        <label>Location</label>
+        <input type="text" id="c-info-location" />
+        <label>Location note</label>
+        <input type="text" id="c-info-locationNote" />
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">What Happens Next (steps)</h3>
+        <div id="c-steps-list"></div>
+        <button class="btn secondary" id="c-steps-add" style="margin-top:0.8rem;">+ Add step</button>
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">Why Partner With Us</h3>
+        <div id="c-whypartner-list"></div>
+        <button class="btn secondary" id="c-whypartner-add" style="margin-top:0.8rem;">+ Add item</button>
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">FAQ</h3>
+        <div id="c-faq-list"></div>
+        <button class="btn secondary" id="c-faq-add" style="margin-top:0.8rem;">+ Add question</button>
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">Other Ways to Connect</h3>
+        <div id="c-otherways-list"></div>
+        <button class="btn secondary" id="c-otherways-add" style="margin-top:0.8rem;">+ Add item</button>
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">Final CTA</h3>
+        <label>Title</label>
+        <input type="text" id="c-cta-title" />
+        <label>Subtitle</label>
+        <textarea id="c-cta-subtitle" style="min-height:60px;font-family:inherit;"></textarea>
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem;">
+        <button class="btn" id="save-contact-btn">Save Contact Page</button>
+        <div id="contact-status-msg" style="margin-top:0.8rem;"></div>
       </div>
     </section>
   </main>
@@ -1081,6 +1138,162 @@ ${data.body.trim()}
         loadTaxonomy();
         if (!productsLoaded) loadProductList();
       });
+    }
+  });
+
+  // ============================================================
+  // CONTACT TAB
+  // ============================================================
+  let contactData = null;
+  let contactFile = null;
+  let contactLoaded = false;
+
+  const REPEATABLE_GROUPS = {
+    steps: { key: "whatHappensNext", listId: "c-steps-list", addId: "c-steps-add", fields: [
+      { name: "title", label: "Title", type: "text" },
+      { name: "desc", label: "Description", type: "textarea" },
+    ]},
+    whyPartner: { key: "whyPartner", listId: "c-whypartner-list", addId: "c-whypartner-add", fields: [
+      { name: "icon", label: "Icon (emoji)", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "desc", label: "Description", type: "textarea" },
+    ]},
+    faq: { key: "faq", listId: "c-faq-list", addId: "c-faq-add", fields: [
+      { name: "question", label: "Question", type: "text" },
+      { name: "answer", label: "Answer", type: "textarea" },
+    ]},
+    otherWays: { key: "otherWaysToConnect", listId: "c-otherways-list", addId: "c-otherways-add", fields: [
+      { name: "icon", label: "Icon (emoji)", type: "text" },
+      { name: "title", label: "Title", type: "text" },
+      { name: "desc", label: "Description", type: "textarea" },
+      { name: "linkLabel", label: "Link label", type: "text" },
+      { name: "mailtoSubject", label: "Email subject", type: "text" },
+    ]},
+  };
+
+  function renderRepeatableGroup(groupName) {
+    const group = REPEATABLE_GROUPS[groupName];
+    const container = document.getElementById(group.listId);
+    const items = contactData[group.key] || [];
+    container.innerHTML = "";
+
+    items.forEach((item, idx) => {
+      const card = document.createElement("div");
+      card.style.cssText = "border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:0.8rem;position:relative;";
+      let fieldsHtml = "";
+      group.fields.forEach((f) => {
+        const val = escapeHtml(item[f.name] || "");
+        if (f.type === "textarea") {
+          fieldsHtml += `<label style="margin-top:0.6rem;">${f.label}</label><textarea data-field="${f.name}" style="min-height:60px;font-family:inherit;">${val}</textarea>`;
+        } else {
+          fieldsHtml += `<label style="margin-top:0.6rem;">${f.label}</label><input type="text" data-field="${f.name}" value="${val}" />`;
+        }
+      });
+      card.innerHTML = fieldsHtml + `<button type="button" class="btn danger group-remove-btn" style="margin-top:0.8rem;padding:0.4rem 0.9rem;font-size:0.8rem;">Remove</button>`;
+      card.querySelectorAll("[data-field]").forEach((input) => {
+        input.addEventListener("input", () => {
+          items[idx][input.dataset.field] = input.value;
+        });
+      });
+      card.querySelector(".group-remove-btn").onclick = () => {
+        items.splice(idx, 1);
+        renderRepeatableGroup(groupName);
+      };
+      container.appendChild(card);
+    });
+  }
+
+  Object.keys(REPEATABLE_GROUPS).forEach((groupName) => {
+    const group = REPEATABLE_GROUPS[groupName];
+    document.getElementById(group.addId).onclick = () => {
+      if (!contactData[group.key]) contactData[group.key] = [];
+      const blank = {};
+      group.fields.forEach((f) => (blank[f.name] = ""));
+      contactData[group.key].push(blank);
+      renderRepeatableGroup(groupName);
+    };
+  });
+
+  function populateContactForm() {
+    document.getElementById("c-hero-title").value = contactData.hero.title || "";
+    document.getElementById("c-hero-subtitle").value = contactData.hero.subtitle || "";
+
+    document.getElementById("c-info-email").value = contactData.contactInfo.email || "";
+    document.getElementById("c-info-emailNote").value = contactData.contactInfo.emailNote || "";
+    document.getElementById("c-info-responseTime").value = contactData.contactInfo.responseTime || "";
+    document.getElementById("c-info-responseTimeNote").value = contactData.contactInfo.responseTimeNote || "";
+    document.getElementById("c-info-location").value = contactData.contactInfo.location || "";
+    document.getElementById("c-info-locationNote").value = contactData.contactInfo.locationNote || "";
+
+    document.getElementById("c-cta-title").value = contactData.finalCta.title || "";
+    document.getElementById("c-cta-subtitle").value = contactData.finalCta.subtitle || "";
+
+    Object.keys(REPEATABLE_GROUPS).forEach((groupName) => renderRepeatableGroup(groupName));
+  }
+
+  async function loadContact() {
+    if (contactLoaded) return;
+    try {
+      const res = await ghFetch(`contents/${CONFIG.CONTACT_PATH}?ref=${CONFIG.BRANCH}`);
+      const fileData = await res.json();
+      contactData = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+      contactFile = { sha: fileData.sha };
+      contactLoaded = true;
+      populateContactForm();
+    } catch (err) {
+      if (err.message !== "Unauthorized") {
+        document.getElementById("contact-status-msg").textContent = "Could not load contact page: " + err.message;
+        document.getElementById("contact-status-msg").className = "error";
+      }
+    }
+  }
+
+  document.getElementById("save-contact-btn").onclick = async () => {
+    const statusEl = document.getElementById("contact-status-msg");
+    statusEl.textContent = "Saving…";
+    statusEl.className = "";
+
+    contactData.hero.title = document.getElementById("c-hero-title").value.trim();
+    contactData.hero.subtitle = document.getElementById("c-hero-subtitle").value.trim();
+
+    contactData.contactInfo.email = document.getElementById("c-info-email").value.trim();
+    contactData.contactInfo.emailNote = document.getElementById("c-info-emailNote").value.trim();
+    contactData.contactInfo.responseTime = document.getElementById("c-info-responseTime").value.trim();
+    contactData.contactInfo.responseTimeNote = document.getElementById("c-info-responseTimeNote").value.trim();
+    contactData.contactInfo.location = document.getElementById("c-info-location").value.trim();
+    contactData.contactInfo.locationNote = document.getElementById("c-info-locationNote").value.trim();
+
+    contactData.finalCta.title = document.getElementById("c-cta-title").value.trim();
+    contactData.finalCta.subtitle = document.getElementById("c-cta-subtitle").value.trim();
+
+    try {
+      const content = JSON.stringify(contactData, null, 2);
+      const base64Content = btoa(unescape(encodeURIComponent(content)));
+      const body = {
+        message: "Update contact page content",
+        content: base64Content,
+        branch: CONFIG.BRANCH,
+      };
+      if (contactFile) body.sha = contactFile.sha;
+      const res = await ghFetch(`contents/${CONFIG.CONTACT_PATH}`, { method: "PUT", body: JSON.stringify(body) });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Save failed");
+      }
+      const result = await res.json();
+      contactFile = { sha: result.content.sha };
+      statusEl.textContent = "Saved.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Error saving: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  // Load contact data the first time the Contact tab is opened
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    if (btn.dataset.tab === "contact") {
+      btn.addEventListener("click", () => loadContact());
     }
   });
 
