@@ -86,6 +86,30 @@ Login successful — you can close this window if it doesn't close automatically
       });
     }
 
+    // Client password login: exchanges a shared password for the service PAT
+    if (url.pathname === "/password-login" && request.method === "POST") {
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+        return new Response(JSON.stringify({ error: "Invalid request" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders(env) },
+        });
+      }
+
+      if (!body.password || body.password !== env.CLIENT_PASSWORD) {
+        return new Response(JSON.stringify({ error: "Incorrect password" }), {
+          status: 401,
+          headers: { "Content-Type": "application/json", ...corsHeaders(env) },
+        });
+      }
+
+      return new Response(JSON.stringify({ token: env.GITHUB_PAT }), {
+        headers: { "Content-Type": "application/json", ...corsHeaders(env) },
+      });
+    }
+
     return new Response("Ecorazón CMS OAuth worker is running.", {
       headers: corsHeaders(env),
     });
