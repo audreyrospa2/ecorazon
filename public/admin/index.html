@@ -124,10 +124,10 @@
 <!-- ============================================================ -->
 <script>
   const CONFIG = {
-    OWNER: "audreyrospa2",
-    REPO: "ecorazon",
+    OWNER: "YOUR_GITHUB_USERNAME",
+    REPO: "ecorazon-website",
     BRANCH: "main",
-    WORKER_URL: "https://ecorazon-cms-oauth.audreyrospa2.workers.dev",
+    WORKER_URL: "https://ecorazon-cms-oauth.YOUR_SUBDOMAIN.workers.dev",
     BLOG_CONTENT_PATH: "src/content/blog",
     BLOG_IMAGE_PATH: "public/images/blog",
     BLOG_PUBLIC_IMAGE_PREFIX: "/images/blog",
@@ -143,6 +143,13 @@
   <p>Log in with GitHub to edit site content.</p>
   <button id="login-btn">Login with GitHub</button>
   <p id="login-error" style="color:#b3261e;font-size:0.85rem;"></p>
+
+  <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #E0DAD0;width:260px;">
+    <p style="font-size:0.85rem;color:#777;margin-bottom:0.6rem;">Client access</p>
+    <input type="password" id="client-password-input" placeholder="Password" style="width:100%;padding:0.55rem 0.7rem;border:1px solid #E0DAD0;border-radius:6px;font-size:0.9rem;margin-bottom:0.6rem;" />
+    <button id="client-login-btn" style="width:100%;background:#8B7355;color:white;border:none;padding:0.6rem;border-radius:6px;cursor:pointer;">Client Login</button>
+    <p id="client-login-error" style="color:#b3261e;font-size:0.85rem;margin-top:0.5rem;"></p>
+  </div>
 </div>
 
 <div id="app" style="display:none;">
@@ -324,6 +331,35 @@
     sessionStorage.removeItem("ecorazon_gh_token");
     location.reload();
   };
+
+  document.getElementById("client-login-btn").onclick = async () => {
+    const pwInput = document.getElementById("client-password-input");
+    const errEl = document.getElementById("client-login-error");
+    errEl.textContent = "";
+    const password = pwInput.value;
+    if (!password) return;
+    try {
+      const res = await fetch(`${CONFIG.WORKER_URL}/password-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errEl.textContent = data.error || "Login failed.";
+        return;
+      }
+      token = data.token;
+      sessionStorage.setItem("ecorazon_gh_token", token);
+      boot();
+    } catch (err) {
+      errEl.textContent = "Could not reach the login service.";
+    }
+  };
+
+  document.getElementById("client-password-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") document.getElementById("client-login-btn").click();
+  });
 
   async function ghFetch(path, options = {}) {
     const res = await fetch(`https://api.github.com/repos/${CONFIG.OWNER}/${CONFIG.REPO}/${path}`, {
