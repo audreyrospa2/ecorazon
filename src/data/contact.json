@@ -1,0 +1,42 @@
+{
+  "hero": {
+    "title": "Let's Create Something Meaningful Together",
+    "subtitle": "Ready to bring your vision to life through sustainable, artistic corporate gifts? We'd love to hear from you."
+  },
+  "contactInfo": {
+    "email": "hello@onesparkcreations.com",
+    "emailNote": "We'll respond within 24 hours",
+    "responseTime": "Within 24 hours",
+    "responseTimeNote": "Monday - Friday, 9 AM - 6 PM HKT",
+    "location": "Based in Hong Kong",
+    "locationNote": "Serving clients globally"
+  },
+  "whatHappensNext": [
+    { "title": "Initial Response", "desc": "We'll acknowledge your inquiry within 24 hours and schedule a discovery call if needed." },
+    { "title": "Discovery Call", "desc": "We'll discuss your vision, goals, and how we can bring your project to life." },
+    { "title": "Custom Proposal", "desc": "Receive a detailed proposal tailored to your specific needs and objectives." }
+  ],
+  "whyPartner": [
+    { "icon": "🤝", "title": "Collaborative Approach", "desc": "We work closely with you to ensure every detail aligns with your vision." },
+    { "icon": "🌱", "title": "Sustainability Expertise", "desc": "Deep knowledge of eco-friendly materials and sustainable practices." },
+    { "icon": "🎨", "title": "Artistic Excellence", "desc": "Working with talented special needs artists to create unique, meaningful pieces." },
+    { "icon": "📊", "title": "ESG Impact", "desc": "Every project contributes to your sustainability and social impact goals." }
+  ],
+  "faq": [
+    { "question": "What is the typical project timeline?", "answer": "Project timelines vary based on complexity, but most custom corporate gifts take 4-8 weeks from concept to completion. We'll provide a detailed timeline during our initial consultation." },
+    { "question": "What materials do you work with?", "answer": "We specialize in sustainable materials including cork, bamboo, recycled plastics, seed paper, hemp, organic cotton, and upcycled materials like coffee grounds." },
+    { "question": "Do you work with international clients?", "answer": "Yes! While we're based in Hong Kong, we work with clients globally and can arrange international shipping for completed projects." },
+    { "question": "What's the minimum order quantity?", "answer": "We work with orders of all sizes. For bespoke creations, we can accommodate quantities from 25 pieces to thousands, depending on the project complexity." },
+    { "question": "How do you ensure quality?", "answer": "Every piece is carefully crafted by our talented artists and undergoes quality checks. We provide samples and prototypes for approval before full production begins." },
+    { "question": "Can you help with packaging and delivery?", "answer": "Absolutely! We offer sustainable packaging solutions and can coordinate delivery directly to your recipients or events worldwide." }
+  ],
+  "otherWaysToConnect": [
+    { "icon": "💬", "title": "Quick Questions", "desc": "Have a quick question? Send us a brief message and we'll get back to you promptly.", "linkLabel": "Send Quick Message →", "mailtoSubject": "Quick Question" },
+    { "icon": "📞", "title": "Schedule a Call", "desc": "Ready for a detailed discussion? Let's schedule a consultation call at your convenience.", "linkLabel": "Request Call →", "mailtoSubject": "Schedule Consultation Call" },
+    { "icon": "📋", "title": "Project Brief", "desc": "Have detailed requirements? Send us a comprehensive project brief for a thorough response.", "linkLabel": "Send Brief →", "mailtoSubject": "Detailed Project Brief" }
+  ],
+  "finalCta": {
+    "title": "Ready to Make a Difference?",
+    "subtitle": "Every project is an opportunity to create positive impact. Let's work together to craft something meaningful that reflects your values and empowers our talented artists."
+  }
+}
