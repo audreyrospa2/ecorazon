@@ -18,22 +18,10 @@ const { title, description = "Ecorazón - Where Nature's Echo Meets the Art with
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>{title}</title>
   </head>
   <body class="bg-bg text-text">
     <slot />
     
-    <script is:inline>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function(user) {
-          if (!user) {
-            window.netlifyIdentity.on("login", function() {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
   </body>
 </html>

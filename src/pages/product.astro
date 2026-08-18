@@ -754,6 +754,11 @@ const categories = [
     background-size: cover;
     background-position: center;
     pointer-events: none;
+    transition: transform 0.6s ease;
+  }
+
+  .cycle-card:hover .cycle-card-circle {
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.08);
   }
 
   .cycle-card-circle::after {
