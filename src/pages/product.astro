@@ -101,40 +101,40 @@ const categories = [
       </div>
     
       <div class="cycle-cards">
-        <div class="cycle-card">
+        <a href="#testimonials" class="cycle-card">
           <div class="cycle-card-text">
             <h3>Original Design</h3>
-            <a href="#catalog" class="cycle-explore-btn">Explore</a>
+            <span class="cycle-explore-btn">Explore</span>
           </div>
-          <div class="cycle-card-photo" style="background-image:url('/images/c3.jpg');"></div>
-          <div class="cycle-card-circle" style="background-image:url('/images/c3.jpg');" aria-hidden="true"></div>
+          <div class="cycle-card-photo" style="background-image:url('/images/ricehusk.jpg');"></div>
+          <div class="cycle-card-circle" style="background-image:url('/images/ricehusk.jpg');" aria-hidden="true"></div>
           <span class="cycle-card-arrow">↗</span>
-        </div>
+        </a>
 
-        <div class="cycle-card">
+        <a href="#artists" class="cycle-card">
           <div class="cycle-card-text">
             <h3>Cultural Artistry</h3>
-            <a href="#catalog" class="cycle-explore-btn">Explore</a>
+            <span class="cycle-explore-btn">Explore</span>
           </div>
-          <div class="cycle-card-photo" style="background-image:url('/images/c3.jpg');"></div>
-          <div class="cycle-card-circle" style="background-image:url('/images/c3.jpg');" aria-hidden="true"></div>
+          <div class="cycle-card-photo" style="background-image:url('/images/coffee.jpg');"></div>
+          <div class="cycle-card-circle" style="background-image:url('/images/coffee.jpg');" aria-hidden="true"></div>
           <span class="cycle-card-arrow">↗</span>
-        </div>
+        </a>
 
-        <div class="cycle-card">
+        <a href="#catalog" class="cycle-card">
           <div class="cycle-card-text">
             <h3>Sustainable Materials</h3>
-            <a href="#catalog" class="cycle-explore-btn">Explore</a>
+            <span class="cycle-explore-btn">Explore</span>
           </div>
           <div class="cycle-card-photo" style="background-image:url('/images/c3.jpg');"></div>
           <div class="cycle-card-circle" style="background-image:url('/images/c3.jpg');" aria-hidden="true"></div>
           <span class="cycle-card-arrow">↗</span>
-        </div>
+        </a>
       </div>
     </section>
 
     <!-- Testimonials / Trust Section -->
-    <section class="trust-section">
+    <section class="trust-section" id="testimonials">
       <div class="trust-collage">
 
         <div class="trust-col trust-col-tall">
@@ -192,7 +192,9 @@ const categories = [
 
       <div class="trust-cards">
         <div class="trust-card">
-          <div class="trust-stars">★★★★★</div>
+          <div class="trust-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
           <p class="trust-quote">"WorkNook makes finding a coworking space so easy! I can book a desk in minutes and get straight to work. Highly recommend!"</p>
           <div class="trust-author">
             <div class="trust-avatar" style="background-image:url('/images/A1.png');"></div>
@@ -204,7 +206,9 @@ const categories = [
         </div>
 
         <div class="trust-card">
-          <div class="trust-stars">★★★★★</div>
+          <div class="trust-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
           <p class="trust-quote">Our team needed a flexible meeting space, and WorkNook delivered. The process was smooth, and the space was exactly what we needed!</p>
           <div class="trust-author">
             <div class="trust-avatar" style="background-image:url('/images/A2.png');"></div>
@@ -216,13 +220,126 @@ const categories = [
         </div>
 
         <div class="trust-card">
-          <div class="trust-stars">★★★★★</div>
+          <div class="trust-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
           <p class="trust-quote">"I love the variety of spaces available! Whether I need a quiet spot or a collaborative space, WorkNook always has the perfect option."</p>
           <div class="trust-author">
             <div class="trust-avatar" style="background-image:url('/images/A3.png');"></div>
             <div>
               <p class="trust-name">Lais A.</p>
               <p class="trust-role">Digital Marketer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Artists We Create With -->
+    <section class="artists-section" id="artists">
+      <div class="artists-inner">
+        <div class="artists-text">
+          <p>
+            We collaborate with diverse neurodivergent artists whose perspectives bring depth, originality, and emotional resonance to our work. These collaborations are not decorative add-ons, but part of how we create products with real human meaning.
+          </p>
+        </div>
+
+        <div class="artists-columns">
+          <div class="artists-col" data-direction="up">
+            <div class="artists-col-track">
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist1/420/540'); --clip: polygon(8% 0%, 45% 3%, 100% 8%, 96% 55%, 100% 100%, 40% 96%, 0% 100%, 3% 45%);"></div>
+                <div class="artist-info"><p class="artist-name">Jordan Ellery</p><p class="artist-role">Visual Artist</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist4/420/540'); --clip: polygon(0% 0%, 60% 0%, 96% 10%, 100% 60%, 90% 100%, 35% 96%, 5% 100%, 0% 40%);"></div>
+                <div class="artist-info"><p class="artist-name">Rae Whitfield</p><p class="artist-role">Sculptor</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist7/420/540'); --clip: polygon(5% 0%, 100% 4%, 95% 40%, 100% 90%, 60% 100%, 15% 97%, 0% 60%, 8% 20%);"></div>
+                <div class="artist-info"><p class="artist-name">Bea Halvorsen</p><p class="artist-role">Mixed Media</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist10/420/540'); --clip: polygon(0% 8%, 30% 0%, 90% 5%, 100% 45%, 97% 85%, 65% 100%, 10% 100%, 0% 55%);"></div>
+                <div class="artist-info"><p class="artist-name">Priya Chandran</p><p class="artist-role">Muralist</p></div>
+              </div>
+              <!-- duplicate set for seamless loop -->
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist1/420/540'); --clip: polygon(8% 0%, 45% 3%, 100% 8%, 96% 55%, 100% 100%, 40% 96%, 0% 100%, 3% 45%);"></div>
+                <div class="artist-info"><p class="artist-name">Jordan Ellery</p><p class="artist-role">Visual Artist</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist4/420/540'); --clip: polygon(0% 0%, 60% 0%, 96% 10%, 100% 60%, 90% 100%, 35% 96%, 5% 100%, 0% 40%);"></div>
+                <div class="artist-info"><p class="artist-name">Rae Whitfield</p><p class="artist-role">Sculptor</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist7/420/540'); --clip: polygon(5% 0%, 100% 4%, 95% 40%, 100% 90%, 60% 100%, 15% 97%, 0% 60%, 8% 20%);"></div>
+                <div class="artist-info"><p class="artist-name">Bea Halvorsen</p><p class="artist-role">Mixed Media</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist10/420/540'); --clip: polygon(0% 8%, 30% 0%, 90% 5%, 100% 45%, 97% 85%, 65% 100%, 10% 100%, 0% 55%);"></div>
+                <div class="artist-info"><p class="artist-name">Priya Chandran</p><p class="artist-role">Muralist</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="artists-col" data-direction="down">
+            <div class="artists-col-track">
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist2/420/540'); --clip: polygon(10% 0%, 70% 4%, 100% 30%, 95% 70%, 100% 100%, 40% 95%, 0% 100%, 5% 40%);"></div>
+                <div class="artist-info"><p class="artist-name">Mika Sato</p><p class="artist-role">Textile Artist</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist5/420/540'); --clip: polygon(0% 5%, 40% 0%, 100% 8%, 90% 50%, 100% 90%, 55% 100%, 0% 95%, 8% 50%);"></div>
+                <div class="artist-info"><p class="artist-name">Lena Osei</p><p class="artist-role">Ceramicist</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist8/420/540'); --clip: polygon(6% 0%, 100% 6%, 92% 45%, 100% 80%, 70% 100%, 20% 100%, 0% 65%, 10% 25%);"></div>
+                <div class="artist-info"><p class="artist-name">Kofi Amankwah</p><p class="artist-role">Painter</p></div>
+              </div>
+              <!-- duplicate set for seamless loop -->
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist2/420/540'); --clip: polygon(10% 0%, 70% 4%, 100% 30%, 95% 70%, 100% 100%, 40% 95%, 0% 100%, 5% 40%);"></div>
+                <div class="artist-info"><p class="artist-name">Mika Sato</p><p class="artist-role">Textile Artist</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist5/420/540'); --clip: polygon(0% 5%, 40% 0%, 100% 8%, 90% 50%, 100% 90%, 55% 100%, 0% 95%, 8% 50%);"></div>
+                <div class="artist-info"><p class="artist-name">Lena Osei</p><p class="artist-role">Ceramicist</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist8/420/540'); --clip: polygon(6% 0%, 100% 6%, 92% 45%, 100% 80%, 70% 100%, 20% 100%, 0% 65%, 10% 25%);"></div>
+                <div class="artist-info"><p class="artist-name">Kofi Amankwah</p><p class="artist-role">Painter</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="artists-col" data-direction="up">
+            <div class="artists-col-track">
+              `<div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist3/420/540'); --clip: polygon(0% 0%, 55% 0%, 100% 20%, 92% 60%, 100% 100%, 30% 100%, 0% 70%, 8% 30%);"></div>
+                <div class="artist-info"><p class="artist-name">Noor Adisa</p><p class="artist-role">Illustrator</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist6/420/540'); --clip: polygon(15% 0%, 100% 10%, 90% 55%, 100% 95%, 50% 100%, 0% 85%, 5% 45%, 0% 15%);"></div>
+                <div class="artist-info"><p class="artist-name">Théo Marchand</p><p class="artist-role">Printmaker</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist9/420/540'); --clip: polygon(0% 10%, 45% 0%, 100% 5%, 95% 50%, 100% 100%, 60% 95%, 10% 100%, 0% 55%);"></div>
+                <div class="artist-info"><p class="artist-name">Sana Ibarra</p><p class="artist-role">Photographer</p></div>
+              </div>
+              <!-- duplicate set for seamless loop -->
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist3/420/540'); --clip: polygon(0% 0%, 55% 0%, 100% 20%, 92% 60%, 100% 100%, 30% 100%, 0% 70%, 8% 30%);"></div>
+                <div class="artist-info"><p class="artist-name">Noor Adisa</p><p class="artist-role">Illustrator</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist6/420/540'); --clip: polygon(15% 0%, 100% 10%, 90% 55%, 100% 95%, 50% 100%, 0% 85%, 5% 45%, 0% 15%);"></div>
+                <div class="artist-info"><p class="artist-name">Théo Marchand</p><p class="artist-role">Printmaker</p></div>
+              </div>
+              <div class="artist-card">
+                <div class="artist-photo" style="background-image:url('https://picsum.photos/seed/artist9/420/540'); --clip: polygon(0% 10%, 45% 0%, 100% 5%, 95% 50%, 100% 100%, 60% 95%, 10% 100%, 0% 55%);"></div>
+                <div class="artist-info"><p class="artist-name">Sana Ibarra</p><p class="artist-role">Photographer</p></div>
+              </div>
             </div>
           </div>
         </div>
@@ -618,11 +735,18 @@ const categories = [
     text-align: left;
     margin-right: -8%;
     z-index: 10;
+    cursor: default;
   }
- 
+
   .circle-arrow {
+    display: inline-block;
     font-size: 1.6rem;
     margin-bottom: 0.1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .circle-message:hover .circle-arrow {
+    transform: translate(5px, -5px);
   }
  
   .circle-message p {
@@ -680,21 +804,32 @@ const categories = [
     border-radius: 999px;
     text-decoration: none;
     white-space: nowrap;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .cycle-learn-more:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+  .cycle-learn-more span {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+  .cycle-learn-more:hover span {
+    transform: translate(3px, -3px);
   }
  
   /* ─── Cards row ─── */
-  .cycle-cards {
+  .cycle-card {
     position: relative;
-    z-index: 1;
-    max-width: 1200px;
-    margin: 4.5rem auto 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    display: flex;
+    align-items: stretch;
+    aspect-ratio: 2.2 / 1;
+    background: #232320;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
  
   .cycle-card {
@@ -785,6 +920,12 @@ const categories = [
     align-items: center;
     justify-content: center;
     font-size: 1rem;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .cycle-card:hover .cycle-card-arrow {
+    transform: translate(3px, -3px) rotate(45deg);
+    background: rgba(255, 255, 255, 0.32);
   }
  
   .cycle-explore-btn {
@@ -797,10 +938,23 @@ const categories = [
     text-decoration: none;
     padding: 0.5rem 1.25rem;
     border-radius: 999px;
-    transition: background 0.2s ease;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .cycle-explore-btn:hover {
+    .cycle-explore-btn:hover {
     background: #7fa878;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(149, 189, 141, 0.4);
+  }
+
+  .cycle-cards {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 4.5rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
  
   /* ─── Mobile ─── */
@@ -823,7 +977,7 @@ const categories = [
     .circle-message p {
       max-width: none;
     }
-    .bg-letter {
+        .bg-letter {
       display: none;
     }
     .cycle-cards {
@@ -1020,8 +1174,9 @@ const categories = [
     border-radius: 16px;
     background-size: cover;
     background-position: center;
-    background-color: #eceae5; /* fallback while loading */
+    background-color: #eceae5;
     position: relative;
+    will-change: transform;
   }
 
   .trust-img-lg { aspect-ratio: 3 / 3.6; }
@@ -1089,6 +1244,35 @@ const categories = [
     color: #e8b23d;
     font-size: 1rem;
     letter-spacing: 0.15em;
+  }
+
+  .trust-stars .star {
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0.3) rotate(-15deg);
+  }
+
+  .trust-card.in-view .trust-stars .star {
+    animation:
+      starPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+      starTwinkle 2.2s ease-in-out infinite;
+  }
+
+  .trust-card.in-view .trust-stars .star:nth-child(1) { animation-delay: 0s,    0.45s; }
+  .trust-card.in-view .trust-stars .star:nth-child(2) { animation-delay: 0.09s, 0.54s; }
+  .trust-card.in-view .trust-stars .star:nth-child(3) { animation-delay: 0.18s, 0.63s; }
+  .trust-card.in-view .trust-stars .star:nth-child(4) { animation-delay: 0.27s, 0.72s; }
+  .trust-card.in-view .trust-stars .star:nth-child(5) { animation-delay: 0.36s, 0.81s; }
+
+  @keyframes starPop {
+    0%   { opacity: 0; transform: scale(0.3) rotate(-15deg); }
+    60%  { opacity: 1; transform: scale(1.15) rotate(5deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  @keyframes starTwinkle {
+    0%, 100% { opacity: 1;    transform: scale(1) rotate(0deg); }
+    50%      { opacity: 0.55; transform: scale(1.2) rotate(6deg); }
   }
 
   .trust-quote {
@@ -1507,6 +1691,304 @@ const categories = [
       }
 
       tick();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<style>
+  .artists-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #F7F6F3;
+    padding: 6rem 1.5rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .artists-inner {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  .artists-text {
+    position: sticky;
+    top: 120px;
+  }
+
+  .artists-text p {
+    font-family: 'MaoWei', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    line-height: 1.55;
+    color: #2b2b28;
+    margin: 0;
+  }
+
+  .artists-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    height: min(75vh, 780px);
+  }
+
+  .artists-col {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  }
+  .artists-col::-webkit-scrollbar { display: none; }
+
+  .artists-col-track {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .artist-card {
+    flex: 0 0 auto;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    transform: none;
+    transition: transform 0.25s ease;
+  }
+
+  .artist-card:hover {
+    transform: scale(1.03);
+  }
+
+  .artist-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background-size: cover;
+    background-position: center;
+    background-color: #e2ded4;
+    clip-path: var(--clip);
+    transition: clip-path 0.3s ease;
+  }
+
+  .artist-info {
+    padding: 0.75rem 0.2rem 0.1rem;
+  }
+
+  .artist-info {
+    padding: 0.75rem 0.35rem 0.1rem;
+  }
+
+  .artist-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1f1f1c;
+    margin: 0 0 0.15rem;
+  }
+
+  .artist-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #8a8983;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .artists-section {
+      min-height: 100svh;
+      padding: 5rem 1.5rem;
+    }
+    .artists-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .artists-text {
+      position: static;
+    }
+    .artists-columns {
+      height: min(65vh, 560px);
+      gap: 0.9rem;
+    }
+    .artist-name { font-size: 0.85rem; }
+    .artist-role { font-size: 0.72rem; }
+  }
+
+  @media (max-width: 560px) {
+    .artists-columns {
+      height: min(60vh, 460px);
+      gap: 0.6rem;
+    }
+    .artist-card { padding: 0.4rem 0.4rem 0.6rem; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function init() {
+      var cols = document.querySelectorAll('.artists-col');
+      if (!cols.length) return;
+
+      var speed = 0.35; // px/frame
+
+      cols.forEach(function (col) {
+        var track = col.querySelector('.artists-col-track');
+        if (!track) return;
+
+        var direction = col.getAttribute('data-direction') === 'down' ? -1 : 1;
+        var paused = false;
+        var resumeTimeout = null;
+
+        function halfHeight() { return track.scrollHeight / 2; }
+        function setStart() { col.scrollTop = direction === -1 ? halfHeight() : 0; }
+        setStart();
+
+        function pause() {
+          paused = true;
+          if (resumeTimeout) clearTimeout(resumeTimeout);
+        }
+        function scheduleResume() {
+          if (resumeTimeout) clearTimeout(resumeTimeout);
+          resumeTimeout = setTimeout(function () { paused = false; }, 1200);
+        }
+
+        col.addEventListener('mouseenter', pause);
+        col.addEventListener('mouseleave', scheduleResume);
+        col.addEventListener('touchstart', pause, { passive: true });
+        col.addEventListener('touchend', scheduleResume, { passive: true });
+        col.addEventListener('wheel', pause, { passive: true });
+
+        function frame() {
+          if (!paused) {
+            var half = halfHeight();
+            col.scrollTop += speed * direction;
+            if (direction === 1 && col.scrollTop >= half) col.scrollTop -= half;
+            else if (direction === -1 && col.scrollTop <= 0) col.scrollTop += half;
+          }
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      });
+
+      window.addEventListener('load', function () {
+        cols.forEach(function (col) {
+          var direction = col.getAttribute('data-direction') === 'down' ? -1 : 1;
+          var track = col.querySelector('.artists-col-track');
+          if (!track) return;
+          col.scrollTop = direction === -1 ? track.scrollHeight / 2 : 0;
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    function init() {
+      var cards = document.querySelectorAll('.trust-card');
+      if (!cards.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        cards.forEach(function (c) { c.classList.add('in-view'); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      cards.forEach(function (c) { observer.observe(c); });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    function init() {
+      var collage = document.querySelector('.trust-collage');
+      if (!collage) return;
+
+      var imgs = Array.prototype.slice.call(collage.querySelectorAll('.trust-img'));
+      if (!imgs.length) return;
+
+      var state = imgs.map(function () { return { tx: 0, ty: 0 }; });
+      var mouse = { x: -9999, y: -9999, active: false };
+      var radius = 170;
+      var strength = 16; // max px shift — subtle on purpose
+
+      collage.addEventListener('mousemove', function (e) {
+        var rect = collage.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+        mouse.active = true;
+      });
+      collage.addEventListener('mouseleave', function () {
+        mouse.active = false;
+      });
+
+      function frame() {
+        var collageRect = collage.getBoundingClientRect();
+
+        imgs.forEach(function (img, i) {
+          var rect = img.getBoundingClientRect();
+          var cx = rect.left - collageRect.left + rect.width / 2;
+          var cy = rect.top - collageRect.top + rect.height / 2;
+
+          var targetX = 0,
+            targetY = 0;
+
+          if (mouse.active) {
+            var dx = cx - mouse.x;
+            var dy = cy - mouse.y;
+            var dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+            if (dist < radius) {
+              var force = (1 - dist / radius) * strength;
+              targetX = (dx / dist) * force;
+              targetY = (dy / dist) * force;
+            }
+          }
+
+          var s = state[i];
+          s.tx += (targetX - s.tx) * 0.12;
+          s.ty += (targetY - s.ty) * 0.12;
+          img.style.transform = 'translate(' + s.tx.toFixed(2) + 'px, ' + s.ty.toFixed(2) + 'px)';
+        });
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
     }
 
     if (document.readyState === 'loading') {

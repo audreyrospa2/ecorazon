@@ -2,6 +2,71 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+// ─── TEAM DATA ───
+// Single source of truth for each person; the two columns below just
+// reference these by key. Karis keeps her original spots (col1 slot 4,
+// col2 slot 1); duplicates (Karis, Carmen, Patrick, Fanny appearing twice)
+// are intentional per the requested order.
+
+type TeamMember = {
+  name: string;
+  role: string;
+  img: string;
+  linkedin: string;
+  quoteEn: string;
+  quoteCh?: string;
+};
+
+const members: Record<string, TeamMember> = {
+  patrick: {
+    name: 'Patrick Au Yeung',
+    role: 'Co-Founder',
+    img: '/images/patrick.jpeg',
+    linkedin: 'https://www.linkedin.com/in/patrick-au-yeung-751a9a1b4?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    quoteEn: 'Teamwork makes dream work!',
+  },
+  frandy: {
+    name: 'Frandy Chu',
+    role: 'Account Manager',
+    img: '/images/frandy.jpeg',
+    linkedin: 'https://www.linkedin.com/in/frandy-chu-b5718350',
+    quoteEn: 'Life is a journey, try to be a better version of myself every day!',
+  },
+  agnes: {
+    name: 'Agnes Kwong',
+    role: 'Account Manager',
+    img: '/images/agnes.jpeg',
+    linkedin: 'https://www.linkedin.com/in/agnes-kwong-15068368?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    quoteEn: 'Let nature gently embrace you, as the noise and stress of city life slowly dissolve into the soothing breath of the forest.',
+    quoteCh: '讓大自然溫柔地擁抱你，讓都市生活的喧囂與壓力，慢慢融化於森林療癒的氣息之中。',
+  },
+  fanny: {
+    name: 'Fanny Ng',
+    role: 'Operations Director',
+    img: '/images/fanny.jpeg',
+    linkedin: 'https://www.linkedin.com/in/fanny-ng-09587b64?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    quoteEn: 'Teamwork makes dream work!',
+  },
+  carmen: {
+    name: 'Carmen Chiang',
+    role: 'Business Development Director (Corporate Gifts)',
+    img: '/images/carmen.jpeg',
+    linkedin: 'https://www.linkedin.com/in/carmen-chiang-56002652?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    quoteEn: 'Teamwork makes dream work!',
+  },
+  karis: {
+    name: 'Karis Yeung',
+    role: 'Co-Founder',
+    img: '/images/karis.jpeg',
+    linkedin: 'https://www.linkedin.com/in/karis-yeung-68a762114',
+    quoteEn: 'If the world is a garden, may every soul dare to bloom in its season.',
+    quoteCh: '若世界是一座花園，願每一朵靈魂都得以盛開。',
+  },
+};
+
+const teamColumn1 = ['patrick', 'fanny', 'frandy', 'karis', 'carmen'];
+const teamColumn2 = ['karis', 'carmen', 'agnes', 'patrick', 'fanny'];
 ---
 
 <Layout title="About Us - Ecorazón">
@@ -52,25 +117,25 @@ import Footer from '../components/Footer.astro';
 
         <!-- TODO: replace with the real center "glue" logo -->
         <div class="vmv-logo">
-          <img src="/images/vmv-logo-mark.png" alt="" />
+          <img src="/images/logo.png" alt="" />
         </div>
 
         <button class="vmv-circle vmv-circle-value" data-key="value" aria-label="Our Value">
           <span class="vmv-circle-text">Value</span>
           <!-- TODO: replace with the real Value image -->
-          <img class="vmv-circle-image" src="/images/vmv-value.png" alt="" />
+          <img class="vmv-circle-image" src="/images/inclusive.jpg" alt="" />
         </button>
 
         <button class="vmv-circle vmv-circle-vision" data-key="vision" aria-label="Our Vision">
           <span class="vmv-circle-text">Vision</span>
           <!-- TODO: replace with the real Vision image -->
-          <img class="vmv-circle-image" src="/images/vmv-vision.png" alt="" />
+          <img class="vmv-circle-image" src="/images/partnership.jpg" alt="" />
         </button>
 
         <button class="vmv-circle vmv-circle-mission" data-key="mission" aria-label="Our Mission">
           <span class="vmv-circle-text">Mission</span>
           <!-- TODO: replace with the real Mission image -->
-          <img class="vmv-circle-image" src="/images/vmv-mission.png" alt="" />
+          <img class="vmv-circle-image" src="/images/14.png" alt="" />
         </button>
       </div>
 
@@ -121,46 +186,52 @@ import Footer from '../components/Footer.astro';
       </div>
 
       <div class="team-columns">
-      <!-- Column 1 (5 members) -->
+      <!-- Column 1 -->
       <div class="team-column">
-        {["karis-1","karis-2","karis-3","karis-4","karis-5"].map((id) => (
-          <div class="team-flip" data-member={id}>
-            <div class="team-flip-inner">
-              <div class="team-flip-face team-flip-front">
-                <img src="/images/karis.jpeg" alt="Karis Yeung" />
-                <div class="team-flip-caption"><p class="team-name">Karis Yeung</p><p class="team-role">Co-Founder</p></div>
-              </div>
-              <div class="team-flip-face team-flip-back">
-                <a href="https://www.linkedin.com/in/karis-yeung-68a762114" target="_blank" rel="noopener" class="team-linkedin" onclick="event.stopPropagation()">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-                </a>
-                <p class="team-quote-en">"If the world is a garden, may every soul dare to bloom in its season."</p>
-                <p class="team-quote-ch">若世界是一座花園，願每一朵靈魂都得以盛開。</p>
+        {teamColumn1.map((key, i) => {
+          const m = members[key as keyof typeof members];
+          return (
+            <div class="team-flip" data-member={`${key}-c1-${i}`}>
+              <div class="team-flip-inner">
+                <div class="team-flip-face team-flip-front">
+                  <img src={m.img} alt={m.name} />
+                  <div class="team-flip-caption"><p class="team-name">{m.name}</p><p class="team-role">{m.role}</p></div>
+                </div>
+                <div class="team-flip-face team-flip-back">
+                  <a href={m.linkedin} target="_blank" rel="noopener" class="team-linkedin" onclick="event.stopPropagation()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                  </a>
+                  <p class="team-quote-en">"{m.quoteEn}"</p>
+                  {m.quoteCh && <p class="team-quote-ch">{m.quoteCh}</p>}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <!-- Column 2 (5 members, offset down) -->
+      <!-- Column 2 (offset down) -->
       <div class="team-column team-column-offset">
-        {["karis-6","karis-7","karis-8","karis-9","karis-10"].map((id) => (
-          <div class="team-flip" data-member={id}>
-            <div class="team-flip-inner">
-              <div class="team-flip-face team-flip-front">
-                <img src="/images/karis.jpeg" alt="Karis Yeung" />
-                <div class="team-flip-caption"><p class="team-name">Karis Yeung</p><p class="team-role">Co-Founder</p></div>
-              </div>
-              <div class="team-flip-face team-flip-back">
-                <a href="https://www.linkedin.com/in/karis-yeung-68a762114" target="_blank" rel="noopener" class="team-linkedin" onclick="event.stopPropagation()">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-                </a>
-                <p class="team-quote-en">"If the world is a garden, may every soul dare to bloom in its season."</p>
-                <p class="team-quote-ch">若世界是一座花園，願每一朵靈魂都得以盛開。</p>
+        {teamColumn2.map((key, i) => {
+          const m = members[key as keyof typeof members];
+          return (
+            <div class="team-flip" data-member={`${key}-c2-${i}`}>
+              <div class="team-flip-inner">
+                <div class="team-flip-face team-flip-front">
+                  <img src={m.img} alt={m.name} />
+                  <div class="team-flip-caption"><p class="team-name">{m.name}</p><p class="team-role">{m.role}</p></div>
+                </div>
+                <div class="team-flip-face team-flip-back">
+                  <a href={m.linkedin} target="_blank" rel="noopener" class="team-linkedin" onclick="event.stopPropagation()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                  </a>
+                  <p class="team-quote-en">"{m.quoteEn}"</p>
+                  {m.quoteCh && <p class="team-quote-ch">{m.quoteCh}</p>}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
     </div>
@@ -863,8 +934,16 @@ document.addEventListener('DOMContentLoaded', () => {
     .to('.team-copy-title, .team-copy-body', { opacity: 1, y: 0, duration: 8 })
     .to('.team-copy-title, .team-copy-body', { opacity: 0, y: -70, ease: 'none', duration: 1 });
 
-  document.querySelectorAll('.team-flip').forEach((card) => {
-    card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+    document.querySelectorAll('.team-flip').forEach((card) => {
+    // Hover flips on devices that support it (desktop); tap still flips
+    // on touch devices where hover isn't available.
+    card.addEventListener('mouseenter', () => card.classList.add('is-flipped'));
+    card.addEventListener('mouseleave', () => card.classList.remove('is-flipped'));
+    card.addEventListener('click', () => {
+      if (window.matchMedia('(hover: none)').matches) {
+        card.classList.toggle('is-flipped');
+      }
+    });
   });
 });
 </script>
