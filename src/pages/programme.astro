@@ -575,7 +575,7 @@ import Footer from '../components/Footer.astro';
     grid-row: 1;
     position: relative;
     width: 100%;
-    max-width: 460px;
+    max-width: min(460px, 30vw, 42vh); 
     aspect-ratio: 1 / 1;
     margin-left: auto;
   }
@@ -1578,6 +1578,22 @@ import Footer from '../components/Footer.astro';
       scroll-snap-stop: normal;
     }
   }
+
+  @media (min-width: 901px) and (max-width: 1440px) {
+  .heart-framework-section {
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .heart-visual {
+    max-width: min(360px, 28vw, 40vh);
+  }
+
+  .heart-title {
+    font-size: clamp(1.3rem, 2.6vw, 2rem);
+  }
+}
 
   @media (max-width: 900px) {
   /* smaller pillar circles */
