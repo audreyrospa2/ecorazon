@@ -1078,6 +1078,59 @@ import Footer from '../components/Footer.astro';
     .wheel-modal-gallery img { max-height: 240px; }
   }
 
+  @media (min-width: 1200px) and (max-width: 1366px) and (min-height: 700px) and (max-height: 850px) {
+
+    .wheel-section {
+      height: 800px;
+      min-height: 800px;
+      max-height: 800px;
+      padding: 5.5rem clamp(2rem, 5vw, 4rem) 1rem; /* was 3.5rem — more clearance under the header */
+    }
+
+    .wheel-eyebrow {
+      margin-bottom: 0.5rem;
+    }
+
+    .wheel-title {
+      font-size: 1.4rem;      /* trimmed slightly to offset the extra top padding */
+      margin: 0 0 0.5rem 0;
+    }
+
+    .wheel-desc {
+      font-size: 0.8rem;
+      line-height: 1.55;
+      min-height: 2.4rem;
+      margin: 0 auto 0.85rem auto;
+    }
+
+    .wheel-cards-row {
+      padding: 0.1rem 0.25rem 0.3rem;
+    }
+
+    .wheel-card {
+      width: clamp(84px, 7.5vw, 112px);  /* slightly smaller to make room */
+    }
+
+    .wheel-card-title {
+      font-size: 0.62rem;
+      padding: 0.6rem;
+    }
+
+    .wheel-arc-wrap {
+      width: min(340px, 38vw);
+    }
+
+    .wheel-icon-wrap {
+      width: 280px;
+      height: 104px;
+    }
+
+    .wheel-icon-img {
+      width: 280px;
+      height: 280px;
+    }
+  }
+
   /* ─── WAYS TO BRING H.E.A.R.T. (CARD SWITCHER) ─── */
   .cards-switch-section {
     min-height: 100vh;
