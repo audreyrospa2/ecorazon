@@ -89,7 +89,7 @@
   .list-row .sub { font-size: 0.8rem; color: #777; }
   .row-actions button { margin-left: 0.4rem; }
   label { display: block; font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.3rem; color: #444; }
-  input[type=text], input[type=datetime-local], textarea, select {
+  input[type=text], input[type=datetime-local], input[type=url], textarea, select {
     width: 100%;
     padding: 0.55rem 0.7rem;
     border: 1px solid var(--border);
@@ -115,6 +115,21 @@
   .top-actions { display: flex; justify-content: space-between; margin-bottom: 1rem; }
   .empty-note { color: #888; font-size: 0.85rem; }
   .image-preview { max-width: 200px; border-radius: 6px; margin-top: 0.4rem; display: block; }
+  .avatar-preview { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .list-row-media { display: flex; align-items: center; gap: 0.8rem; }
+  .order-row {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.5rem 0.6rem; border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 0.5rem; background: var(--warm-beige);
+  }
+  .order-row select { flex: 1; }
+  .order-row .order-btn {
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    width: 28px; height: 28px; cursor: pointer; font-size: 0.85rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .order-row .order-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .order-row .order-remove { color: var(--danger); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -136,6 +151,9 @@
     PRODUCT_IMAGE_PATH: "public/images/products",
     PRODUCT_PUBLIC_IMAGE_PREFIX: "/images/products",
     CONTACT_PATH: "src/data/contact.json",
+    TEAM_PATH: "src/data/team.json",
+    TEAM_IMAGE_PATH: "public/images/team",
+    TEAM_PUBLIC_IMAGE_PREFIX: "/images/team",
   };
 </script>
 
@@ -166,6 +184,7 @@
   <nav class="tabs">
     <button class="tab-btn active" data-tab="blog">Blog</button>
     <button class="tab-btn" data-tab="products">Products</button>
+    <button class="tab-btn" data-tab="team">Team</button>
     <button class="tab-btn" data-tab="contact">Contact</button>
   </nav>
 
@@ -294,6 +313,80 @@
             <button class="btn danger" id="delete-product-btn">Delete</button>
           </div>
           <div id="product-status-msg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM TAB ============ -->
+    <section id="tab-team" class="tab-panel" style="display:none;">
+
+      <div id="team-list-view">
+        <div class="top-actions">
+          <span></span>
+          <button class="btn" id="new-team-member-btn">+ New Team Member</button>
+        </div>
+        <div class="panel" id="team-list"></div>
+      </div>
+
+      <div id="team-edit-view" style="display:none;">
+        <div class="panel">
+          <button class="btn secondary" id="back-to-team-list-btn" style="margin-bottom:1rem;">← Back to list</button>
+
+          <label>Name</label>
+          <input type="text" id="t-name" />
+
+          <label>Role</label>
+          <input type="text" id="t-role" />
+
+          <label>Photo path (e.g. /images/team/patrick.jpeg)</label>
+          <input type="text" id="t-img" />
+          <label style="font-weight:400;">Or upload a new photo</label>
+          <input type="file" id="t-img-upload" accept="image/*" />
+          <img id="t-img-preview" class="image-preview" style="display:none;" />
+
+          <label>LinkedIn URL</label>
+          <input type="url" id="t-linkedin" placeholder="https://www.linkedin.com/in/..." />
+
+          <label>Quote (English)</label>
+          <textarea id="t-quoteen" style="min-height:70px;font-family:inherit;"></textarea>
+
+          <label>Quote (Chinese) — optional</label>
+          <textarea id="t-quotech" style="min-height:70px;font-family:inherit;"></textarea>
+
+          <div class="form-actions">
+            <button class="btn" id="save-team-member-btn">Save</button>
+            <button class="btn danger" id="delete-team-member-btn">Delete</button>
+          </div>
+          <div id="team-status-msg"></div>
+        </div>
+      </div>
+
+      <!-- Column order manager: which members appear in which column, and in what order.
+           Duplicates across/within columns are allowed on purpose (matches the site design). -->
+      <div class="panel" style="margin-top:1.5rem;">
+        <div class="top-actions" style="cursor:pointer;" id="team-order-toggle">
+          <strong>Manage team page column order</strong>
+          <span id="team-order-toggle-icon">▸</span>
+        </div>
+        <div id="team-order-body" style="display:none; margin-top:1rem;">
+          <label style="margin-top:0;">Column 1</label>
+          <div id="team-order-column1"></div>
+          <div style="display:flex;gap:0.4rem;margin-top:0.3rem;">
+            <select id="team-order-add-select-column1" style="flex:1;"></select>
+            <button type="button" class="btn secondary" id="team-order-add-column1">Add</button>
+          </div>
+
+          <label>Column 2 (offset)</label>
+          <div id="team-order-column2"></div>
+          <div style="display:flex;gap:0.4rem;margin-top:0.3rem;">
+            <select id="team-order-add-select-column2" style="flex:1;"></select>
+            <button type="button" class="btn secondary" id="team-order-add-column2">Add</button>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" id="save-team-order-btn">Save column order</button>
+          </div>
+          <div id="team-order-status" style="font-size:0.85rem;margin-top:0.5rem;"></div>
         </div>
       </div>
     </section>
@@ -589,6 +682,21 @@ ${data.body.trim()}
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
   }
 
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str == null ? "" : str;
+    return div.innerHTML;
+  }
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   // ---------- Blog: open/edit ----------
   async function openPost(path) {
     document.getElementById("status-msg").textContent = "";
@@ -676,15 +784,6 @@ ${data.body.trim()}
       statusEl.className = "error";
     }
   };
-
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
 
   // ---------- Blog: save ----------
   document.getElementById("save-post-btn").onclick = async () => {
@@ -900,12 +999,6 @@ ${data.body.trim()}
       statusEl.textContent = "Error saving: " + err.message;
       statusEl.className = "error";
     }
-  }
-
-  function escapeHtml(str) {
-    const div = document.createElement("div");
-    div.textContent = str;
-    return div.innerHTML;
   }
 
   async function loadProductList() {
@@ -1133,10 +1226,348 @@ ${data.body.trim()}
   // Load products/taxonomy the first time the Products tab is opened
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     if (btn.dataset.tab === "products") {
-      const original = btn.onclick;
       btn.addEventListener("click", () => {
         loadTaxonomy();
         if (!productsLoaded) loadProductList();
+      });
+    }
+  });
+
+  // ============================================================
+  // TEAM TAB
+  // ============================================================
+  // Data shape (src/data/team.json):
+  // { members: [{ id, name, role, img, linkedin, quoteEn, quoteCh }],
+  //   column1: [id, id, ...], column2: [id, id, ...] }
+  // column1/column2 reference member ids and may repeat — that's intentional,
+  // it mirrors the flip-card layout on the About page.
+  let teamData = { members: [], column1: [], column2: [] };
+  let teamFile = null; // { sha }
+  let currentTeamMemberId = null;
+  let teamLoaded = false;
+
+  document.getElementById("team-order-toggle").onclick = () => {
+    const body = document.getElementById("team-order-body");
+    const icon = document.getElementById("team-order-toggle-icon");
+    const showing = body.style.display !== "none";
+    body.style.display = showing ? "none" : "block";
+    icon.textContent = showing ? "▸" : "▾";
+    if (!showing) renderTeamOrderEditor();
+  };
+
+  async function loadTeam() {
+    const listEl = document.getElementById("team-list");
+    listEl.innerHTML = "<p class='empty-note'>Loading…</p>";
+    try {
+      const res = await ghFetch(`contents/${CONFIG.TEAM_PATH}?ref=${CONFIG.BRANCH}`);
+      if (res.status === 404) {
+        teamData = { members: [], column1: [], column2: [] };
+        teamFile = null;
+        teamLoaded = true;
+        listEl.innerHTML = "<p class='empty-note'>No team members yet — create one!</p>";
+        return;
+      }
+      const fileData = await res.json();
+      teamData = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+      if (!teamData.members) teamData.members = [];
+      if (!teamData.column1) teamData.column1 = [];
+      if (!teamData.column2) teamData.column2 = [];
+      teamFile = { sha: fileData.sha };
+      teamLoaded = true;
+      renderTeamList();
+    } catch (err) {
+      if (err.message !== "Unauthorized") {
+        listEl.innerHTML = `<p class='empty-note'>Error loading team: ${err.message}</p>`;
+      }
+    }
+  }
+
+  function renderTeamList() {
+    const listEl = document.getElementById("team-list");
+    if (!teamData.members.length) {
+      listEl.innerHTML = "<p class='empty-note'>No team members yet — create one!</p>";
+      return;
+    }
+    listEl.innerHTML = "";
+    teamData.members.forEach((m) => {
+      const row = document.createElement("div");
+      row.className = "list-row";
+      row.innerHTML = `
+        <div class="list-row-media">
+          ${m.img ? `<img class="avatar-preview" src="${escapeHtml(m.img)}" />` : `<div class="avatar-preview" style="background:var(--warm-beige);"></div>`}
+          <div>
+            <div class="title">${escapeHtml(m.name || "(untitled)")}</div>
+            <div class="sub">${escapeHtml(m.role || "")}</div>
+          </div>
+        </div>
+        <div class="row-actions">
+          <button class="btn secondary edit-team-member-btn">Edit</button>
+        </div>`;
+      row.querySelector(".edit-team-member-btn").onclick = () => openTeamMember(m.id);
+      listEl.appendChild(row);
+    });
+  }
+
+  function teamSlugify(name) {
+    return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+
+  function uniqueTeamId(base) {
+    if (!base) base = "member";
+    let id = base;
+    let n = 2;
+    const existingIds = teamData.members.map((m) => m.id);
+    while (existingIds.includes(id)) {
+      id = `${base}-${n}`;
+      n++;
+    }
+    return id;
+  }
+
+  document.getElementById("new-team-member-btn").onclick = () => openTeamMember(null);
+  document.getElementById("back-to-team-list-btn").onclick = () => {
+    document.getElementById("team-edit-view").style.display = "none";
+    document.getElementById("team-list-view").style.display = "block";
+    renderTeamList();
+  };
+
+  function openTeamMember(id) {
+    document.getElementById("team-status-msg").textContent = "";
+    document.getElementById("team-status-msg").className = "";
+    document.getElementById("team-list-view").style.display = "none";
+    document.getElementById("team-edit-view").style.display = "block";
+
+    if (id === null) {
+      currentTeamMemberId = null;
+      document.getElementById("t-name").value = "";
+      document.getElementById("t-role").value = "";
+      document.getElementById("t-img").value = "";
+      document.getElementById("t-linkedin").value = "";
+      document.getElementById("t-quoteen").value = "";
+      document.getElementById("t-quotech").value = "";
+      document.getElementById("t-img-preview").style.display = "none";
+      document.getElementById("delete-team-member-btn").style.display = "none";
+      return;
+    }
+
+    const member = teamData.members.find((m) => m.id === id);
+    if (!member) return;
+    currentTeamMemberId = id;
+    document.getElementById("delete-team-member-btn").style.display = "inline-block";
+    document.getElementById("t-name").value = member.name || "";
+    document.getElementById("t-role").value = member.role || "";
+    document.getElementById("t-img").value = member.img || "";
+    document.getElementById("t-linkedin").value = member.linkedin || "";
+    document.getElementById("t-quoteen").value = member.quoteEn || "";
+    document.getElementById("t-quotech").value = member.quoteCh || "";
+    if (member.img) {
+      const img = document.getElementById("t-img-preview");
+      img.src = member.img;
+      img.style.display = "block";
+    } else {
+      document.getElementById("t-img-preview").style.display = "none";
+    }
+  }
+
+  document.getElementById("t-img-upload").onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const statusEl = document.getElementById("team-status-msg");
+    statusEl.textContent = "Uploading photo…";
+    statusEl.className = "";
+    try {
+      const base64 = await fileToBase64(file);
+      const ext = file.name.split(".").pop();
+      const filename = `${Date.now()}-${slugify(file.name.replace(/\.[^.]+$/, ""))}.${ext}`;
+      const uploadPath = `${CONFIG.TEAM_IMAGE_PATH}/${filename}`;
+      await ghFetch(`contents/${uploadPath}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          message: `Upload team photo: ${filename}`,
+          content: base64,
+          branch: CONFIG.BRANCH,
+        }),
+      });
+      const publicPath = `${CONFIG.TEAM_PUBLIC_IMAGE_PREFIX}/${filename}`;
+      document.getElementById("t-img").value = publicPath;
+      const img = document.getElementById("t-img-preview");
+      img.src = URL.createObjectURL(file);
+      img.style.display = "block";
+      statusEl.textContent = "Photo uploaded.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Photo upload failed: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  async function commitTeamData(message) {
+    const content = JSON.stringify(teamData, null, 2);
+    const base64Content = btoa(unescape(encodeURIComponent(content)));
+    const body = {
+      message,
+      content: base64Content,
+      branch: CONFIG.BRANCH,
+    };
+    if (teamFile) body.sha = teamFile.sha;
+    const res = await ghFetch(`contents/${CONFIG.TEAM_PATH}`, { method: "PUT", body: JSON.stringify(body) });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Save failed");
+    }
+    const result = await res.json();
+    teamFile = { sha: result.content.sha };
+  }
+
+  document.getElementById("save-team-member-btn").onclick = async () => {
+    const statusEl = document.getElementById("team-status-msg");
+    statusEl.textContent = "Saving…";
+    statusEl.className = "";
+
+    const name = document.getElementById("t-name").value.trim();
+    if (!name) {
+      statusEl.textContent = "Name is required.";
+      statusEl.className = "error";
+      return;
+    }
+
+    const memberData = {
+      name,
+      role: document.getElementById("t-role").value.trim(),
+      img: document.getElementById("t-img").value.trim(),
+      linkedin: document.getElementById("t-linkedin").value.trim(),
+      quoteEn: document.getElementById("t-quoteen").value.trim(),
+      quoteCh: document.getElementById("t-quotech").value.trim(),
+    };
+
+    if (currentTeamMemberId === null) {
+      memberData.id = uniqueTeamId(teamSlugify(name));
+      teamData.members.push(memberData);
+    } else {
+      const idx = teamData.members.findIndex((m) => m.id === currentTeamMemberId);
+      memberData.id = currentTeamMemberId;
+      teamData.members[idx] = memberData;
+    }
+
+    try {
+      await commitTeamData(currentTeamMemberId === null ? `Add team member: ${name}` : `Update team member: ${name}`);
+      currentTeamMemberId = memberData.id;
+      document.getElementById("delete-team-member-btn").style.display = "inline-block";
+      statusEl.textContent = "Saved.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Error saving: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  document.getElementById("delete-team-member-btn").onclick = async () => {
+    if (currentTeamMemberId === null) return;
+    if (!confirm("Delete this team member permanently? They'll also be removed from the column order below. This cannot be undone.")) return;
+    const statusEl = document.getElementById("team-status-msg");
+    const idx = teamData.members.findIndex((m) => m.id === currentTeamMemberId);
+    if (idx === -1) return;
+    const removedId = currentTeamMemberId;
+    teamData.members.splice(idx, 1);
+    teamData.column1 = teamData.column1.filter((id) => id !== removedId);
+    teamData.column2 = teamData.column2.filter((id) => id !== removedId);
+    try {
+      await commitTeamData(`Delete team member: ${removedId}`);
+      document.getElementById("back-to-team-list-btn").click();
+    } catch (err) {
+      statusEl.textContent = "Error deleting: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  // ---------- Team: column order editor ----------
+  function renderTeamOrderEditor() {
+    ["column1", "column2"].forEach((colKey) => renderTeamOrderColumn(colKey));
+  }
+
+  function renderTeamOrderColumn(colKey) {
+    const listEl = document.getElementById(`team-order-${colKey}`);
+    const ids = teamData[colKey] || [];
+    if (!ids.length) {
+      listEl.innerHTML = `<p class="empty-note">No members in this column yet — add one below.</p>`;
+    } else {
+      listEl.innerHTML = "";
+      ids.forEach((id, i) => {
+        const member = teamData.members.find((m) => m.id === id);
+        const row = document.createElement("div");
+        row.className = "order-row";
+        row.innerHTML = `
+          <select data-idx="${i}" class="order-member-select"></select>
+          <button type="button" class="order-btn order-up" ${i === 0 ? "disabled" : ""} title="Move up">↑</button>
+          <button type="button" class="order-btn order-down" ${i === ids.length - 1 ? "disabled" : ""} title="Move down">↓</button>
+          <button type="button" class="order-btn order-remove" title="Remove">×</button>
+        `;
+        const select = row.querySelector(".order-member-select");
+        select.innerHTML = teamData.members.map((m) => `<option value="${escapeHtml(m.id)}" ${m.id === id ? "selected" : ""}>${escapeHtml(m.name || m.id)}</option>`).join("");
+        select.onchange = () => { teamData[colKey][i] = select.value; };
+        row.querySelector(".order-up").onclick = () => {
+          if (i === 0) return;
+          [ids[i - 1], ids[i]] = [ids[i], ids[i - 1]];
+          renderTeamOrderColumn(colKey);
+        };
+        row.querySelector(".order-down").onclick = () => {
+          if (i === ids.length - 1) return;
+          [ids[i + 1], ids[i]] = [ids[i], ids[i + 1]];
+          renderTeamOrderColumn(colKey);
+        };
+        row.querySelector(".order-remove").onclick = () => {
+          ids.splice(i, 1);
+          renderTeamOrderColumn(colKey);
+        };
+        listEl.appendChild(row);
+        if (!member) {
+          // referenced id no longer exists among members — flag it visually
+          row.style.borderColor = "var(--danger)";
+        }
+      });
+    }
+    const addSelect = document.getElementById(`team-order-add-select-${colKey}`);
+    addSelect.innerHTML = teamData.members.length
+      ? teamData.members.map((m) => `<option value="${escapeHtml(m.id)}">${escapeHtml(m.name || m.id)}</option>`).join("")
+      : `<option value="">No team members yet</option>`;
+  }
+
+  document.getElementById("team-order-add-column1").onclick = () => {
+    const val = document.getElementById("team-order-add-select-column1").value;
+    if (!val) return;
+    teamData.column1.push(val);
+    renderTeamOrderColumn("column1");
+  };
+  document.getElementById("team-order-add-column2").onclick = () => {
+    const val = document.getElementById("team-order-add-select-column2").value;
+    if (!val) return;
+    teamData.column2.push(val);
+    renderTeamOrderColumn("column2");
+  };
+
+  document.getElementById("save-team-order-btn").onclick = async () => {
+    const statusEl = document.getElementById("team-order-status");
+    statusEl.textContent = "Saving…";
+    statusEl.className = "";
+    try {
+      await commitTeamData("Update team page column order");
+      statusEl.textContent = "Saved. The About page will reflect this order on next rebuild.";
+      statusEl.className = "success";
+    } catch (err) {
+      statusEl.textContent = "Error saving: " + err.message;
+      statusEl.className = "error";
+    }
+  };
+
+  // Load team data the first time the Team tab is opened
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    if (btn.dataset.tab === "team") {
+      btn.addEventListener("click", () => {
+        if (!teamLoaded) {
+          loadTeam();
+        } else {
+          renderTeamList();
+        }
       });
     }
   });

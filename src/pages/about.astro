@@ -2,14 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import teamDataRaw from '../data/team.json';
 
 // ─── TEAM DATA ───
-// Single source of truth for each person; the two columns below just
-// reference these by key. Karis keeps her original spots (col1 slot 4,
-// col2 slot 1); duplicates (Karis, Carmen, Patrick, Fanny appearing twice)
-// are intentional per the requested order.
+// Now sourced from src/data/team.json, which is editable in the CMS
+// (Team tab: add/edit/delete members, and manage the column order).
+// team.json shape: { members: TeamMember[], column1: string[], column2: string[] }
+// column1/column2 hold member ids and may repeat — that's intentional,
+// it mirrors the flip-card layout below (same person can appear more
+// than once, in either column).
+//
+// The import is cast explicitly below rather than relying on TS to infer
+// the JSON's shape (resolveJsonModule inference varies by tsconfig setup
+// and was resolving to `{}` here, which is what threw the TS2339 errors).
 
 type TeamMember = {
+  id: string;
   name: string;
   role: string;
   img: string;
@@ -18,55 +26,20 @@ type TeamMember = {
   quoteCh?: string;
 };
 
-const members: Record<string, TeamMember> = {
-  patrick: {
-    name: 'Patrick Au Yeung',
-    role: 'Co-Founder',
-    img: '/images/patrick.jpeg',
-    linkedin: 'https://www.linkedin.com/in/patrick-au-yeung-751a9a1b4?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
-    quoteEn: 'Teamwork makes dream work!',
-  },
-  frandy: {
-    name: 'Frandy Chu',
-    role: 'Account Manager',
-    img: '/images/frandy.jpeg',
-    linkedin: 'https://www.linkedin.com/in/frandy-chu-b5718350',
-    quoteEn: 'Life is a journey, try to be a better version of myself every day!',
-  },
-  agnes: {
-    name: 'Agnes Kwong',
-    role: 'Account Manager',
-    img: '/images/agnes.jpeg',
-    linkedin: 'https://www.linkedin.com/in/agnes-kwong-15068368?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
-    quoteEn: 'Let nature gently embrace you, as the noise and stress of city life slowly dissolve into the soothing breath of the forest.',
-    quoteCh: '讓大自然溫柔地擁抱你，讓都市生活的喧囂與壓力，慢慢融化於森林療癒的氣息之中。',
-  },
-  fanny: {
-    name: 'Fanny Ng',
-    role: 'Operations Director',
-    img: '/images/fanny.jpeg',
-    linkedin: 'https://www.linkedin.com/in/fanny-ng-09587b64?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
-    quoteEn: 'Teamwork makes dream work!',
-  },
-  carmen: {
-    name: 'Carmen Chiang',
-    role: 'Business Development Director (Corporate Gifts)',
-    img: '/images/carmen.jpeg',
-    linkedin: 'https://www.linkedin.com/in/carmen-chiang-56002652?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
-    quoteEn: 'Teamwork makes dream work!',
-  },
-  karis: {
-    name: 'Karis Yeung',
-    role: 'Co-Founder',
-    img: '/images/karis.jpeg',
-    linkedin: 'https://www.linkedin.com/in/karis-yeung-68a762114',
-    quoteEn: 'If the world is a garden, may every soul dare to bloom in its season.',
-    quoteCh: '若世界是一座花園，願每一朵靈魂都得以盛開。',
-  },
+type TeamData = {
+  members: TeamMember[];
+  column1: string[];
+  column2: string[];
 };
 
-const teamColumn1 = ['patrick', 'fanny', 'frandy', 'karis', 'carmen'];
-const teamColumn2 = ['karis', 'carmen', 'agnes', 'patrick', 'fanny'];
+const teamData = teamDataRaw as unknown as TeamData;
+
+const members: Record<string, TeamMember> = Object.fromEntries(
+  teamData.members.map((m) => [m.id, m])
+);
+
+const teamColumn1: string[] = teamData.column1 ?? [];
+const teamColumn2: string[] = teamData.column2 ?? [];
 ---
 
 <Layout title="About Us - Ecorazón">
@@ -189,7 +162,8 @@ const teamColumn2 = ['karis', 'carmen', 'agnes', 'patrick', 'fanny'];
       <!-- Column 1 -->
       <div class="team-column">
         {teamColumn1.map((key, i) => {
-          const m = members[key as keyof typeof members];
+          const m = members[key];
+          if (!m) return null;
           return (
             <div class="team-flip" data-member={`${key}-c1-${i}`}>
               <div class="team-flip-inner">
@@ -213,7 +187,8 @@ const teamColumn2 = ['karis', 'carmen', 'agnes', 'patrick', 'fanny'];
       <!-- Column 2 (offset down) -->
       <div class="team-column team-column-offset">
         {teamColumn2.map((key, i) => {
-          const m = members[key as keyof typeof members];
+          const m = members[key];
+          if (!m) return null;
           return (
             <div class="team-flip" data-member={`${key}-c2-${i}`}>
               <div class="team-flip-inner">

@@ -1,0 +1,60 @@
+{
+  "members": [
+    {
+      "id": "patrick",
+      "name": "Patrick Au Yeung",
+      "role": "Co-Founder",
+      "img": "/images/patrick.jpeg",
+      "linkedin": "https://www.linkedin.com/in/patrick-au-yeung-751a9a1b4?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+      "quoteEn": "Teamwork makes dream work!",
+      "quoteCh": ""
+    },
+    {
+      "id": "frandy",
+      "name": "Frandy Chu",
+      "role": "Account Manager",
+      "img": "/images/frandy.jpeg",
+      "linkedin": "https://www.linkedin.com/in/frandy-chu-b5718350",
+      "quoteEn": "Life is a journey, try to be a better version of myself every day!",
+      "quoteCh": ""
+    },
+    {
+      "id": "agnes",
+      "name": "Agnes Kwong",
+      "role": "Account Manager",
+      "img": "/images/agnes.jpeg",
+      "linkedin": "https://www.linkedin.com/in/agnes-kwong-15068368?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+      "quoteEn": "Let nature gently embrace you, as the noise and stress of city life slowly dissolve into the soothing breath of the forest.",
+      "quoteCh": "讓大自然溫柔地擁抱你，讓都市生活的喧囂與壓力，慢慢融化於森林療癒的氣息之中。"
+    },
+    {
+      "id": "fanny",
+      "name": "Fanny Ng",
+      "role": "Operations Director",
+      "img": "/images/fanny.jpeg",
+      "linkedin": "https://www.linkedin.com/in/fanny-ng-09587b64?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+      "quoteEn": "Teamwork makes dream work!",
+      "quoteCh": ""
+    },
+    {
+      "id": "carmen",
+      "name": "Carmen Chiang",
+      "role": "Business Development Director (Corporate Gifts)",
+      "img": "/images/carmen.jpeg",
+      "linkedin": "https://www.linkedin.com/in/carmen-chiang-56002652?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+      "quoteEn": "Teamwork makes dream work!",
+      "quoteCh": ""
+    },
+    {
+      "id": "karis",
+      "name": "Karis Yeung",
+      "role": "Co-Founder",
+      "img": "/images/karis.jpeg",
+      "linkedin": "https://www.linkedin.com/in/karis-yeung-68a762114",
+      "quoteEn": "If the world is a garden, may every soul dare to bloom in its season.",
+      "quoteCh": "若世界是一座花園，願每一朵靈魂都得以盛開。"
+    }
+  ],
+  "column1": ["patrick", "fanny", "frandy", "karis", "carmen"],
+  "column2": ["karis", "carmen", "agnes", "patrick", "fanny"]
+}
