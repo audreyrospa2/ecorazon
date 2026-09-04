@@ -55,6 +55,14 @@
       "quoteCh": "若世界是一座花園，願每一朵靈魂都得以盛開。"
     }
   ],
-  "column1": ["patrick", "fanny", "frandy", "karis", "carmen"],
-  "column2": ["karis", "carmen", "agnes", "patrick", "fanny"]
+  "column1": [
+    "patrick",
+    "fanny",
+    "frandy"
+  ],
+  "column2": [
+    "karis",
+    "carmen",
+    "agnes"
+  ]
 }
