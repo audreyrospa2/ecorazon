@@ -42,139 +42,73 @@ function getCategoryTag(category: string) {
 
   <main class="resources-page">
 
-    <!-- Hero -->
-    <section class="res-hero">
-      <div class="res-hero-content">
-        <h1 class="res-hero-title animate-fade-in">Resources</h1>
-        <p class="res-hero-sub animate-fade-in-delay">Stay updated with the latest stories, insights, and discoveries from our journey of empowerment and sustainability.</p>
+    <!-- Think Tank Hero -->
+    <section class="tt-hero">
+      <div class="tt-hero-head">
+        <h1 class="tt-title animate-fade-in">Ecorazón Think Tank</h1>
+        <p class="tt-subtitle animate-fade-in-delay">The Knowledge Commons for ideas, evidence and alliances towards a more empathetic economy.</p>
       </div>
-    </section>
-
-    <!-- Intro -->
-    <section class="res-section bg-white">
-      <div class="res-inner">
-        <h2 class="section-title scroll-reveal">Learn, Discover, Get Inspired</h2>
-        <p class="intro-text scroll-reveal">
-          Stay updated with the latest news, blogs, and stories from Ecorazón. Learn more about our journey, materials, and how we're making a difference in the world of sustainable corporate gifting and artist empowerment.
-        </p>
-      </div>
-    </section>
-
-    <!-- Featured Articles -->
-    {featuredPosts.length > 0 && (
-      <section class="res-section bg-warm">
-        <div class="res-inner">
-          <h2 class="section-title scroll-reveal">Featured Articles</h2>
-          <div class="featured-grid">
-            {featuredPosts.map((post: CollectionEntry<'blog'>) => (
-              <div class="project-card scroll-reveal">
-                <div class="project-img-wrap">
-                  <img src={post.data.image} alt={post.data.imageAlt} class="project-img" />
-                </div>
-                <div class="project-info">
-                  <div class="project-meta">
-                    <span class={`project-tag ${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
-                    <span class="project-year">{formatDate(post.data.date)}</span>
-                  </div>
-                  <h3 class="project-name">{post.data.title}</h3>
-                  <p class="project-desc">{post.data.excerpt}</p>
-                  <a href={`/blog/${post.id}`} class="read-link">Read More →</a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Latest Stories -->
-    {latestPosts.length > 0 && (
-      <section class="res-section bg-white">
-        <div class="res-inner">
-          <h2 class="section-title scroll-reveal">Latest Stories</h2>
-          <div class="portfolio-grid">
-            {latestPosts.map((post: CollectionEntry<'blog'>) => (
-              <div class="portfolio-card scroll-reveal">
-                <div class="portfolio-img-wrap">
-                  <img src={post.data.image} alt={post.data.imageAlt} class="portfolio-img" />
-                </div>
-                <div class="portfolio-info">
-                  <span class={`project-tag ${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
-                  <h4 class="portfolio-name">{post.data.title}</h4>
-                  <p class="portfolio-date">{formatDate(post.data.date)}</p>
-                  <p class="portfolio-desc">{post.data.excerpt}</p>
-                  <a href={`/blog/${post.id}`} class="read-link">Read Story →</a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Newsletter -->
-    <section class="res-section bg-dark">
-      <div class="res-inner">
-        <div class="section-header scroll-reveal">
-          <h2 class="section-title white">Stay Updated</h2>
-          <p class="section-sub white-sub">Subscribe to our newsletter to receive the latest stories, sustainability tips, and updates from the Ecorazón community.</p>
-        </div>
-        <div class="newsletter-wrap scroll-reveal">
-          <form class="newsletter-form">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              class="newsletter-input"
-              required
-            />
-            <button type="submit" class="newsletter-btn">Subscribe</button>
-          </form>
-          <p class="newsletter-note">We respect your privacy. Unsubscribe at any time.</p>
+    
+      <div class="tt-stack-wrap">
+        <div class="tt-stack" id="ttStack">
+          <button class="tt-card" data-index="0">
+            <div class="tt-card-top">
+              <span class="tt-card-step">01</span>
+            </div>
+            <div class="tt-card-bottom">
+              <h3 class="tt-card-title">The C.Y.C.L.E. Library</h3>
+              <p class="tt-card-desc">A living archive of research, case studies and toolkits on circular materials, dignified labor and community-rooted design — open to anyone building a more empathetic economy.</p>
+              <a href="#" class="tt-card-link">Explore →</a>
+            </div>
+          </button>
+    
+          <button class="tt-card" data-index="1">
+            <div class="tt-card-top">
+              <span class="tt-card-step">02</span>
+            </div>
+            <div class="tt-card-bottom">
+              <h3 class="tt-card-title">Project Showcase</h3>
+              <p class="tt-card-desc">Real initiatives from our network of artists, cooperatives and partners — documented from first sketch to finished impact, with the people and numbers behind them.</p>
+              <a href="#" class="tt-card-link">Explore →</a>
+            </div>
+          </button>
+    
+          <button class="tt-card" data-index="2">
+            <div class="tt-card-top">
+              <span class="tt-card-step">03</span>
+            </div>
+            <div class="tt-card-bottom">
+              <h3 class="tt-card-title">Human Sustainability Academy</h3>
+              <p class="tt-card-desc">Workshops and learning pathways for teams and artisans alike, covering wellbeing, fair practice and the human side of sustainable business.</p>
+              <a href="#" class="tt-card-link">Explore →</a>
+            </div>
+          </button>
+    
+          <button class="tt-card" data-index="3">
+            <div class="tt-card-top">
+              <span class="tt-card-step">04</span>
+            </div>
+            <div class="tt-card-bottom">
+              <h3 class="tt-card-title">Strategic Partners</h3>
+              <p class="tt-card-desc">The organizations, foundations and companies co-building this commons with us — and how your team can join the alliance.</p>
+              <a href="#" class="tt-card-link">Explore →</a>
+            </div>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- Explore by Category -->
-    <section class="res-section bg-white">
-      <div class="res-inner">
-        <div class="section-header scroll-reveal">
-          <h2 class="section-title">Explore by Category</h2>
-          <p class="section-sub">Find the content that interests you most</p>
-        </div>
-        <div class="metrics-grid">
-          <a href="#" class="category-card scroll-reveal">
-            <div class="category-icon">🌱</div>
-            <h3 class="category-name">Sustainability</h3>
-            <p class="category-desc">Environmental practices and eco-friendly materials</p>
-          </a>
-          <a href="#" class="category-card scroll-reveal">
-            <div class="category-icon">🎨</div>
-            <h3 class="category-name">Artist Stories</h3>
-            <p class="category-desc">Meet the talented creators behind our work</p>
-          </a>
-          <a href="#" class="category-card scroll-reveal">
-            <div class="category-icon">💼</div>
-            <h3 class="category-name">Corporate Impact</h3>
-            <p class="category-desc">ESG strategies and business partnerships</p>
-          </a>
-          <a href="#" class="category-card scroll-reveal">
-            <div class="category-icon">💡</div>
-            <h3 class="category-name">Innovation</h3>
-            <p class="category-desc">New materials and creative techniques</p>
-          </a>
-        </div>
+    <!-- The C.Y.C.L.E. Library -->
+    <section class="lib-hero">
+      <div class="lib-head">
+        <h2 class="lib-title animate-fade-in">The C.Y.C.L.E. Library</h2>
+        <p class="lib-tagline animate-fade-in-delay">Ideas worth growing.</p>
+        <p class="lib-intro animate-fade-in-delay">A curated digital library of research papers, white papers, trend reports and frameworks exploring empathy, sustainable development, inclusive design, social innovation and technology with purpose.</p>
       </div>
-    </section>
 
-    <!-- CTA -->
-    <section class="res-section bg-warm">
-      <div class="res-inner cta-inner">
-        <h2 class="section-title scroll-reveal">Have a Story to Share?</h2>
-        <p class="section-sub scroll-reveal">We'd love to hear from you. Whether you have a collaboration idea, a sustainability tip, or want to share your experience with Ecorazón.</p>
-        <div class="cta-buttons scroll-reveal">
-          <a href="/get-in-touch" class="res-cta primary">Get in Touch</a>
-          <a href="/event" class="res-cta ghost">Learn More About Our Services →</a>
-        </div>
+      <div class="lib-shelf-viewport">
+        <div class="lib-shelf-track" id="libShelf"></div>
+        <div class="lib-board"></div>
       </div>
     </section>
 
@@ -184,483 +118,555 @@ function getCategoryTag(category: string) {
 </Layout>
 
 <style is:global>
-  .resources-page {
-    padding-top: 72px;
+  /* ─── THINK TANK HERO ─── */
+  .tt-hero,
+  .tt-hero *,
+  .tt-hero *::before,
+  .tt-hero *::after {
+    box-sizing: border-box;
   }
-
-  /* ─── HERO ─── */
-  .res-hero {
-    background: url('/images/orange.png') center center / cover no-repeat;
-    padding: 6rem clamp(2rem, 8vw, 7rem);
-    min-height: 260px;
+ 
+  .tt-hero {
+    height: 100vh;
+    height: 100dvh;          /* was: calc(100vh - 72px) / calc(100dvh - 72px) */
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    padding: 9rem clamp(1rem, 4vw, 3rem) 0;
+    background: #f7f5f0;
+    overflow: hidden;
   }
-
-  .res-hero-title {
-    font-family: 'DM Sans', sans-serif;
+ 
+  .tt-hero-head {
+    max-width: 720px;
+    margin: 0 0 3rem 0;
+    flex-shrink: 0;
+  }
+ 
+  .tt-title {
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    color: #000000;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.1;
-  }
-
-  .res-hero-sub {
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    color: #000000;
-    opacity: 0.7;
-    margin: 0;
-    max-width: 560px;
-  }
-
-  /* ─── HERO ANIMATION ─── */
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .animate-fade-in       { animation: fadeInDown 0.8s ease-out 0.2s both; }
-  .animate-fade-in-delay { animation: fadeInDown 0.8s ease-out 0.4s both; }
-
-  /* ─── SECTIONS ─── */
-  .res-section {
-    padding: 5rem clamp(2rem, 6vw, 6rem);
-  }
-
-  .bg-white { background: #ffffff; }
-  .bg-warm  { background: #f7f5f0; }
-  .bg-dark  { background: #95BD8D; }
-
-  .res-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  /* ─── TYPOGRAPHY ─── */
-  .section-title {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    line-height: 1.08;
     color: #000000;
     margin: 0 0 1rem 0;
-    line-height: 1.15;
   }
-
-  .section-title.white { color: #ffffff; }
-
-  .section-sub {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    color: #000000;
-    opacity: 0.6;
-    margin: 0 0 3rem 0;
-    max-width: 560px;
-    line-height: 1.7;
-  }
-
-  .section-sub.white-sub {
-    color: #ffffff;
-    opacity: 0.85;
-  }
-
-  .intro-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.05rem;
+ 
+  .tt-subtitle {
+    font-family: 'MaoWei', sans-serif;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
     color: #000000;
     opacity: 0.65;
-    line-height: 1.9;
-    max-width: 760px;
-    margin: 0;
-  }
-
-  .section-header {
-    margin-bottom: 3rem;
-  }
-
-  /* ─── FEATURED GRID (2-col) ─── */
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  .project-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: #ffffff;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .project-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    transform: translateY(-4px);
-  }
-
-  .project-img-wrap {
-    width: 100%;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    background: #f0f4f0;
-  }
-
-  .project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .project-card:hover .project-img {
-    transform: scale(1.03);
-  }
-
-  .project-info {
-    padding: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .project-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .project-tag {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #ffffff;
-    padding: 0.2rem 0.65rem;
-  }
-
-  .project-tag.green  { background: #95BD8D; }
-  .project-tag.olive  { background: #6b8f76; }
-  .project-tag.brown  { background: #a07850; }
-
-  .project-year {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
-    color: #000000;
-    opacity: 0.4;
-  }
-
-  .project-name {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: #000000;
-    margin: 0 0 0.75rem 0;
-  }
-
-  .project-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    color: #000000;
-    opacity: 0.6;
-    line-height: 1.7;
-    margin: 0 0 1.25rem 0;
-    flex: 1;
-  }
-
-  .read-link {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #95BD8D;
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 0.2s ease, color 0.2s ease;
-  }
-
-  .read-link:hover {
-    transform: translateX(4px);
-    color: #6b8f76;
-  }
-
-  /* ─── PORTFOLIO GRID (3-col) ─── */
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .portfolio-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: #ffffff;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .portfolio-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    transform: translateY(-4px);
-  }
-
-  .portfolio-img-wrap {
-    width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    background: #f0f4f0;
-  }
-
-  .portfolio-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .portfolio-card:hover .portfolio-img {
-    transform: scale(1.03);
-  }
-
-  .portfolio-info {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .portfolio-name {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #000000;
-    margin: 0.25rem 0 0 0;
-  }
-
-  .portfolio-date {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem;
-    color: #000000;
-    opacity: 0.4;
-    margin: 0;
-  }
-
-  .portfolio-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: #000000;
-    opacity: 0.6;
     line-height: 1.6;
     margin: 0;
+    max-width: 560px;
   }
-
-  /* ─── NEWSLETTER ─── */
-  .newsletter-wrap {
-    max-width: 480px;
-  }
-
-  .newsletter-form {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .newsletter-input {
+ 
+  /* ─── STACK ─── */
+  .tt-stack-wrap {
     flex: 1;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    padding: 0.7rem 1rem;
-    border: none;
-    outline: none;
-    color: #000000;
-    background: #ffffff;
+    min-height: 0;
+    position: relative;
+    width: 100%;
   }
 
-  .newsletter-input:focus {
-    outline: 2px solid rgba(255,255,255,0.6);
-    outline-offset: 2px;
+  .tt-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;   /* was: flex: 1; min-height: 0; margin: 0 auto; */
   }
-
-  .newsletter-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #95BD8D;
-    background: #ffffff;
+ 
+  .tt-card {
+    position: absolute;
+    bottom: 0;
+    width: 95%;
     border: none;
-    padding: 0.7rem 1.5rem;
+    text-align: left;
+    padding: 2.5rem 2.75rem;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-    white-space: nowrap;
-  }
-
-  .newsletter-btn:hover {
-    background: #f0f4f0;
-  }
-
-  .newsletter-note {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     color: #ffffff;
-    opacity: 0.7;
-    margin: 0.75rem 0 0 0;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.14);
+    transition: transform 0.55s cubic-bezier(.4,0,.2,1), opacity 0.5s ease;
+    will-change: transform, opacity;
+    /* overflow: hidden;  <-- removed, this was clipping content that didn't fit */
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px; /* optional, since we lost the clipped corners overflow:hidden gave us on the background — add this back if you want rounded corners on the bg image itself */
   }
-
-  /* ─── CATEGORY CARDS (reuse metrics-grid layout) ─── */
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+ 
+  /* color tint sits over the background image; swap background-image
+     for the real photo per card below, the tint stays as-is */
+  .tt-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--tint);
+    opacity: 0.82;
+    z-index: 0;
   }
-
-  .category-card {
-    padding: 2rem 1.5rem;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: #f7f5f0;
-    text-align: center;
+ 
+  .tt-card-top,
+  .tt-card-bottom {
+    position: relative;
+    z-index: 1;
+  }
+ 
+  .tt-card:focus-visible {
+    outline: 3px solid #000000;
+    outline-offset: 3px;
+  }
+ 
+  .tt-card[data-index="0"] {
+    left: 0%;
+    height: 64%;
+    min-height: 320px;   /* NEW — guarantees room for step number + title + desc + link */
+    --tint: #6b8f76;
+    background-image: linear-gradient(135deg, #cfd9c9, #8fa38a);
+    z-index: 4;
+    transform: translate(0, 0);
+  }
+  .tt-card[data-index="1"] {
+    left: 5%;
+    height: 86%;
+    min-height: 380px;   /* NEW */
+    --tint: #a07850;
+    background-image: linear-gradient(135deg, #e3cdb2, #a9855e);
+    z-index: 3;
+    transform: translate(0, 0);
+  }
+  .tt-card[data-index="2"] {
+    left: 1%;
+    height: 75%;
+    min-height: 360px;   /* NEW */
+    --tint: #C08EA4;
+    background-image: linear-gradient(135deg, #eeccdc, #c48fa4);
+    z-index: 2;
+    transform: translate(0, 0);
+  }
+  .tt-card[data-index="3"] {
+    left: 4%;
+    height: 100%;
+    min-height: 420px;   /* NEW */
+    --tint: #95BD8D;
+    background-image: linear-gradient(135deg, #cfe4c9, #9ec295);
+    z-index: 1;
+    transform: translate(0, 0);
+  }
+ 
+  .tt-card--gone {
+    transform: translateY(140%) !important;
+    opacity: 0;
+    pointer-events: none;
+  }
+ 
+  .tt-card--front { cursor: pointer; }
+  .tt-card--waiting { cursor: default; }
+ 
+  .tt-card-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+ 
+  .tt-card-step {
+    font-family: 'MaoWei', sans-serif;
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    opacity: 0.95;
+  }
+ 
+  .tt-card-title {
+    font-family: 'MaoWei', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 700;
+    margin: 0 0 0.6rem 0;
+    line-height: 1.2;
+  }
+ 
+  .tt-card-desc {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.92;
+    margin: 0 0 1.25rem 0;
+    max-width: 46ch;
+  }
+ 
+  .tt-card-link {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
     text-decoration: none;
+    align-self: flex-start;
+    border-bottom: 1px solid rgba(255,255,255,0.6);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .tt-card-link:hover { opacity: 0.75; }
+ 
+  @media (max-width: 768px) {
+    .tt-hero { padding-top: 6rem; }
+    .tt-hero-head { margin-bottom: 2rem; }
+    .tt-card { width: 97%; padding: 1.75rem; }
+  }
+ 
+  @media (prefers-reduced-motion: reduce) {
+    .tt-card { transition: opacity 0.3s ease; }
+  }
+
+  /* ─── C.Y.C.L.E. LIBRARY SHELF ─── */
+  .lib-hero,
+  .lib-hero *,
+  .lib-hero *::before,
+  .lib-hero *::after { box-sizing: border-box; }
+
+  .lib-hero {
+    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    justify-content: center;   /* still centers .lib-head within the leftover space above the shelf */
+    padding: 6rem clamp(1rem, 4vw, 3rem) 0;  /* bottom padding removed so the shelf can sit flush */
+    background: #f7f5f0;
+    overflow: hidden;
   }
 
-  .category-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-    transform: translateY(-4px);
+  .lib-head {
+    max-width: 640px;
+    margin: 0 0 3rem;
+    text-align: center;
+    flex-shrink: 0;
   }
 
-  .category-icon {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-    line-height: 1;
+  .lib-intro {
+    margin-left: auto;
+    margin-right: auto;        /* max-width + auto margins center the paragraph block itself */
   }
 
-  .category-name {
-    font-family: 'DM Sans', sans-serif;
+  .lib-title {
+    font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: 0.95rem;
-    color: #000000;
-    margin: 0 0 0.4rem 0;
+    font-size: clamp(2.75rem, 6vw, 4.5rem); 
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 0.5rem;
   }
 
-  .category-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
-    color: #000000;
-    opacity: 0.5;
-    line-height: 1.5;
+  .lib-tagline {
+    font-family: 'MaoWei', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    color: #6b8f76;
+    margin: 0 0 1.25rem;
+  }
+
+  .lib-intro {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.65);
+    max-width: 62ch;
     margin: 0;
   }
 
-  /* ─── CTA ─── */
-  .cta-inner {
+  /* ─── shelf ─── */
+  .lib-shelf-viewport {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    margin-top: auto;
+    overflow: hidden;
+    perspective: 1800px;
+    cursor: grab;
+    touch-action: pan-y;   /* let vertical page scroll pass through, we handle horizontal ourselves */
+  }
+  .lib-shelf-viewport.dragging {
+    cursor: grabbing;
+  }
+  .lib-shelf-viewport::before,
+  .lib-shelf-viewport::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 18px;
+    width: min(10vw, 100px);
+    z-index: 20;
+    pointer-events: none;
+  }
+  .lib-shelf-viewport::before { left: 0; background: linear-gradient(90deg, #f7f5f0, transparent); }
+  .lib-shelf-viewport::after  { right: 0; background: linear-gradient(270deg, #f7f5f0, transparent); }
+
+  .lib-shelf-track {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+    width: max-content;
+    will-change: transform;
+    user-select: none;
   }
 
-  .cta-buttons {
+  .lib-board {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 18px;
+    background: #ddd2ba;
+    box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+  }
+
+  /* real width transition — this is what pushes siblings aside */
+  .lib-book {
+    position: relative;
+    flex: 0 0 auto;
+    transform-style: preserve-3d;
+    transition: width 0.55s cubic-bezier(.22,.9,.34,1);
+    cursor: pointer;
+  }
+
+  .lib-spine {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-  }
-
-  .res-cta {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.72rem;
     font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.92);
+    padding: 0.9rem 0;
+    box-shadow:
+      inset -5px 0 10px rgba(0,0,0,0.18),
+      inset 3px 0 6px rgba(255,255,255,0.12),
+      0 10px 16px rgba(0,0,0,0.2);
+  }
+  .lib-spine span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100%;
+  }
+
+  /* cover fills whatever the book's current width is — since the
+     book itself now grows on hover, the cover never needs to be
+     wider than its own box, so it can't overlap a neighbor */
+  .lib-cover {
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    backface-visibility: hidden;
+    transform: rotateY(90deg);
+    transition: transform 0.55s cubic-bezier(.22,.9,.34,1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.25rem 1.35rem;
+    box-shadow: 0 22px 40px rgba(0,0,0,0.35);
+  }
+  .lib-cover h4 {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    color: #fff;
+    margin: 0 0 0.5rem;
+  }
+  .lib-cover a {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
     text-decoration: none;
-    padding: 0.65rem 1.5rem;
-    transition: background 0.2s ease, color 0.2s ease;
+    align-self: flex-start;
+    border-bottom: 1px solid rgba(255,255,255,0.6);
+    padding-bottom: 2px;
   }
 
-  .res-cta.primary {
-    background: #95BD8D;
-    color: #ffffff;
+  .lib-book:hover .lib-cover {
+    transform: rotateY(0deg);
   }
 
-  .res-cta.primary:hover {
-    background: #C08EA4;
-  }
-
-  .res-cta.ghost {
-    background: transparent;
-    color: #000000;
-    opacity: 0.6;
-    padding: 0.65rem 0;
-  }
-
-  .res-cta.ghost:hover {
-    opacity: 1;
-  }
-
-  /* ─── SCROLL REVEAL ─── */
-  .scroll-reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-  }
-
-  .scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .featured-grid .project-card:nth-child(1) { transition-delay: 0.1s; }
-  .featured-grid .project-card:nth-child(2) { transition-delay: 0.25s; }
-
-  .portfolio-grid .portfolio-card:nth-child(1) { transition-delay: 0.1s; }
-  .portfolio-grid .portfolio-card:nth-child(2) { transition-delay: 0.2s; }
-  .portfolio-grid .portfolio-card:nth-child(3) { transition-delay: 0.3s; }
-  .portfolio-grid .portfolio-card:nth-child(4) { transition-delay: 0.4s; }
-  .portfolio-grid .portfolio-card:nth-child(5) { transition-delay: 0.5s; }
-  .portfolio-grid .portfolio-card:nth-child(6) { transition-delay: 0.6s; }
-
-  .metrics-grid .category-card:nth-child(1) { transition-delay: 0.1s; }
-  .metrics-grid .category-card:nth-child(2) { transition-delay: 0.2s; }
-  .metrics-grid .category-card:nth-child(3) { transition-delay: 0.3s; }
-  .metrics-grid .category-card:nth-child(4) { transition-delay: 0.4s; }
-
-  /* ─── MOBILE ─── */
-  @media (max-width: 1024px) {
-    .metrics-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .featured-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .portfolio-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .metrics-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .portfolio-grid,
-    .metrics-grid {
-      grid-template-columns: 1fr;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .lib-book, .lib-cover { transition: none; }
   }
 </style>
-
+ 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+  (function () {
+    var stack = document.getElementById('ttStack');
+    if (!stack) return;
+    var cards = Array.prototype.slice.call(stack.querySelectorAll('.tt-card'));
+    var TOTAL = cards.length;
+    var step = 0;       // number of cards currently sent to the back
+    var direction = 1;  // 1 = moving forward through the stack, -1 = restoring cards
+ 
+    function render() {
+      cards.forEach(function (card, i) {
+        var isGone = i < step;
+        card.classList.toggle('tt-card--gone', isGone);
+        var isFront = i === step;
+        card.classList.toggle('tt-card--front', isFront);
+        card.classList.toggle('tt-card--waiting', !isFront && !isGone);
+        card.tabIndex = isFront ? 0 : -1;
+        card.setAttribute('aria-hidden', isFront ? 'false' : 'true');
+      });
+    }
+ 
+    function advance() {
+      if (step === TOTAL - 1 && direction === 1) direction = -1;
+      if (step === 0 && direction === -1) direction = 1;
+      step += direction;
+      render();
+    }
+ 
+    stack.addEventListener('click', function (e) {
+      var target = e.target;
+      if (!(target instanceof Element)) return;
+      var card = target.closest('.tt-card');
+      if (!card) return;
+      var index = Number(card.getAttribute('data-index'));
+      if (index !== step) return;
+      if (target.closest('.tt-card-link')) return;
+      e.preventDefault();
+      advance();
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-  });
+ 
+    render();
+  })();
 </script>
+
+<script is:inline>
+  (function () {
+    var track = document.getElementById('libShelf');
+    if (!track) return;
+
+    var viewportEl = track.parentElement;
+    if (!viewportEl) return;
+
+    // one book per tag for now — once real articles exist, each
+    // article becomes a book and can carry more than one of these
+    // tags as small chips on its cover
+    var TAGS = [
+      { name: 'Empathy Economy',            color: '#6b8f76' },
+      { name: 'ESG',                        color: '#a07850' },
+      { name: 'CSR',                        color: '#C08EA4' },
+      { name: 'Design Thinking',            color: '#95BD8D' },
+      { name: 'Human-Centred AI',           color: '#7a8fae' },
+      { name: 'Inclusion & Accessibility',  color: '#c9a227' },
+      { name: 'Wellbeing',                  color: '#8fae86' },
+      { name: 'Culture',                    color: '#ab6b6f' },
+      { name: 'Education',                 color: '#7f9c78' },
+      { name: 'Talent Development',        color: '#9c7d54' }
+    ];
+
+    var WIDTHS  = [46, 58, 50, 64, 48, 56, 44, 60, 50, 58];
+    var HEIGHTS = [360, 400, 340, 400, 370, 400, 350, 400, 365, 400];
+    var GAP = 10;
+    var COVER_W = 230;
+
+    var baseSetWidth = TAGS.reduce(function (sum, _, i) {
+      return sum + WIDTHS[i] + GAP;
+    }, 0);
+
+    // render enough copies of the tag list that the shelf always
+    // spans at least 3 viewport-widths — the loop point stays
+    // permanently off-screen, so there's never a visible gap
+    var viewportW = viewportEl.clientWidth || window.innerWidth;
+    var repeats = Math.max(4, Math.ceil((viewportW * 3) / baseSetWidth) + 1);
+
+    for (var r = 0; r < repeats; r++) {
+      TAGS.forEach(function (tagData, i) {
+        var book = document.createElement('div');
+        book.className = 'lib-book';
+        book.style.width = WIDTHS[i] + 'px';
+        book.style.height = HEIGHTS[i] + 'px';
+
+        var spine = document.createElement('div');
+        spine.className = 'lib-spine';
+        spine.style.background = tagData.color;
+        var span = document.createElement('span');
+        span.textContent = tagData.name.toUpperCase();
+        spine.appendChild(span);
+
+        var cover = document.createElement('div');
+        cover.className = 'lib-cover';
+        cover.style.background = tagData.color;
+        cover.innerHTML =
+          '<h4>' + tagData.name + '</h4>' +
+          '<a href="/blog?tag=' + encodeURIComponent(tagData.name) + '">Explore →</a>';
+
+        book.appendChild(spine);
+        book.appendChild(cover);
+
+        book.addEventListener('mouseenter', function () {
+          book.style.width = COVER_W + 'px';
+        });
+        book.addEventListener('mouseleave', function () {
+          book.style.width = WIDTHS[i] + 'px';
+        });
+
+        track.appendChild(book);
+      });
+    }
+
+    // ── manual slide: trackpad/wheel + drag, no auto-play ──
+    var scrollX = 0;
+
+    function wrap(x) {
+      x = x % baseSetWidth;
+      if (x > 0) x -= baseSetWidth;
+      return x;
+    }
+
+    function render(withTransition) {
+      track.style.transition = withTransition ? 'transform 0.2s ease-out' : 'none';
+      track.style.transform = 'translateX(' + scrollX + 'px)';
+    }
+    render(false);
+
+    // trackpad two-finger swipe (deltaX) + plain wheel fallback (deltaY)
+    viewportEl.addEventListener('wheel', function (e) {
+      var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      e.preventDefault();
+      scrollX = wrap(scrollX - delta);
+      render(false);
+    }, { passive: false });
+
+    // drag (mouse + touch, unified via Pointer Events)
+    var dragging = false;
+    var dragStartX = 0;
+    var scrollAtDragStart = 0;
+
+    viewportEl.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      dragStartX = e.clientX;
+      scrollAtDragStart = scrollX;
+      viewportEl.classList.add('dragging');
+      viewportEl.setPointerCapture(e.pointerId);
+    });
+
+    viewportEl.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var delta = e.clientX - dragStartX;
+      scrollX = wrap(scrollAtDragStart + delta);
+      render(false);
+    });
+
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      viewportEl.classList.remove('dragging');
+    }
+    viewportEl.addEventListener('pointerup', endDrag);
+    viewportEl.addEventListener('pointercancel', endDrag);
+  })();
+</script>
+ 
