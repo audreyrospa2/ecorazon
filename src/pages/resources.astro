@@ -16,6 +16,12 @@ const sortedPosts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntr
 const featuredPosts = sortedPosts.slice(0, 2);
 const latestPosts = sortedPosts.slice(2, 8);
 
+// every unique tag across all posts, used to build the filter chips
+// in the "From the Journal" section below
+const allTags = Array.from(
+  new Set(sortedPosts.flatMap((p: CollectionEntry<'blog'>) => p.data.tags ?? []))
+).sort((a: string, b: string) => a.localeCompare(b));
+
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', { 
     year: 'numeric', 
@@ -110,6 +116,92 @@ function getCategoryTag(category: string) {
         <div class="lib-shelf-track" id="libShelf"></div>
         <div class="lib-board"></div>
       </div>
+    </section>
+
+    <!-- Strategic Partners -->
+    <section class="partners-hero">
+      <div class="partners-head">
+        <h2 class="partners-title animate-fade-in">Strategic Partners</h2>
+        <p class="partners-tagline animate-fade-in-delay">Shared values. Greater impact.</p>
+        <p class="partners-intro animate-fade-in-delay">Together, we connect expertise, resources and communities to create solutions that no one organisation could build alone.</p>
+        <p class="partners-intro animate-fade-in-delay">We collaborate with educators, artists, community organisations, social innovators and technology partners who believe progress should be human, responsible and shared.</p>
+      </div>
+
+      <div class="partners-rows" id="partnersRows">
+        <div class="partners-row" data-direction="left" data-duration="34s">
+          <div class="partners-track" id="partnersRow1"></div>
+        </div>
+        <div class="partners-row" data-direction="right" data-duration="40s">
+          <div class="partners-track" id="partnersRow2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- From the Journal -->
+    <section class="journal-hero">
+      <div class="journal-head">
+        <h2 class="journal-title animate-fade-in">From the Journal</h2>
+        <p class="journal-tagline animate-fade-in-delay">Stories, insights and updates.</p>
+        <p class="journal-intro animate-fade-in-delay">Field notes from our artists, partners and team — filter by topic, or arrive here from a tag in the Library or Partners above, to find what matters to you.</p>
+      </div>
+
+      {allTags.length > 0 && (
+        <div class="journal-filters" id="journalFilters">
+          <button type="button" class="journal-filter is-active" data-tag="all">All</button>
+          {allTags.map((tag: string) => (
+            <button type="button" class="journal-filter" data-tag={tag}>{tag}</button>
+          ))}
+        </div>
+      )}
+
+      {featuredPosts.length > 0 && (
+        <div class="journal-featured">
+          {featuredPosts.map((post: CollectionEntry<'blog'>) => (
+            <a
+              href={`/blog/${post.id}`}
+              class="journal-featured-card"
+              data-tags={(post.data.tags ?? []).join('|')}
+              data-category={post.data.category}
+            >
+              <img src={post.data.image} alt={post.data.imageAlt} class="journal-featured-img" />
+              <div class="journal-featured-body">
+                <span class={`journal-badge journal-badge--${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.excerpt}</p>
+                <span class="journal-date">{formatDate(post.data.date)}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+
+      <div class="journal-grid" id="journalGrid">
+        {latestPosts.map((post: CollectionEntry<'blog'>) => (
+          <a
+            href={`/blog/${post.id}`}
+            class="journal-card"
+            data-tags={(post.data.tags ?? []).join('|')}
+            data-category={post.data.category}
+          >
+            <img src={post.data.image} alt={post.data.imageAlt} class="journal-card-img" />
+            <div class="journal-card-body">
+              <div class="journal-card-meta">
+                <span class={`journal-badge journal-badge--${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
+                <span class="journal-date">{formatDate(post.data.date)}</span>
+              </div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.excerpt}</p>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="journal-card-tags">
+                  {post.data.tags.map((t: string) => <span class="journal-chip">{t}</span>)}
+                </div>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p class="journal-empty" id="journalEmpty" hidden>No articles match that tag yet — try another one.</p>
     </section>
 
   </main>
@@ -420,13 +512,39 @@ function getCategoryTag(category: string) {
     box-shadow: 0 12px 20px rgba(0,0,0,0.15);
   }
 
-  /* real width transition — this is what pushes siblings aside */
+  /* real width transition — this is what pushes siblings aside.
+     width now driven by --w / --open-w custom properties so JS
+     only ever needs to toggle the .is-open class, on click. */
   .lib-book {
     position: relative;
     flex: 0 0 auto;
+    width: var(--w);
     transform-style: preserve-3d;
     transition: width 0.55s cubic-bezier(.22,.9,.34,1);
     cursor: pointer;
+  }
+
+  .lib-book.is-open {
+    width: var(--open-w, 230px);
+  }
+
+  /* fore-edge — the sliver of "pages" peeking out past the spine,
+     this is what stops each book reading as a flat colour block */
+  .lib-book::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: -4px;
+    width: 7px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #f6efe1 0px, #f6efe1 2px,
+      #e4d7bf 2px, #e4d7bf 3px
+    );
+    border-radius: 0 3px 3px 0;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.18);
+    z-index: 1;
   }
 
   .lib-spine {
@@ -442,7 +560,9 @@ function getCategoryTag(category: string) {
     font-weight: 600;
     letter-spacing: 0.02em;
     color: rgba(255,255,255,0.92);
-    padding: 0.9rem 0;
+    padding: 1.4rem 0;
+    border-radius: 2px 6px 6px 2px;
+    z-index: 2;
     box-shadow:
       inset -5px 0 10px rgba(0,0,0,0.18),
       inset 3px 0 6px rgba(255,255,255,0.12),
@@ -455,9 +575,33 @@ function getCategoryTag(category: string) {
     max-height: 100%;
   }
 
+  /* headbands — the little woven caps real hardcovers have at the
+     top and bottom of the spine */
+  .lib-spine::before,
+  .lib-spine::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.55) 0 3px,
+      rgba(0,0,0,0.18) 3px 6px
+    );
+  }
+  .lib-spine::before {
+    top: 0;
+    border-radius: 2px 6px 0 0;
+  }
+  .lib-spine::after {
+    bottom: 0;
+    border-radius: 0 0 6px 2px;
+  }
+
   /* cover fills whatever the book's current width is — since the
-     book itself now grows on hover, the cover never needs to be
-     wider than its own box, so it can't overlap a neighbor */
+     book itself now grows on click (not hover) this can't overlap
+     a neighbour mid-drag, only once a click is confirmed */
   .lib-cover {
     position: absolute;
     inset: 0;
@@ -469,7 +613,9 @@ function getCategoryTag(category: string) {
     flex-direction: column;
     justify-content: flex-end;
     padding: 1.25rem 1.35rem;
+    border-radius: 2px 6px 6px 2px;
     box-shadow: 0 22px 40px rgba(0,0,0,0.35);
+    z-index: 3;
   }
   .lib-cover h4 {
     font-family: 'MaoWei', sans-serif;
@@ -490,12 +636,449 @@ function getCategoryTag(category: string) {
     padding-bottom: 2px;
   }
 
-  .lib-book:hover .lib-cover {
+  /* flip is now click-triggered (via .is-open, toggled in JS)
+     instead of :hover, so dragging the shelf never fights with a
+     book trying to open mid-swipe */
+  .lib-book.is-open .lib-cover {
     transform: rotateY(0deg);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .lib-book, .lib-cover { transition: none; }
+  }
+
+  /* ─── STRATEGIC PARTNERS ─── */
+  .partners-hero,
+  .partners-hero *,
+  .partners-hero *::before,
+  .partners-hero *::after { box-sizing: border-box; }
+
+  .partners-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem clamp(1rem, 4vw, 3rem);
+    background: #f7f5f0;
+    overflow: hidden;
+    gap: 3.5rem;
+  }
+
+  .partners-head {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .partners-title {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 0.5rem;
+  }
+
+  .partners-tagline {
+    font-family: 'MaoWei', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    color: #6b8f76;
+    margin: 0 0 1.25rem;
+  }
+
+  .partners-intro {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.65);
+    max-width: 62ch;
+    margin: 0 auto 0.75rem;
+  }
+  .partners-intro:last-of-type { margin-bottom: 0; }
+
+  /* ── rows ── */
+  .partners-rows {
+    width: 100%;
+    max-width: 1600px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .partners-row {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .partners-track {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    width: max-content;
+    will-change: transform;
+    animation-name: partners-scroll-left;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: var(--row-duration, 34s);
+  }
+
+  .partners-row[data-direction="right"] .partners-track {
+    animation-name: partners-scroll-right;
+  }
+
+  /* pause the whole row's scroll while a card in it is being read/hovered */
+  .partners-row.is-paused .partners-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes partners-scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes partners-scroll-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
+  /* ── card ── */
+  .partner-card {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: 460px;
+    padding: 1.5rem 2.25rem 1.5rem 1.5rem;
+    background: #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .partner-card:hover,
+  .partner-card.is-active {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  }
+
+  /* everything that isn't the hovered/selected tag greys out and dims */
+  .partners-rows.has-focus .partner-card:not(.is-active) {
+    opacity: 0.4;
+    filter: grayscale(1);
+  }
+
+  .partner-avatar {
+    flex: 0 0 auto;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 -6px 14px rgba(0,0,0,0.25), inset 0 6px 10px rgba(255,255,255,0.35);
+  }
+  .partner-avatar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--avatar-gradient);
+  }
+  .partner-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55), transparent 55%);
+  }
+
+  .partner-copy h3 {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #000;
+    margin: 0 0 0.35rem;
+  }
+  .partner-copy p {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 1rem;
+    line-height: 1.45;
+    color: rgba(0,0,0,0.55);
+    margin: 0;
+  }
+  .partner-link {
+    display: inline-block;
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #6b8f76;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(107,143,118,0.5);
+    padding-bottom: 1px;
+    margin-top: 0.5rem;
+    transition: opacity 0.2s ease;
+  }
+  .partner-link:hover { opacity: 0.7; }
+
+  @media (max-width: 900px) {
+    .partner-card { width: 340px; padding: 1.1rem 1.5rem 1.1rem 1.1rem; gap: 1.1rem; }
+    .partner-avatar { width: 80px; height: 80px; }
+    .partner-copy h3 { font-size: 1.2rem; }
+    .partner-copy p { font-size: 0.9rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partners-track { animation: none; }
+    .partner-card { transition: none; }
+  }
+
+  /* ─── FROM THE JOURNAL ─── */
+  .journal-hero,
+  .journal-hero *,
+  .journal-hero *::before,
+  .journal-hero *::after { box-sizing: border-box; }
+
+  .journal-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem clamp(1rem, 4vw, 3rem) 6rem;
+    background: #f7f5f0;
+    gap: 2.5rem;
+  }
+
+  .journal-head {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .journal-title {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 0.5rem;
+  }
+
+  .journal-tagline {
+    font-family: 'MaoWei', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    color: #6b8f76;
+    margin: 0 0 1.25rem;
+  }
+
+  .journal-intro {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.65);
+    max-width: 62ch;
+    margin: 0 auto;
+  }
+
+  /* ── filter chips ── */
+  .journal-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 1000px;
+  }
+
+  .journal-filter {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.6);
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 999px;
+    padding: 0.55rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+  }
+  .journal-filter:hover { transform: translateY(-2px); }
+  .journal-filter.is-active {
+    background: #6b8f76;
+    border-color: #6b8f76;
+    color: #fff;
+  }
+
+  /* ── featured cards ── */
+  .journal-featured {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .journal-featured-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .journal-featured-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 44px rgba(0,0,0,0.12);
+  }
+  .journal-featured-img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+  }
+  .journal-featured-body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .journal-featured-body h3 {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #000;
+    margin: 0;
+  }
+  .journal-featured-body p {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: rgba(0,0,0,0.6);
+    margin: 0;
+  }
+
+  /* ── latest grid ── */
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .journal-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .journal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+  }
+  .journal-card-img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+  }
+  .journal-card-body {
+    padding: 1.25rem 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .journal-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .journal-card-body h3 {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #000;
+    margin: 0;
+    line-height: 1.3;
+  }
+  .journal-card-body p {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: rgba(0,0,0,0.6);
+    margin: 0;
+  }
+
+  /* ── shared bits ── */
+  .journal-badge {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #fff;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .journal-badge--green { background: #6b8f76; }
+  .journal-badge--olive { background: #7f9c78; }
+  .journal-badge--brown { background: #a07850; }
+
+  .journal-date {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.45);
+  }
+
+  .journal-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+  .journal-chip {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #6b8f76;
+    background: #eef2ea;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+  }
+
+  /* a card hidden by the tag filter drops out of flow entirely so
+     the grid re-packs cleanly instead of leaving gaps */
+  .journal-featured-card.is-hidden,
+  .journal-card.is-hidden {
+    display: none;
+  }
+
+  .journal-empty {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 1rem;
+    color: rgba(0,0,0,0.5);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .journal-featured { grid-template-columns: 1fr; }
+    .journal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .journal-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .journal-filter, .journal-card, .journal-featured-card { transition: none; }
   }
 </style>
  
@@ -551,26 +1134,31 @@ function getCategoryTag(category: string) {
     var viewportEl = track.parentElement;
     if (!viewportEl) return;
 
-    // one book per tag for now — once real articles exist, each
-    // article becomes a book and can carry more than one of these
-    // tags as small chips on its cover
+    // spines = the 7 real `category` enum values from your content
+    // collection schema (guaranteed to exist on every post) plus the
+    // real tags confirmed from actual posts' frontmatter so far:
+    // Artists, Social Impact, Sustainability, Corporate Gifting.
+    // No invented values — share more posts' tags to expand this list.
     var TAGS = [
-      { name: 'Empathy Economy',            color: '#6b8f76' },
-      { name: 'ESG',                        color: '#a07850' },
-      { name: 'CSR',                        color: '#C08EA4' },
-      { name: 'Design Thinking',            color: '#95BD8D' },
-      { name: 'Human-Centred AI',           color: '#7a8fae' },
-      { name: 'Inclusion & Accessibility',  color: '#c9a227' },
-      { name: 'Wellbeing',                  color: '#8fae86' },
-      { name: 'Culture',                    color: '#ab6b6f' },
-      { name: 'Education',                 color: '#7f9c78' },
-      { name: 'Talent Development',        color: '#9c7d54' }
+      { name: 'Artist Stories',    color: '#a07850' }, // category (cork-brown)
+      { name: 'Materials',         color: '#6b8f76' }, // category (forest-green)
+      { name: 'Impact',            color: '#7f9c78' }, // category (deep-olive)
+      { name: 'Partnerships',      color: '#7f9c78' }, // category (deep-olive)
+      { name: 'Tips',              color: '#6b8f76' }, // category (forest-green)
+      { name: 'Innovation',        color: '#a07850' }, // category (cork-brown)
+      { name: 'Community',         color: '#7f9c78' }, // category (deep-olive)
+      { name: 'Artists',           color: '#8e5fa3' }, // tag (confirmed)
+      { name: 'Social Impact',     color: '#4a7fae' }, // tag (confirmed)
+      { name: 'Sustainability',    color: '#c9a227' }, // tag (confirmed)
+      { name: 'Corporate Gifting', color: '#b5636b' }  // tag (confirmed)
     ];
 
-    var WIDTHS  = [46, 58, 50, 64, 48, 56, 44, 60, 50, 58];
-    var HEIGHTS = [360, 400, 340, 400, 370, 400, 350, 400, 365, 400];
+    var WIDTHS  = [46, 58, 50, 64, 48, 56, 44, 60, 50, 58, 54];
+    var HEIGHTS = [360, 400, 340, 400, 370, 400, 350, 400, 365, 400, 380];
+
     var GAP = 10;
     var COVER_W = 230;
+    var CLICK_THRESHOLD = 6; // px of pointer movement before it counts as a drag, not a click
 
     var baseSetWidth = TAGS.reduce(function (sum, _, i) {
       return sum + WIDTHS[i] + GAP;
@@ -586,7 +1174,8 @@ function getCategoryTag(category: string) {
       TAGS.forEach(function (tagData, i) {
         var book = document.createElement('div');
         book.className = 'lib-book';
-        book.style.width = WIDTHS[i] + 'px';
+        book.style.setProperty('--w', WIDTHS[i] + 'px');
+        book.style.setProperty('--open-w', COVER_W + 'px');
         book.style.height = HEIGHTS[i] + 'px';
 
         var spine = document.createElement('div');
@@ -606,19 +1195,31 @@ function getCategoryTag(category: string) {
         book.appendChild(spine);
         book.appendChild(cover);
 
-        book.addEventListener('mouseenter', function () {
-          book.style.width = COVER_W + 'px';
-        });
-        book.addEventListener('mouseleave', function () {
-          book.style.width = WIDTHS[i] + 'px';
-        });
+        // NOTE: no mouseenter/mouseleave here anymore — opening is
+        // handled by the click detection in the pointer handlers
+        // below, so it can't fire mid-drag.
 
         track.appendChild(book);
       });
     }
 
     // ── manual slide: trackpad/wheel + drag, no auto-play ──
+    // click-to-open is layered onto the same pointer handlers so a
+    // swipe never gets misread as a book click, and a click never
+    // gets misread as the start of a swipe.
     var scrollX = 0;
+    var openBook = null;
+
+    function setOpen(book, open) {
+      if (open) {
+        if (openBook && openBook !== book) openBook.classList.remove('is-open');
+        book.classList.add('is-open');
+        openBook = book;
+      } else {
+        book.classList.remove('is-open');
+        if (openBook === book) openBook = null;
+      }
+    }
 
     function wrap(x) {
       x = x % baseSetWidth;
@@ -642,12 +1243,16 @@ function getCategoryTag(category: string) {
 
     // drag (mouse + touch, unified via Pointer Events)
     var dragging = false;
+    var moved = false;
     var dragStartX = 0;
+    var dragStartY = 0;
     var scrollAtDragStart = 0;
 
     viewportEl.addEventListener('pointerdown', function (e) {
       dragging = true;
+      moved = false;
       dragStartX = e.clientX;
+      dragStartY = e.clientY;
       scrollAtDragStart = scrollX;
       viewportEl.classList.add('dragging');
       viewportEl.setPointerCapture(e.pointerId);
@@ -655,18 +1260,210 @@ function getCategoryTag(category: string) {
 
     viewportEl.addEventListener('pointermove', function (e) {
       if (!dragging) return;
-      var delta = e.clientX - dragStartX;
-      scrollX = wrap(scrollAtDragStart + delta);
+      var dx = e.clientX - dragStartX;
+      var dy = e.clientY - dragStartY;
+      if (!moved && (Math.abs(dx) > CLICK_THRESHOLD || Math.abs(dy) > CLICK_THRESHOLD)) {
+        moved = true;
+      }
+      scrollX = wrap(scrollAtDragStart + dx);
       render(false);
     });
 
-    function endDrag() {
+    function endDrag(e) {
       if (!dragging) return;
       dragging = false;
       viewportEl.classList.remove('dragging');
+
+      // pointer barely moved → treat it as a click, not a swipe.
+      // NOTE: can't use e.target here — once setPointerCapture is
+      // active, every event's target is retargeted to viewportEl
+      // itself, so we hit-test the real DOM at the release point.
+      if (!moved && e) {
+        var hit = document.elementFromPoint(e.clientX, e.clientY);
+        if (!(hit instanceof Element)) return;
+        if (hit.closest('a')) return; // let the "Explore →" link navigate normally
+
+        var book = hit.closest('.lib-book');
+        if (book) {
+          setOpen(book, !book.classList.contains('is-open'));
+        } else if (openBook) {
+          setOpen(openBook, false);
+        }
+      }
     }
     viewportEl.addEventListener('pointerup', endDrag);
-    viewportEl.addEventListener('pointercancel', endDrag);
+    viewportEl.addEventListener('pointercancel', function () {
+      dragging = false;
+      viewportEl.classList.remove('dragging');
+    });
   })();
 </script>
- 
+
+<script is:inline>
+  (function () {
+    var rowsEl = document.getElementById('partnersRows');
+    var row1 = document.getElementById('partnersRow1');
+    var row2 = document.getElementById('partnersRow2');
+    if (!rowsEl || !row1 || !row2) return;
+
+    // six unique tags total, three per row — no tag repeated across
+    // the section. Each row's track is rendered twice back-to-back
+    // (a standard marquee trick) purely so the scroll loop has no
+    // visible seam; that's a rendering detail, not a content repeat.
+    // six partner *types* — these describe who a partner is, not
+    // what a post is about, so they can't double as content tags.
+    // Instead each links to the closest real `category` from the
+    // schema (filterValue), leaving "Materials" unmapped since none
+    // of the six is a natural fit for it.
+    var ROW_1_TAGS = [
+      { name: 'Corporate Partners', filterValue: 'Partnerships', desc: 'Brands aligning purpose with profit', gradient: 'conic-gradient(from 200deg, #16324f, #3b82c4, #a9d8ef, #16324f)' },
+      { name: 'Schools & Institutions', filterValue: 'Tips', desc: 'Educators shaping the next generation', gradient: 'conic-gradient(from 160deg, #0b3d1f, #3bb273, #b8ecc2, #0b3d1f)' },
+      { name: 'Community & NGOs', filterValue: 'Community', desc: 'Grassroots networks driving local change', gradient: 'conic-gradient(from 140deg, #5c2a0a, #d97a3d, #f7d2ab, #5c2a0a)' }
+    ];
+    var ROW_2_TAGS = [
+      { name: 'Artists & Cultural Influencers', filterValue: 'Artist Stories', desc: 'Creative voices amplifying our story', gradient: 'conic-gradient(from 120deg, #4a154b, #a64ac9, #e8c3ff, #4a154b)' },
+      { name: 'Innovative Tech Partners', filterValue: 'Innovation', desc: 'Technology built with people in mind', gradient: 'conic-gradient(from 200deg, #22333b, #5c7a89, #c3d3d6, #22333b)' },
+      { name: 'Impact & Funding Partners', filterValue: 'Impact', desc: 'Capital and resources fuelling growth', gradient: 'conic-gradient(from 150deg, #7a5c00, #e0b400, #fbe9ae, #7a5c00)' }
+    ];
+
+    function buildCard(tag) {
+      var card = document.createElement('div');
+      card.className = 'partner-card';
+      card.setAttribute('data-tag', tag.name);
+
+      var avatar = document.createElement('div');
+      avatar.className = 'partner-avatar';
+      avatar.style.setProperty('--avatar-gradient', tag.gradient);
+
+      var copy = document.createElement('div');
+      copy.className = 'partner-copy';
+      copy.innerHTML =
+        '<h3>' + tag.name + '</h3><p>' + tag.desc + '</p>' +
+        '<a class="partner-link" href="/blog?tag=' + encodeURIComponent(tag.filterValue) + '">Explore →</a>';
+
+      card.appendChild(avatar);
+      card.appendChild(copy);
+      return card;
+    }
+
+    function fillTrack(track, tags) {
+      // render the set twice so translateX(-50%) loops seamlessly
+      [0, 1].forEach(function () {
+        tags.forEach(function (tag) {
+          track.appendChild(buildCard(tag));
+        });
+      });
+    }
+
+    fillTrack(row1, ROW_1_TAGS);
+    fillTrack(row2, ROW_2_TAGS);
+
+    document.querySelectorAll('.partners-row').forEach(function (row) {
+      row.style.setProperty('--row-duration', row.getAttribute('data-duration') || '34s');
+    });
+
+    // hovering (or clicking to "select") a card highlights every
+    // card sharing its tag name and greys/dims the rest; clicking
+    // again, or clicking empty space, clears the selection.
+    var selectedTag = null;
+
+    function applyFocus(tag) {
+      var active = tag !== null;
+      rowsEl.classList.toggle('has-focus', active);
+      rowsEl.querySelectorAll('.partner-card').forEach(function (card) {
+        card.classList.toggle('is-active', active && card.getAttribute('data-tag') === tag);
+      });
+    }
+
+    rowsEl.addEventListener('mouseover', function (e) {
+      if (selectedTag) return; // an explicit selection takes priority over hover previews
+      var card = e.target.closest('.partner-card');
+      if (card) applyFocus(card.getAttribute('data-tag'));
+    });
+
+    rowsEl.addEventListener('mouseleave', function () {
+      if (!selectedTag) applyFocus(null);
+    });
+
+    rowsEl.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return; // let the Explore link navigate normally
+      var card = e.target.closest('.partner-card');
+      var tag = card ? card.getAttribute('data-tag') : null;
+      selectedTag = (selectedTag && selectedTag === tag) ? null : tag;
+      applyFocus(selectedTag);
+    });
+
+    // pause only the row being interacted with, so the other row
+    // keeps drifting past while you read a card
+    document.querySelectorAll('.partners-row').forEach(function (row) {
+      row.addEventListener('mouseenter', function () { row.classList.add('is-paused'); });
+      row.addEventListener('mouseleave', function () { row.classList.remove('is-paused'); });
+    });
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    var filtersEl = document.getElementById('journalFilters');
+    var emptyMsg = document.getElementById('journalEmpty');
+    if (!filtersEl) return;
+
+    var buttons = Array.prototype.slice.call(filtersEl.querySelectorAll('.journal-filter'));
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.journal-card, .journal-featured-card'));
+
+    function findButton(tag) {
+      var lower = tag.toLowerCase();
+      for (var i = 0; i < buttons.length; i++) {
+        if (buttons[i].getAttribute('data-tag').toLowerCase() === lower) return buttons[i];
+      }
+      return null;
+    }
+
+    function applyFilter(tag) {
+      var normalized = tag ? tag.toLowerCase() : 'all';
+      var visibleCount = 0;
+
+      cards.forEach(function (card) {
+        var tags = (card.getAttribute('data-tags') || '').split('|').map(function (t) { return t.toLowerCase(); });
+        var category = (card.getAttribute('data-category') || '').toLowerCase();
+        var show = normalized === 'all' || tags.indexOf(normalized) !== -1 || category === normalized;
+        card.classList.toggle('is-hidden', !show);
+        if (show) visibleCount += 1;
+      });
+
+      buttons.forEach(function (btn) {
+        btn.classList.toggle('is-active', btn.getAttribute('data-tag').toLowerCase() === normalized);
+      });
+
+      if (emptyMsg) emptyMsg.hidden = visibleCount > 0;
+    }
+
+    filtersEl.addEventListener('click', function (e) {
+      var btn = e.target.closest('.journal-filter');
+      if (!btn) return;
+      var tag = btn.getAttribute('data-tag');
+      applyFilter(tag);
+
+      // keep the URL shareable — same ?tag= pattern the Library
+      // shelf and Partner cards already link to
+      var url = new URL(window.location.href);
+      if (tag && tag.toLowerCase() !== 'all') {
+        url.searchParams.set('tag', tag);
+      } else {
+        url.searchParams.delete('tag');
+      }
+      window.history.replaceState({}, '', url);
+    });
+
+    // landing here from a Library book or Partner card's
+    // /blog?tag=… link pre-selects and scrolls to that filter
+    var requestedTag = new URLSearchParams(window.location.search).get('tag');
+    if (requestedTag) {
+      var match = findButton(requestedTag);
+      applyFilter(match ? match.getAttribute('data-tag') : requestedTag);
+      if (match) {
+        match.scrollIntoView({ block: 'nearest', inline: 'center' });
+      }
+    }
+  })();
+</script>
