@@ -1190,7 +1190,7 @@ function getCategoryTag(category: string) {
         cover.style.background = tagData.color;
         cover.innerHTML =
           '<h4>' + tagData.name + '</h4>' +
-          '<a href="/blog?tag=' + encodeURIComponent(tagData.name) + '">Explore →</a>';
+          '<a href="/resources?tag=' + encodeURIComponent(tagData.name) + '">Explore →</a>';
 
         book.appendChild(spine);
         book.appendChild(cover);
@@ -1220,7 +1220,6 @@ function getCategoryTag(category: string) {
         if (openBook === book) openBook = null;
       }
     }
-
     function wrap(x) {
       x = x % baseSetWidth;
       if (x > 0) x -= baseSetWidth;
@@ -1339,7 +1338,7 @@ function getCategoryTag(category: string) {
       copy.className = 'partner-copy';
       copy.innerHTML =
         '<h3>' + tag.name + '</h3><p>' + tag.desc + '</p>' +
-        '<a class="partner-link" href="/blog?tag=' + encodeURIComponent(tag.filterValue) + '">Explore →</a>';
+        '<a class="partner-link" href="/resources?tag=' + encodeURIComponent(tag.filterValue) + '">Explore →</a>';
 
       card.appendChild(avatar);
       card.appendChild(copy);
