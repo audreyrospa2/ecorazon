@@ -64,7 +64,7 @@ function getCategoryTag(category: string) {
             <div class="tt-card-bottom">
               <h3 class="tt-card-title">The C.Y.C.L.E. Library</h3>
               <p class="tt-card-desc">A living archive of research, case studies and toolkits on circular materials, dignified labor and community-rooted design — open to anyone building a more empathetic economy.</p>
-              <a href="#" class="tt-card-link">Explore →</a>
+              <a href="#lib-hero" class="tt-card-link">Explore →</a>
             </div>
           </button>
     
@@ -97,7 +97,7 @@ function getCategoryTag(category: string) {
             <div class="tt-card-bottom">
               <h3 class="tt-card-title">Strategic Partners</h3>
               <p class="tt-card-desc">The organizations, foundations and companies co-building this commons with us — and how your team can join the alliance.</p>
-              <a href="#" class="tt-card-link">Explore →</a>
+              <a href="#partners-hero" class="tt-card-link">Explore →</a>
             </div>
           </button>
         </div>
@@ -105,7 +105,7 @@ function getCategoryTag(category: string) {
     </section>
 
     <!-- The C.Y.C.L.E. Library -->
-    <section class="lib-hero">
+    <section class="lib-hero" id="lib-hero">
       <div class="lib-head">
         <h2 class="lib-title animate-fade-in">The C.Y.C.L.E. Library</h2>
         <p class="lib-tagline animate-fade-in-delay">Ideas worth growing.</p>
@@ -119,7 +119,7 @@ function getCategoryTag(category: string) {
     </section>
 
     <!-- Strategic Partners -->
-    <section class="partners-hero">
+    <section class="partners-hero" id="partners-hero">
       <div class="partners-head">
         <h2 class="partners-title animate-fade-in">Strategic Partners</h2>
         <p class="partners-tagline animate-fade-in-delay">Shared values. Greater impact.</p>
@@ -138,7 +138,7 @@ function getCategoryTag(category: string) {
     </section>
 
     <!-- From the Journal -->
-    <section class="journal-hero">
+    <section class="journal-hero" id="from-the-journal">
       <div class="journal-head">
         <h2 class="journal-title animate-fade-in">From the Journal</h2>
         <p class="journal-tagline animate-fade-in-delay">Stories, insights and updates.</p>
@@ -1340,6 +1340,7 @@ function getCategoryTag(category: string) {
         '<h3>' + tag.name + '</h3><p>' + tag.desc + '</p>' +
         '<a class="partner-link" href="/resources?tag=' + encodeURIComponent(tag.filterValue) + '">Explore →</a>';
 
+
       card.appendChild(avatar);
       card.appendChild(copy);
       return card;
@@ -1465,4 +1466,28 @@ function getCategoryTag(category: string) {
       }
     }
   })();
+</script>
+
+<script is:inline>
+  window.ecoSmoothScrollTo = function (targetEl, duration, offset) {
+    if (!targetEl) return;
+    duration = duration || 1400;
+    offset = offset || 100; // adjust to your header's actual height
+    var startY = window.scrollY || window.pageYOffset;
+    var targetY = targetEl.getBoundingClientRect().top + startY - offset;
+    var startTime = null;
+
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var elapsed = timestamp - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + (targetY - startY) * easeInOutCubic(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  };
 </script>
