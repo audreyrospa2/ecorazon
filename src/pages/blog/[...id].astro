@@ -101,7 +101,7 @@ const relatedPosts = (await getCollection('blog', ({ data }: CollectionEntry<'bl
           <h3 class="text-lg font-semibold text-forest-green mb-4">Share this article</h3>
           <div class="flex gap-4">
             
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`}
+              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`}
               target="_blank"
               rel="noopener noreferrer"
               class="bg-warm-beige text-forest-green px-4 py-2 rounded-md hover:bg-forest-green hover:text-white transition-colors"
@@ -109,7 +109,7 @@ const relatedPosts = (await getCollection('blog', ({ data }: CollectionEntry<'bl
               Twitter
             </a>
             
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
               target="_blank"
               rel="noopener noreferrer"
               class="bg-warm-beige text-forest-green px-4 py-2 rounded-md hover:bg-forest-green hover:text-white transition-colors"
@@ -117,7 +117,7 @@ const relatedPosts = (await getCollection('blog', ({ data }: CollectionEntry<'bl
               LinkedIn
             </a>
             
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}
               target="_blank"
               rel="noopener noreferrer"
               class="bg-warm-beige text-forest-green px-4 py-2 rounded-md hover:bg-forest-green hover:text-white transition-colors"
