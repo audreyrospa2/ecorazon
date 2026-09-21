@@ -75,7 +75,7 @@ function getCategoryTag(category: string) {
             <div class="tt-card-bottom">
               <h3 class="tt-card-title">Project Showcase</h3>
               <p class="tt-card-desc">Real initiatives from our network of artists, cooperatives and partners — documented from first sketch to finished impact, with the people and numbers behind them.</p>
-              <a href="#" class="tt-card-link">Explore →</a>
+              <a href="#showcase-hero" class="tt-card-link">Explore →</a>
             </div>
           </button>
     
@@ -115,6 +115,63 @@ function getCategoryTag(category: string) {
       <div class="lib-shelf-viewport">
         <div class="lib-shelf-track" id="libShelf"></div>
         <div class="lib-board"></div>
+      </div>
+    </section>
+
+    <!-- Project Showcase -->
+    <section class="showcase-hero" id="showcase-hero">
+      <div class="showcase-head">
+        <h2 class="showcase-title animate-fade-in">Project Showroom</h2>
+        <p class="showcase-tagline animate-fade-in-delay">Ideas, made visible.</p>
+        <p class="showcase-intro animate-fade-in-delay">Discover projects, pilot programmes and case studies that bring research into the real world. From ESG and CSR initiatives to inclusive arts, employee wellbeing, co-creation workshops and responsible technology experiments — each project shows how insight can become shared impact.</p>
+      </div>
+
+      <div class="showcase-stack">
+
+        <div class="showcase-card">
+          <div class="showcase-tab"><span class="showcase-tab-title">Corporate Culture &amp; Wellbeing</span></div>
+          <div class="showcase-card-head">
+            <span class="showcase-card-subtitle">Where work feels human</span>
+            <span class="showcase-chevron">⌄</span>
+          </div>
+          <div class="showcase-card-body">
+            <p>Rituals, spaces and small interventions that help teams feel seen — from onboarding gifts to wellbeing pilots run inside partner offices.</p>
+          </div>
+        </div>
+
+        <div class="showcase-card">
+          <div class="showcase-tab"><span class="showcase-tab-title">Inclusive Arts &amp; Community</span></div>
+          <div class="showcase-card-head">
+            <span class="showcase-card-subtitle">Art that makes room</span>
+            <span class="showcase-chevron">⌄</span>
+          </div>
+          <div class="showcase-card-body">
+            <p>Co-created works and community workshops that widen who gets to make and be seen — built alongside the artists and neighbourhoods involved.</p>
+          </div>
+        </div>
+
+        <div class="showcase-card">
+          <div class="showcase-tab"><span class="showcase-tab-title">Sustainable Brand Experiences</span></div>
+          <div class="showcase-card-head">
+            <span class="showcase-card-subtitle">Less waste, more meaning</span>
+            <span class="showcase-chevron">⌄</span>
+          </div>
+          <div class="showcase-card-body">
+            <p>Gifting and brand moments designed around material honesty — sourcing, packaging and stories that hold up past the unboxing.</p>
+          </div>
+        </div>
+
+        <div class="showcase-card">
+          <div class="showcase-tab"><span class="showcase-tab-title">Human-Centred AI Pilots</span></div>
+          <div class="showcase-card-head">
+            <span class="showcase-card-subtitle">Technology, kept accountable</span>
+            <span class="showcase-chevron">⌄</span>
+          </div>
+          <div class="showcase-card-body">
+            <p>Early experiments testing where AI genuinely helps a team or a customer — and where it should stay out of the way.</p>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -645,6 +702,216 @@ function getCategoryTag(category: string) {
 
   @media (prefers-reduced-motion: reduce) {
     .lib-book, .lib-cover { transition: none; }
+  }
+
+  /* ─── PROJECT SHOWCASE ─── */
+  .showcase-hero,
+  .showcase-hero *,
+  .showcase-hero *::before,
+  .showcase-hero *::after { box-sizing: border-box; }
+
+  .showcase-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem clamp(1rem, 4vw, 3rem) 6rem;
+    background: #f7f5f0;
+    gap: 2.5rem;
+  }
+
+  .showcase-head {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .showcase-title {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 0.5rem;
+  }
+
+  .showcase-tagline {
+    font-family: 'MaoWei', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    color: #6b8f76;
+    margin: 0 0 1.25rem;
+  }
+
+  .showcase-intro {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.65);
+    max-width: 62ch;
+    margin: 0 auto;
+  }
+
+  /* ── the stack of files ── */
+  .showcase-stack {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    padding-top: 52px; /* room for the first tab to poke into */
+  }
+
+  .showcase-card {
+    --accent: #a07850;
+    position: relative;
+    background: var(--accent);
+    border-radius: 16px;
+    margin-top: -14px;
+    box-shadow: 0 18px 30px -20px rgba(0,0,0,0.35);
+    transition: transform 0.32s cubic-bezier(.22,.9,.3,1);
+  }
+
+  .showcase-card:first-child{ margin-top: 0; }
+
+  /* brand hues, reused from the Library shelf / Partner tags above */
+  .showcase-card:nth-child(1){ --accent: #a07850; z-index: 10; } /* cork-brown — Corporate Culture */
+  .showcase-card:nth-child(2){ --accent: #7f9c78; z-index: 20; } /* Artists purple — Inclusive Arts */
+  .showcase-card:nth-child(3){ --accent: #C08EA4; z-index: 30; } /* forest-green — Sustainable Brand C08EA4 */
+  .showcase-card:nth-child(4){ --accent: #6b8f76; z-index: 40; } /* Social Impact blue — AI Pilots */
+
+  /* title: the whole file lifts a touch, as one piece */
+  .showcase-card:has(.showcase-tab:hover){
+    transform: translateY(-8px);
+  }
+
+  /* the "can open" cue — a hairline + soft shadow across the full top edge,
+     shown only while the body is open */
+  .showcase-card::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    border-radius: 16px 16px 0 0;
+    box-shadow:
+      0 2px 0 rgba(0,0,0,0.18),
+      0 14px 20px -8px rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .showcase-card:has(.showcase-card-head:hover)::before,
+  .showcase-card:has(.showcase-card-body:hover)::before,
+  .showcase-card:last-child::before{ opacity: 1; }
+
+  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-head:hover) .showcase-card:last-child::before,
+  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-body:hover) .showcase-card:last-child::before{ opacity: 0; }
+
+  /* the tab — pokes above the card's own top edge, title lives here */
+  .showcase-tab{
+    position: absolute;
+    top: -40px;
+    left: 30px;
+    background: var(--accent);
+    padding: 0.9rem 1.3rem 0.7rem;
+    border-radius: 12px 12px 0 0;
+    cursor: default;
+  }
+
+  .showcase-tab-title{
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: #fff;
+    line-height: 1.2;
+    display: block;
+    white-space: nowrap;
+  }
+
+  /* always-visible header strip — subtitle + chevron, top right.
+     Hovering anywhere on this strip (or the collapsed body below it) opens the file. */
+  .showcase-card-head{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.15rem 1.5rem;
+    cursor: default;
+  }
+
+  .showcase-card-subtitle{
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.92);
+  }
+
+  .showcase-chevron{
+    display: inline-block;
+    color: rgba(255,255,255,0.92);
+    font-size: 0.75rem;
+    transform: rotate(90deg);
+    transition: transform 0.32s cubic-bezier(.22,.9,.3,1);
+  }
+
+  /* description — collapsed by default; grows open on hover, pushing the
+     files below it down. Every file opens to the same max-height, so all
+     four end up the same length. */
+  .showcase-card-body{
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    transition: max-height 0.42s cubic-bezier(.22,.9,.3,1), opacity 0.28s ease, padding 0.42s ease;
+  }
+
+  .showcase-card-body p{
+    margin: 0;
+    padding: 0 0 4.5rem; /* clears the next file's tab, which pokes ~70px above it */
+    max-width: 52ch;
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #fff;
+  }
+
+  /* default rest state: the last file is the one left open */
+  .showcase-card:last-child .showcase-chevron{ transform: rotate(0deg); }
+  .showcase-card:last-child .showcase-card-body{
+    max-height: 600px;
+    opacity: 1;
+    padding: 0 1.5rem;
+  }
+
+  /* hovering a file's header OR its (collapsed) body area opens it */
+  .showcase-card:has(.showcase-card-head:hover) .showcase-chevron,
+  .showcase-card:has(.showcase-card-body:hover) .showcase-chevron{ transform: rotate(0deg); }
+
+  .showcase-card:has(.showcase-card-head:hover) .showcase-card-body,
+  .showcase-card-body:hover{
+    max-height: 600px;
+    opacity: 1;
+    padding: 0 1.5rem;
+  }
+
+  /* hovering a different file closes the default-open last one */
+  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-head:hover) .showcase-card:last-child .showcase-chevron,
+  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-body:hover) .showcase-card:last-child .showcase-chevron{
+    transform: rotate(90deg);
+  }
+  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-head:hover) .showcase-card:last-child .showcase-card-body,
+  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-body:hover) .showcase-card:last-child .showcase-card-body{
+    max-height: 0;
+    opacity: 0;
+    padding: 0 1.5rem;
+  }
+
+  @media (max-width: 560px){
+    .showcase-tab-title{ white-space: normal; font-size: 0.92rem; }
+    .showcase-tab{ left: 18px; padding: 0.7rem 1rem 0.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .showcase-card, .showcase-card-body, .showcase-chevron{ transition: none; }
   }
 
   /* ─── STRATEGIC PARTNERS ─── */
