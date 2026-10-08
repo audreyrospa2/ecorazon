@@ -104,7 +104,59 @@ function getCategoryTag(category: string) {
       </div>
     </section>
 
-    <!-- The C.Y.C.L.E. Library -->
+    <!-- Ecorazón Academy -->
+    <section class="acad-hero" id="academy-hero">
+      <div class="acad-top">
+        <span class="acad-pill acad-pill--1">#Wellbeing</span>
+        <span class="acad-pill acad-pill--2">#FairPractice</span>
+        <span class="acad-pill acad-pill--3">#Workshops</span>
+        <span class="acad-pill acad-pill--4">#Community</span>
+        <span class="acad-pill acad-pill--5">#Skills</span>
+
+        <svg class="acad-mark animate-fade-in" viewBox="0 0 80 100" width="64" height="80" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true">
+          <ellipse cx="40" cy="50" rx="34" ry="46" />
+          <ellipse cx="40" cy="50" rx="14" ry="46" />
+          <circle cx="40" cy="50" r="2" fill="#fff" />
+        </svg>
+
+        <h2 class="acad-title animate-fade-in">Ecorazón Academy</h2>
+        <p class="acad-intro animate-fade-in-delay">Explore our full range of courses and workshops across different topics, and register for the experience that's right for you.</p>
+        <a href="#" class="acad-cta animate-fade-in-delay">Get Started <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="acad-why">
+        <h3 class="acad-why-title">
+          Why Ecorazón Academy?
+          <span>Learning through play.<br />Mastering skills that stay.</span>
+        </h3>
+        <div class="acad-feature">
+          <div class="acad-feature-icon" aria-hidden="true"></div>
+          <h4>Practical skills for real life</h4>
+          <p>Learn skills you can put into practice—in everyday life, relationships and work.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strategic Partners -->
+    <section class="partners-hero" id="partners-hero">
+      <div class="partners-head">
+        <h2 class="partners-title animate-fade-in">Strategic Partners</h2>
+        <p class="partners-tagline animate-fade-in-delay">Shared values. Greater impact.</p>
+        <p class="partners-intro animate-fade-in-delay">Together, we connect expertise, resources and communities to create solutions that no one organisation could build alone.</p>
+        <p class="partners-intro animate-fade-in-delay">We collaborate with educators, artists, community organisations, social innovators and technology partners who believe progress should be human, responsible and shared.</p>
+      </div>
+
+      <div class="partners-rows" id="partnersRows">
+        <div class="partners-row" data-direction="left" data-duration="34s">
+          <div class="partners-track" id="partnersRow1"></div>
+        </div>
+        <div class="partners-row" data-direction="right" data-duration="40s">
+          <div class="partners-track" id="partnersRow2"></div>
+        </div>
+      </div>
+    </section>
+
+     <!-- The C.Y.C.L.E. Library -->
     <section class="lib-hero" id="lib-hero">
       <div class="lib-head">
         <h2 class="lib-title animate-fade-in">The C.Y.C.L.E. Library</h2>
@@ -172,25 +224,6 @@ function getCategoryTag(category: string) {
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- Strategic Partners -->
-    <section class="partners-hero" id="partners-hero">
-      <div class="partners-head">
-        <h2 class="partners-title animate-fade-in">Strategic Partners</h2>
-        <p class="partners-tagline animate-fade-in-delay">Shared values. Greater impact.</p>
-        <p class="partners-intro animate-fade-in-delay">Together, we connect expertise, resources and communities to create solutions that no one organisation could build alone.</p>
-        <p class="partners-intro animate-fade-in-delay">We collaborate with educators, artists, community organisations, social innovators and technology partners who believe progress should be human, responsible and shared.</p>
-      </div>
-
-      <div class="partners-rows" id="partnersRows">
-        <div class="partners-row" data-direction="left" data-duration="34s">
-          <div class="partners-track" id="partnersRow1"></div>
-        </div>
-        <div class="partners-row" data-direction="right" data-duration="40s">
-          <div class="partners-track" id="partnersRow2"></div>
-        </div>
       </div>
     </section>
 
@@ -467,6 +500,169 @@ function getCategoryTag(category: string) {
  
   @media (prefers-reduced-motion: reduce) {
     .tt-card { transition: opacity 0.3s ease; }
+  }
+
+  /* ─── ECORAZÓN ACADEMY ─── */
+  .acad-hero,
+  .acad-hero *,
+  .acad-hero *::before,
+  .acad-hero *::after { box-sizing: border-box; }
+
+  .acad-hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f5f0;
+    background-image:
+      radial-gradient(ellipse 60% 32% at 50% 36%, rgba(247,245,240,0.88) 0%, rgba(247,245,240,0.6) 45%, rgba(247,245,240,0) 100%),
+      linear-gradient(to bottom, rgba(247,245,240,0) 50%, #f7f5f0 82%),
+      url('images/academy.png');
+    background-size: 100% 100%, 100% 100%, cover;
+    background-position: center top, center top, center top;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+
+  .acad-top {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem clamp(1rem, 4vw, 3rem) 6rem;
+    min-height: 75vh;
+  }
+
+  .acad-mark { margin-bottom: 1.5rem; }
+
+  .acad-title {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.75rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    color: black;
+    margin: 0 0 1.25rem;
+    text-shadow:
+      0 0 28px rgba(247,245,240,0.95),
+      0 0 10px rgba(247,245,240,0.8);
+  }
+
+  .acad-intro {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 52ch;
+    margin: 0 0 2rem;
+    color: rgba(0,0,0,0.85);  
+    font-weight: 600;
+    text-shadow:
+      0 0 18px rgba(247,245,240,1),
+      0 0 6px rgba(247,245,240,0.9);
+  }
+
+  .acad-cta {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+    padding: 1rem 2.25rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6b8f76, #95BD8D);
+    box-shadow: 0 14px 30px rgba(107,143,118,0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .acad-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px rgba(107,143,118,0.45);
+  }
+
+  /* floating tag pills */
+  .acad-pill {
+    position: absolute;
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #000;
+    background: #fff;
+    padding: 1.1rem 2.25rem;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    white-space: nowrap;
+  }
+  .acad-pill--1 { left: 6%;  top: 42%; transform: rotate(8deg); }
+  .acad-pill--2 { left: 1%;  top: 58%; transform: rotate(-9deg); }
+  .acad-pill--3 { left: 16%; top: 64%; transform: rotate(-12deg); }
+  .acad-pill--4 { right: 4%; top: 38%; transform: rotate(-8deg); }
+  .acad-pill--5 { right: 6%; top: 58%; transform: rotate(14deg); }
+
+  /* why section */
+  .acad-why {
+    display: grid;
+    grid-template-columns: 1fr auto;   /* title takes the space, feature hugs the right */
+    align-items: start;
+    gap: 3rem;
+    width: 100%;
+    max-width: 1800px;                   /* was 1200px */
+    margin-top: -4rem;
+    padding: 0 clamp(1.5rem, 5vw, 4rem) 6rem;
+  }
+
+  .acad-why-title {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.15;
+    color: #000;
+    margin: 0;
+  }
+  .acad-why-title span {
+    display: block;
+    margin-top: 0.4rem;
+    color: rgba(0,0,0,0.4);
+  }
+
+  .acad-feature { 
+    text-align: center; 
+    justify-self: end;
+    width: min(340px, 100%);
+  }
+
+  .acad-feature-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #cfe4c9, #6b8f76);
+    box-shadow: 0 10px 24px rgba(107,143,118,0.35);
+  }
+  .acad-feature h4 {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #000;
+    margin: 0 0 0.5rem;
+  }
+  .acad-feature p {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(0,0,0,0.6);
+    max-width: 34ch;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 900px) {
+    .acad-why { grid-template-columns: 1fr; gap: 2rem; }
+    .acad-pill { font-size: 0.85rem; padding: 0.8rem 1.4rem; }
+    .acad-pill--3, .acad-pill--5 { display: none; }
+    .acad-pill--1 { top: 18%; left: 2%; }
+    .acad-pill--2 { top: 26%; left: auto; right: 2%; }
+    .acad-pill--4 { top: auto; bottom: 8%; right: 4%; }
   }
 
   /* ─── C.Y.C.L.E. LIBRARY SHELF ─── */
