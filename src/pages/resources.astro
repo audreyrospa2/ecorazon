@@ -16,12 +16,6 @@ const sortedPosts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntr
 const featuredPosts = sortedPosts.slice(0, 2);
 const latestPosts = sortedPosts.slice(2, 8);
 
-// every unique tag across all posts, used to build the filter chips
-// in the "From the Journal" section below
-const allTags = Array.from(
-  new Set(sortedPosts.flatMap((p: CollectionEntry<'blog'>) => p.data.tags ?? []))
-).sort((a: string, b: string) => a.localeCompare(b));
-
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', { 
     year: 'numeric', 
@@ -86,7 +80,7 @@ function getCategoryTag(category: string) {
             <div class="tt-card-bottom">
               <h3 class="tt-card-title">Human Sustainability Academy</h3>
               <p class="tt-card-desc">Workshops and learning pathways for teams and artisans alike, covering wellbeing, fair practice and the human side of sustainable business.</p>
-              <a href="#" class="tt-card-link">Explore →</a>
+              <a href="#academy-hero" class="tt-card-link">Explore →</a>
             </div>
           </button>
     
@@ -137,6 +131,145 @@ function getCategoryTag(category: string) {
       </div>
     </section>
 
+    <!-- Academy Courses Carousel -->
+    <section class="courses-hero" id="courses-hero">
+      <div class="courses-head">
+        <h3 class="courses-title">Our Courses</h3>
+        <div class="courses-nav">
+          <button type="button" class="courses-arrow" id="coursesPrev" aria-label="Previous courses">←</button>
+          <button type="button" class="courses-arrow" id="coursesNext" aria-label="Next courses">→</button>
+        </div>
+      </div>
+
+      <div class="courses-track" id="coursesTrack">
+
+        <article class="course-card">
+          <div class="course-media" style="--media: linear-gradient(135deg,#cfe4c9,#6b8f76);">
+            <div class="course-badges">
+              <span class="course-badge">Online</span>
+              <span class="course-badge course-badge--dark">Featured</span>
+            </div>
+          </div>
+          <div class="course-body">
+            <h4 class="course-name">Neuroseed Train-the-Trainer Programme</h4>
+            <div class="course-tags">
+              <span class="course-tag course-tag--green">#Facilitation</span>
+              <span class="course-tag course-tag--blue">#ForTrainers</span>
+            </div>
+            <div class="course-stats">
+              <div><small>Theory</small><strong>00 hrs</strong></div>
+              <div><small>Practice</small><strong>00 hrs</strong></div>
+            </div>
+          </div>
+          <div class="course-foot">
+            <span class="course-instructor">Instructor name</span>
+            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-media" style="--media: linear-gradient(135deg,#eeccdc,#c48fa4);">
+            <div class="course-badges">
+              <span class="course-badge">In person</span>
+            </div>
+          </div>
+          <div class="course-body">
+            <h4 class="course-name">Mindful Workplaces: Wellbeing That Lasts</h4>
+            <div class="course-tags">
+              <span class="course-tag course-tag--pink">#Wellbeing</span>
+              <span class="course-tag course-tag--green">#Teams</span>
+            </div>
+            <div class="course-stats">
+              <div><small>Theory</small><strong>00 hrs</strong></div>
+              <div><small>Practice</small><strong>00 hrs</strong></div>
+            </div>
+          </div>
+          <div class="course-foot">
+            <span class="course-instructor">Instructor name</span>
+            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-media" style="--media: linear-gradient(135deg,#e3cdb2,#a07850);">
+            <div class="course-badges">
+              <span class="course-badge">Online</span>
+              <span class="course-badge">In person</span>
+            </div>
+          </div>
+          <div class="course-body">
+            <h4 class="course-name">Fair Practice for Creative Makers</h4>
+            <div class="course-tags">
+              <span class="course-tag course-tag--brown">#FairPractice</span>
+              <span class="course-tag course-tag--blue">#Artists</span>
+            </div>
+            <div class="course-stats">
+              <div><small>Theory</small><strong>00 hrs</strong></div>
+              <div><small>Practice</small><strong>00 hrs</strong></div>
+            </div>
+          </div>
+          <div class="course-foot">
+            <span class="course-instructor">Instructor name</span>
+            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-media" style="--media: linear-gradient(135deg,#cfe4c9,#95BD8D);">
+            <div class="course-badges">
+              <span class="course-badge">In person</span>
+            </div>
+          </div>
+          <div class="course-body">
+            <h4 class="course-name">Community Workshop Design &amp; Facilitation</h4>
+            <div class="course-tags">
+              <span class="course-tag course-tag--green">#Community</span>
+              <span class="course-tag course-tag--pink">#Workshops</span>
+            </div>
+            <div class="course-stats">
+              <div><small>Theory</small><strong>00 hrs</strong></div>
+              <div><small>Practice</small><strong>00 hrs</strong></div>
+            </div>
+          </div>
+          <div class="course-foot">
+            <span class="course-instructor">Instructor name</span>
+            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
+          </div>
+
+          <template class="course-detail">
+            <p class="cd-lead">A short overview of the programme goes here: who it's for and what they'll walk away with.</p>
+
+            <div class="cd-grid">
+              <div><small>Format</small><strong>Online</strong></div>
+              <div><small>Duration</small><strong>00 weeks</strong></div>
+              <div><small>Theory</small><strong>00 hrs</strong></div>
+              <div><small>Practice</small><strong>00 hrs</strong></div>
+              <div><small>Next intake</small><strong>TBC</strong></div>
+              <div><small>Instructor</small><strong>Instructor name</strong></div>
+            </div>
+
+            <h5 class="cd-heading">What you'll learn</h5>
+            <ul class="cd-list">
+              <li>First learning outcome</li>
+              <li>Second learning outcome</li>
+              <li>Third learning outcome</li>
+            </ul>
+
+            <a href="/get-in-touch" class="course-btn cd-register">Register interest</a>
+          </template>
+        </article>
+
+      </div>
+    </section>
+    <div class="course-modal" id="courseModal" hidden>
+      <div class="course-modal-backdrop" data-close></div>
+      <div class="course-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+        <button type="button" class="course-modal-close" data-close aria-label="Close">×</button>
+        <div class="course-modal-media" id="courseModalMedia"></div>
+        <div class="course-modal-content" id="courseModalContent"></div>
+      </div>
+    </div>
+
     <!-- Strategic Partners -->
     <section class="partners-hero" id="partners-hero">
       <div class="partners-head">
@@ -153,20 +286,6 @@ function getCategoryTag(category: string) {
         <div class="partners-row" data-direction="right" data-duration="40s">
           <div class="partners-track" id="partnersRow2"></div>
         </div>
-      </div>
-    </section>
-
-     <!-- The C.Y.C.L.E. Library -->
-    <section class="lib-hero" id="lib-hero">
-      <div class="lib-head">
-        <h2 class="lib-title animate-fade-in">The C.Y.C.L.E. Library</h2>
-        <p class="lib-tagline animate-fade-in-delay">Ideas worth growing.</p>
-        <p class="lib-intro animate-fade-in-delay">A curated digital library of research papers, white papers, trend reports and frameworks exploring empathy, sustainable development, inclusive design, social innovation and technology with purpose.</p>
-      </div>
-
-      <div class="lib-shelf-viewport">
-        <div class="lib-shelf-track" id="libShelf"></div>
-        <div class="lib-board"></div>
       </div>
     </section>
 
@@ -227,22 +346,30 @@ function getCategoryTag(category: string) {
       </div>
     </section>
 
+    <!-- The C.Y.C.L.E. Library -->
+    <section class="lib-hero" id="lib-hero">
+      <div class="lib-head">
+        <h2 class="lib-title animate-fade-in">The C.Y.C.L.E. Library</h2>
+        <p class="lib-tagline animate-fade-in-delay">Ideas worth growing.</p>
+        <p class="lib-intro animate-fade-in-delay">A curated digital library of research papers, white papers, trend reports and frameworks exploring empathy, sustainable development, inclusive design, social innovation and technology with purpose.</p>
+      </div>
+
+      <div class="lib-shelf-viewport">
+        <div class="lib-shelf-track" id="libShelf"></div>
+        <div class="lib-board"></div>
+      </div>
+    </section>
+
+
     <!-- From the Journal -->
     <section class="journal-hero" id="from-the-journal">
       <div class="journal-head">
         <h2 class="journal-title animate-fade-in">From the Journal</h2>
         <p class="journal-tagline animate-fade-in-delay">Stories, insights and updates.</p>
-        <p class="journal-intro animate-fade-in-delay">Field notes from our artists, partners and team — filter by topic, or arrive here from a tag in the Library or Partners above, to find what matters to you.</p>
+        <p class="journal-intro animate-fade-in-delay">Field notes from our artists, partners and team. Open a book on the shelf above to see the articles filed under that topic.</p>
       </div>
+      <p class="journal-status" id="journalStatus" hidden></p>
 
-      {allTags.length > 0 && (
-        <div class="journal-filters" id="journalFilters">
-          <button type="button" class="journal-filter is-active" data-tag="all">All</button>
-          {allTags.map((tag: string) => (
-            <button type="button" class="journal-filter" data-tag={tag}>{tag}</button>
-          ))}
-        </div>
-      )}
 
       {featuredPosts.length > 0 && (
         <div class="journal-featured">
@@ -664,6 +791,333 @@ function getCategoryTag(category: string) {
     .acad-pill--2 { top: 26%; left: auto; right: 2%; }
     .acad-pill--4 { top: auto; bottom: 8%; right: 4%; }
   }
+
+  /* ─── ACADEMY COURSES CAROUSEL ─── */
+.courses-hero,
+.courses-hero *,
+.courses-hero *::before,
+.courses-hero *::after { box-sizing: border-box; }
+
+.courses-hero {
+  background: #f7f5f0;
+  padding: 2rem 0 6rem;
+}
+
+.courses-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  margin-bottom: 2rem;
+}
+
+.courses-title {
+  font-family: 'MaoWei', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  color: #000;
+  margin: 0;
+}
+
+.courses-nav { display: flex; gap: 0.6rem; }
+
+.courses-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fff;
+  color: #6b8f76;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+.courses-arrow:hover { background: #6b8f76; color: #fff; transform: translateY(-2px); }
+
+.courses-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.5rem clamp(1.5rem, 5vw, 4rem) 2rem;
+  scroll-padding-left: clamp(1.5rem, 5vw, 4rem);
+  scrollbar-width: none;
+}
+.courses-track::-webkit-scrollbar { display: none; }
+
+.course-card {
+  flex: 0 0 clamp(290px, 28vw, 400px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 28px;
+  padding: 0.75rem;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.11);
+}
+
+.course-media {
+  position: relative;
+  height: 210px;
+  border-radius: 20px;
+  background-image: var(--media);   /* swap for url('/images/course-1.png') when you have photos */
+  background-size: cover;
+  background-position: center;
+}
+
+.course-badges {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.course-badge {
+  font-family: 'MaoWei', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #000;
+  background: #fff;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+.course-badge--dark { background: #1d1d1b; color: #fff; }
+
+.course-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.25rem 0.6rem 1rem;
+  flex: 1;
+}
+
+.course-name {
+  font-family: 'MaoWei', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  color: #000;
+  margin: 0;
+  min-height: 2.5em;   /* keeps cards aligned when titles wrap differently */
+}
+
+.course-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.course-tag {
+  font-family: 'MaoWei', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+}
+.course-tag--green { background: #e3efdd; color: #5a7d4f; }
+.course-tag--pink  { background: #f6e1ea; color: #a65c7c; }
+.course-tag--blue  { background: #e0ebf5; color: #4a7fae; }
+.course-tag--brown { background: #efe3d3; color: #8a6742; }
+
+.course-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: auto;
+  font-family: 'MaoWei', sans-serif;
+}
+.course-stats small {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(0,0,0,0.45);
+  margin-bottom: 0.15rem;
+}
+.course-stats strong { font-size: 0.95rem; color: #000; }
+
+.course-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #f7f5f0;
+  border-radius: 999px;
+  padding: 0.5rem 0.5rem 0.5rem 1.4rem;
+}
+.course-instructor {
+  font-family: 'MaoWei', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #000;
+}
+.course-btn {
+  font-family: 'MaoWei', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #6b8f76, #95BD8D);
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.course-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(107,143,118,0.35);
+}
+
+@media (max-width: 600px) {
+  .course-card { flex-basis: 82vw; }
+  .courses-arrow { width: 42px; height: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .courses-track { scroll-behavior: auto; }
+  .course-card, .course-btn, .courses-arrow { transition: none; }
+}
+
+/* the Details trigger is now a <button>, so reset the native styles */
+button.course-btn {
+  border: none;
+  cursor: pointer;
+}
+
+/* ─── COURSE DETAILS POPUP ─── */
+.course-modal,
+.course-modal *,
+.course-modal *::before,
+.course-modal *::after { box-sizing: border-box; }
+
+.course-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.course-modal[hidden] { display: none; }
+.course-modal.is-open { opacity: 1; }
+
+.course-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 28, 22, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.course-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  transform: translateY(24px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(.22,.9,.34,1);
+}
+.course-modal.is-open .course-modal-dialog { transform: translateY(0) scale(1); }
+
+.course-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+.course-modal-close:hover { transform: rotate(90deg); }
+
+.course-modal-media {
+  height: 200px;
+  margin: 0.75rem 0.75rem 0;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.course-modal-content { padding: 1.75rem 2rem 2rem; }
+
+.course-modal-content h3 {
+  font-family: 'MaoWei', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
+  color: #000;
+  margin: 0 0 0.9rem;
+}
+.course-modal-content .course-tags { margin-bottom: 1.25rem; }
+
+.cd-lead {
+  font-family: 'MaoWei', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(0,0,0,0.7);
+  margin: 0 0 1.5rem;
+}
+
+.cd-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: #f7f5f0;
+  border-radius: 18px;
+  margin-bottom: 1.5rem;
+  font-family: 'MaoWei', sans-serif;
+}
+.cd-grid small {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(0,0,0,0.45);
+  margin-bottom: 0.2rem;
+}
+.cd-grid strong { font-size: 0.95rem; color: #000; }
+
+.cd-heading {
+  font-family: 'MaoWei', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #000;
+  margin: 0 0 0.6rem;
+}
+.cd-list {
+  margin: 0 0 1.75rem;
+  padding-left: 1.2rem;
+  font-family: 'MaoWei', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(0,0,0,0.7);
+}
+.cd-list li::marker { color: #6b8f76; }
+
+.cd-register { display: inline-block; }
+
+@media (max-width: 600px) {
+  .course-modal { padding: 0.75rem; align-items: flex-end; }
+  .course-modal-dialog { max-height: 92vh; border-radius: 24px; }
+  .course-modal-content { padding: 1.25rem 1.25rem 1.5rem; }
+  .cd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-modal, .course-modal-dialog, .course-modal-close { transition: none; }
+}
 
   /* ─── C.Y.C.L.E. LIBRARY SHELF ─── */
   .lib-hero,
@@ -1348,6 +1802,15 @@ function getCategoryTag(category: string) {
     margin: 0 auto;
   }
 
+  .journal-status {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6b8f76;
+    margin: 0;
+    text-align: center;
+  }
+
   /* ── filter chips ── */
   .journal-filters {
     display: flex;
@@ -1545,7 +2008,7 @@ function getCategoryTag(category: string) {
   }
 </style>
  
-<script>
+<script is:inline>
   (function () {
     var stack = document.getElementById('ttStack');
     if (!stack) return;
@@ -1580,7 +2043,18 @@ function getCategoryTag(category: string) {
       if (!card) return;
       var index = Number(card.getAttribute('data-index'));
       if (index !== step) return;
-      if (target.closest('.tt-card-link')) return;
+      var link = target.closest('.tt-card-link');
+      if (link) {
+        e.preventDefault();
+        var hash = link.getAttribute('href');
+        var dest = hash && hash.length > 1 ? document.querySelector(hash) : null;
+        if (dest) {
+          var smooth = window.ecoSmoothScrollTo;
+          if (smooth) smooth(dest, 1400, 100);
+          else dest.scrollIntoView({ behavior: 'smooth' });
+        }
+        return;
+      }
       e.preventDefault();
       advance();
     });
@@ -1637,6 +2111,7 @@ function getCategoryTag(category: string) {
       TAGS.forEach(function (tagData, i) {
         var book = document.createElement('div');
         book.className = 'lib-book';
+        book.setAttribute('data-tag', tagData.name);
         book.style.setProperty('--w', WIDTHS[i] + 'px');
         book.style.setProperty('--open-w', COVER_W + 'px');
         book.style.height = HEIGHTS[i] + 'px';
@@ -1653,7 +2128,7 @@ function getCategoryTag(category: string) {
         cover.style.background = tagData.color;
         cover.innerHTML =
           '<h4>' + tagData.name + '</h4>' +
-          '<a href="/resources?tag=' + encodeURIComponent(tagData.name) + '">Explore →</a>';
+          '<a href="#from-the-journal">Read articles ↓</a>';
 
         book.appendChild(spine);
         book.appendChild(cover);
@@ -1673,14 +2148,22 @@ function getCategoryTag(category: string) {
     var scrollX = 0;
     var openBook = null;
 
+    function announce(tag) {
+      window.dispatchEvent(new CustomEvent('library:tagchange', { detail: { tag: tag } }));
+    }
+
     function setOpen(book, open) {
       if (open) {
         if (openBook && openBook !== book) openBook.classList.remove('is-open');
         book.classList.add('is-open');
         openBook = book;
+        announce(book.getAttribute('data-tag'));
       } else {
         book.classList.remove('is-open');
-        if (openBook === book) openBook = null;
+        if (openBook === book) {
+          openBook = null;
+          announce('all');
+        }
       }
     }
     function wrap(x) {
@@ -1743,7 +2226,10 @@ function getCategoryTag(category: string) {
       if (!moved && e) {
         var hit = document.elementFromPoint(e.clientX, e.clientY);
         if (!(hit instanceof Element)) return;
-        if (hit.closest('a')) return; // let the "Explore →" link navigate normally
+        if (hit.closest('a')) {
+          window.ecoSmoothScrollTo(document.getElementById('from-the-journal'), 1400, 100);
+          return;
+        }
 
         var book = hit.closest('.lib-book');
         if (book) {
@@ -1757,6 +2243,9 @@ function getCategoryTag(category: string) {
     viewportEl.addEventListener('pointercancel', function () {
       dragging = false;
       viewportEl.classList.remove('dragging');
+    });
+    viewportEl.addEventListener('click', function (e) {
+      if (e.target instanceof Element && e.target.closest('a')) e.preventDefault();
     });
   })();
 </script>
@@ -1867,23 +2356,13 @@ function getCategoryTag(category: string) {
 
 <script is:inline>
   (function () {
-    var filtersEl = document.getElementById('journalFilters');
     var emptyMsg = document.getElementById('journalEmpty');
-    if (!filtersEl) return;
-
-    var buttons = Array.prototype.slice.call(filtersEl.querySelectorAll('.journal-filter'));
+    var statusEl = document.getElementById('journalStatus');
     var cards = Array.prototype.slice.call(document.querySelectorAll('.journal-card, .journal-featured-card'));
 
-    function findButton(tag) {
-      var lower = tag.toLowerCase();
-      for (var i = 0; i < buttons.length; i++) {
-        if (buttons[i].getAttribute('data-tag').toLowerCase() === lower) return buttons[i];
-      }
-      return null;
-    }
-
     function applyFilter(tag) {
-      var normalized = tag ? tag.toLowerCase() : 'all';
+      var label = tag || 'all';
+      var normalized = label.toLowerCase();
       var visibleCount = 0;
 
       cards.forEach(function (card) {
@@ -1894,40 +2373,26 @@ function getCategoryTag(category: string) {
         if (show) visibleCount += 1;
       });
 
-      buttons.forEach(function (btn) {
-        btn.classList.toggle('is-active', btn.getAttribute('data-tag').toLowerCase() === normalized);
-      });
-
+      if (statusEl) {
+        statusEl.hidden = normalized === 'all';
+        statusEl.textContent = normalized === 'all' ? '' : 'Showing articles filed under “' + label + '”';
+      }
       if (emptyMsg) emptyMsg.hidden = visibleCount > 0;
+
+      var url = new URL(window.location.href);
+      if (normalized === 'all') url.searchParams.delete('tag');
+      else url.searchParams.set('tag', label);
+      window.history.replaceState({}, '', url);
     }
 
-    filtersEl.addEventListener('click', function (e) {
-      var btn = e.target.closest('.journal-filter');
-      if (!btn) return;
-      var tag = btn.getAttribute('data-tag');
-      applyFilter(tag);
-
-      // keep the URL shareable — same ?tag= pattern the Library
-      // shelf and Partner cards already link to
-      var url = new URL(window.location.href);
-      if (tag && tag.toLowerCase() !== 'all') {
-        url.searchParams.set('tag', tag);
-      } else {
-        url.searchParams.delete('tag');
-      }
-      window.history.replaceState({}, '', url);
+    // a book on the shelf was opened (tag) or closed ('all')
+    window.addEventListener('library:tagchange', function (e) {
+      applyFilter(e.detail && e.detail.tag);
     });
 
-    // landing here from a Library book or Partner card's
-    // /blog?tag=… link pre-selects and scrolls to that filter
+    // arriving from a Partner card's /resources?tag=… link
     var requestedTag = new URLSearchParams(window.location.search).get('tag');
-    if (requestedTag) {
-      var match = findButton(requestedTag);
-      applyFilter(match ? match.getAttribute('data-tag') : requestedTag);
-      if (match) {
-        match.scrollIntoView({ block: 'nearest', inline: 'center' });
-      }
-    }
+    if (requestedTag) applyFilter(requestedTag);
   })();
 </script>
 
@@ -1953,4 +2418,86 @@ function getCategoryTag(category: string) {
     }
     requestAnimationFrame(step);
   };
+</script>
+
+<script is:inline>
+  (function () {
+    var track = document.getElementById('coursesTrack');
+    var prev = document.getElementById('coursesPrev');
+    var next = document.getElementById('coursesNext');
+    if (!track || !prev || !next) return;
+
+    function stepSize() {
+      var card = track.querySelector('.course-card');
+      return card ? card.getBoundingClientRect().width + 24 : 320; // card width + gap
+    }
+
+    prev.addEventListener('click', function () {
+      track.scrollBy({ left: -stepSize(), behavior: 'smooth' });
+    });
+    next.addEventListener('click', function () {
+      track.scrollBy({ left: stepSize(), behavior: 'smooth' });
+    });
+  })();
+
+  (function () {
+    var modal = document.getElementById('courseModal');
+    var mediaEl = document.getElementById('courseModalMedia');
+    var contentEl = document.getElementById('courseModalContent');
+    if (!modal || !mediaEl || !contentEl) return;
+
+    var lastTrigger = null;
+
+    function openModal(card, trigger) {
+      var tpl = card.querySelector('template.course-detail');
+      var title = card.querySelector('.course-name');
+      var media = card.querySelector('.course-media');
+      var tags = card.querySelector('.course-tags');
+
+      // copy the card's image or gradient into the popup header
+      mediaEl.style.backgroundImage = media ? getComputedStyle(media).backgroundImage : 'none';
+
+      contentEl.innerHTML = '';
+      var h = document.createElement('h3');
+      h.id = 'courseModalTitle';
+      h.textContent = title ? title.textContent : '';
+      contentEl.appendChild(h);
+      if (tags) contentEl.appendChild(tags.cloneNode(true));
+      if (tpl) contentEl.appendChild(tpl.content.cloneNode(true));
+
+      lastTrigger = trigger;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      modal.querySelector('.course-modal-dialog').scrollTop = 0;
+      requestAnimationFrame(function () {
+        modal.classList.add('is-open');
+        modal.querySelector('.course-modal-close').focus();
+      });
+    }
+
+    function closeModal() {
+      if (modal.hidden) return;
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      setTimeout(function () { modal.hidden = true; }, 300);
+      if (lastTrigger) lastTrigger.focus();
+    }
+
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!(t instanceof Element)) return;
+
+      var opener = t.closest('[data-course-open]');
+      if (opener) {
+        var card = opener.closest('.course-card');
+        if (card) openModal(card, opener);
+        return;
+      }
+      if (t.closest('[data-close]')) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  })();
 </script>
