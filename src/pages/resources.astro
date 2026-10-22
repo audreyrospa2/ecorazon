@@ -442,6 +442,30 @@ function getCategoryTag(category: string) {
 </Layout>
 
 <style is:global>
+    /* ─── SECTION SNAP SCROLL ─── */
+  html {
+    scroll-snap-type: y proximity;   /* use "y mandatory" for a firmer snap */
+    scroll-behavior: smooth;
+  }
+  .tt-hero,
+  .lib-hero,
+  .journal-hero,
+  .acad-hero,
+  .courses-hero,
+  .partners-hero,
+  .showcase-hero {
+    scroll-snap-align: start;
+  }
+
+  /* pauses snapping and CSS smoothing while the custom scroll animation runs, so they don't fight it */
+  html.is-auto-scrolling {
+    scroll-snap-type: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-snap-type: none; scroll-behavior: auto; }
+  }
   /* ─── THINK TANK HERO ─── */
   .tt-hero,
   .tt-hero *,
@@ -681,10 +705,10 @@ function getCategoryTag(category: string) {
 
   .acad-eyebrow {
     font-family: 'MaoWei', sans-serif;
-    font-size: 0.8rem;
+    font-size: 20px;
     font-weight: 700;
     letter-spacing: 0.32em;
-    text-indent: 0.32em;          /* re-centres the tracked text */
+    text-indent: 0.32em;      
     color: #6b8f76;
     margin-bottom: 0.9rem;
     text-shadow: 0 0 12px rgba(247,245,240,1);
@@ -693,7 +717,7 @@ function getCategoryTag(category: string) {
   .acad-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 900;
-    font-size: clamp(3.75rem, 8vw, 6.5rem);
+    font-size: 70px;
     line-height: 1.05;
     color: black;
     margin: 0 0 1.25rem;
@@ -2514,13 +2538,15 @@ button.course-btn {
 </script>
 
 <script is:inline>
-  window.ecoSmoothScrollTo = function (targetEl, duration, offset) {
+  window.ecoSmoothScrollTo = function (targetEl, duration) {
     if (!targetEl) return;
     duration = duration || 1400;
-    offset = offset || 100; // adjust to your header's actual height
+    var root = document.documentElement;
     var startY = window.scrollY || window.pageYOffset;
-    var targetY = targetEl.getBoundingClientRect().top + startY - offset;
+    var targetY = targetEl.getBoundingClientRect().top + startY;  // sections snap to their own top, so no header offset
     var startTime = null;
+
+    root.classList.add('is-auto-scrolling');
 
     function easeInOutCubic(t) {
       return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -2528,10 +2554,10 @@ button.course-btn {
 
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
-      var elapsed = timestamp - startTime;
-      var progress = Math.min(elapsed / duration, 1);
+      var progress = Math.min((timestamp - startTime) / duration, 1);
       window.scrollTo(0, startY + (targetY - startY) * easeInOutCubic(progress));
       if (progress < 1) requestAnimationFrame(step);
+      else root.classList.remove('is-auto-scrolling');
     }
     requestAnimationFrame(step);
   };
