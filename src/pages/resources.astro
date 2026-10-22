@@ -13,8 +13,21 @@ const sortedPosts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntr
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 
-const featuredPosts = sortedPosts.slice(0, 2);
-const latestPosts = sortedPosts.slice(2, 8);
+// newest post is pinned on the right; the next 8 fill the 4-column grid (2 clean rows)
+const pinnedPost = sortedPosts[0];
+const gridPosts = sortedPosts.slice(1, 9);
+
+// the 7 category enum values (must match your content schema exactly)
+const CATEGORIES = ['Artist Stories', 'Materials', 'Impact', 'Partnerships', 'Tips', 'Innovation', 'Community'];
+
+// tags that actually appear on the posts being shown
+const allTags = [
+  ...new Set(
+    [pinnedPost, ...gridPosts]
+      .filter(Boolean)
+      .flatMap((p: CollectionEntry<'blog'>) => p.data.tags ?? [])
+  ),
+].sort();
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', { 
@@ -61,21 +74,10 @@ function getCategoryTag(category: string) {
               <a href="#lib-hero" class="tt-card-link">Explore →</a>
             </div>
           </button>
-    
-          <button class="tt-card" data-index="1">
-            <div class="tt-card-top">
-              <span class="tt-card-step">02</span>
-            </div>
-            <div class="tt-card-bottom">
-              <h3 class="tt-card-title">Project Showcase</h3>
-              <p class="tt-card-desc">Real initiatives from our network of artists, cooperatives and partners — documented from first sketch to finished impact, with the people and numbers behind them.</p>
-              <a href="#showcase-hero" class="tt-card-link">Explore →</a>
-            </div>
-          </button>
-    
+
           <button class="tt-card" data-index="2">
             <div class="tt-card-top">
-              <span class="tt-card-step">03</span>
+              <span class="tt-card-step">02</span>
             </div>
             <div class="tt-card-bottom">
               <h3 class="tt-card-title">Human Sustainability Academy</h3>
@@ -83,10 +85,10 @@ function getCategoryTag(category: string) {
               <a href="#academy-hero" class="tt-card-link">Explore →</a>
             </div>
           </button>
-    
+
           <button class="tt-card" data-index="3">
             <div class="tt-card-top">
-              <span class="tt-card-step">04</span>
+              <span class="tt-card-step">03</span>
             </div>
             <div class="tt-card-bottom">
               <h3 class="tt-card-title">Strategic Partners</h3>
@@ -94,8 +96,110 @@ function getCategoryTag(category: string) {
               <a href="#partners-hero" class="tt-card-link">Explore →</a>
             </div>
           </button>
+    
+          <button class="tt-card" data-index="1">
+            <div class="tt-card-top">
+              <span class="tt-card-step">03</span>
+            </div>
+            <div class="tt-card-bottom">
+              <h3 class="tt-card-title">Project Showcase</h3>
+              <p class="tt-card-desc">Real initiatives from our network of artists, cooperatives and partners — documented from first sketch to finished impact, with the people and numbers behind them.</p>
+              <a href="#showcase-hero" class="tt-card-link">Explore →</a>
+            </div>
+          </button>
         </div>
       </div>
+    </section>
+
+    <!-- The C.Y.C.L.E. Library -->
+    <section class="lib-hero" id="lib-hero">
+      <div class="lib-head">
+        <h2 class="lib-title animate-fade-in">The C.Y.C.L.E. Library</h2>
+        <p class="lib-tagline animate-fade-in-delay">Ideas worth growing.</p>
+        <p class="lib-intro animate-fade-in-delay">A curated digital library of research papers, white papers, trend reports and frameworks exploring empathy, sustainable development, inclusive design, social innovation and technology with purpose.</p>
+      </div>
+
+      <div class="lib-shelf-viewport">
+        <div class="lib-shelf-track" id="libShelf"></div>
+        <div class="lib-board"></div>
+      </div>
+    </section>
+
+
+    <!-- From the Journal -->
+    <section class="journal-hero" id="from-the-journal">
+      <div class="journal-top">
+        <div class="journal-head">
+          <h2 class="journal-title animate-fade-in">From the Journal</h2>
+          <p class="journal-tagline animate-fade-in-delay">Stories, insights and updates.</p>
+          <p class="journal-intro animate-fade-in-delay">Field notes from our artists, partners and team. Open a book on the shelf above, or sort below.</p>
+
+          <div class="journal-filters" id="journalFilters">
+            <div class="journal-filter-group">
+              <span class="journal-filter-label">Category</span>
+              <div class="journal-filter-row" data-group="category">
+                <button type="button" class="journal-filter is-active" data-value="all">All</button>
+                {CATEGORIES.map((c) => <button type="button" class="journal-filter" data-value={c}>{c}</button>)}
+              </div>
+            </div>
+
+            {allTags.length > 0 && (
+              <div class="journal-filter-group">
+                <span class="journal-filter-label">Tag</span>
+                <div class="journal-filter-row" data-group="tag">
+                  <button type="button" class="journal-filter is-active" data-value="all">All</button>
+                  {allTags.map((t: string) => <button type="button" class="journal-filter" data-value={t}>{t}</button>)}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <p class="journal-status" id="journalStatus" hidden></p>
+        </div>
+
+        {pinnedPost && (
+          <a href={`/blog/${pinnedPost.id}`} class="journal-pinned">
+            <img src={pinnedPost.data.image} alt={pinnedPost.data.imageAlt} class="journal-pinned-img" />
+            <div class="journal-pinned-body">
+              <div class="journal-card-meta">
+                <span class={`journal-badge journal-badge--${getCategoryTag(pinnedPost.data.category)}`}>{pinnedPost.data.category}</span>
+                <span class="journal-pin-label">📌 Pinned</span>
+              </div>
+              <h3>{pinnedPost.data.title}</h3>
+              <p>{pinnedPost.data.excerpt}</p>
+              <span class="journal-date">{formatDate(pinnedPost.data.date)}</span>
+            </div>
+          </a>
+        )}
+      </div>
+
+      <div class="journal-grid" id="journalGrid">
+        {gridPosts.map((post: CollectionEntry<'blog'>) => (
+          <a
+            href={`/blog/${post.id}`}
+            class="journal-card"
+            data-tags={(post.data.tags ?? []).join('|')}
+            data-category={post.data.category}
+          >
+            <img src={post.data.image} alt={post.data.imageAlt} class="journal-card-img" />
+            <div class="journal-card-body">
+              <div class="journal-card-meta">
+                <span class={`journal-badge journal-badge--${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
+                <span class="journal-date">{formatDate(post.data.date)}</span>
+              </div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.excerpt}</p>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="journal-card-tags">
+                  {post.data.tags.map((t: string) => <span class="journal-chip">{t}</span>)}
+                </div>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p class="journal-empty" id="journalEmpty" hidden>No articles match that combination yet — try another one.</p>
     </section>
 
     <!-- Ecorazón Academy -->
@@ -107,27 +211,13 @@ function getCategoryTag(category: string) {
         <span class="acad-pill acad-pill--4">#Community</span>
         <span class="acad-pill acad-pill--5">#Skills</span>
 
-        <svg class="acad-mark animate-fade-in" viewBox="0 0 80 100" width="64" height="80" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true">
-          <ellipse cx="40" cy="50" rx="34" ry="46" />
-          <ellipse cx="40" cy="50" rx="14" ry="46" />
-          <circle cx="40" cy="50" r="2" fill="#fff" />
-        </svg>
-
+        <span class="acad-eyebrow animate-fade-in">WHY</span>
         <h2 class="acad-title animate-fade-in">Ecorazón Academy</h2>
-        <p class="acad-intro animate-fade-in-delay">Explore our full range of courses and workshops across different topics, and register for the experience that's right for you.</p>
-        <a href="#" class="acad-cta animate-fade-in-delay">Get Started <span aria-hidden="true">→</span></a>
-      </div>
-
-      <div class="acad-why">
-        <h3 class="acad-why-title">
-          Why Ecorazón Academy?
-          <span>Learning through play.<br />Mastering skills that stay.</span>
-        </h3>
-        <div class="acad-feature">
-          <div class="acad-feature-icon" aria-hidden="true"></div>
-          <h4>Practical skills for real life</h4>
-          <p>Learn skills you can put into practice—in everyday life, relationships and work.</p>
-        </div>
+        <p class="acad-intro animate-fade-in-delay">
+          Learning through play. Mastering skills that stay.
+          <span>Learn skills you can put into practice—in everyday life, relationships and work.</span>
+        </p>
+        <a href="#courses-hero" class="acad-cta animate-fade-in-delay" data-scroll>View Our Courses <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -280,10 +370,10 @@ function getCategoryTag(category: string) {
       </div>
 
       <div class="partners-rows" id="partnersRows">
-        <div class="partners-row" data-direction="left" data-duration="34s">
+        <div class="partners-row" data-direction="left" data-duration="20s">
           <div class="partners-track" id="partnersRow1"></div>
         </div>
-        <div class="partners-row" data-direction="right" data-duration="40s">
+        <div class="partners-row" data-direction="right" data-duration="24s">
           <div class="partners-track" id="partnersRow2"></div>
         </div>
       </div>
@@ -344,81 +434,6 @@ function getCategoryTag(category: string) {
         </div>
 
       </div>
-    </section>
-
-    <!-- The C.Y.C.L.E. Library -->
-    <section class="lib-hero" id="lib-hero">
-      <div class="lib-head">
-        <h2 class="lib-title animate-fade-in">The C.Y.C.L.E. Library</h2>
-        <p class="lib-tagline animate-fade-in-delay">Ideas worth growing.</p>
-        <p class="lib-intro animate-fade-in-delay">A curated digital library of research papers, white papers, trend reports and frameworks exploring empathy, sustainable development, inclusive design, social innovation and technology with purpose.</p>
-      </div>
-
-      <div class="lib-shelf-viewport">
-        <div class="lib-shelf-track" id="libShelf"></div>
-        <div class="lib-board"></div>
-      </div>
-    </section>
-
-
-    <!-- From the Journal -->
-    <section class="journal-hero" id="from-the-journal">
-      <div class="journal-head">
-        <h2 class="journal-title animate-fade-in">From the Journal</h2>
-        <p class="journal-tagline animate-fade-in-delay">Stories, insights and updates.</p>
-        <p class="journal-intro animate-fade-in-delay">Field notes from our artists, partners and team. Open a book on the shelf above to see the articles filed under that topic.</p>
-      </div>
-      <p class="journal-status" id="journalStatus" hidden></p>
-
-
-      {featuredPosts.length > 0 && (
-        <div class="journal-featured">
-          {featuredPosts.map((post: CollectionEntry<'blog'>) => (
-            <a
-              href={`/blog/${post.id}`}
-              class="journal-featured-card"
-              data-tags={(post.data.tags ?? []).join('|')}
-              data-category={post.data.category}
-            >
-              <img src={post.data.image} alt={post.data.imageAlt} class="journal-featured-img" />
-              <div class="journal-featured-body">
-                <span class={`journal-badge journal-badge--${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
-                <h3>{post.data.title}</h3>
-                <p>{post.data.excerpt}</p>
-                <span class="journal-date">{formatDate(post.data.date)}</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      )}
-
-      <div class="journal-grid" id="journalGrid">
-        {latestPosts.map((post: CollectionEntry<'blog'>) => (
-          <a
-            href={`/blog/${post.id}`}
-            class="journal-card"
-            data-tags={(post.data.tags ?? []).join('|')}
-            data-category={post.data.category}
-          >
-            <img src={post.data.image} alt={post.data.imageAlt} class="journal-card-img" />
-            <div class="journal-card-body">
-              <div class="journal-card-meta">
-                <span class={`journal-badge journal-badge--${getCategoryTag(post.data.category)}`}>{post.data.category}</span>
-                <span class="journal-date">{formatDate(post.data.date)}</span>
-              </div>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.excerpt}</p>
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="journal-card-tags">
-                  {post.data.tags.map((t: string) => <span class="journal-chip">{t}</span>)}
-                </div>
-              )}
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <p class="journal-empty" id="journalEmpty" hidden>No articles match that tag yet — try another one.</p>
     </section>
 
   </main>
@@ -664,7 +679,16 @@ function getCategoryTag(category: string) {
     min-height: 75vh;
   }
 
-  .acad-mark { margin-bottom: 1.5rem; }
+  .acad-eyebrow {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-indent: 0.32em;          /* re-centres the tracked text */
+    color: #6b8f76;
+    margin-bottom: 0.9rem;
+    text-shadow: 0 0 12px rgba(247,245,240,1);
+  }
 
   .acad-title {
     font-family: 'MaoWei', sans-serif;
@@ -689,6 +713,14 @@ function getCategoryTag(category: string) {
     text-shadow:
       0 0 18px rgba(247,245,240,1),
       0 0 6px rgba(247,245,240,0.9);
+  }
+
+  .acad-intro span {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(0,0,0,0.65);
   }
 
   .acad-cta {
@@ -721,70 +753,43 @@ function getCategoryTag(category: string) {
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     white-space: nowrap;
   }
-  .acad-pill--1 { left: 6%;  top: 42%; transform: rotate(8deg); }
-  .acad-pill--2 { left: 1%;  top: 58%; transform: rotate(-9deg); }
-  .acad-pill--3 { left: 16%; top: 64%; transform: rotate(-12deg); }
-  .acad-pill--4 { right: 4%; top: 38%; transform: rotate(-8deg); }
-  .acad-pill--5 { right: 6%; top: 58%; transform: rotate(14deg); }
+  .acad-pill--1 { left: 6%;  top: 42%; --rot: 8deg;   --hover: #6b8f76; }
+  .acad-pill--2 { left: 1%;  top: 58%; --rot: -9deg;  --hover: #C08EA4; }
+  .acad-pill--3 { left: 16%; top: 64%; --rot: -12deg; --hover: #a07850; }
+  .acad-pill--4 { right: 4%; top: 38%; --rot: -8deg;  --hover: #4a7fae; }
+  .acad-pill--5 { right: 6%; top: 58%; --rot: 14deg;  --hover: #c9a227; }
 
-  /* why section */
-  .acad-why {
-    display: grid;
-    grid-template-columns: 1fr auto;   /* title takes the space, feature hugs the right */
-    align-items: start;
-    gap: 3rem;
-    width: 100%;
-    max-width: 1800px;                   /* was 1200px */
-    margin-top: -4rem;
-    padding: 0 clamp(1.5rem, 5vw, 4rem) 6rem;
+  .acad-pill {
+    transform: rotate(var(--rot, 0deg));
+    cursor: default;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.35s cubic-bezier(.22,.9,.34,1), box-shadow 0.3s ease;
+  }
+  .acad-pill:hover {
+    background: var(--hover);
+    color: #fff;
+    transform: rotate(var(--rot, 0deg)) scale(1.08);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.16);
   }
 
-  .acad-why-title {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    line-height: 1.15;
-    color: #000;
-    margin: 0;
+  /* cursor echo — whole page: shapes are dropped along the cursor's path, then shrink and fade on their own */
+  .acad-echo {
+    position: fixed;
+    inset: 0;
+    z-index: 900;   /* above page content, below the course popup (2000) */
+    pointer-events: none;
+    overflow: hidden;
   }
-  .acad-why-title span {
+  .acad-echo-item {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: block;
-    margin-top: 0.4rem;
-    color: rgba(0,0,0,0.4);
+    opacity: 0;
+    will-change: transform, opacity;
   }
-
-  .acad-feature { 
-    text-align: center; 
-    justify-self: end;
-    width: min(340px, 100%);
-  }
-
-  .acad-feature-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1rem;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #cfe4c9, #6b8f76);
-    box-shadow: 0 10px 24px rgba(107,143,118,0.35);
-  }
-  .acad-feature h4 {
-    font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: #000;
-    margin: 0 0 0.5rem;
-  }
-  .acad-feature p {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(0,0,0,0.6);
-    max-width: 34ch;
-    margin: 0 auto;
-  }
+  .acad-echo-item svg { display: block; width: 100%; height: 100%; fill: currentColor; }
 
   @media (max-width: 900px) {
-    .acad-why { grid-template-columns: 1fr; gap: 2rem; }
     .acad-pill { font-size: 0.85rem; padding: 0.8rem 1.4rem; }
     .acad-pill--3, .acad-pill--5 { display: none; }
     .acad-pill--1 { top: 18%; left: 2%; }
@@ -1132,14 +1137,14 @@ button.course-btn {
     flex-direction: column;
     align-items: center;
     justify-content: center;   /* still centers .lib-head within the leftover space above the shelf */
-    padding: 6rem clamp(1rem, 4vw, 3rem) 0;  /* bottom padding removed so the shelf can sit flush */
+    padding: 5rem clamp(1rem, 4vw, 3rem) 0;  /* bottom padding removed so the shelf can sit flush */
     background: #f7f5f0;
     overflow: hidden;
   }
 
   .lib-head {
     max-width: 640px;
-    margin: 0 0 3rem;
+    margin: 0 0 1.5rem;
     text-align: center;
     flex-shrink: 0;
   }
@@ -1152,25 +1157,25 @@ button.course-btn {
   .lib-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.75rem, 6vw, 4.5rem); 
+    font-size: clamp(2rem, 3.8vw, 3.1rem); 
     line-height: 1.1;
     color: #000;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.4rem;
   }
 
   .lib-tagline {
     font-family: 'MaoWei', sans-serif;
     font-style: italic;
     font-weight: 500;
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
     color: #6b8f76;
-    margin: 0 0 1.25rem;
+    margin: 0 0 0.9rem;
   }
 
   .lib-intro {
     font-family: 'MaoWei', sans-serif;
-    font-size: 1.2rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.6;
     color: rgba(0,0,0,0.65);
     max-width: 62ch;
     margin: 0;
@@ -1178,14 +1183,18 @@ button.course-btn {
 
   /* ─── shelf ─── */
   .lib-shelf-viewport {
+    --s: 1;                          /* shelf scale — books + shelf height follow it */
     position: relative;
     width: 100%;
-    height: 420px;
+    height: calc(420px * var(--s));
     margin-top: auto;
     overflow: hidden;
     perspective: 1800px;
     cursor: grab;
     touch-action: pan-y;   /* let vertical page scroll pass through, we handle horizontal ourselves */
+  }
+  @media (max-height: 850px) {
+    .lib-shelf-viewport { --s: 0.8; }   /* 13" MacBook (1280×800) and similar */
   }
   .lib-shelf-viewport.dragging {
     cursor: grabbing;
@@ -1232,7 +1241,7 @@ button.course-btn {
   }
 
   .lib-book.is-open {
-    width: var(--open-w, 230px);
+    width: var(--open-w, 200px);
   }
 
   /* fore-edge — the sliver of "pages" peeking out past the spine,
@@ -1318,7 +1327,7 @@ button.course-btn {
     transition: transform 0.55s cubic-bezier(.22,.9,.34,1);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;   /* title + link sit at the TOP of the open book */
     padding: 1.25rem 1.35rem;
     border-radius: 2px 6px 6px 2px;
     box-shadow: 0 22px 40px rgba(0,0,0,0.35);
@@ -1564,55 +1573,48 @@ button.course-btn {
     .showcase-card, .showcase-card-body, .showcase-chevron{ transition: none; }
   }
 
-  /* ─── STRATEGIC PARTNERS ─── */
+  /* ─── STRATEGIC PARTNERS (compact) ─── */
   .partners-hero,
   .partners-hero *,
   .partners-hero *::before,
   .partners-hero *::after { box-sizing: border-box; }
 
   .partners-hero {
-    min-height: 100vh;
-    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 6rem clamp(1rem, 4vw, 3rem);
+    padding: 4.5rem clamp(1rem, 4vw, 3rem);
     background: #f7f5f0;
     overflow: hidden;
-    gap: 3.5rem;
+    gap: 2rem;
   }
 
-  .partners-head {
-    max-width: 720px;
-    text-align: center;
-  }
+  .partners-head { max-width: 600px; text-align: center; }
 
   .partners-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    font-size: clamp(2rem, 3.8vw, 3.1rem);
     line-height: 1.1;
     color: #000;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.4rem;
   }
-
   .partners-tagline {
     font-family: 'MaoWei', sans-serif;
     font-style: italic;
     font-weight: 500;
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
     color: #6b8f76;
-    margin: 0 0 1.25rem;
+    margin: 0 0 0.9rem;
   }
-
   .partners-intro {
     font-family: 'MaoWei', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.6;
     color: rgba(0,0,0,0.65);
     max-width: 62ch;
-    margin: 0 auto 0.75rem;
+    margin: 0 auto 0.5rem;
   }
   .partners-intro:last-of-type { margin-bottom: 0; }
 
@@ -1622,132 +1624,98 @@ button.course-btn {
     max-width: 1600px;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
   }
-
   .partners-row {
     position: relative;
     width: 100%;
     overflow: hidden;
+    padding: 6px 0;   /* room for the hover lift + shadow */
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
-
   .partners-track {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 0.9rem;
     width: max-content;
     will-change: transform;
     animation-name: partners-scroll-left;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    animation-duration: var(--row-duration, 34s);
+    animation-duration: var(--row-duration, 20s);
   }
+  .partners-row[data-direction="right"] .partners-track { animation-name: partners-scroll-right; }
+  .partners-row.is-paused .partners-track { animation-play-state: paused; }
 
-  .partners-row[data-direction="right"] .partners-track {
-    animation-name: partners-scroll-right;
-  }
-
-  /* pause the whole row's scroll while a card in it is being read/hovered */
-  .partners-row.is-paused .partners-track {
-    animation-play-state: paused;
-  }
-
-  @keyframes partners-scroll-left {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  @keyframes partners-scroll-right {
-    from { transform: translateX(-50%); }
-    to   { transform: translateX(0); }
-  }
+  @keyframes partners-scroll-left  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+  @keyframes partners-scroll-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
   /* ── card ── */
   .partner-card {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    width: 460px;
-    padding: 1.5rem 2.25rem 1.5rem 1.5rem;
+    gap: 0.8rem;
+    width: 270px;
+    padding: 0.8rem 1.3rem 0.8rem 0.8rem;
     background: #ffffff;
     border-radius: 999px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     cursor: pointer;
     transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
   }
-
   .partner-card:hover,
   .partner-card.is-active {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
   }
-
-  /* everything that isn't the hovered/selected tag greys out and dims */
-  .partners-rows.has-focus .partner-card:not(.is-active) {
-    opacity: 0.4;
-    filter: grayscale(1);
-  }
+  .partners-rows.has-focus .partner-card:not(.is-active) { opacity: 0.4; filter: grayscale(1); }
 
   .partner-avatar {
     flex: 0 0 auto;
-    width: 110px;
-    height: 110px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     position: relative;
-    box-shadow: inset 0 -6px 14px rgba(0,0,0,0.25), inset 0 6px 10px rgba(255,255,255,0.35);
+    box-shadow: inset 0 -3px 7px rgba(0,0,0,0.25), inset 0 3px 5px rgba(255,255,255,0.35);
   }
-  .partner-avatar::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: var(--avatar-gradient);
-  }
-  .partner-avatar::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55), transparent 55%);
-  }
+  .partner-avatar::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--avatar-gradient); }
+  .partner-avatar::after  { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55), transparent 55%); }
 
   .partner-copy h3 {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 0.92rem;
+    line-height: 1.2;
     color: #000;
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.2rem;
   }
   .partner-copy p {
     font-family: 'MaoWei', sans-serif;
-    font-size: 1rem;
-    line-height: 1.45;
+    font-size: 0.76rem;
+    line-height: 1.4;
     color: rgba(0,0,0,0.55);
     margin: 0;
   }
   .partner-link {
     display: inline-block;
     font-family: 'MaoWei', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.74rem;
     font-weight: 600;
     color: #6b8f76;
     text-decoration: none;
     border-bottom: 1px solid rgba(107,143,118,0.5);
     padding-bottom: 1px;
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
     transition: opacity 0.2s ease;
   }
   .partner-link:hover { opacity: 0.7; }
 
   @media (max-width: 900px) {
-    .partner-card { width: 340px; padding: 1.1rem 1.5rem 1.1rem 1.1rem; gap: 1.1rem; }
-    .partner-avatar { width: 80px; height: 80px; }
-    .partner-copy h3 { font-size: 1.2rem; }
-    .partner-copy p { font-size: 0.9rem; }
+    .partner-card { width: 240px; padding: 0.7rem 1.1rem 0.7rem 0.7rem; }
+    .partner-avatar { width: 44px; height: 44px; }
   }
-
   @media (prefers-reduced-motion: reduce) {
     .partners-track { animation: none; }
     .partner-card { transition: none; }
@@ -1765,246 +1733,221 @@ button.course-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 6rem clamp(1rem, 4vw, 3rem) 6rem;
+    padding: 5rem clamp(1rem, 4vw, 3rem) 4rem;
     background: #f7f5f0;
-    gap: 2.5rem;
+    gap: 2rem;
   }
 
-  .journal-head {
-    max-width: 720px;
-    text-align: center;
+  /* left = heading + sorting, right = pinned article */
+  .journal-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    width: 100%;
+    max-width: 1120px;
   }
+
+  .journal-head { text-align: left; }
 
   .journal-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    font-size: clamp(2rem, 3.8vw, 3.1rem);
     line-height: 1.1;
     color: #000;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.4rem;
   }
-
   .journal-tagline {
     font-family: 'MaoWei', sans-serif;
     font-style: italic;
     font-weight: 500;
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
     color: #6b8f76;
-    margin: 0 0 1.25rem;
+    margin: 0 0 0.9rem;
   }
-
   .journal-intro {
     font-family: 'MaoWei', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.6;
     color: rgba(0,0,0,0.65);
-    max-width: 62ch;
-    margin: 0 auto;
+    max-width: 46ch;
+    margin: 0 0 1.4rem;
   }
 
-  .journal-status {
+  /* ── sorting tabs (category row + tag row) ── */
+  .journal-filters { display: flex; flex-direction: column; gap: 0.9rem; }
+  .journal-filter-group { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+  .journal-filter-label {
     font-family: 'MaoWei', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #6b8f76;
-    margin: 0;
-    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.4);
   }
-
-  /* ── filter chips ── */
-  .journal-filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
-    max-width: 1000px;
-  }
+  .journal-filter-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
   .journal-filter {
     font-family: 'MaoWei', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: rgba(0,0,0,0.6);
     background: #fff;
     border: 1px solid rgba(0,0,0,0.08);
     border-radius: 999px;
-    padding: 0.55rem 1.25rem;
+    padding: 0.38rem 0.9rem;
     cursor: pointer;
+    white-space: nowrap;
     transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
   }
-  .journal-filter:hover { transform: translateY(-2px); }
-  .journal-filter.is-active {
-    background: #6b8f76;
-    border-color: #6b8f76;
-    color: #fff;
-  }
+  .journal-filter:hover { transform: translateY(-1px); }
+  .journal-filter.is-active { background: #6b8f76; border-color: #6b8f76; color: #fff; }
 
-  /* ── featured cards ── */
-  .journal-featured {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.75rem;
-    width: 100%;
-    max-width: 1200px;
-  }
-
-  .journal-featured-card {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 18px;
-    overflow: hidden;
-    text-decoration: none;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .journal-featured-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 44px rgba(0,0,0,0.12);
-  }
-  .journal-featured-img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-  }
-  .journal-featured-body {
-    padding: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .journal-featured-body h3 {
+  .journal-status {
     font-family: 'MaoWei', sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    color: #000;
-    margin: 0;
-  }
-  .journal-featured-body p {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.98rem;
-    line-height: 1.6;
-    color: rgba(0,0,0,0.6);
-    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #6b8f76;
+    margin: 0.9rem 0 0;
   }
 
-  /* ── latest grid ── */
-  .journal-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 1200px;
-  }
-
-  .journal-card {
+  /* ── pinned article ── */
+  .journal-pinned {
     display: flex;
     flex-direction: column;
     background: #fff;
     border-radius: 16px;
     overflow: hidden;
     text-decoration: none;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .journal-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(0,0,0,0.1);
-  }
-  .journal-card-img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-  }
-  .journal-card-body {
-    padding: 1.25rem 1.4rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-  }
-  .journal-card-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-  .journal-card-body h3 {
+  .journal-pinned:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(0,0,0,0.12); }
+  .journal-pinned-img { width: 100%; height: clamp(180px, 30vh, 250px); object-fit: cover; }
+  .journal-pinned-body { padding: 1.25rem 1.4rem 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .journal-pinned-body h3 {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    line-height: 1.25;
     color: #000;
     margin: 0;
-    line-height: 1.3;
   }
-  .journal-card-body p {
+  .journal-pinned-body p {
     font-family: 'MaoWei', sans-serif;
     font-size: 0.9rem;
     line-height: 1.55;
     color: rgba(0,0,0,0.6);
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .journal-pin-label {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.5);
+  }
+
+  /* ── grid: 4 in a row ── */
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.1rem;
+    width: 100%;
+    max-width: 1120px;
+  }
+  .journal-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .journal-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.1); }
+  .journal-card-img { width: 100%; height: 130px; object-fit: cover; }
+  .journal-card-body { padding: 0.9rem 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .journal-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .journal-card-body h3 {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 0.98rem;
+    line-height: 1.3;
+    color: #000;
+    margin: 0;
+  }
+  .journal-card-body p {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: rgba(0,0,0,0.6);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* ── shared bits ── */
   .journal-badge {
     font-family: 'MaoWei', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.64rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     color: #fff;
-    padding: 0.3rem 0.7rem;
+    padding: 0.25rem 0.6rem;
     border-radius: 999px;
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .journal-badge--green { background: #6b8f76; }
   .journal-badge--olive { background: #7f9c78; }
   .journal-badge--brown { background: #a07850; }
 
-  .journal-date {
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.8rem;
-    color: rgba(0,0,0,0.45);
-  }
+  .journal-date { font-family: 'MaoWei', sans-serif; font-size: 0.74rem; color: rgba(0,0,0,0.45); }
 
-  .journal-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.2rem;
-  }
+  .journal-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
   .journal-chip {
     font-family: 'MaoWei', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     font-weight: 600;
     color: #6b8f76;
     background: #eef2ea;
-    padding: 0.25rem 0.6rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 999px;
   }
 
-  /* a card hidden by the tag filter drops out of flow entirely so
-     the grid re-packs cleanly instead of leaving gaps */
-  .journal-featured-card.is-hidden,
-  .journal-card.is-hidden {
-    display: none;
-  }
+  /* filtered-out cards leave the flow so the grid re-packs */
+  .journal-card.is-hidden { display: none; }
 
   .journal-empty {
     font-family: 'MaoWei', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: rgba(0,0,0,0.5);
     text-align: center;
   }
 
-  @media (max-width: 900px) {
-    .journal-featured { grid-template-columns: 1fr; }
+  @media (max-width: 1000px) {
     .journal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
+    .journal-top { grid-template-columns: 1fr; }
+    /* tabs scroll sideways instead of wrapping */
+    .journal-filter-row { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+    .journal-filter-row::-webkit-scrollbar { display: none; }
+  }
+  @media (max-width: 560px) {
     .journal-grid { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .journal-filter, .journal-card, .journal-featured-card { transition: none; }
+    .journal-filter, .journal-card, .journal-pinned { transition: none; }
   }
 </style>
  
@@ -2094,7 +2037,7 @@ button.course-btn {
     var HEIGHTS = [360, 400, 340, 400, 370, 400, 350, 400, 365, 400, 380];
 
     var GAP = 10;
-    var COVER_W = 230;
+    var COVER_W = 200;
     var CLICK_THRESHOLD = 6; // px of pointer movement before it counts as a drag, not a click
 
     var baseSetWidth = TAGS.reduce(function (sum, _, i) {
@@ -2114,7 +2057,8 @@ button.course-btn {
         book.setAttribute('data-tag', tagData.name);
         book.style.setProperty('--w', WIDTHS[i] + 'px');
         book.style.setProperty('--open-w', COVER_W + 'px');
-        book.style.height = HEIGHTS[i] + 'px';
+        // height follows the shelf scale (--s) so it fits smaller laptop screens
+        book.style.height = 'calc(' + HEIGHTS[i] + 'px * var(--s, 1))';
 
         var spine = document.createElement('div');
         spine.className = 'lib-spine';
@@ -2354,45 +2298,218 @@ button.course-btn {
   })();
 </script>
 
+<!-- Academy: CTA scroll + cursor echo trail -->
 <script is:inline>
   (function () {
-    var emptyMsg = document.getElementById('journalEmpty');
+    var hero = document.getElementById('academy-hero');
+
+    // "View Our Courses" → smooth scroll to the courses carousel
+    var cta = hero ? hero.querySelector('[data-scroll]') : null;
+    if (cta) {
+      cta.addEventListener('click', function (e) {
+        e.preventDefault();
+        var dest = document.querySelector(cta.getAttribute('href'));
+        if (!dest) return;
+        if (window.ecoSmoothScrollTo) window.ecoSmoothScrollTo(dest, 1400, 100);
+        else dest.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    // no trail on touch screens or for reduced-motion users
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    // full-page layer, fixed to the viewport so the trail works anywhere on the page
+    var layer = document.createElement('div');
+    layer.className = 'acad-echo';
+    layer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(layer);
+
+    // ── settings you can tweak ──
+    var SPACING   = 30;    // px the cursor must travel before the next shape appears (bigger = fewer, more spread out)
+    var LIFETIME  = 2400;  // ms each shape takes to grow, shrink and fade (bigger = slower)
+    var MAX_ALIVE = 9;     // most shapes on screen at once; the oldest is removed first
+    var SIZE_MIN  = 38, SIZE_MAX = 68;  // px
+
+    // pastel palette
+    var COLORS = ['#cdb8f0', '#bfe3c8', '#f4c6d8', '#f7e7a1', '#b9daf5', '#f9d3b8', '#d8e8b8'];
+    var SHAPES = ['star4', 'burst', 'pill', 'circle', 'star4', 'burst'];
+
+    function burst(points, inner) {
+      var d = '';
+      for (var i = 0; i < points * 2; i++) {
+        var r = i % 2 ? inner : 12;
+        var a = (Math.PI * i) / points - Math.PI / 2;
+        d += (i ? 'L' : 'M') + (12 + r * Math.cos(a)).toFixed(2) + ' ' + (12 + r * Math.sin(a)).toFixed(2);
+      }
+      return d + 'Z';
+    }
+    var PATHS = {
+      star4: 'M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z',
+      burst: burst(10, 8.5),
+      pill: 'M8 5a4 4 0 0 1 8 0v14a4 4 0 0 1-8 0Z',
+      circle: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18Z'
+    };
+
+    var last = null;     // where the last shape was dropped
+    var count = 0;       // cycles colours / shapes so neighbours differ
+
+    function rand(min, max) { return min + Math.random() * (max - min); }
+
+    function spawn(x, y) {
+      // keep the number on screen under the cap: retire the oldest early
+      while (layer.children.length >= MAX_ALIVE) {
+        var oldest = layer.firstElementChild;
+        if (oldest._anim) oldest._anim.cancel();
+        oldest.remove();
+      }
+
+      var size = Math.round(rand(SIZE_MIN, SIZE_MAX));
+      var rot = Math.round(rand(-35, 35));
+      var el = document.createElement('span');
+      el.className = 'acad-echo-item';
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.style.color = COLORS[count % COLORS.length];
+      el.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + PATHS[SHAPES[count % SHAPES.length]] + '"/></svg>';
+      count++;
+      layer.appendChild(el);
+
+      var at = 'translate3d(' + (x - size / 2) + 'px,' + (y - size / 2) + 'px,0)';
+      // pops in, holds, then shrinks away while fading
+      el._anim = el.animate([
+        { transform: at + ' rotate(' + rot + 'deg) scale(0.2)',       opacity: 0,   offset: 0 },
+        { transform: at + ' rotate(' + (rot + 8) + 'deg) scale(1)',   opacity: 0.95, offset: 0.22 },
+        { transform: at + ' rotate(' + (rot + 25) + 'deg) scale(0)',  opacity: 0,   offset: 1 }
+      ], { duration: LIFETIME, easing: 'ease-out', fill: 'forwards' });
+      el._anim.onfinish = function () { el.remove(); };
+    }
+
+    document.addEventListener('mousemove', function (e) {
+      var x = e.clientX;
+      var y = e.clientY;
+      if (!last) { last = { x: x, y: y }; return; }
+      var dx = x - last.x, dy = y - last.y;
+      if (dx * dx + dy * dy < SPACING * SPACING) return;   // not far enough yet: nothing appears
+      last = { x: x, y: y };
+      spawn(x, y);
+    });
+    document.documentElement.addEventListener('mouseleave', function () { last = null; });
+  })();
+</script>
+
+<!-- Journal sorting: category row + tag row, synced with the shelf -->
+<script is:inline>
+  (function () {
+    var filters = document.getElementById('journalFilters');
+    if (!filters) return;
+
+    var cards = Array.prototype.slice.call(document.querySelectorAll('#journalGrid .journal-card'));
     var statusEl = document.getElementById('journalStatus');
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.journal-card, .journal-featured-card'));
+    var emptyEl = document.getElementById('journalEmpty');
 
-    function applyFilter(tag) {
-      var label = tag || 'all';
-      var normalized = label.toLowerCase();
-      var visibleCount = 0;
+    // category names come straight from the category chips, so there's no second list to keep in sync
+    var categoryRow = filters.querySelector('[data-group="category"]');
+    var categoryNames = Array.prototype.map.call(
+      categoryRow.querySelectorAll('.journal-filter'),
+      function (b) { return b.getAttribute('data-value'); }
+    ).filter(function (v) { return v !== 'all'; });
 
+    // category and tag work alone or together (together = a post must match both).
+    // The pinned article is never filtered.
+    var state = { category: 'all', tag: 'all' };
+
+    function lower(s) { return String(s || '').toLowerCase(); }
+
+    function syncChips() {
+      filters.querySelectorAll('.journal-filter-row').forEach(function (row) {
+        var group = row.getAttribute('data-group');
+        var buttons = Array.prototype.slice.call(row.querySelectorAll('.journal-filter'));
+        var hasMatch = buttons.some(function (b) { return lower(b.getAttribute('data-value')) === lower(state[group]); });
+        buttons.forEach(function (btn) {
+          var v = lower(btn.getAttribute('data-value'));
+          btn.classList.toggle('is-active', hasMatch ? v === lower(state[group]) : v === 'all');
+        });
+      });
+    }
+
+    function apply() {
+      var shown = 0;
       cards.forEach(function (card) {
-        var tags = (card.getAttribute('data-tags') || '').split('|').map(function (t) { return t.toLowerCase(); });
-        var category = (card.getAttribute('data-category') || '').toLowerCase();
-        var show = normalized === 'all' || tags.indexOf(normalized) !== -1 || category === normalized;
-        card.classList.toggle('is-hidden', !show);
-        if (show) visibleCount += 1;
+        var tags = (card.getAttribute('data-tags') || '').split('|').map(lower);
+        var okCat = state.category === 'all' || lower(card.getAttribute('data-category')) === lower(state.category);
+        var okTag = state.tag === 'all' || tags.indexOf(lower(state.tag)) !== -1;
+        var visible = okCat && okTag;
+        card.classList.toggle('is-hidden', !visible);
+        if (visible) shown++;
       });
 
-      if (statusEl) {
-        statusEl.hidden = normalized === 'all';
-        statusEl.textContent = normalized === 'all' ? '' : 'Showing articles filed under “' + label + '”';
-      }
-      if (emptyMsg) emptyMsg.hidden = visibleCount > 0;
+      var active = [];
+      if (state.category !== 'all') active.push(state.category);
+      if (state.tag !== 'all') active.push(state.tag);
 
+      if (statusEl) {
+        statusEl.hidden = active.length === 0;
+        statusEl.textContent = active.length === 0
+          ? ''
+          : shown + (shown === 1 ? ' article' : ' articles') + ' · ' + active.join(' + ');
+      }
+      if (emptyEl) emptyEl.hidden = shown > 0;
+      syncChips();
+
+      // keep the URL shareable (same ?tag= behaviour as before, plus ?category=)
       var url = new URL(window.location.href);
-      if (normalized === 'all') url.searchParams.delete('tag');
-      else url.searchParams.set('tag', label);
+      if (state.tag === 'all') url.searchParams.delete('tag'); else url.searchParams.set('tag', state.tag);
+      if (state.category === 'all') url.searchParams.delete('category'); else url.searchParams.set('category', state.category);
       window.history.replaceState({}, '', url);
     }
 
-    // a book on the shelf was opened (tag) or closed ('all')
-    window.addEventListener('library:tagchange', function (e) {
-      applyFilter(e.detail && e.detail.tag);
+    // a value from the shelf or the URL: category names set the Category row, anything else sets the Tag row
+    function resolve(value) {
+      if (!value || lower(value) === 'all') {
+        state.category = 'all';
+        state.tag = 'all';
+        return;
+      }
+      var match = categoryNames.filter(function (c) { return lower(c) === lower(value); })[0];
+      if (match) {
+        state.category = match;
+        state.tag = 'all';
+      } else {
+        state.tag = value;
+        state.category = 'all';
+      }
+    }
+
+    // clicking a chip; clicking the active chip again goes back to "All"
+    filters.addEventListener('click', function (e) {
+      var btn = e.target instanceof Element ? e.target.closest('.journal-filter') : null;
+      if (!btn) return;
+      var group = btn.closest('.journal-filter-row').getAttribute('data-group');
+      var value = btn.getAttribute('data-value');
+      state[group] = lower(state[group]) === lower(value) ? 'all' : value;
+      apply();
     });
 
-    // arriving from a Partner card's /resources?tag=… link
-    var requestedTag = new URLSearchParams(window.location.search).get('tag');
-    if (requestedTag) applyFilter(requestedTag);
+    // shelf → journal (book opened = that topic, book closed = 'all')
+    window.addEventListener('library:tagchange', function (e) {
+      resolve(e.detail && e.detail.tag);
+      apply();
+    });
+
+    // arriving from a Partner card link (/resources?tag=…) or a shared URL
+    var params = new URLSearchParams(window.location.search);
+    var urlTag = params.get('tag');
+    var urlCategory = params.get('category');
+    if (urlCategory || urlTag) {
+      if (urlCategory) state.category = urlCategory;
+      if (urlTag) {
+        var asCategory = categoryNames.filter(function (c) { return lower(c) === lower(urlTag); })[0];
+        if (asCategory && !urlCategory) state.category = asCategory;
+        else state.tag = urlTag;
+      }
+      apply();
+    }
   })();
 </script>
 
