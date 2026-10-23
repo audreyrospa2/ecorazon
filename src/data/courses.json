@@ -1,0 +1,141 @@
+{
+  "courses": [
+    {
+      "id": "neuroseed-train-the-trainer-programme",
+      "title": "Neuroseed Train-the-Trainer Programme",
+      "format": [
+        "Online"
+      ],
+      "featured": true,
+      "color": "green",
+      "image": "",
+      "tags": [
+        {
+          "label": "#Facilitation",
+          "color": "green"
+        },
+        {
+          "label": "#ForTrainers",
+          "color": "blue"
+        }
+      ],
+      "theory": "00 hrs",
+      "practice": "00 hrs",
+      "instructor": "Instructor name",
+      "details": {
+        "lead": "A short overview of the programme goes here: who it's for and what they'll walk away with.",
+        "duration": "00 weeks",
+        "nextIntake": "TBC",
+        "outcomes": [
+          "First learning outcome",
+          "Second learning outcome",
+          "Third learning outcome"
+        ],
+        "registerUrl": "/get-in-touch"
+      }
+    },
+    {
+      "id": "mindful-workplaces-wellbeing-that-lasts",
+      "title": "Mindful Workplaces: Wellbeing That Lasts",
+      "format": [
+        "In person"
+      ],
+      "featured": false,
+      "color": "pink",
+      "image": "",
+      "tags": [
+        {
+          "label": "#Wellbeing",
+          "color": "pink"
+        },
+        {
+          "label": "#Teams",
+          "color": "green"
+        }
+      ],
+      "theory": "00 hrs",
+      "practice": "00 hrs",
+      "instructor": "Instructor name",
+      "details": {
+        "lead": "A short overview of the programme goes here: who it's for and what they'll walk away with.",
+        "duration": "00 weeks",
+        "nextIntake": "TBC",
+        "outcomes": [
+          "First learning outcome",
+          "Second learning outcome",
+          "Third learning outcome"
+        ],
+        "registerUrl": "/get-in-touch"
+      }
+    },
+    {
+      "id": "fair-practice-for-creative-makers",
+      "title": "Fair Practice for Creative Makers",
+      "format": [
+        "Online",
+        "In person"
+      ],
+      "featured": false,
+      "color": "brown",
+      "image": "",
+      "tags": [
+        {
+          "label": "#FairPractice",
+          "color": "brown"
+        },
+        {
+          "label": "#Artists",
+          "color": "blue"
+        }
+      ],
+      "theory": "00 hrs",
+      "practice": "00 hrs",
+      "instructor": "Instructor name",
+      "details": {
+        "lead": "A short overview of the programme goes here: who it's for and what they'll walk away with.",
+        "duration": "00 weeks",
+        "nextIntake": "TBC",
+        "outcomes": [
+          "First learning outcome",
+          "Second learning outcome",
+          "Third learning outcome"
+        ],
+        "registerUrl": "/get-in-touch"
+      }
+    },
+    {
+      "id": "community-workshop-design-facilitation",
+      "title": "Community Workshop Design & Facilitation",
+      "format": [
+        "In person"
+      ],
+      "featured": false,
+      "color": "sage",
+      "image": "",
+      "tags": [
+        {
+          "label": "#Community",
+          "color": "green"
+        },
+        {
+          "label": "#Workshops",
+          "color": "pink"
+        }
+      ],
+      "theory": "00 hrs",
+      "practice": "00 hrs",
+      "instructor": "Instructor name",
+      "details": {
+        "lead": "A short overview of the programme goes here: who it's for and what they'll walk away with.",
+        "duration": "00 weeks",
+        "nextIntake": "TBC",
+        "outcomes": [
+          "First learning outcome",
+          "Second learning outcome",
+          "Third learning outcome"
+        ],
+        "registerUrl": "/get-in-touch"
+      }
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "categories": [
+    {
+      "id": "culture",
+      "label": "Corporate Culture & Wellbeing",
+      "short": "Culture",
+      "blurb": "Where work feels human",
+      "color": "#a07850"
+    },
+    {
+      "id": "arts",
+      "label": "Inclusive Arts & Community",
+      "short": "Arts",
+      "blurb": "Art that makes room",
+      "color": "#7f9c78"
+    },
+    {
+      "id": "brand",
+      "label": "Sustainable Brand Experiences",
+      "short": "Brands",
+      "blurb": "Less waste, more meaning",
+      "color": "#C08EA4"
+    },
+    {
+      "id": "ai",
+      "label": "Human-Centred AI Pilots",
+      "short": "AI Pilots",
+      "blurb": "Technology, kept accountable",
+      "color": "#6b8f76"
+    }
+  ],
+  "projects": [
+    {
+      "id": "onboarding-gifts-reimagined",
+      "cat": "culture",
+      "title": "Onboarding Gifts, Reimagined",
+      "summary": "A welcome kit made by local artisans, so a first day feels personal.",
+      "tags": [
+        "Wellbeing"
+      ],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "mindful-mondays-pilot",
+      "cat": "culture",
+      "title": "Mindful Mondays Pilot",
+      "summary": "Short guided pauses run inside a partner office for twelve weeks.",
+      "tags": [
+        "Wellbeing",
+        "Pilot"
+      ],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "quiet-rooms-rituals",
+      "cat": "culture",
+      "title": "Quiet Rooms & Rituals",
+      "summary": "Small spaces and shared rituals that give teams room to breathe.",
+      "tags": [],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "hands-of-the-weavers",
+      "cat": "arts",
+      "title": "Hands of the Weavers",
+      "summary": "A co-created textile series made together with a weaving cooperative.",
+      "tags": [
+        "Co-creation"
+      ],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "neighbourhood-mural-walk",
+      "cat": "arts",
+      "title": "Neighbourhood Mural Walk",
+      "summary": "Residents and artists painting a route through their own streets.",
+      "tags": [],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "open-studio-days",
+      "cat": "arts",
+      "title": "Open Studio Days",
+      "summary": "Inclusive workshops where anyone can make, not just watch.",
+      "tags": [],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "zero-waste-gift-box",
+      "cat": "brand",
+      "title": "Zero-Waste Gift Box",
+      "summary": "Corporate gifting with honest materials and packaging that gets reused.",
+      "tags": [],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "stories-in-the-supply-chain",
+      "cat": "brand",
+      "title": "Stories in the Supply Chain",
+      "summary": "Traceable sourcing, told through the makers behind each piece.",
+      "tags": [],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "responsible-chat-companion",
+      "cat": "ai",
+      "title": "Responsible Chat Companion",
+      "summary": "Testing where a chatbot helps a team, and where it should stay quiet.",
+      "tags": [
+        "Responsible AI"
+      ],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "human-in-the-loop-review",
+      "cat": "ai",
+      "title": "Human-in-the-Loop Review",
+      "summary": "A pilot that keeps people in charge of every AI-assisted decision.",
+      "tags": [],
+      "meta": {
+        "Year": "2026",
+        "Partner": "Partner name",
+        "Format": "Pilot"
+      },
+      "body": [
+        "Replace this with the story of the project: the brief, who it was for and what we set out to change.",
+        "Use a second paragraph for how it was made: the people, materials and decisions along the way."
+      ],
+      "highlights": [
+        "First highlight or result",
+        "Second highlight or result",
+        "Third highlight or result"
+      ],
+      "images": [
+        "",
+        "",
+        ""
+      ]
+    }
+  ]
+}

@@ -130,6 +130,12 @@
   }
   .order-row .order-btn:disabled { opacity: 0.3; cursor: not-allowed; }
   .order-row .order-remove { color: var(--danger); font-weight: 700; }
+
+  nav.tabs { flex-wrap: wrap; }
+  .status-msg { font-size: 0.85rem; margin-top: 0.8rem; }
+  .status-msg.error { color: var(--danger); }
+  .status-msg.success { color: var(--forest-green); }
+  input[type=color] { width: 64px; height: 36px; padding: 2px; border: 1px solid var(--border); border-radius: 6px; background: white; }
 </style>
 </head>
 <body>
@@ -154,6 +160,15 @@
     TEAM_PATH: "src/data/team.json",
     TEAM_IMAGE_PATH: "public/images/team",
     TEAM_PUBLIC_IMAGE_PREFIX: "/images/team",
+    COURSES_PATH: "src/data/courses.json",
+    COURSE_IMAGE_PATH: "public/images/courses",
+    COURSE_PUBLIC_IMAGE_PREFIX: "/images/courses",
+    PARTNERS_PATH: "src/data/partners.json",
+    PARTNER_IMAGE_PATH: "public/images/partners",
+    PARTNER_PUBLIC_IMAGE_PREFIX: "/images/partners",
+    PROJECTS_PATH: "src/data/projects.json",
+    PROJECT_IMAGE_PATH: "public/images/projects",
+    PROJECT_PUBLIC_IMAGE_PREFIX: "/images/projects",
   };
 </script>
 
@@ -186,6 +201,9 @@
     <button class="tab-btn" data-tab="products">Products</button>
     <button class="tab-btn" data-tab="team">Team</button>
     <button class="tab-btn" data-tab="contact">Contact</button>
+    <button class="tab-btn" data-tab="courses">Courses</button>
+    <button class="tab-btn" data-tab="partners">Partners</button>
+    <button class="tab-btn" data-tab="projects">Projects</button>
   </nav>
 
   <main>
@@ -454,6 +472,10 @@
         <div id="contact-status-msg" style="margin-top:0.8rem;"></div>
       </div>
     </section>
+
+    <section id="tab-courses" class="tab-panel" style="display:none;"></section>
+    <section id="tab-partners" class="tab-panel" style="display:none;"></section>
+    <section id="tab-projects" class="tab-panel" style="display:none;"></section>
   </main>
 </div>
 
@@ -1726,6 +1748,572 @@ ${data.body.trim()}
     if (btn.dataset.tab === "contact") {
       btn.addEventListener("click", () => loadContact());
     }
+  });
+
+  const attr = (v) => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+ 
+  function getPath(obj, path) {
+    return path.split(".").reduce((o, k) => (o == null ? undefined : o[k]), obj);
+  }
+  function setPath(obj, path, val) {
+    const keys = path.split(".");
+    let o = obj;
+    keys.forEach((k, i) => {
+      if (i === keys.length - 1) { o[k] = val; return; }
+      if (o[k] == null || typeof o[k] !== "object") o[k] = /^\d+$/.test(keys[i + 1]) ? [] : {};
+      o = o[k];
+    });
+  }
+  function normOptions(opts) {
+    return (typeof opts === "function" ? opts() : opts).map((o) => (typeof o === "string" ? { value: o, label: o } : o));
+  }
+  function blankFor(sub) {
+    const blank = {};
+    sub.forEach((sf) => {
+      blank[sf.name] = sf.type === "select" ? normOptions(sf.options)[0].value : sf.type === "color" ? "#6b8f76" : "";
+    });
+    return blank;
+  }
+ 
+  // a list of small cards (e.g. course tags, project categories) that can be added / edited / removed
+  function renderRepeater(container, items, sub) {
+    container.innerHTML = "";
+    items.forEach((item, idx) => {
+      const card = document.createElement("div");
+      card.style.cssText = "border:1px solid var(--border);border-radius:8px;padding:0.8rem;margin-bottom:0.6rem;";
+      card.innerHTML =
+        sub.map((sf) => {
+          const v = item[sf.name] == null ? "" : item[sf.name];
+          let input;
+          if (sf.type === "select") {
+            input = `<select data-sf="${sf.name}">${normOptions(sf.options).map((o) => `<option value="${attr(o.value)}" ${String(o.value) === String(v) ? "selected" : ""}>${escapeHtml(o.label)}</option>`).join("")}</select>`;
+          } else if (sf.type === "color") {
+            input = `<input type="color" data-sf="${sf.name}" value="${attr(v || "#6b8f76")}" style="width:64px;height:36px;padding:2px;" />`;
+          } else if (sf.type === "textarea") {
+            input = `<textarea data-sf="${sf.name}" style="min-height:60px;font-family:inherit;">${escapeHtml(v)}</textarea>`;
+          } else {
+            input = `<input type="text" data-sf="${sf.name}" value="${attr(v)}" />`;
+          }
+          return `<label style="margin-top:0.5rem;">${sf.label}</label>${input}`;
+        }).join("") +
+        `<button type="button" class="btn danger rp-remove" style="margin-top:0.7rem;padding:0.35rem 0.8rem;font-size:0.8rem;">Remove</button>`;
+      card.querySelectorAll("[data-sf]").forEach((input) => {
+        const handler = () => { items[idx][input.dataset.sf] = input.value; };
+        input.addEventListener("input", handler);
+        input.addEventListener("change", handler);
+      });
+      card.querySelector(".rp-remove").onclick = () => {
+        items.splice(idx, 1);
+        renderRepeater(container, items, sub);
+      };
+      container.appendChild(card);
+    });
+  }
+ 
+  function createCollection(cfg) {
+    const k = cfg.key;
+    const root = document.getElementById("tab-" + k);
+    if (!root) return null;
+    const el = (s) => document.getElementById(k + "-" + s);
+    const fid = (f) => k + "-f-" + f.name.replace(/\./g, "__");
+    const fe = (f) => document.getElementById(fid(f));
+ 
+    let data = cfg.empty();
+    let file = null;          // { sha } of the JSON file on GitHub
+    let loaded = false;
+    let currentId = null;
+    let orderDirty = false;
+    const rep = {};           // repeater field name -> working array
+ 
+    function setStatus(msg, cls, which) {
+      const s = el(which || "status");
+      if (!s) return;
+      s.textContent = msg || "";
+      s.className = "status-msg" + (cls ? " " + cls : "");
+    }
+ 
+    // ---------- build the markup ----------
+    function fieldHtml(f) {
+      const id = fid(f);
+      const hint = f.hint ? `<div class="empty-note" style="margin-top:0.2rem;">${f.hint}</div>` : "";
+      switch (f.type) {
+        case "textarea":
+        case "lines":
+        case "paragraphs":
+          return `<label>${f.label}</label><textarea id="${id}" style="min-height:${f.min || (f.type === "textarea" ? 80 : 110)}px;font-family:inherit;" placeholder="${attr(f.placeholder || "")}"></textarea>${hint}`;
+        case "select":
+          return `<label>${f.label}</label><select id="${id}"></select>${hint}`;
+        case "checkboxes":
+          return `<label>${f.label}</label><div class="tag-options" id="${id}"></div>${hint}`;
+        case "boolean":
+          return `<div class="checkbox-row"><input type="checkbox" id="${id}" /><label for="${id}" style="margin:0;">${f.label}</label></div>${hint}`;
+        case "image":
+          return `<label>${f.label}</label><input type="text" id="${id}" placeholder="/images/…" />
+                  <label style="font-weight:400;">Or upload a new image</label>
+                  <input type="file" id="${id}-file" accept="image/*" />
+                  <img id="${id}-preview" class="image-preview" style="display:none;" />${hint}`;
+        case "repeater":
+          return `<label>${f.label}</label><div id="${id}"></div><button type="button" class="btn secondary" id="${id}-add" style="margin-top:0.3rem;">+ Add</button>${hint}`;
+        default: // text, csv
+          return `<label>${f.label}</label><input type="text" id="${id}" placeholder="${attr(f.placeholder || "")}" />${hint}`;
+      }
+    }
+ 
+    const extraHtml = cfg.extra
+      ? `<div class="panel" style="margin-top:1.5rem;">
+           <div class="top-actions" style="cursor:pointer;margin-bottom:0;" id="${k}-x-toggle">
+             <strong>${cfg.extra.title}</strong><span id="${k}-x-icon">▸</span>
+           </div>
+           <div id="${k}-x-body" style="display:none;margin-top:1rem;">
+             ${cfg.extra.hint ? `<p class="empty-note" style="margin-top:0;">${cfg.extra.hint}</p>` : ""}
+             <div id="${k}-x-list"></div>
+             <button type="button" class="btn secondary" id="${k}-x-add" style="margin-top:0.3rem;">+ Add</button>
+             <div class="form-actions"><button class="btn" id="${k}-x-save">Save</button></div>
+             <div class="status-msg" id="${k}-x-status"></div>
+           </div>
+         </div>`
+      : "";
+ 
+    root.innerHTML = `
+      <div id="${k}-list-view">
+        <div class="top-actions">
+          <button class="btn" id="${k}-save-order" style="display:none;">Save new order</button>
+          <button class="btn" id="${k}-new">+ New ${cfg.singular}</button>
+        </div>
+        <div class="status-msg" id="${k}-list-status" style="margin:0 0 0.6rem;"></div>
+        <div class="panel" id="${k}-list"></div>
+        ${extraHtml}
+      </div>
+      <div id="${k}-edit-view" style="display:none;">
+        <div class="panel">
+          <button class="btn secondary" id="${k}-back" style="margin-bottom:1rem;">← Back to list</button>
+          ${cfg.fields.map(fieldHtml).join("")}
+          <div class="form-actions">
+            <button class="btn" id="${k}-save">Save</button>
+            <button class="btn danger" id="${k}-delete">Delete</button>
+          </div>
+          <div class="status-msg" id="${k}-status"></div>
+        </div>
+      </div>`;
+ 
+    // ---------- value in / out of the form ----------
+    function setValue(f, v) {
+      const node = fe(f);
+      switch (f.type) {
+        case "csv": node.value = (v || []).join(", "); break;
+        case "lines": node.value = (v || []).join("\n"); break;
+        case "paragraphs": node.value = (v || []).join("\n\n"); break;
+        case "boolean": node.checked = !!v; break;
+        case "select": {
+          const opts = normOptions(f.options);
+          node.innerHTML = opts.map((o) => `<option value="${attr(o.value)}">${escapeHtml(o.label)}</option>`).join("");
+          const want = v == null ? (opts[0] ? opts[0].value : "") : v;
+          node.value = String(want);
+          if (node.value !== String(want) && opts[0]) node.value = String(opts[0].value);
+          break;
+        }
+        case "checkboxes": {
+          const have = v || [];
+          node.innerHTML = normOptions(f.options).map((o) =>
+            `<label><input type="checkbox" value="${attr(o.value)}" ${have.includes(o.value) ? "checked" : ""} /> ${escapeHtml(o.label)}</label>`
+          ).join("");
+          break;
+        }
+        case "image": {
+          node.value = v || "";
+          const prev = document.getElementById(fid(f) + "-preview");
+          if (v) { prev.src = v; prev.style.display = "block"; } else { prev.style.display = "none"; }
+          const fileInput = document.getElementById(fid(f) + "-file");
+          if (fileInput) fileInput.value = "";
+          break;
+        }
+        case "repeater":
+          rep[f.name] = clone(v || []);
+          renderRepeater(node, rep[f.name], f.sub);
+          break;
+        default: node.value = v == null ? "" : v;
+      }
+    }
+ 
+    function getValue(f) {
+      const node = fe(f);
+      switch (f.type) {
+        case "csv": return node.value.split(",").map((s) => s.trim()).filter(Boolean);
+        case "lines": return node.value.split("\n").map((s) => s.trim()).filter(Boolean);
+        case "paragraphs": return node.value.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+        case "boolean": return node.checked;
+        case "select": return f.number ? Number(node.value) : node.value;
+        case "checkboxes": return Array.from(node.querySelectorAll("input:checked")).map((cb) => cb.value);
+        case "repeater": {
+          const first = f.sub[0].name;
+          return (rep[f.name] || []).filter((it) => String(it[first] || "").trim());
+        }
+        default: return node.value.trim();
+      }
+    }
+ 
+    // ---------- saving to GitHub ----------
+    async function commit(message) {
+      const content = JSON.stringify(data, null, 2) + "\n";
+      const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: CONFIG.BRANCH };
+      if (file) body.sha = file.sha;
+      const res = await ghFetch(`contents/${cfg.path}`, { method: "PUT", body: JSON.stringify(body) });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Save failed");
+      }
+      const result = await res.json();
+      file = { sha: result.content.sha };
+    }
+ 
+    function uniqueId(base) {
+      let id = base || k;
+      let n = 2;
+      const ids = data[cfg.itemsKey].map((i) => i.id);
+      while (ids.includes(id)) { id = `${base || k}-${n}`; n++; }
+      return id;
+    }
+ 
+    // ---------- list ----------
+    function renderList() {
+      const listEl = el("list");
+      const items = data[cfg.itemsKey];
+      el("save-order").style.display = orderDirty ? "inline-block" : "none";
+      if (!items.length) {
+        listEl.innerHTML = `<p class="empty-note">Nothing here yet — create one!</p>`;
+        return;
+      }
+      listEl.innerHTML = "";
+      items.forEach((item, i) => {
+        const thumb = cfg.thumb ? cfg.thumb(item) : "";
+        const row = document.createElement("div");
+        row.className = "list-row";
+        row.innerHTML = `
+          <div class="list-row-media">
+            ${thumb ? `<img class="avatar-preview" src="${attr(thumb)}" />` : ""}
+            <div>
+              <div class="title">${escapeHtml(cfg.title(item) || "(untitled)")}</div>
+              <div class="sub">${escapeHtml(cfg.sub ? cfg.sub(item) : "")}</div>
+            </div>
+          </div>
+          <div class="row-actions">
+            <button class="btn secondary row-up" title="Move up" ${i === 0 ? "disabled" : ""}>↑</button>
+            <button class="btn secondary row-down" title="Move down" ${i === items.length - 1 ? "disabled" : ""}>↓</button>
+            <button class="btn secondary row-edit">Edit</button>
+          </div>`;
+        row.querySelector(".row-edit").onclick = () => openItem(item.id);
+        row.querySelector(".row-up").onclick = () => {
+          [items[i - 1], items[i]] = [items[i], items[i - 1]];
+          orderDirty = true; renderList();
+        };
+        row.querySelector(".row-down").onclick = () => {
+          [items[i + 1], items[i]] = [items[i], items[i + 1]];
+          orderDirty = true; renderList();
+        };
+        listEl.appendChild(row);
+      });
+    }
+ 
+    async function load() {
+      if (loaded) { renderList(); return; }
+      el("list").innerHTML = "<p class='empty-note'>Loading…</p>";
+      try {
+        const res = await ghFetch(`contents/${cfg.path}?ref=${CONFIG.BRANCH}`);
+        if (res.status === 404) {
+          data = cfg.empty();
+          file = null;
+        } else {
+          const fd = await res.json();
+          data = JSON.parse(decodeURIComponent(escape(atob(fd.content))));
+          file = { sha: fd.sha };
+        }
+        if (!Array.isArray(data[cfg.itemsKey])) data[cfg.itemsKey] = [];
+        if (cfg.extra && !Array.isArray(data[cfg.extra.itemsKey])) data[cfg.extra.itemsKey] = cfg.empty()[cfg.extra.itemsKey];
+        loaded = true;
+        renderList();
+        if (cfg.extra) renderRepeater(el("x-list"), data[cfg.extra.itemsKey], cfg.extra.sub);
+      } catch (err) {
+        if (err.message !== "Unauthorized") el("list").innerHTML = `<p class='empty-note'>Error loading: ${escapeHtml(err.message)}</p>`;
+      }
+    }
+ 
+    // ---------- edit form ----------
+    function openItem(id) {
+      currentId = id;
+      setStatus("");
+      const item = id === null ? cfg.newItem() : clone(data[cfg.itemsKey].find((i) => i.id === id) || cfg.newItem());
+      cfg.fields.forEach((f) => setValue(f, getPath(item, f.name)));
+      el("delete").style.display = id === null ? "none" : "inline-block";
+      el("list-view").style.display = "none";
+      el("edit-view").style.display = "block";
+    }
+    function backToList() {
+      el("edit-view").style.display = "none";
+      el("list-view").style.display = "block";
+      renderList();
+    }
+ 
+    el("new").onclick = () => openItem(null);
+    el("back").onclick = backToList;
+ 
+    cfg.fields.filter((f) => f.type === "image").forEach((f) => {
+      const input = fe(f);
+      const prev = document.getElementById(fid(f) + "-preview");
+      input.addEventListener("input", () => {
+        if (input.value) { prev.src = input.value; prev.style.display = "block"; } else { prev.style.display = "none"; }
+      });
+      document.getElementById(fid(f) + "-file").onchange = async (e) => {
+        const fl = e.target.files[0];
+        if (!fl) return;
+        setStatus("Uploading image…");
+        try {
+          const b64 = await fileToBase64(fl);
+          const ext = fl.name.split(".").pop();
+          const filename = `${Date.now()}-${slugify(fl.name.replace(/\.[^.]+$/, ""))}.${ext}`;
+          const res = await ghFetch(`contents/${cfg.imagePath}/${filename}`, {
+            method: "PUT",
+            body: JSON.stringify({ message: `Upload ${cfg.singular.toLowerCase()} image: ${filename}`, content: b64, branch: CONFIG.BRANCH }),
+          });
+          if (!res.ok) { const er = await res.json(); throw new Error(er.message || "Upload failed"); }
+          input.value = `${cfg.imagePublicPrefix}/${filename}`;
+          prev.src = URL.createObjectURL(fl);
+          prev.style.display = "block";
+          setStatus("Image uploaded — remember to press Save.", "success");
+        } catch (err) {
+          setStatus("Image upload failed: " + err.message, "error");
+        }
+      };
+    });
+ 
+    cfg.fields.filter((f) => f.type === "repeater").forEach((f) => {
+      document.getElementById(fid(f) + "-add").onclick = () => {
+        if (!rep[f.name]) rep[f.name] = [];
+        rep[f.name].push(blankFor(f.sub));
+        renderRepeater(fe(f), rep[f.name], f.sub);
+      };
+    });
+ 
+    el("save").onclick = async () => {
+      setStatus("Saving…");
+      const items = data[cfg.itemsKey];
+      const existing = currentId === null ? null : items.find((i) => i.id === currentId);
+      const item = existing ? clone(existing) : {};
+      cfg.fields.forEach((f) => setPath(item, f.name, getValue(f)));
+ 
+      const req = cfg.fields.find((f) => f.required);
+      if (req && !String(getPath(item, req.name) || "").trim()) {
+        setStatus(`${req.label} is required.`, "error");
+        return;
+      }
+      if (cfg.finalize) cfg.finalize(item);
+ 
+      const backup = clone(data);
+      if (existing) {
+        items[items.indexOf(existing)] = item;
+      } else {
+        item.id = uniqueId(slugify(String(getPath(item, cfg.idFrom) || "")));
+        items.push(item);
+      }
+      try {
+        await commit(`${existing ? "Update" : "Add"} ${cfg.singular.toLowerCase()}: ${cfg.title(item)}`);
+        currentId = item.id;
+        el("delete").style.display = "inline-block";
+        setStatus("Saved. The site updates after its next rebuild.", "success");
+      } catch (err) {
+        data = backup;
+        setStatus("Error saving: " + err.message, "error");
+      }
+    };
+ 
+    el("delete").onclick = async () => {
+      if (currentId === null) return;
+      if (!confirm(`Delete this ${cfg.singular.toLowerCase()} permanently? This cannot be undone.`)) return;
+      const backup = clone(data);
+      data[cfg.itemsKey] = data[cfg.itemsKey].filter((i) => i.id !== currentId);
+      try {
+        await commit(`Delete ${cfg.singular.toLowerCase()}: ${currentId}`);
+        backToList();
+      } catch (err) {
+        data = backup;
+        setStatus("Error deleting: " + err.message, "error");
+      }
+    };
+ 
+    el("save-order").onclick = async () => {
+      setStatus("Saving order…", "", "list-status");
+      try {
+        await commit(`Reorder ${cfg.plural.toLowerCase()}`);
+        orderDirty = false;
+        renderList();
+        setStatus("Order saved.", "success", "list-status");
+      } catch (err) {
+        setStatus("Error saving order: " + err.message, "error", "list-status");
+      }
+    };
+ 
+    // ---------- optional second list (project categories) ----------
+    if (cfg.extra) {
+      el("x-toggle").onclick = () => {
+        const body = el("x-body");
+        const showing = body.style.display !== "none";
+        body.style.display = showing ? "none" : "block";
+        el("x-icon").textContent = showing ? "▸" : "▾";
+      };
+      el("x-add").onclick = () => {
+        data[cfg.extra.itemsKey].push(Object.assign(blankFor(cfg.extra.sub), { id: "" }));
+        renderRepeater(el("x-list"), data[cfg.extra.itemsKey], cfg.extra.sub);
+      };
+      el("x-save").onclick = async () => {
+        const backup = clone(data);
+        const first = cfg.extra.sub[0].name;
+        const keep = data[cfg.extra.itemsKey].filter((it) => String(it[first] || "").trim());
+        const seen = new Set();
+        keep.forEach((it) => {
+          const base = it.id || slugify(it[first]) || "item";
+          let id = base, n = 2;
+          while (seen.has(id)) { id = `${base}-${n}`; n++; }
+          it.id = id;
+          seen.add(id);
+        });
+        const orphans = data[cfg.itemsKey].filter((p) => !seen.has(p[cfg.extra.refField]));
+        if (orphans.length) {
+          setStatus(`"${cfg.title(orphans[0])}" still uses a category you removed. Edit or delete it first.`, "error", "x-status");
+          return;
+        }
+        data[cfg.extra.itemsKey] = keep;
+        setStatus("Saving…", "", "x-status");
+        try {
+          await commit(`Update ${cfg.extra.singular}`);
+          renderRepeater(el("x-list"), data[cfg.extra.itemsKey], cfg.extra.sub);
+          setStatus("Saved.", "success", "x-status");
+        } catch (err) {
+          data = backup;
+          renderRepeater(el("x-list"), data[cfg.extra.itemsKey], cfg.extra.sub);
+          setStatus("Error saving: " + err.message, "error", "x-status");
+        }
+      };
+    }
+ 
+    // load the first time its tab is opened
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      if (btn.dataset.tab === k) btn.addEventListener("click", () => load());
+    });
+ 
+    return { load, openItem, data: () => data };
+  }
+ 
+  // ---------------- COURSES ----------------
+  createCollection({
+    key: "courses", singular: "Course", plural: "Courses",
+    path: CONFIG.COURSES_PATH, itemsKey: "courses", idFrom: "title",
+    imagePath: CONFIG.COURSE_IMAGE_PATH, imagePublicPrefix: CONFIG.COURSE_PUBLIC_IMAGE_PREFIX,
+    empty: () => ({ courses: [] }),
+    newItem: () => ({
+      title: "", format: ["Online"], featured: false, color: "green", image: "", tags: [],
+      theory: "", practice: "", instructor: "",
+      details: { lead: "", duration: "", nextIntake: "", outcomes: [], registerUrl: "/get-in-touch" },
+    }),
+    title: (c) => c.title,
+    sub: (c) => [(c.format || []).join(" & "), c.instructor].filter(Boolean).join(" · "),
+    thumb: (c) => c.image,
+    fields: [
+      { name: "title", label: "Course title", type: "text", required: true },
+      { name: "format", label: "Format", type: "checkboxes", options: ["Online", "In person"] },
+      { name: "featured", label: 'Show the dark "Featured" badge', type: "boolean" },
+      { name: "image", label: "Card image (optional)", type: "image", hint: "If you leave this empty, the card uses the colour below." },
+      { name: "color", label: "Card colour (used when there is no image)", type: "select",
+        options: [{ value: "green", label: "Green" }, { value: "pink", label: "Pink" }, { value: "brown", label: "Brown" }, { value: "sage", label: "Light green" }] },
+      { name: "tags", label: "Tags", type: "repeater", sub: [
+        { name: "label", label: "Tag text (e.g. #Facilitation)", type: "text" },
+        { name: "color", label: "Colour", type: "select", options: [{ value: "green", label: "Green" }, { value: "pink", label: "Pink" }, { value: "blue", label: "Blue" }, { value: "brown", label: "Brown" }] },
+      ] },
+      { name: "theory", label: "Theory hours (e.g. 12 hrs)", type: "text" },
+      { name: "practice", label: "Practice hours (e.g. 8 hrs)", type: "text" },
+      { name: "instructor", label: "Instructor", type: "text" },
+      { name: "details.lead", label: "Details popup — short overview", type: "textarea" },
+      { name: "details.duration", label: "Details popup — duration (e.g. 6 weeks)", type: "text" },
+      { name: "details.nextIntake", label: "Details popup — next intake (e.g. 12 March 2027)", type: "text" },
+      { name: "details.outcomes", label: "Details popup — what you'll learn", type: "lines", hint: "One item per line." },
+      { name: "details.registerUrl", label: "Details popup — register link", type: "text", placeholder: "/get-in-touch" },
+    ],
+  });
+ 
+  // ---------------- PARTNERS ----------------
+  createCollection({
+    key: "partners", singular: "Partner", plural: "Partners",
+    path: CONFIG.PARTNERS_PATH, itemsKey: "partners", idFrom: "name",
+    imagePath: CONFIG.PARTNER_IMAGE_PATH, imagePublicPrefix: CONFIG.PARTNER_PUBLIC_IMAGE_PREFIX,
+    empty: () => ({ partners: [] }),
+    newItem: () => ({ name: "", desc: "", filterValue: "Partnerships", gradient: "green", image: "", row: 1 }),
+    title: (p) => p.name,
+    sub: (p) => `Row ${p.row === 2 ? 2 : 1}${p.desc ? " · " + p.desc : ""}`,
+    thumb: (p) => p.image,
+    fields: [
+      { name: "name", label: "Partner type / name", type: "text", required: true },
+      { name: "desc", label: "Short description", type: "textarea", min: 60 },
+      { name: "row", label: "Which scrolling row?", type: "select", number: true,
+        options: [{ value: 1, label: "Row 1 (scrolls left)" }, { value: 2, label: "Row 2 (scrolls right)" }] },
+      { name: "image", label: "Logo / picture (optional)", type: "image", hint: "If empty, the round badge uses the colour below." },
+      { name: "gradient", label: "Badge colour (used when there is no picture)", type: "select",
+        options: [{ value: "blue", label: "Blue" }, { value: "green", label: "Green" }, { value: "orange", label: "Orange" }, { value: "purple", label: "Purple" }, { value: "slate", label: "Slate" }, { value: "gold", label: "Gold" }] },
+      { name: "filterValue", label: '"Explore →" opens Journal articles in this category', type: "select",
+        options: ["Artist Stories", "Materials", "Impact", "Partnerships", "Tips", "Innovation", "Community"] },
+    ],
+  });
+ 
+  // ---------------- PROJECTS ----------------
+  const projects = createCollection({
+    key: "projects", singular: "Project", plural: "Projects",
+    path: CONFIG.PROJECTS_PATH, itemsKey: "projects", idFrom: "title",
+    imagePath: CONFIG.PROJECT_IMAGE_PATH, imagePublicPrefix: CONFIG.PROJECT_PUBLIC_IMAGE_PREFIX,
+    empty: () => ({
+      categories: [
+        { id: "culture", label: "Corporate Culture & Wellbeing", short: "Culture", blurb: "Where work feels human", color: "#a07850" },
+        { id: "arts", label: "Inclusive Arts & Community", short: "Arts", blurb: "Art that makes room", color: "#7f9c78" },
+        { id: "brand", label: "Sustainable Brand Experiences", short: "Brands", blurb: "Less waste, more meaning", color: "#C08EA4" },
+        { id: "ai", label: "Human-Centred AI Pilots", short: "AI Pilots", blurb: "Technology, kept accountable", color: "#6b8f76" },
+      ],
+      projects: [],
+    }),
+    newItem: () => ({ cat: "", title: "", summary: "", tags: [], meta: { Year: "", Partner: "", Format: "" }, body: [], highlights: [], images: ["", "", ""] }),
+    title: (p) => p.title,
+    sub: (p) => {
+      const c = ((projects && projects.data().categories) || []).find((x) => x.id === p.cat);
+      return (c ? c.label : p.cat) + ((p.tags || []).length ? " · " + p.tags.map((t) => "#" + t).join(" ") : "");
+    },
+    thumb: (p) => (p.images || [])[0],
+    finalize: (p) => {
+      // drop empty meta values and trailing empty image slots
+      Object.keys(p.meta || {}).forEach((key) => { if (!String(p.meta[key] || "").trim()) delete p.meta[key]; });
+      p.images = (p.images || []).map((s) => s || "");
+      while (p.images.length && !p.images[p.images.length - 1]) p.images.pop();
+    },
+    extra: {
+      title: "Manage project categories (the folder tabs)",
+      hint: "These are the tabs in the Project Showroom. Renaming one keeps its projects. You can't remove a category that still has projects.",
+      itemsKey: "categories", refField: "cat", singular: "project categories",
+      sub: [
+        { name: "label", label: "Full name (left-hand sorting tab)", type: "text" },
+        { name: "short", label: "Short name (folder tab)", type: "text" },
+        { name: "blurb", label: "One-line tagline", type: "text" },
+        { name: "color", label: "Colour", type: "color" },
+      ],
+    },
+    fields: [
+      { name: "title", label: "Project title", type: "text", required: true },
+      { name: "cat", label: "Category (which folder tab)", type: "select", options: () => ((projects && projects.data().categories) || []).map((c) => ({ value: c.id, label: c.label })) },
+      { name: "summary", label: "Short summary (shown at the top, stays fixed)", type: "textarea", min: 60 },
+      { name: "tags", label: "Keyword tags (optional)", type: "csv", placeholder: "Wellbeing, Pilot", hint: "Separate with commas. Visitors can click a tag to see projects that share it." },
+      { name: "meta.Year", label: "Year", type: "text" },
+      { name: "meta.Partner", label: "Partner / client", type: "text" },
+      { name: "meta.Format", label: "Format (e.g. Pilot, Workshop)", type: "text" },
+      { name: "body", label: "Overview (scrolling part)", type: "paragraphs", hint: "Leave a blank line between paragraphs." },
+      { name: "highlights", label: "Highlights", type: "lines", hint: "One item per line." },
+      { name: "images.0", label: "Main image", type: "image" },
+      { name: "images.1", label: "Gallery image 1", type: "image" },
+      { name: "images.2", label: "Gallery image 2", type: "image" },
+    ],
   });
 
   boot();

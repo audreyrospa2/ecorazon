@@ -3,6 +3,9 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import coursesData from '../data/courses.json';
+import partnersData from '../data/partners.json';
+import projectsData from '../data/projects.json';
 
 // Get all published blog posts, sorted by date (newest first)
 const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
@@ -48,6 +51,22 @@ function getCategoryTag(category: string) {
   };
   return tags[category] || 'green';
 }
+ 
+// Courses
+const courses = coursesData.courses ?? [];
+const COURSE_GRADIENTS = {
+  green: 'linear-gradient(135deg,#cfe4c9,#6b8f76)',
+  pink:  'linear-gradient(135deg,#eeccdc,#c48fa4)',
+  brown: 'linear-gradient(135deg,#e3cdb2,#a07850)',
+  sage:  'linear-gradient(135deg,#cfe4c9,#95BD8D)',
+};
+ 
+// Projects (folder tabs come from the categories you manage in the admin)
+const SHOWCASE_TABS = projectsData.categories ?? [];
+const projectsJson = JSON.stringify({ projects: projectsData.projects ?? [] }).replace(/</g, '\\u003c');
+ 
+// Partners
+const partnersJson = JSON.stringify(partnersData.partners ?? []).replace(/</g, '\\u003c');
 ---
 
 <Layout title="Resources - Ecorazón">
@@ -75,7 +94,7 @@ function getCategoryTag(category: string) {
             </div>
           </button>
 
-          <button class="tt-card" data-index="2">
+          <button class="tt-card" data-index="1">
             <div class="tt-card-top">
               <span class="tt-card-step">02</span>
             </div>
@@ -86,7 +105,7 @@ function getCategoryTag(category: string) {
             </div>
           </button>
 
-          <button class="tt-card" data-index="3">
+          <button class="tt-card" data-index="2">
             <div class="tt-card-top">
               <span class="tt-card-step">03</span>
             </div>
@@ -97,9 +116,9 @@ function getCategoryTag(category: string) {
             </div>
           </button>
     
-          <button class="tt-card" data-index="1">
+          <button class="tt-card" data-index="3">
             <div class="tt-card-top">
-              <span class="tt-card-step">03</span>
+              <span class="tt-card-step">04</span>
             </div>
             <div class="tt-card-bottom">
               <h3 class="tt-card-title">Project Showcase</h3>
@@ -232,123 +251,57 @@ function getCategoryTag(category: string) {
       </div>
 
       <div class="courses-track" id="coursesTrack">
-
-        <article class="course-card">
-          <div class="course-media" style="--media: linear-gradient(135deg,#cfe4c9,#6b8f76);">
-            <div class="course-badges">
-              <span class="course-badge">Online</span>
-              <span class="course-badge course-badge--dark">Featured</span>
-            </div>
-          </div>
-          <div class="course-body">
-            <h4 class="course-name">Neuroseed Train-the-Trainer Programme</h4>
-            <div class="course-tags">
-              <span class="course-tag course-tag--green">#Facilitation</span>
-              <span class="course-tag course-tag--blue">#ForTrainers</span>
-            </div>
-            <div class="course-stats">
-              <div><small>Theory</small><strong>00 hrs</strong></div>
-              <div><small>Practice</small><strong>00 hrs</strong></div>
-            </div>
-          </div>
-          <div class="course-foot">
-            <span class="course-instructor">Instructor name</span>
-            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
-          </div>
-        </article>
-
-        <article class="course-card">
-          <div class="course-media" style="--media: linear-gradient(135deg,#eeccdc,#c48fa4);">
-            <div class="course-badges">
-              <span class="course-badge">In person</span>
-            </div>
-          </div>
-          <div class="course-body">
-            <h4 class="course-name">Mindful Workplaces: Wellbeing That Lasts</h4>
-            <div class="course-tags">
-              <span class="course-tag course-tag--pink">#Wellbeing</span>
-              <span class="course-tag course-tag--green">#Teams</span>
-            </div>
-            <div class="course-stats">
-              <div><small>Theory</small><strong>00 hrs</strong></div>
-              <div><small>Practice</small><strong>00 hrs</strong></div>
-            </div>
-          </div>
-          <div class="course-foot">
-            <span class="course-instructor">Instructor name</span>
-            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
-          </div>
-        </article>
-
-        <article class="course-card">
-          <div class="course-media" style="--media: linear-gradient(135deg,#e3cdb2,#a07850);">
-            <div class="course-badges">
-              <span class="course-badge">Online</span>
-              <span class="course-badge">In person</span>
-            </div>
-          </div>
-          <div class="course-body">
-            <h4 class="course-name">Fair Practice for Creative Makers</h4>
-            <div class="course-tags">
-              <span class="course-tag course-tag--brown">#FairPractice</span>
-              <span class="course-tag course-tag--blue">#Artists</span>
-            </div>
-            <div class="course-stats">
-              <div><small>Theory</small><strong>00 hrs</strong></div>
-              <div><small>Practice</small><strong>00 hrs</strong></div>
-            </div>
-          </div>
-          <div class="course-foot">
-            <span class="course-instructor">Instructor name</span>
-            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
-          </div>
-        </article>
-
-        <article class="course-card">
-          <div class="course-media" style="--media: linear-gradient(135deg,#cfe4c9,#95BD8D);">
-            <div class="course-badges">
-              <span class="course-badge">In person</span>
-            </div>
-          </div>
-          <div class="course-body">
-            <h4 class="course-name">Community Workshop Design &amp; Facilitation</h4>
-            <div class="course-tags">
-              <span class="course-tag course-tag--green">#Community</span>
-              <span class="course-tag course-tag--pink">#Workshops</span>
-            </div>
-            <div class="course-stats">
-              <div><small>Theory</small><strong>00 hrs</strong></div>
-              <div><small>Practice</small><strong>00 hrs</strong></div>
-            </div>
-          </div>
-          <div class="course-foot">
-            <span class="course-instructor">Instructor name</span>
-            <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
-          </div>
-
-          <template class="course-detail">
-            <p class="cd-lead">A short overview of the programme goes here: who it's for and what they'll walk away with.</p>
-
-            <div class="cd-grid">
-              <div><small>Format</small><strong>Online</strong></div>
-              <div><small>Duration</small><strong>00 weeks</strong></div>
-              <div><small>Theory</small><strong>00 hrs</strong></div>
-              <div><small>Practice</small><strong>00 hrs</strong></div>
-              <div><small>Next intake</small><strong>TBC</strong></div>
-              <div><small>Instructor</small><strong>Instructor name</strong></div>
-            </div>
-
-            <h5 class="cd-heading">What you'll learn</h5>
-            <ul class="cd-list">
-              <li>First learning outcome</li>
-              <li>Second learning outcome</li>
-              <li>Third learning outcome</li>
-            </ul>
-
-            <a href="/get-in-touch" class="course-btn cd-register">Register interest</a>
-          </template>
-        </article>
-
+        {courses.map((c) => {
+          const d = c.details ?? {};
+          const formats = c.format ?? [];
+          const outcomes = d.outcomes ?? [];
+          const media = c.image ? `url('${c.image}')` : (COURSE_GRADIENTS[c.color] ?? COURSE_GRADIENTS.green);
+          return (
+            <article class="course-card">
+              <div class="course-media" style={`--media: ${media};`}>
+                <div class="course-badges">
+                  {formats.map((f) => <span class="course-badge">{f}</span>)}
+                  {c.featured && <span class="course-badge course-badge--dark">Featured</span>}
+                </div>
+              </div>
+              <div class="course-body">
+                <h4 class="course-name">{c.title}</h4>
+                <div class="course-tags">
+                  {(c.tags ?? []).map((t) => <span class={`course-tag course-tag--${t.color ?? 'green'}`}>{t.label}</span>)}
+                </div>
+                <div class="course-stats">
+                  <div><small>Theory</small><strong>{c.theory}</strong></div>
+                  <div><small>Practice</small><strong>{c.practice}</strong></div>
+                </div>
+              </div>
+              <div class="course-foot">
+                <span class="course-instructor">{c.instructor}</span>
+                <button type="button" class="course-btn" data-course-open>Details <span aria-hidden="true">↗</span></button>
+              </div>
+      
+              <template class="course-detail">
+                {d.lead && <p class="cd-lead">{d.lead}</p>}
+                <div class="cd-grid">
+                  <div><small>Format</small><strong>{formats.length ? formats.join(' & ') : '—'}</strong></div>
+                  <div><small>Duration</small><strong>{d.duration || '—'}</strong></div>
+                  <div><small>Theory</small><strong>{c.theory || '—'}</strong></div>
+                  <div><small>Practice</small><strong>{c.practice || '—'}</strong></div>
+                  <div><small>Next intake</small><strong>{d.nextIntake || 'TBC'}</strong></div>
+                  <div><small>Instructor</small><strong>{c.instructor || '—'}</strong></div>
+                </div>
+                {outcomes.length > 0 && (
+                  <>
+                    <h5 class="cd-heading">What you'll learn</h5>
+                    <ul class="cd-list">
+                      {outcomes.map((o) => <li>{o}</li>)}
+                    </ul>
+                  </>
+                )}
+                <a href={d.registerUrl || '/get-in-touch'} class="course-btn cd-register">Register interest</a>
+              </template>
+            </article>
+          );
+        })}
       </div>
     </section>
     <div class="course-modal" id="courseModal" hidden>
@@ -377,63 +330,53 @@ function getCategoryTag(category: string) {
           <div class="partners-track" id="partnersRow2"></div>
         </div>
       </div>
+
+      <script type="application/json" id="partnersData" set:html={partnersJson}></script>
     </section>
 
     <!-- Project Showcase -->
     <section class="showcase-hero" id="showcase-hero">
-      <div class="showcase-head">
-        <h2 class="showcase-title animate-fade-in">Project Showroom</h2>
-        <p class="showcase-tagline animate-fade-in-delay">Ideas, made visible.</p>
-        <p class="showcase-intro animate-fade-in-delay">Discover projects, pilot programmes and case studies that bring research into the real world. From ESG and CSR initiatives to inclusive arts, employee wellbeing, co-creation workshops and responsible technology experiments — each project shows how insight can become shared impact.</p>
+      <div class="showcase-layout">
+    
+        <div class="showcase-head">
+          <h2 class="showcase-title animate-fade-in">Project Showroom</h2>
+          <p class="showcase-tagline animate-fade-in-delay">Ideas, made visible.</p>
+          <p class="showcase-intro animate-fade-in-delay">Discover projects, pilot programmes and case studies that bring research into the real world. From ESG and CSR initiatives to inclusive arts, employee wellbeing, co-creation workshops and responsible technology experiments — each project shows how insight can become shared impact.</p>
+    
+          <div class="pj-sort" id="pjSort" role="tablist" aria-label="Project categories">
+            {SHOWCASE_TABS.map((t, i) => (
+              <button type="button" role="tab" class={`pj-sort-btn${i === 0 ? ' is-active' : ''}`} data-tab={t.id} style={`--tc:${t.color}`}>
+                <span>{t.label}</span><em class="pj-count">0</em>
+              </button>
+            ))}
+          </div>
+          <p class="pj-filter-status" id="pjFilterStatus" hidden></p>
+        </div>
+    
+        <div class="pj-folder" id="pjFolder" style={`--c:${SHOWCASE_TABS[0]?.color ?? '#6b8f76'}`}>
+          <div class="pj-back" aria-hidden="true"></div>
+    
+          <div class="pj-tabs" role="tablist" aria-label="Project categories (folder)">
+            {SHOWCASE_TABS.map((t, i) => (
+              <button
+                type="button"
+                role="tab"
+                class={`pj-tab${i === 0 ? ' is-active' : ''}`}
+                data-tab={t.id}
+                data-blurb={t.blurb}
+                data-color={t.color}
+                style={`--tc:${t.color}`}
+              >{t.short || t.label}</button>
+            ))}
+          </div>
+    
+          <div class="pj-body">
+            <div class="pj-stage" id="pjStage" aria-live="polite"></div>
+          </div>
+        </div>
+    
       </div>
-
-      <div class="showcase-stack">
-
-        <div class="showcase-card">
-          <div class="showcase-tab"><span class="showcase-tab-title">Corporate Culture &amp; Wellbeing</span></div>
-          <div class="showcase-card-head">
-            <span class="showcase-card-subtitle">Where work feels human</span>
-            <span class="showcase-chevron">⌄</span>
-          </div>
-          <div class="showcase-card-body">
-            <p>Rituals, spaces and small interventions that help teams feel seen — from onboarding gifts to wellbeing pilots run inside partner offices.</p>
-          </div>
-        </div>
-
-        <div class="showcase-card">
-          <div class="showcase-tab"><span class="showcase-tab-title">Inclusive Arts &amp; Community</span></div>
-          <div class="showcase-card-head">
-            <span class="showcase-card-subtitle">Art that makes room</span>
-            <span class="showcase-chevron">⌄</span>
-          </div>
-          <div class="showcase-card-body">
-            <p>Co-created works and community workshops that widen who gets to make and be seen — built alongside the artists and neighbourhoods involved.</p>
-          </div>
-        </div>
-
-        <div class="showcase-card">
-          <div class="showcase-tab"><span class="showcase-tab-title">Sustainable Brand Experiences</span></div>
-          <div class="showcase-card-head">
-            <span class="showcase-card-subtitle">Less waste, more meaning</span>
-            <span class="showcase-chevron">⌄</span>
-          </div>
-          <div class="showcase-card-body">
-            <p>Gifting and brand moments designed around material honesty — sourcing, packaging and stories that hold up past the unboxing.</p>
-          </div>
-        </div>
-
-        <div class="showcase-card">
-          <div class="showcase-tab"><span class="showcase-tab-title">Human-Centred AI Pilots</span></div>
-          <div class="showcase-card-head">
-            <span class="showcase-card-subtitle">Technology, kept accountable</span>
-            <span class="showcase-chevron">⌄</span>
-          </div>
-          <div class="showcase-card-body">
-            <p>Early experiments testing where AI genuinely helps a team or a customer — and where it should stay out of the way.</p>
-          </div>
-        </div>
-
-      </div>
+      <script type="application/json" id="projectsData" set:html={projectsJson}></script>
     </section>
 
   </main>
@@ -1392,209 +1335,376 @@ button.course-btn {
   .showcase-hero *,
   .showcase-hero *::before,
   .showcase-hero *::after { box-sizing: border-box; }
-
+ 
   .showcase-hero {
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 6rem clamp(1rem, 4vw, 3rem) 6rem;
+    justify-content: center;
+    padding: 5rem clamp(1rem, 4vw, 3rem) 3rem;
     background: #f7f5f0;
-    gap: 2.5rem;
   }
-
-  .showcase-head {
-    max-width: 720px;
-    text-align: center;
+ 
+  .showcase-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    width: 100%;
+    max-width: 1120px;
   }
-
+ 
+  /* ── left column ── */
+  .showcase-head { text-align: left; }
+ 
   .showcase-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    font-size: clamp(2rem, 3.8vw, 3.1rem);
     line-height: 1.1;
     color: #000;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.4rem;
   }
-
   .showcase-tagline {
     font-family: 'MaoWei', sans-serif;
     font-style: italic;
     font-weight: 500;
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
     color: #6b8f76;
-    margin: 0 0 1.25rem;
+    margin: 0 0 0.9rem;
   }
-
   .showcase-intro {
     font-family: 'MaoWei', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.6;
     color: rgba(0,0,0,0.65);
-    max-width: 62ch;
-    margin: 0 auto;
+    max-width: 46ch;
+    margin: 0 0 1.5rem;
   }
-
-  /* ── the stack of files ── */
-  .showcase-stack {
+ 
+  /* sorting tabs */
+  .pj-sort { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .pj-sort-btn {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.62);
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 999px;
+    padding: 0.42rem 0.5rem 0.42rem 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+  }
+  .pj-sort-btn:hover { transform: translateY(-1px); border-color: var(--tc); }
+  .pj-sort-btn.is-active { background: var(--tc); border-color: var(--tc); color: #fff; }
+  .pj-count {
+    font-style: normal;
+    font-size: 0.68rem;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #f1eee7;
+    color: rgba(0,0,0,0.55);
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .pj-sort-btn.is-active .pj-count { background: rgba(255,255,255,0.28); color: #fff; }
+ 
+  .pj-filter-status {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #6b8f76;
+    margin: 0.9rem 0 0;
+  }
+  .pj-filter-status button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid currentColor;
+    padding: 0;
+    margin-left: 0.4rem;
+    cursor: pointer;
+  }
+ 
+  /* ── the folder (right column) ── */
+  .pj-folder {
+    --c: #6b8f76;                       /* active category colour, set by JS */
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    max-width: 900px;
-    padding-top: 52px; /* room for the first tab to poke into */
+    max-width: 580px;
+    justify-self: end;
+    height: clamp(460px, 66vh, 590px);
   }
-
-  .showcase-card {
-    --accent: #a07850;
+ 
+  /* the darker "back of the folder" strip you see to the right of the tabs */
+  .pj-back {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 26px;
+    height: 70px;
+    background: var(--c);
+    border-radius: 0 18px 0 0;
+    z-index: 0;
+    transition: background 0.4s ease;
+  }
+ 
+  .pj-tabs {
     position: relative;
-    background: var(--accent);
-    border-radius: 16px;
-    margin-top: -14px;
-    box-shadow: 0 18px 30px -20px rgba(0,0,0,0.35);
-    transition: transform 0.32s cubic-bezier(.22,.9,.3,1);
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    height: 56px;
+    flex: 0 0 auto;
   }
-
-  .showcase-card:first-child{ margin-top: 0; }
-
-  /* brand hues, reused from the Library shelf / Partner tags above */
-  .showcase-card:nth-child(1){ --accent: #a07850; z-index: 10; } /* cork-brown — Corporate Culture */
-  .showcase-card:nth-child(2){ --accent: #7f9c78; z-index: 20; } /* Artists purple — Inclusive Arts */
-  .showcase-card:nth-child(3){ --accent: #C08EA4; z-index: 30; } /* forest-green — Sustainable Brand C08EA4 */
-  .showcase-card:nth-child(4){ --accent: #6b8f76; z-index: 40; } /* Social Impact blue — AI Pilots */
-
-  /* title: the whole file lifts a touch, as one piece */
-  .showcase-card:has(.showcase-tab:hover){
-    transform: translateY(-8px);
+ 
+  .pj-tab {
+    --tab-bg: color-mix(in srgb, var(--tc) 26%, #e9e6de);
+    position: relative;
+    isolation: isolate;
+    flex: 0 0 auto;
+    height: 40px;
+    margin-left: -24px;                 /* tabs overlap, later ones on top */
+    padding: 0 34px 0 26px;
+    display: flex;
+    align-items: center;
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(0,0,0,0.6);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: height 0.4s cubic-bezier(.22,.9,.34,1), color 0.25s ease;
   }
-
-  /* the "can open" cue — a hairline + soft shadow across the full top edge,
-     shown only while the body is open */
-  .showcase-card::before{
+  .pj-tab:first-child { margin-left: 0; }
+ 
+  /* tab body + the sloped right edge */
+  .pj-tab::before,
+  .pj-tab::after {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 8px;
+    background: var(--tab-bg);
+    z-index: -1;
+    transition: background 0.3s ease;
+  }
+  .pj-tab::before {
+    inset: 0 -2px 0 0;
     border-radius: 16px 16px 0 0;
-    box-shadow:
-      0 2px 0 rgba(0,0,0,0.18),
-      0 14px 20px -8px rgba(0,0,0,0.4);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  }
+  .pj-tab::after {
+    top: 0;
+    bottom: 0;
+    right: -22px;
+    width: 44px;
+    border-radius: 0 16px 0 0;
+    transform: skewX(26deg);
+    transform-origin: bottom left;
+  }
+ 
+  .pj-tab:hover { height: 45px; --tab-bg: color-mix(in srgb, var(--tc) 40%, #e9e6de); }
+ 
+  /* the chosen tab pops up, takes its colour and sits in front */
+  .pj-tab.is-active {
+    z-index: 3;
+    height: 54px;
+    --tab-bg: var(--tc);
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+  }
+ 
+  .pj-body {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: #ece9e1;
+    border-radius: 0 18px 18px 18px;
+    box-shadow: 0 26px 50px -22px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  /* soft fade at the bottom so it's clear the lower part scrolls */
+  .pj-body::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(236,233,225,0), #ece9e1);
     pointer-events: none;
   }
-
-  .showcase-card:has(.showcase-card-head:hover)::before,
-  .showcase-card:has(.showcase-card-body:hover)::before,
-  .showcase-card:last-child::before{ opacity: 1; }
-
-  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-head:hover) .showcase-card:last-child::before,
-  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-body:hover) .showcase-card:last-child::before{ opacity: 0; }
-
-  /* the tab — pokes above the card's own top edge, title lives here */
-  .showcase-tab{
-    position: absolute;
-    top: -40px;
-    left: 30px;
-    background: var(--accent);
-    padding: 0.9rem 1.3rem 0.7rem;
-    border-radius: 12px 12px 0 0;
-    cursor: default;
+ 
+  /* page-change animation (JS toggles .is-out / .is-pre) */
+  .pj-stage {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.22s ease, transform 0.3s cubic-bezier(.22,.9,.34,1);
   }
-
-  .showcase-tab-title{
+  .pj-stage.is-out,
+  .pj-stage.is-pre { opacity: 0; transform: translateX(var(--dx, 0px)); }
+  .pj-stage.is-pre { transition: none; }
+ 
+  /* static top part */
+  .pj-head {
+    position: relative;
+    flex: 0 0 auto;
+    padding: 1.35rem 1.6rem 1.1rem;
+  }
+  .pj-head::after {                     /* the thin divider line */
+    content: '';
+    position: absolute;
+    left: 1.6rem; right: 1.6rem; bottom: 0;
+    height: 1px;
+    background: rgba(0,0,0,0.38);
+  }
+  .pj-head-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .pj-kicker {
+    display: block;
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--c) 75%, #000);
+    margin-bottom: 0.3rem;
+  }
+  .pj-title {
     font-family: 'MaoWei', sans-serif;
     font-weight: 700;
-    font-size: 1.02rem;
-    color: #fff;
+    font-size: 1.3rem;
     line-height: 1.2;
-    display: block;
-    white-space: nowrap;
-  }
-
-  /* always-visible header strip — subtitle + chevron, top right.
-     Hovering anywhere on this strip (or the collapsed body below it) opens the file. */
-  .showcase-card-head{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1.15rem 1.5rem;
-    cursor: default;
-  }
-
-  .showcase-card-subtitle{
-    font-family: 'MaoWei', sans-serif;
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.92);
-  }
-
-  .showcase-chevron{
-    display: inline-block;
-    color: rgba(255,255,255,0.92);
-    font-size: 0.75rem;
-    transform: rotate(90deg);
-    transition: transform 0.32s cubic-bezier(.22,.9,.3,1);
-  }
-
-  /* description — collapsed by default; grows open on hover, pushing the
-     files below it down. Every file opens to the same max-height, so all
-     four end up the same length. */
-  .showcase-card-body{
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0 1.5rem;
-    transition: max-height 0.42s cubic-bezier(.22,.9,.3,1), opacity 0.28s ease, padding 0.42s ease;
-  }
-
-  .showcase-card-body p{
+    letter-spacing: 0.01em;
+    color: #000;
     margin: 0;
-    padding: 0 0 4.5rem; /* clears the next file's tab, which pokes ~70px above it */
-    max-width: 52ch;
+  }
+  .pj-nav { display: flex; align-items: center; gap: 0.45rem; flex: 0 0 auto; }
+  .pj-counter { font-family: 'MaoWei', sans-serif; font-size: 0.74rem; color: rgba(0,0,0,0.5); min-width: 2.6rem; text-align: center; }
+  .pj-arrow {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #fff;
+    color: #000;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, opacity 0.2s ease;
+  }
+  .pj-arrow:hover:not(:disabled) { background: var(--c); border-color: var(--c); color: #fff; transform: translateY(-1px); }
+  .pj-arrow:disabled { opacity: 0.35; cursor: default; }
+ 
+  .pj-summary {
     font-family: 'MaoWei', sans-serif;
-    font-size: 0.92rem;
-    line-height: 1.6;
-    color: #fff;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: rgba(0,0,0,0.68);
+    margin: 0.7rem 0 0;
+    max-width: 52ch;
   }
-
-  /* default rest state: the last file is the one left open */
-  .showcase-card:last-child .showcase-chevron{ transform: rotate(0deg); }
-  .showcase-card:last-child .showcase-card-body{
-    max-height: 600px;
-    opacity: 1;
-    padding: 0 1.5rem;
+  .pj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+  .pj-tag {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--c) 75%, #000);
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 999px;
+    padding: 0.26rem 0.7rem;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
   }
-
-  /* hovering a file's header OR its (collapsed) body area opens it */
-  .showcase-card:has(.showcase-card-head:hover) .showcase-chevron,
-  .showcase-card:has(.showcase-card-body:hover) .showcase-chevron{ transform: rotate(0deg); }
-
-  .showcase-card:has(.showcase-card-head:hover) .showcase-card-body,
-  .showcase-card-body:hover{
-    max-height: 600px;
-    opacity: 1;
-    padding: 0 1.5rem;
+  .pj-tag:hover { transform: translateY(-1px); }
+  .pj-tag.is-active { background: var(--c); border-color: var(--c); color: #fff; }
+ 
+  /* scrolling bottom part */
+  .pj-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 1.2rem 1.6rem 2.6rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.25) transparent;
   }
-
-  /* hovering a different file closes the default-open last one */
-  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-head:hover) .showcase-card:last-child .showcase-chevron,
-  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-body:hover) .showcase-card:last-child .showcase-chevron{
-    transform: rotate(90deg);
+  .pj-media {
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(135deg, color-mix(in srgb, var(--c) 28%, #fff), var(--c));
   }
-  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-head:hover) .showcase-card:last-child .showcase-card-body,
-  .showcase-stack:has(.showcase-card:not(:last-child) .showcase-card-body:hover) .showcase-card:last-child .showcase-card-body{
-    max-height: 0;
-    opacity: 0;
-    padding: 0 1.5rem;
+  .pj-hero { height: 150px; }
+  .pj-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin: 1rem 0 0.4rem;
+    font-family: 'MaoWei', sans-serif;
   }
-
-  @media (max-width: 560px){
-    .showcase-tab-title{ white-space: normal; font-size: 0.92rem; }
-    .showcase-tab{ left: 18px; padding: 0.7rem 1rem 0.5rem; }
+  .pj-meta dt { font-size: 0.7rem; color: rgba(0,0,0,0.45); margin: 0 0 0.15rem; }
+  .pj-meta dd { font-size: 0.88rem; font-weight: 700; color: #000; margin: 0; }
+  .pj-scroll h4 {
+    font-family: 'MaoWei', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #000;
+    margin: 1.2rem 0 0.4rem;
   }
-
-  @media (prefers-reduced-motion: reduce){
-    .showcase-card, .showcase-card-body, .showcase-chevron{ transition: none; }
+  .pj-scroll p {
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: rgba(0,0,0,0.7);
+    margin: 0 0 0.7rem;
+  }
+  .pj-list {
+    margin: 0 0 0.6rem;
+    padding-left: 1.1rem;
+    font-family: 'MaoWei', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: rgba(0,0,0,0.7);
+  }
+  .pj-list li::marker { color: var(--c); }
+  .pj-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; margin-top: 1rem; }
+  .pj-tile { height: 110px; border-radius: 12px; }
+  .pj-tile:nth-child(2) { background-image: linear-gradient(315deg, color-mix(in srgb, var(--c) 22%, #fff), color-mix(in srgb, var(--c) 80%, #000)); }
+  .pj-empty { font-family: 'MaoWei', sans-serif; padding: 2rem 1.6rem; color: rgba(0,0,0,0.5); }
+ 
+  /* ── responsive ── */
+  @media (max-width: 900px) {
+    .showcase-layout { grid-template-columns: 1fr; }
+    .pj-folder { max-width: none; justify-self: stretch; height: clamp(480px, 72vh, 640px); }
+    .pj-sort { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+    .pj-sort::-webkit-scrollbar { display: none; }
+    .pj-tab { padding: 0 28px 0 18px; margin-left: -20px; font-size: 0.78rem; }
+    .pj-title { font-size: 1.15rem; }
+  }
+  @media (max-width: 480px) {
+    .pj-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+ 
+  @media (prefers-reduced-motion: reduce) {
+    .pj-stage, .pj-tab, .pj-back, .pj-sort-btn, .pj-arrow, .pj-tag { transition: none; }
   }
 
   /* ─── STRATEGIC PARTNERS (compact) ─── */
@@ -2224,69 +2334,83 @@ button.course-btn {
     var row1 = document.getElementById('partnersRow1');
     var row2 = document.getElementById('partnersRow2');
     if (!rowsEl || !row1 || !row2) return;
-
-    // six unique tags total, three per row — no tag repeated across
-    // the section. Each row's track is rendered twice back-to-back
-    // (a standard marquee trick) purely so the scroll loop has no
-    // visible seam; that's a rendering detail, not a content repeat.
-    // six partner *types* — these describe who a partner is, not
-    // what a post is about, so they can't double as content tags.
-    // Instead each links to the closest real `category` from the
-    // schema (filterValue), leaving "Materials" unmapped since none
-    // of the six is a natural fit for it.
-    var ROW_1_TAGS = [
-      { name: 'Corporate Partners', filterValue: 'Partnerships', desc: 'Brands aligning purpose with profit', gradient: 'conic-gradient(from 200deg, #16324f, #3b82c4, #a9d8ef, #16324f)' },
-      { name: 'Schools & Institutions', filterValue: 'Tips', desc: 'Educators shaping the next generation', gradient: 'conic-gradient(from 160deg, #0b3d1f, #3bb273, #b8ecc2, #0b3d1f)' },
-      { name: 'Community & NGOs', filterValue: 'Community', desc: 'Grassroots networks driving local change', gradient: 'conic-gradient(from 140deg, #5c2a0a, #d97a3d, #f7d2ab, #5c2a0a)' }
-    ];
-    var ROW_2_TAGS = [
-      { name: 'Artists & Cultural Influencers', filterValue: 'Artist Stories', desc: 'Creative voices amplifying our story', gradient: 'conic-gradient(from 120deg, #4a154b, #a64ac9, #e8c3ff, #4a154b)' },
-      { name: 'Innovative Tech Partners', filterValue: 'Innovation', desc: 'Technology built with people in mind', gradient: 'conic-gradient(from 200deg, #22333b, #5c7a89, #c3d3d6, #22333b)' },
-      { name: 'Impact & Funding Partners', filterValue: 'Impact', desc: 'Capital and resources fuelling growth', gradient: 'conic-gradient(from 150deg, #7a5c00, #e0b400, #fbe9ae, #7a5c00)' }
-    ];
-
+ 
+    // partners come from src/data/partners.json (edited in the admin → Partners tab)
+    var PARTNERS = [];
+    try { PARTNERS = JSON.parse(document.getElementById('partnersData').textContent) || []; } catch (e) {}
+ 
+    // badge colours the admin can pick from
+    var GRADIENTS = {
+      blue:   'conic-gradient(from 200deg, #16324f, #3b82c4, #a9d8ef, #16324f)',
+      green:  'conic-gradient(from 160deg, #0b3d1f, #3bb273, #b8ecc2, #0b3d1f)',
+      orange: 'conic-gradient(from 140deg, #5c2a0a, #d97a3d, #f7d2ab, #5c2a0a)',
+      purple: 'conic-gradient(from 120deg, #4a154b, #a64ac9, #e8c3ff, #4a154b)',
+      slate:  'conic-gradient(from 200deg, #22333b, #5c7a89, #c3d3d6, #22333b)',
+      gold:   'conic-gradient(from 150deg, #7a5c00, #e0b400, #fbe9ae, #7a5c00)'
+    };
+ 
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+ 
+    function toTag(p) {
+      return {
+        name: p.name,
+        desc: p.desc,
+        filterValue: p.filterValue,
+        gradient: p.image
+          ? "url('" + String(p.image).replace(/'/g, '%27') + "') center / cover no-repeat"
+          : (GRADIENTS[p.gradient] || GRADIENTS.green)
+      };
+    }
+ 
+    var ROW_1_TAGS = PARTNERS.filter(function (p) { return Number(p.row) !== 2; }).map(toTag);
+    var ROW_2_TAGS = PARTNERS.filter(function (p) { return Number(p.row) === 2; }).map(toTag);
+ 
     function buildCard(tag) {
       var card = document.createElement('div');
       card.className = 'partner-card';
       card.setAttribute('data-tag', tag.name);
-
+ 
       var avatar = document.createElement('div');
       avatar.className = 'partner-avatar';
       avatar.style.setProperty('--avatar-gradient', tag.gradient);
-
+ 
       var copy = document.createElement('div');
       copy.className = 'partner-copy';
       copy.innerHTML =
-        '<h3>' + tag.name + '</h3><p>' + tag.desc + '</p>' +
-        '<a class="partner-link" href="/resources?tag=' + encodeURIComponent(tag.filterValue) + '">Explore →</a>';
-
-
+        '<h3>' + esc(tag.name) + '</h3><p>' + esc(tag.desc) + '</p>' +
+        '<a class="partner-link" href="/resources?tag=' + encodeURIComponent(tag.filterValue || '') + '">Explore →</a>';
+ 
       card.appendChild(avatar);
       card.appendChild(copy);
       return card;
     }
-
+ 
     function fillTrack(track, tags) {
-      // render the set twice so translateX(-50%) loops seamlessly
-      [0, 1].forEach(function () {
-        tags.forEach(function (tag) {
-          track.appendChild(buildCard(tag));
-        });
-      });
+      if (!tags.length) { track.closest('.partners-row').style.display = 'none'; return; }
+      // The scroll loop shifts by exactly half the track, so the set is repeated an even
+      // number of times. Rows with only a few partners repeat more so they never show a gap.
+      var copies = tags.length < 4 ? 4 : 2;
+      for (var c = 0; c < copies; c++) {
+        tags.forEach(function (tag) { track.appendChild(buildCard(tag)); });
+      }
     }
-
+ 
     fillTrack(row1, ROW_1_TAGS);
     fillTrack(row2, ROW_2_TAGS);
-
+ 
     document.querySelectorAll('.partners-row').forEach(function (row) {
       row.style.setProperty('--row-duration', row.getAttribute('data-duration') || '34s');
     });
-
+ 
     // hovering (or clicking to "select") a card highlights every
     // card sharing its tag name and greys/dims the rest; clicking
     // again, or clicking empty space, clears the selection.
     var selectedTag = null;
-
+ 
     function applyFocus(tag) {
       var active = tag !== null;
       rowsEl.classList.toggle('has-focus', active);
@@ -2294,17 +2418,17 @@ button.course-btn {
         card.classList.toggle('is-active', active && card.getAttribute('data-tag') === tag);
       });
     }
-
+ 
     rowsEl.addEventListener('mouseover', function (e) {
       if (selectedTag) return; // an explicit selection takes priority over hover previews
       var card = e.target.closest('.partner-card');
       if (card) applyFocus(card.getAttribute('data-tag'));
     });
-
+ 
     rowsEl.addEventListener('mouseleave', function () {
       if (!selectedTag) applyFocus(null);
     });
-
+ 
     rowsEl.addEventListener('click', function (e) {
       if (e.target.closest('a')) return; // let the Explore link navigate normally
       var card = e.target.closest('.partner-card');
@@ -2312,7 +2436,7 @@ button.course-btn {
       selectedTag = (selectedTag && selectedTag === tag) ? null : tag;
       applyFocus(selectedTag);
     });
-
+ 
     // pause only the row being interacted with, so the other row
     // keeps drifting past while you read a card
     document.querySelectorAll('.partners-row').forEach(function (row) {
@@ -2537,6 +2661,193 @@ button.course-btn {
   })();
 </script>
 
+<script is:inline>
+  (function () {
+    var folder = document.getElementById('pjFolder');
+    var stage = document.getElementById('pjStage');
+    if (!folder || !stage) return;
+ 
+    var PROJECTS = [];
+    try { PROJECTS = (JSON.parse(document.getElementById('projectsData').textContent) || {}).projects || []; } catch (e) {}
+ 
+    var tabs = Array.prototype.slice.call(folder.querySelectorAll('.pj-tab'));
+    var sortBtns = Array.prototype.slice.call(document.querySelectorAll('.pj-sort-btn'));
+    var statusEl = document.getElementById('pjFilterStatus');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!tabs.length) return;
+ 
+    var CATS = tabs.map(function (t) {
+      return { id: t.getAttribute('data-tab'), blurb: t.getAttribute('data-blurb') || '', color: t.getAttribute('data-color') };
+    });
+ 
+    var state = { cat: 0, i: 0, tag: null };
+    var busy = false;
+ 
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+ 
+    // projects shown right now: this tab, narrowed by the active tag if there is one
+    function list() {
+      var id = CATS[state.cat].id;
+      return PROJECTS.filter(function (p) {
+        return p.cat === id && (!state.tag || (p.tags || []).indexOf(state.tag) !== -1);
+      });
+    }
+ 
+    function renderStage() {
+      var L = list();
+      if (!L.length) { stage.innerHTML = '<p class="pj-empty">No projects here yet.</p>'; return; }
+      if (state.i >= L.length) state.i = 0;
+      var p = L[state.i];
+      var imgs = p.images || [];
+      var meta = p.meta || {};
+      var body = p.body || [];
+      var highlights = p.highlights || [];
+ 
+      function bg(n) { return imgs[n] ? ' style="background-image:url(\'' + esc(imgs[n]) + '\')"' : ''; }
+ 
+      var tagsHtml = (p.tags || []).map(function (t) {
+        var on = state.tag === t;
+        return '<button type="button" class="pj-tag' + (on ? ' is-active' : '') + '" data-tag="' + esc(t) + '">#' + esc(t) + (on ? ' ×' : '') + '</button>';
+      }).join('');
+ 
+      var metaKeys = Object.keys(meta).filter(function (k) { return String(meta[k] || '').trim(); });
+      var metaHtml = metaKeys.length
+        ? '<dl class="pj-meta">' + metaKeys.map(function (k) { return '<div><dt>' + esc(k) + '</dt><dd>' + esc(meta[k]) + '</dd></div>'; }).join('') + '</dl>'
+        : '';
+ 
+      var galleryHtml = (imgs[1] || imgs[2])
+        ? '<div class="pj-gallery">' +
+            (imgs[1] ? '<div class="pj-media pj-tile"' + bg(1) + '></div>' : '') +
+            (imgs[2] ? '<div class="pj-media pj-tile"' + bg(2) + '></div>' : '') +
+          '</div>'
+        : '';
+ 
+      stage.innerHTML =
+        '<div class="pj-head">' +
+          '<div class="pj-head-top">' +
+            '<div><span class="pj-kicker">' + esc(CATS[state.cat].blurb) + '</span><h3 class="pj-title">' + esc(p.title) + '</h3></div>' +
+            '<div class="pj-nav">' +
+              '<button type="button" class="pj-arrow" data-step="-1" aria-label="Previous project"' + (L.length < 2 ? ' disabled' : '') + '>←</button>' +
+              '<span class="pj-counter">' + (state.i + 1) + ' / ' + L.length + '</span>' +
+              '<button type="button" class="pj-arrow" data-step="1" aria-label="Next project"' + (L.length < 2 ? ' disabled' : '') + '>→</button>' +
+            '</div>' +
+          '</div>' +
+          (p.summary ? '<p class="pj-summary">' + esc(p.summary) + '</p>' : '') +
+          (tagsHtml ? '<div class="pj-tags">' + tagsHtml + '</div>' : '') +
+        '</div>' +
+        '<div class="pj-scroll" tabindex="0">' +
+          '<div class="pj-media pj-hero"' + bg(0) + '></div>' +
+          metaHtml +
+          (body.length ? '<h4>Overview</h4>' + body.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') : '') +
+          (highlights.length ? '<h4>Highlights</h4><ul class="pj-list">' + highlights.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
+          galleryHtml +
+        '</div>';
+    }
+ 
+    // tabs, colours, counts, filter message — updates instantly
+    function syncChrome() {
+      tabs.forEach(function (t, i) {
+        t.classList.toggle('is-active', i === state.cat);
+        t.setAttribute('aria-selected', i === state.cat ? 'true' : 'false');
+      });
+      sortBtns.forEach(function (b, i) {
+        b.classList.toggle('is-active', i === state.cat);
+        b.setAttribute('aria-selected', i === state.cat ? 'true' : 'false');
+      });
+      folder.style.setProperty('--c', CATS[state.cat].color);
+ 
+      if (statusEl) {
+        statusEl.hidden = !state.tag;
+        statusEl.innerHTML = state.tag ? 'Showing #' + esc(state.tag) + ' <button type="button" data-clear>Clear</button>' : '';
+      }
+    }
+ 
+    // slide the current page out, swap the content, slide the new one in
+    function swap(render, dir) {
+      if (reduce) { render(); return; }
+      busy = true;
+      stage.style.setProperty('--dx', (-dir * 28) + 'px');
+      stage.classList.add('is-out');
+      setTimeout(function () {
+        render();
+        stage.style.setProperty('--dx', (dir * 28) + 'px');
+        stage.classList.add('is-pre');
+        void stage.offsetWidth;                       // flush so the jump happens without a transition
+        stage.classList.remove('is-pre', 'is-out');
+        busy = false;
+      }, 210);
+    }
+ 
+    function setTab(i) {
+      if (i < 0 || i === state.cat || busy) return;
+      var dir = i > state.cat ? 1 : -1;
+      state.cat = i; state.i = 0; state.tag = null;
+      syncChrome();
+      swap(renderStage, dir);
+    }
+    function step(d) {
+      var L = list();
+      if (L.length < 2 || busy) return;
+      state.i = (state.i + d + L.length) % L.length;
+      swap(renderStage, d);
+    }
+    function setTag(t) {
+      if (busy) return;
+      state.tag = state.tag === t ? null : t;
+      state.i = 0;
+      syncChrome();
+      swap(renderStage, 1);
+    }
+ 
+    function indexOfTab(id) {
+      for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return i;
+      return -1;
+    }
+ 
+    // clicks inside the folder: tabs, arrows, tags
+    folder.addEventListener('click', function (e) {
+      var t = e.target instanceof Element ? e.target : null;
+      if (!t) return;
+      var tab = t.closest('.pj-tab');
+      if (tab) { setTab(indexOfTab(tab.getAttribute('data-tab'))); return; }
+      var arrow = t.closest('.pj-arrow');
+      if (arrow && !arrow.disabled) { step(Number(arrow.getAttribute('data-step'))); return; }
+      var tag = t.closest('.pj-tag');
+      if (tag) setTag(tag.getAttribute('data-tag'));
+    });
+ 
+    // the sorting tabs on the left do the same job as the folder tabs
+    sortBtns.forEach(function (b) {
+      b.addEventListener('click', function () { setTab(indexOfTab(b.getAttribute('data-tab'))); });
+    });
+    if (statusEl) {
+      statusEl.addEventListener('click', function (e) {
+        if (e.target instanceof Element && e.target.closest('[data-clear]')) setTag(state.tag);
+      });
+    }
+ 
+    // ← → keys flip through projects while focus is inside the folder
+    folder.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { step(-1); }
+      else if (e.key === 'ArrowRight') { step(1); }
+    });
+ 
+    // project counts on the sorting tabs
+    sortBtns.forEach(function (b) {
+      var id = b.getAttribute('data-tab');
+      var n = PROJECTS.filter(function (p) { return p.cat === id; }).length;
+      var badge = b.querySelector('.pj-count');
+      if (badge) badge.textContent = n;
+    });
+ 
+    syncChrome();
+    renderStage();
+  })();
+</script>
 <script is:inline>
   window.ecoSmoothScrollTo = function (targetEl, duration) {
     if (!targetEl) return;

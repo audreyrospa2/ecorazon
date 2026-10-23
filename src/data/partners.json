@@ -1,0 +1,58 @@
+{
+  "partners": [
+    {
+      "id": "corporate-partners",
+      "name": "Corporate Partners",
+      "desc": "Brands aligning purpose with profit",
+      "filterValue": "Partnerships",
+      "gradient": "blue",
+      "image": "",
+      "row": 1
+    },
+    {
+      "id": "schools-institutions",
+      "name": "Schools & Institutions",
+      "desc": "Educators shaping the next generation",
+      "filterValue": "Tips",
+      "gradient": "green",
+      "image": "",
+      "row": 1
+    },
+    {
+      "id": "community-ngos",
+      "name": "Community & NGOs",
+      "desc": "Grassroots networks driving local change",
+      "filterValue": "Community",
+      "gradient": "orange",
+      "image": "",
+      "row": 1
+    },
+    {
+      "id": "artists-cultural-influencers",
+      "name": "Artists & Cultural Influencers",
+      "desc": "Creative voices amplifying our story",
+      "filterValue": "Artist Stories",
+      "gradient": "purple",
+      "image": "",
+      "row": 2
+    },
+    {
+      "id": "innovative-tech-partners",
+      "name": "Innovative Tech Partners",
+      "desc": "Technology built with people in mind",
+      "filterValue": "Innovation",
+      "gradient": "slate",
+      "image": "",
+      "row": 2
+    },
+    {
+      "id": "impact-funding-partners",
+      "name": "Impact & Funding Partners",
+      "desc": "Capital and resources fuelling growth",
+      "filterValue": "Impact",
+      "gradient": "gold",
+      "image": "",
+      "row": 2
+    }
+  ]
+}
