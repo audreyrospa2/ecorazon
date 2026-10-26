@@ -4,540 +4,310 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Services - Ecorazón">
+<Layout title="Projects - Ecorazón">
   <Header />
 
-  <main class="services-page">
+  <main class="projects-page">
 
-    <!-- Hero -->
-    <section class="services-hero">
-      <div class="services-hero-content">
-        <h1 class="services-hero-title animate-fade-in">Our Services</h1>
-        <p class="services-hero-sub animate-fade-in-delay">Custom corporate gifts for brands that care — about people, planet, and purpose.</p>
-      </div>
+    <section class="projects-hero">
+      <h1 class="projects-title">Projects</h1>
+      <p class="projects-sub">Four ideas, one lab. Slide through them.</p>
     </section>
 
-    <!-- Intro -->
-    <section class="svc-section bg-white">
-      <div class="svc-inner">
-        <p class="intro-text scroll-reveal">
-          We design and produce premium corporate gifts that reflect your brand identity while prioritizing sustainability and social responsibility. From client appreciation to employee recognition, our products tell your story with purpose.
-        </p>
-      </div>
-    </section>
+    <section class="showcase" id="showcase" aria-label="Ecorazón projects">
 
-    <!-- Services Grid -->
-    <section class="svc-section bg-white">
-      <div class="svc-inner">
-        <div class="services-grid">
+      <div class="showcase-viewport" tabindex="0">
+        <div class="showcase-track">
 
-          <div class="svc-card scroll-reveal">
-            <div class="svc-img-wrap">
-              <img src="/images/4.png" alt="Corporate Gift Solutions" class="svc-img" />
+          <!-- Ecorazón -->
+          <article class="showcase-slide is-active">
+            <div class="showcase-text">
+              <p class="showcase-kicker">Ecorazón</p>
+              <h2 class="showcase-heading">Custom corporate gifts</h2>
+              <p>Custom corporate gifts for brands that care about people, planet and purpose.</p>
+              <a class="btn" href="/services">See our services</a>
             </div>
-            <div class="svc-info">
-              <div class="svc-icon">🎁</div>
-              <h3 class="svc-name">Corporate Gift Solutions</h3>
-              <p class="svc-desc">Personalized gifts that strengthen business relationships and showcase your commitment to sustainability and inclusivity.</p>
-              <ul class="svc-list">
-                <li>Custom design consultation</li>
-                <li>Eco-friendly material options</li>
-                <li>Artist collaboration</li>
-                <li>Brand alignment & storytelling</li>
-                <li>Bulk ordering capabilities</li>
-              </ul>
-              <a href="/get-in-touch" class="svc-cta">Enquire</a>
+            <div class="showcase-photos">
+              <div class="ph ph-1" style="--a:#95BD8D;--b:#275D2F"><span>Placeholder</span></div>
+              <div class="ph ph-2" style="--a:#cfe3c9;--b:#5f8f63"><span>Placeholder</span></div>
+              <div class="ph ph-3" style="--a:#e8d9c2;--b:#a98a5f"><span>Placeholder</span></div>
             </div>
-          </div>
+          </article>
 
-          <div class="svc-card scroll-reveal">
-            <div class="svc-img-wrap">
-              <img src="/images/6.png" alt="Exclusive Branded Merchandise" class="svc-img" />
+          <!-- 01 HKArtWalk -->
+          <article class="showcase-slide">
+            <div class="showcase-text">
+              <p class="showcase-kicker">01 — HKArtWalk</p>
+              <h2 class="showcase-heading">Hong Kong Cultural Walking Experiences</h2>
+              <p>HKArtWalk invites people to discover Hong Kong through art, food, ecology and local stories.</p>
+              <p>Explore cultural walking experiences that connect places with the stories and communities behind them.</p>
+              <a class="btn" href="https://hkartwalk.org" target="_blank" rel="noopener">Explore HKArtWalk ↗</a>
             </div>
-            <div class="svc-info">
-              <div class="svc-icon">🏷️</div>
-              <h3 class="svc-name">Exclusive Branded Merchandise</h3>
-              <p class="svc-desc">Exclusive branded products that blend creativity and sustainability — functional, beautiful, and perfect for events and campaigns.</p>
-              <ul class="svc-list">
-                <li>Product design & development</li>
-                <li>Eco-friendly materials</li>
-                <li>Functional & aesthetic appeal</li>
-                <li>Scalable production</li>
-              </ul>
-              <a href="/get-in-touch" class="svc-cta">Enquire</a>
+            <div class="showcase-photos">
+              <div class="ph ph-1" style="--a:#9db9c9;--b:#5d7f94"><span>Placeholder</span></div>
+              <div class="ph ph-2" style="--a:#6b6a63;--b:#2a2a27"><span>Placeholder</span></div>
+              <div class="ph ph-3" style="--a:#f0b777;--b:#7a5a7e"><span>Placeholder</span></div>
             </div>
-          </div>
+          </article>
 
-          <div class="svc-card scroll-reveal">
-            <div class="svc-img-wrap">
-              <img src="/images/14.png" alt="Co-Branded Creations" class="svc-img" />
+          <!-- 02 Peaceful Artopia -->
+          <article class="showcase-slide">
+            <div class="showcase-text">
+              <p class="showcase-kicker">02 — Peaceful Artopia</p>
+              <h2 class="showcase-heading">Inclusive Art &amp; Creative Careers</h2>
+              <p>Peaceful Artopia connects neurodivergent young artists with communities through exhibitions, cultural experiences and creative collaborations. Rooted in Cheung Chau and powered by the Neurodivergent Artist Career Ecosystem (NACE), it builds pathways towards recognition, commissions and sustainable creative livelihoods.</p>
             </div>
-            <div class="svc-info">
-              <div class="svc-icon">🤝</div>
-              <h3 class="svc-name">Co-Branded Creations</h3>
-              <p class="svc-desc">We collaborate with brands to launch co-branded designs, merging art and eco-conscious values into meaningful, memorable products.</p>
-              <ul class="svc-list">
-                <li>Partnership development</li>
-                <li>Collaborative design process</li>
-                <li>Joint marketing opportunities</li>
-                <li>Shared values alignment</li>
-              </ul>
-              <a href="/get-in-touch" class="svc-cta">Enquire</a>
+            <div class="showcase-photos">
+              <div class="ph ph-1" style="--a:#e6b3c4;--b:#a1567a"><span>Placeholder</span></div>
+              <div class="ph ph-2" style="--a:#c9d9a8;--b:#6e9a62"><span>Placeholder</span></div>
+              <div class="ph ph-3" style="--a:#a9c6d8;--b:#3f6b8a"><span>Placeholder</span></div>
             </div>
-          </div>
+          </article>
+
+          <!-- 03 Neuroseed -->
+          <article class="showcase-slide">
+            <div class="showcase-text">
+              <p class="showcase-kicker">03 — Neuroseed</p>
+              <h2 class="showcase-heading">Brain Science Through Play</h2>
+              <p>Neuroseed brings neuroscience to life through gamified, experiential learning, helping all walks of life explore brain development, stress, supportive relationships and trauma-informed care.</p>
+
+              <div class="showcase-sub">
+                <h3>Brainy In-Charge</h3>
+                <p>An experiential board game that uses role-play and simulation to explore how everyday interactions and environments shape children’s brain development.</p>
+                <a class="btn" href="#">Explore the Board Game</a> <!-- TODO: real link -->
+              </div>
+
+              <div class="showcase-sub">
+                <h3>NeuroSeed Train-the-Trainer Programme</h3>
+                <p>A programme for facilitators preparing to guide NeuroSeed learning experiences.</p>
+                <a class="btn" href="#">Explore the Training</a> <!-- TODO: real link -->
+              </div>
+            </div>
+            <div class="showcase-photos">
+              <div class="ph ph-1" style="--a:#f3d27a;--b:#c8793a"><span>Placeholder</span></div>
+              <div class="ph ph-2" style="--a:#b9a7e0;--b:#5a4a9a"><span>Placeholder</span></div>
+              <div class="ph ph-3" style="--a:#8fd0c0;--b:#2f7d73"><span>Placeholder</span></div>
+            </div>
+          </article>
 
         </div>
       </div>
-    </section>
 
-    <!-- Process -->
-    <section class="svc-section bg-white">
-      <div class="svc-inner">
-        <div class="section-header scroll-reveal">
-          <h2 class="section-title">Our Creative Process</h2>
-          <p class="section-sub">From concept to creation, every step reflects our commitment to sustainability and empowerment.</p>
-        </div>
-        <div class="process-grid">
-          <div class="process-step scroll-reveal">
-            <div class="step-number" style="background:#95BD8D">1</div>
-            <h3 class="step-title">Consultation</h3>
-            <p class="step-desc">Understanding your brand values and vision</p>
-          </div>
-          <div class="process-step scroll-reveal">
-            <div class="step-number" style="background:#6b8f76">2</div>
-            <h3 class="step-title">Design</h3>
-            <p class="step-desc">Collaborative creation with our artists</p>
-          </div>
-          <div class="process-step scroll-reveal">
-            <div class="step-number" style="background:#a07850">3</div>
-            <h3 class="step-title">Creation</h3>
-            <p class="step-desc">Sustainable crafting with eco-friendly materials</p>
-          </div>
-          <div class="process-step scroll-reveal">
-            <div class="step-number" style="background:#95BD8D">4</div>
-            <h3 class="step-title">Delivery</h3>
-            <p class="step-desc">Thoughtful packaging and timely delivery</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      <!-- pagination: small image thumbnails (swap background for real photos later) -->
+      <nav class="showcase-thumbs" aria-label="Slide navigation">
+        <button class="showcase-thumb is-active" type="button" aria-label="Ecorazón" aria-current="true" style="--a:#95BD8D;--b:#275D2F"></button>
+        <button class="showcase-thumb" type="button" aria-label="01 HKArtWalk" style="--a:#9db9c9;--b:#5d7f94"></button>
+        <button class="showcase-thumb" type="button" aria-label="02 Peaceful Artopia" style="--a:#e6b3c4;--b:#a1567a"></button>
+        <button class="showcase-thumb" type="button" aria-label="03 Neuroseed" style="--a:#f3d27a;--b:#c8793a"></button>
+      </nav>
 
-    <!-- Why Us -->
-    <section class="svc-section bg-dark">
-      <div class="svc-inner">
-        <div class="section-header scroll-reveal">
-          <h2 class="section-title white">Why Partner with Ecorazón?</h2>
-        </div>
-        <div class="why-grid">
-          <div class="why-card scroll-reveal">
-            <div class="why-icon">🌱</div>
-            <h3 class="why-title">Sustainability Focus</h3>
-            <p class="why-desc">Every creation uses eco-friendly materials and processes</p>
-          </div>
-          <div class="why-card scroll-reveal">
-            <div class="why-icon">🎨</div>
-            <h3 class="why-title">Artistic Excellence</h3>
-            <p class="why-desc">Collaborating with talented special needs artists</p>
-          </div>
-          <div class="why-card scroll-reveal">
-            <div class="why-icon">📈</div>
-            <h3 class="why-title">ESG Alignment</h3>
-            <p class="why-desc">Supporting your environmental and social goals</p>
-          </div>
-          <div class="why-card scroll-reveal">
-            <div class="why-icon">✨</div>
-            <h3 class="why-title">Unique Impact</h3>
-            <p class="why-desc">Creating meaningful connections with your stakeholders</p>
-          </div>
-        </div>
-      </div>
     </section>
-
-    <!-- CTA -->
-    <section class="svc-section bg-white">
-      <div class="svc-inner cta-inner">
-        <h2 class="section-title scroll-reveal">Ready to Create Something Meaningful?</h2>
-        <p class="section-sub scroll-reveal">Let's discuss how we can bring your vision to life through sustainable, artistic corporate gifts.</p>
-        <a href="/get-in-touch" class="svc-cta large scroll-reveal">Start Your Project</a>
-      </div>
-    </section>
-
   </main>
 
   <Footer />
 </Layout>
 
 <style is:global>
-  .services-page {
-    padding-top: 72px;
+  .projects-page { padding-top: 72px; font-family: 'DM Sans', sans-serif; color: #000; }
+
+  .projects-hero { padding: 5rem clamp(2rem, 8vw, 7rem) 1rem; }
+  .projects-title { font-weight: 700; font-size: clamp(2rem, 4vw, 3.5rem); margin: 0 0 .5rem; line-height: 1.1; }
+  .projects-sub { margin: 0; opacity: .65; }
+
+  .btn { display: inline-block; margin-top: 1.25rem; padding: .6rem 1.4rem; background: #95BD8D; color: #fff; font-weight: 600; text-decoration: none; transition: background .2s; }
+  .btn:hover { background: #C08EA4; }
+
+  /* ─── SHOWCASE (horizontal drag slider) ─── */
+  .showcase {
+    background: #f3f0ea;
+    padding: 4rem 0 3.5rem;
+    overflow: hidden;
+    --slide-w: min(1100px, 82vw);
   }
 
-  /* ─── HERO ─── */
-  .services-hero {
-    background: url('/images/green-purple.png') center center / cover no-repeat;
-    padding: 6rem clamp(2rem, 8vw, 7rem);
-    min-height: 260px;
+  .showcase-viewport {
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y;      /* vertical page scroll still works on touch */
+    outline: none;
+    user-select: none;
+  }
+  .showcase-viewport.is-dragging { cursor: grabbing; }
+
+  .showcase-track {
+    display: flex;
+    gap: 4vw;
+    width: max-content;
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .showcase-track.no-anim { transition: none; }
+
+  .showcase-slide {
+    flex: 0 0 var(--slide-w);
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 3rem;
+    min-height: 520px;
+    opacity: 0.35;
+    transform: scale(0.96);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .showcase-slide.is-active { opacity: 1; transform: scale(1); }
+
+  .showcase-kicker {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: .6;
+    margin: 0 0 .75rem;
+  }
+  .showcase-heading {
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+  .showcase-text p { line-height: 1.8; margin: 0 0 .75rem; max-width: 52ch; }
+
+  .showcase-sub { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(0, 0, 0, 0.12); }
+  .showcase-sub h3 { font-weight: 700; font-size: 1.05rem; margin: 0 0 .35rem; }
+  .showcase-sub .btn { margin-top: .5rem; }
+
+  /* photo collage */
+  .showcase-photos { position: relative; width: 100%; aspect-ratio: 1.25 / 1; }
+  .ph {
+    position: absolute;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--a, #ccc), var(--b, #888));
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
     display: flex;
     align-items: flex-end;
+    pointer-events: none;
   }
+  .ph span { font-size: .7rem; color: rgba(255,255,255,.85); padding: .5rem .7rem; }
+  .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  .services-hero-title {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    color: #000000;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.1;
+  .ph-1 { left: 0;   top: 24%; width: 52%; height: 44%; transform: rotate(-4deg); }
+  .ph-2 { left: 36%; top: 2%;  width: 32%; height: 64%; transform: rotate(1deg); z-index: 2; }
+  .ph-3 { left: 62%; top: 10%; width: 34%; height: 66%; transform: rotate(4deg); z-index: 3; }
+
+  /* pagination: tiny image thumbnails */
+  .showcase-thumbs { display: flex; justify-content: center; align-items: center; gap: .5rem; margin-top: 2.5rem; }
+  .showcase-thumb {
+    width: 38px; height: 28px;
+    border: none; padding: 0; border-radius: 4px; cursor: pointer;
+    background: linear-gradient(135deg, var(--a, #ccc), var(--b, #888));
+    background-size: cover; background-position: center;
+    opacity: .45;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+    transition: width .5s cubic-bezier(.22, 1, .36, 1), height .5s cubic-bezier(.22, 1, .36, 1), opacity .3s ease, transform .3s ease;
   }
-
-  .services-hero-sub {
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    color: #000000;
-    opacity: 0.7;
-    margin: 0;
-    max-width: 500px;
-  }
-
-  /* ─── HERO ANIMATION ─── */
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .animate-fade-in       { animation: fadeInDown 0.8s ease-out 0.2s both; }
-  .animate-fade-in-delay { animation: fadeInDown 0.8s ease-out 0.4s both; }
-
-  /* ─── SECTIONS ─── */
-  .svc-section {
-    padding: 5rem clamp(2rem, 6vw, 6rem);
-  }
-
-  .bg-white { background: #ffffff; }
-  .bg-warm  { background: #f7f5f0; }
-  .bg-dark  { background: #95BD8D; }
-
-  .svc-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  /* ─── INTRO ─── */
-  .intro-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.1rem;
-    color: #000000;
-    opacity: 0.65;
-    line-height: 1.9;
-    max-width: 760px;
-  }
-
-  /* ─── SECTION HEADER ─── */
-  .section-header {
-    margin-bottom: 3rem;
-  }
-
-  .section-title {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.6rem, 3vw, 2.5rem);
-    color: #000000;
-    margin: 0 0 0.75rem 0;
-    line-height: 1.15;
-  }
-
-  .section-title.white { color: #ffffff; }
-
-  .section-sub {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    color: #000000;
-    opacity: 0.6;
-    margin: 0;
-    max-width: 560px;
-    line-height: 1.7;
-  }
-
-  /* ─── SERVICES GRID ─── */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .svc-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: #ffffff;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .svc-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    transform: translateY(-4px);
-  }
-
-  .svc-img-wrap {
-    width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    background: #f0f4f0;
-  }
-
-  .svc-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .svc-card:hover .svc-img {
-    transform: scale(1.03);
-  }
-
-  .svc-info {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .svc-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .svc-name {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #000000;
-    margin: 0 0 0.5rem 0;
-  }
-
-  .svc-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    color: #000000;
-    opacity: 0.6;
-    line-height: 1.6;
-    margin: 0 0 1rem 0;
-  }
-
-  .svc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.25rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    flex: 1;
-  }
-
-  .svc-list li {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
-    color: #000000;
-    opacity: 0.55;
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .svc-list li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    opacity: 0.4;
-  }
-
-  .svc-cta {
-    display: inline-block;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #ffffff;
-    background: #95BD8D;
-    text-decoration: none;
-    padding: 0.5rem 1.25rem;
-    align-self: flex-start;
-    transition: background 0.2s ease;
-  }
-
-  .svc-cta:hover {
-    background: #C08EA4;
-  }
-
-  .svc-cta.large {
-    font-size: 1rem;
-    padding: 0.75rem 2rem;
-    margin-top: 1.5rem;
-  }
-
-  /* ─── PROCESS ─── */
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-  }
-
-  .process-step {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1.5rem;
-    border: 1px solid rgba(0,0,0,0.08);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .process-step:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-    transform: translateY(-4px);
-  }
-
-  .step-number {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    flex-shrink: 0;
-  }
-
-  .step-title {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #000000;
-    margin: 0 0 0.4rem 0;
-  }
-
-  .step-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: #000000;
-    opacity: 0.55;
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  /* ─── WHY US ─── */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-  }
-
-  .why-card {
-    padding: 1.75rem;
-    border: 1px solid rgba(255,255,255,0.25);
-    background: rgba(255,255,255,0.08);
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-
-  .why-card:hover {
-    background: rgba(255,255,255,0.18);
-    transform: translateY(-4px);
-  }
-
-  .why-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .why-title {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #ffffff;
-    margin: 0 0 0.4rem 0;
-  }
-
-  .why-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: #ffffff;
-    opacity: 0.8;
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  /* ─── CTA ─── */
-  .cta-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  /* ─── SCROLL REVEAL ─── */
-  .scroll-reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-  }
-
-  .scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .services-grid .svc-card:nth-child(1) { transition-delay: 0.1s; }
-  .services-grid .svc-card:nth-child(2) { transition-delay: 0.25s; }
-  .services-grid .svc-card:nth-child(3) { transition-delay: 0.4s; }
-
-  .process-grid .process-step:nth-child(1) { transition-delay: 0.1s; }
-  .process-grid .process-step:nth-child(2) { transition-delay: 0.2s; }
-  .process-grid .process-step:nth-child(3) { transition-delay: 0.3s; }
-  .process-grid .process-step:nth-child(4) { transition-delay: 0.4s; }
-
-  .why-grid .why-card:nth-child(1) { transition-delay: 0.1s; }
-  .why-grid .why-card:nth-child(2) { transition-delay: 0.2s; }
-  .why-grid .why-card:nth-child(3) { transition-delay: 0.3s; }
-  .why-grid .why-card:nth-child(4) { transition-delay: 0.4s; }
-
-  /* ─── MOBILE ─── */
-  @media (max-width: 1024px) {
-    .process-grid,
-    .why-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
+  .showcase-thumb:hover { opacity: .8; transform: translateY(-2px); }
+  .showcase-thumb.is-active { width: 72px; height: 46px; opacity: 1; outline: 2px solid #fff; box-shadow: 0 6px 14px rgba(0, 0, 0, .25); }
+  .showcase-thumb:focus-visible { outline: 2px solid #000; outline-offset: 3px; }
 
   @media (max-width: 768px) {
-    .services-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .process-grid,
-    .why-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .process-grid,
-    .why-grid {
-      grid-template-columns: 1fr;
-    }
+    .showcase { padding: 3rem 0 2.5rem; --slide-w: 86vw; }
+    .showcase-slide { grid-template-columns: 1fr; gap: 1.5rem; min-height: 0; }
+    .showcase-photos { order: -1; aspect-ratio: 1.4 / 1; }
   }
 </style>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.getElementById('showcase');
+    if (!root) return;
+
+    const viewport = root.querySelector<HTMLElement>('.showcase-viewport')!;
+    const track = root.querySelector<HTMLElement>('.showcase-track')!;
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('.showcase-slide'));
+    const thumbs = Array.from(root.querySelectorAll<HTMLButtonElement>('.showcase-thumb'));
+
+    let index = 0;
+    let baseX = 0;
+    let startX = 0;
+    let dx = 0;
+    let pressed = false;
+    let dragging = false;
+
+    // x-offset that centres slide i in the viewport (neighbours peek in)
+    const offsetFor = (i: number) =>
+      (viewport.clientWidth - slides[i].offsetWidth) / 2 - slides[i].offsetLeft;
+
+    function go(i: number, animate = true) {
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      baseX = offsetFor(index);
+      track.classList.toggle('no-anim', !animate);
+      track.style.transform = `translate3d(${baseX}px, 0, 0)`;
+      slides.forEach((s, n) => s.classList.toggle('is-active', n === index));
+      thumbs.forEach((t, n) => {
+        t.classList.toggle('is-active', n === index);
+        if (n === index) t.setAttribute('aria-current', 'true');
+        else t.removeAttribute('aria-current');
+      });
+    }
+
+    thumbs.forEach((t, n) => t.addEventListener('click', () => go(n)));
+
+    // ── drag / swipe ──
+    viewport.addEventListener('pointerdown', (e: PointerEvent) => {
+      pressed = true;
+      dragging = false;
+      startX = e.clientX;
+      dx = 0;
+    });
+
+    viewport.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!pressed) return;
+      dx = e.clientX - startX;
+      if (!dragging && Math.abs(dx) > 6) {
+        dragging = true;
+        viewport.setPointerCapture(e.pointerId);
+        viewport.classList.add('is-dragging');
+        track.classList.add('no-anim');
+      }
+      if (dragging) {
+        // rubber-band at the ends
+        const atEdge = (index === 0 && dx > 0) || (index === slides.length - 1 && dx < 0);
+        track.style.transform = `translate3d(${baseX + (atEdge ? dx * 0.3 : dx)}px, 0, 0)`;
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    function endDrag() {
+      if (!pressed) return;
+      pressed = false;
+      viewport.classList.remove('is-dragging');
+      if (dragging) {
+        const threshold = Math.min(120, viewport.clientWidth * 0.15);
+        if (dx < -threshold) go(index + 1);
+        else if (dx > threshold) go(index - 1);
+        else go(index);
+      }
+      // keep `dragging` true until after the click event so links don't fire
+      setTimeout(() => { dragging = false; }, 0);
+    }
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+
+    // block link clicks that were really drags
+    viewport.addEventListener('click', (e) => {
+      if (dragging) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+
+    // stop native image/link dragging from hijacking the gesture
+    viewport.addEventListener('dragstart', (e) => e.preventDefault());
+
+    // keyboard
+    viewport.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') go(index + 1);
+      if (e.key === 'ArrowLeft') go(index - 1);
+    });
+
+    window.addEventListener('resize', () => go(index, false));
+    go(0, false);
   });
 </script>
